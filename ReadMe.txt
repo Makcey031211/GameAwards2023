@@ -1,2 +1,2 @@
+GitHubの使い方のテスト
 Github
-Githubの使いかたのテスト
