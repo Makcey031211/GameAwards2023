@@ -7,11 +7,11 @@ public class PController : MonoBehaviour
     [Header("移動の速さ"), SerializeField]
     private float speed = 3;
 
-    [Header("ジャンプする瞬間の速さ"), SerializeField]
-    private float jumpSpeed = 7;
+    //[Header("ジャンプする瞬間の速さ"), SerializeField]
+    //private float jumpSpeed = 7;
 
-    [Header("スーパージャンプの速さの倍率"), SerializeField]
-    private float SuperJumpRatio = 2;
+    //[Header("スーパージャンプの速さの倍率"), SerializeField]
+    //private float SuperJumpRatio = 2;
 
     [Header("重力加速度"), SerializeField]
     private float gravity = 15;
@@ -22,52 +22,29 @@ public class PController : MonoBehaviour
     [Header("落下の初速"), SerializeField]
     private float initFallSpeed = 2;
 
-    [Header("弾の発射速度の最低値"), SerializeField]
-    private float minBulletSpeed = 200.0f;
-
-    [Header("弾の発射速度の最高値"), SerializeField]
-    private float maxBulletSpeed = 1000.0f;
-
-    [Header("弾のチャージ秒数(最高値まで必要な秒数)"), SerializeField]
-    float ChargeBulletMinute = 2.0f;
-
-    [Header("最大連続ジャンプ回数"), SerializeField]
-    int nMaxJumpCount = 2;
-
-    //- 弾の発射速度
-    private float bulletSpeed;
-
-    //- 発射ボタンが押されているかどうか
-    private bool bPushBulletButton = false;
-
-    //- 過去のY座標
-    private float oldposY;
-
-    //- 右に打つかどうか
-    private bool bIsShotRight = true;
-
-    //- 打ち出す弾
-    ShotBullet shotBullet;
+    [SerializeField, Header("火花用のオブジェクト")]
+    private GameObject particleObject;
 
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
-    
+
 
     private Transform _transform;
     private CharacterController characterController;
-    private Vector2 ShotDirVector; //- 発射する方向
-   
+
     private Vector2 inputMove;
     private float verticalVelocity;
     private float turnVelocity;
     private bool isGroundedPrev;
+    bool isOnce; // 処理を一回だけ行う
+    Rigidbody playerRB;
 
     void Start()
     {
         _transform = transform;
-        shotBullet = GetComponent<ShotBullet>();
-        //- 発射速度の初期化
-        bulletSpeed = minBulletSpeed;
+        playerRB = GetComponent<Rigidbody>();
+
+        isOnce = false;
     }
 
     /// <summary>
@@ -77,58 +54,23 @@ public class PController : MonoBehaviour
     {
         // 入力値を保持しておく
         inputMove = context.ReadValue<Vector2>();
-        //- 入力値を発射方向ベクトルとして記録
-        ShotDirVector = inputMove * 1000;
-        //- Z軸の移動を無効化
-        inputMove.y = 0;
     }
 
-    /// <summary>
-    /// ジャンプAction(PlayerInput側から呼ばれる)
-    /// </summary>
-    public void OnJump(InputAction.CallbackContext context)
+    public void OnDestruct(InputAction.CallbackContext context)
     {
-        //- ボタンが押された瞬間だけ処理
-        if (!context.started) return;
-        //- ジャンプがまだできるか調べる。もうジャンプできない場合は処理しない
-        if (nJumpCount >= nMaxJumpCount) return;
-        //- ジャンプカウントを１増やす
-        nJumpCount++;
-        // 鉛直上向きに速度を与える
-        verticalVelocity = jumpSpeed;
-    }
+        //自爆
+        if (!isOnce)
+        { // 爆発直後
+            isOnce = true;
+            // 指定した位置に生成
+            GameObject fire = Instantiate(
+                particleObject,                     // 生成(コピー)する対象
+                transform.position,                 // 生成される位置
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                );
 
-    public void OnThrow(InputAction.CallbackContext context)
-    {
-        //- contextだと瞬間(１フレーム)しか判定が取れないので
-        //- ボタンが押された瞬間と離された瞬間を利用して、PUSHの判定をbool変数に代入する(ボタンが押されているかどうかの判定)
-        if (context.started)
-        { bPushBulletButton = true; }
-        if (context.canceled)
-        { bPushBulletButton = false; }
-
-        //- 以下の、発射処理はボタンが離された瞬間にのみ処理される
-        if (!context.canceled) return;
-
-        //- 発射方向ベクトルからベクトルの角度(rad)を求める
-        float rad = Mathf.Atan(ShotDirVector.y / ShotDirVector.x);
-        //- 発射方向がどちらも0の場合、計算ができないため、手動で角度を入力
-        if (ShotDirVector.x == 0 && ShotDirVector.y == 0)
-        { rad = 0.0f; }
-        //- Xのベクトルがマイナスだった場合、角度が反転するため、180度回転させる
-        if (ShotDirVector.x < 0)
-        { rad += 180 * 3.14f / 180; }
-        //- 角度(rad)と距離(発射の強さ)を使って発射方向ベクトルのXYの長さを求める
-        float DisX = bulletSpeed * Mathf.Cos(rad);
-        float DisY = bulletSpeed * Mathf.Sin(rad);
-
-        //- デバッグ用：発射速度のデバッグ表示
-        Debug.Log("発射速度：" + bulletSpeed + " 発射角度：" + ((rad * 180 / 3.14f) + 90));
-
-        //- 発射方向ベクトルを使って発射関数を実行
-        shotBullet.Shot(new Vector2(DisX, DisY));
-        //- 関数実行後、発射速度をリセット
-        bulletSpeed = minBulletSpeed;
+            Destroy(gameObject);
+        }
     }
 
     private void Awake()
@@ -140,23 +82,6 @@ public class PController : MonoBehaviour
     {
         Vector3 Pos = _transform.position;
         Pos.z = 0.0f;
-        
-        //- デバッグ用：Cubeを利用した発射速度の表示
-        GameObject cube = GameObject.Find("BulletSpeedDebugCube");
-        Vector3 CubeScale = cube.transform.localScale;
-        CubeScale.x = (10.0f) * ((bulletSpeed - minBulletSpeed) / (maxBulletSpeed - minBulletSpeed));
-        cube.transform.localScale = CubeScale;
-
-        //- ボタンが押されている間、弾の発射の速度を増やし続ける
-        if (bPushBulletButton)
-        {
-            //- チャージに必要な秒数(フレーム)から、１フレームに必要な増加速度を求める
-            float addBulletSpeed = (maxBulletSpeed - minBulletSpeed) / (ChargeBulletMinute * 60);
-            bulletSpeed += addBulletSpeed;
-        }     
-        //- 発射速度が最高速度を超えた場合、最高速度と同じにする
-        if (bulletSpeed > maxBulletSpeed)
-        { bulletSpeed = maxBulletSpeed; }
 
         var isGrounded = characterController.isGrounded;
 
@@ -176,12 +101,12 @@ public class PController : MonoBehaviour
             if (verticalVelocity < -fallSpeed)
                 verticalVelocity = -fallSpeed;
 
-            // 空中で物にぶつかってY軸が止まる(頭ごっつんこ)
-            if (oldposY == this.transform.position.y)
-            {
-                verticalVelocity = -1;
-            }
-            oldposY = this.transform.position.y;
+            //// 空中で物にぶつかってY軸が止まる(頭ごっつんこ)
+            //if (oldposY == this.transform.position.y)
+            //{
+            //    verticalVelocity = -1;
+            //}
+            //oldposY = this.transform.position.y;
         }
 
         isGroundedPrev = isGrounded;
@@ -192,12 +117,6 @@ public class PController : MonoBehaviour
             verticalVelocity,
             inputMove.y * speed
         );
-
-        //- スティックのX軸の入力値で、射撃方向の変数を設定
-        if (moveVelocity.x > 0)
-        { bIsShotRight = true; }
-        else
-        { bIsShotRight = false; }
 
         // 現在フレームの移動量を移動速度から計算
         var moveDelta = moveVelocity * Time.deltaTime;
