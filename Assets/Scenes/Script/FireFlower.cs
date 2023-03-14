@@ -48,7 +48,7 @@ public class FireFlower : MonoBehaviour
                 GetComponent<MeshRenderer>().enabled = false;
                 gameObject.tag = "ExplodeCollision";
                 rb.isKinematic = true;
-                GetComponent<DestroyTimer>().enabled = true;
+                //GetComponent<DestroyTimer>().enabled = true;
                 GetComponent<SphereCollider>().isTrigger = true;
             }
         }
