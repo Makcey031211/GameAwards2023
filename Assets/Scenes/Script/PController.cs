@@ -69,7 +69,14 @@ public class PController : MonoBehaviour
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
-            Destroy(gameObject);
+            // 子オブジェクト1個目
+            transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
+            transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
+
+            // 子オブジェクト2個目
+            transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            //Destroy(gameObject);
         }
     }
 
