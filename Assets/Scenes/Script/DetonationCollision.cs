@@ -44,12 +44,6 @@ public class DetonationCollision : MonoBehaviour
         if (other.gameObject.tag == "Fireworks" ||
             other.gameObject.tag == "ShotFireworks")
         {
-            // 当たったオブジェクトのSphereColliderを有効にする
-            other.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
-            // 当たったオブジェクトのSphereColliderを有効にする
-            other.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
-            // 当たったオブジェクトのFireFlowerスクリプトを有効にする
-            other.gameObject.GetComponent<FireFlower>().enabled = true;
             // 当たったオブジェクトのFireFlowerスクリプト内のisExplodedをtrueに変える
             other.gameObject.GetComponent<FireFlower>().isExploded = true;
         }
