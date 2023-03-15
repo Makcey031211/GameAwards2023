@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BlastCracker : MonoBehaviour
 {
+    [SerializeField, Header("火花用のオブジェクト")]
+    private GameObject particleObject;
 
     [SerializeField, Header("クラッカーの範囲表示")]
     private bool bIsDrawArea = true;
@@ -34,6 +36,9 @@ public class BlastCracker : MonoBehaviour
 
     //- 引火時フレームカウント
     int HitFrameCount = 0;
+
+    //- 爆破時の弾け、生成の処理を行ったかどうか
+    bool bIsBomb = false;
 
     // Start is called before the first frame update
     void Start()
@@ -75,32 +80,52 @@ public class BlastCracker : MonoBehaviour
             return;
         }
 
-        //- タグが花火のオブジェクトを全て取得
-        GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
-        // 原点からクラッカーへのベクトル
-        Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-        //- 花火のオブジェクトを一つずつ実行
-        foreach (var obj in Fireworks)
+        //- このif文の中身は一度だけ呼ばれる。
+        if (!bIsBomb)
         {
-            //- 原点から花火へのベクトル
-            Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-            //- クラッカーから花火へのベクトル
-            Vector3 FireworkDir = direction - origin;
-            //- 花火との距離を取得
-            float dis = Vector3.Distance(origin, direction);
-            //- 花火との距離が射程内じゃなかったら処理しない
-            if (dis > BrustDis) continue;
-
-            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
-            var angle = Vector3.Angle((CrackerTransform.forward).normalized, (FireworkDir).normalized);
-            if (angle != 0 && (angle < BrustAngle / 2))
+            //- 弾けるときの処理判定変数を設定
+            bIsBomb = true;
+            //- タグが花火のオブジェクトを全て取得
+            GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
+            // 原点からクラッカーへのベクトル
+            Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+            //- 花火のオブジェクトを一つずつ実行
+            foreach (var obj in Fireworks)
             {
-                obj.gameObject.GetComponent<FireFlower>().isExploded = true;
-                continue;
-            }
-        }
+                //- 原点から花火へのベクトル
+                Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+                //- クラッカーから花火へのベクトル
+                Vector3 FireworkDir = direction - origin;
+                //- 花火との距離を取得
+                float dis = Vector3.Distance(origin, direction);
+                //- 花火との距離が射程内じゃなかったら処理しない
+                if (dis > BrustDis) continue;
 
-        //- 自身を破壊する
-        Destroy(this.gameObject, DestroyTime);
+                //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
+                var angle = Vector3.Angle((CrackerTransform.forward).normalized, (FireworkDir).normalized);
+                if (angle != 0 && (angle < BrustAngle / 2))
+                {
+                    obj.gameObject.GetComponent<FireFlower>().isExploded = true;
+                    continue;
+                }
+            }
+
+            for (int i = 0; i < 30; i++)
+            {
+                //- 吹っ飛ぶ力を生成
+                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(300,1300);
+                // 指定した位置に生成
+                GameObject fire = Instantiate(
+                    particleObject,                     // 生成(コピー)する対象
+                    transform.position,           // 生成される位置
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                    );
+                //- 紙吹雪に吹っ飛ぶ力を与える
+                fire.GetComponent<Rigidbody>().AddForce(ForceRay);
+            }
+            
+            //- 自身を破壊する
+            Destroy(this.gameObject, DestroyTime);
+        }
     }
 }
