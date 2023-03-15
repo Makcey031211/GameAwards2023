@@ -13,6 +13,9 @@ public class EnemySpinY : MonoBehaviour
     //- 1フレームの移動量
     private float FrameSpinSpeed;
 
+    //- 花火点火スクリプト
+    FireFlower FireflowerScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,11 +23,19 @@ public class EnemySpinY : MonoBehaviour
         myTransform = this.transform;
         //- 1フレームの移動量を計算
         FrameSpinSpeed = SecondSpinSpeed / 60;
+        //- 花火点火スクリプトの取得
+        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
-    {
+    {   
+        //- 爆破時、回転スクリプトを無効化
+        if (FireflowerScript.isExploded)
+        {
+            this.gameObject.GetComponent<EnemySpinY>().enabled = false;
+        }
+
         //- ワールド回転を取得
         Vector3 worldAngle = myTransform.eulerAngles;
         //- ワールド系でY軸回転
