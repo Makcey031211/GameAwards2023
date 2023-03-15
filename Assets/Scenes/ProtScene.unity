@@ -223,8 +223,7 @@ GameObject:
   - component: {fileID: 44383622}
   - component: {fileID: 44383624}
   - component: {fileID: 44383627}
-  - component: {fileID: 44383630}
-  - component: {fileID: 44383629}
+  - component: {fileID: 44383631}
   - component: {fileID: 44383628}
   m_Layer: 0
   m_Name: Player
@@ -242,7 +241,7 @@ Transform:
   m_GameObject: {fileID: 44383621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -21.92, y: 2.2, z: 0.29}
-  m_LocalScale: {x: 0.8883073, y: 0.41642052, z: 0.015030351}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 988208856}
@@ -308,7 +307,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44383629}
+      - m_Target: {fileID: 449150779}
         m_TargetAssemblyTypeName: PController, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
@@ -332,7 +331,7 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/XInputControllerWindows/rightTrigger,/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 44383629}
+      - m_Target: {fileID: 449150779}
         m_TargetAssemblyTypeName: PController, Assembly-CSharp
         m_MethodName: OnDestruct
         m_Mode: 0
@@ -386,12 +385,28 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5151c4e6-45d1-4d62-bc51-2e1f16bd0ebb
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 44383631}
+        m_TargetAssemblyTypeName: GameReset, Assembly-CSharp
+        m_MethodName: OnReset
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 1adec4b5-e426-4ff1-bf01-5139fb7d6869
+    m_ActionName: Player/Reset[/XInputControllerWindows/start,/Keyboard/f1]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &44383629
+--- !u!114 &44383631
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,33 +415,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 44383621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f3fdc65c967c9a42af26ecd44ecdf22, type: 3}
+  m_Script: {fileID: 11500000, guid: 84bd6ad0a9a7fdc4abd0d878d45e50d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  gravity: 15
-  fallSpeed: 10
-  initFallSpeed: 2
-  particleObject: {fileID: 8595371778189184913, guid: f052686e11a0c714f96d5f063dbbbcdb,
-    type: 3}
---- !u!143 &44383630
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44383621}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &80529755 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7601643690255727287, guid: e2167783a6b88594195048d29a1fdc5b,
@@ -916,6 +907,8 @@ GameObject:
   - component: {fileID: 449150778}
   - component: {fileID: 449150777}
   - component: {fileID: 449150776}
+  - component: {fileID: 449150780}
+  - component: {fileID: 449150779}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -932,7 +925,7 @@ Transform:
   m_GameObject: {fileID: 449150774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.4142627, y: 3.0169022, z: 83.58421}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 44383622}
@@ -1001,6 +994,42 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 449150774}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &449150779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449150774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3fdc65c967c9a42af26ecd44ecdf22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  gravity: 15
+  fallSpeed: 10
+  initFallSpeed: 2
+  particleObject: {fileID: 8595371778189184913, guid: f052686e11a0c714f96d5f063dbbbcdb,
+    type: 3}
+--- !u!143 &449150780
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 449150774}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &522870975
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1885,7 +1914,7 @@ PrefabInstance:
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
@@ -2268,7 +2297,7 @@ PrefabInstance:
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
