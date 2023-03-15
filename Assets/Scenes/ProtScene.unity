@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3fdc65c967c9a42af26ecd44ecdf22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 10
   gravity: 15
   fallSpeed: 10
   initFallSpeed: 2
@@ -427,6 +427,29 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &80529755 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7601643690255727287, guid: e2167783a6b88594195048d29a1fdc5b,
+    type: 3}
+  m_PrefabInstance: {fileID: 7601643690586368054}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &80529761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80529755}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da0397de391fda740ba246b2cadfe197, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GoAroundTime: 4
+  CompensatePercent: 10
+  LookAngleNum:
+  - 45
+  - 135
 --- !u!1001 &238271597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2802,5 +2825,6 @@ PrefabInstance:
       propertyPath: SecondSpinSpeed
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7601643690255727293, guid: e2167783a6b88594195048d29a1fdc5b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e2167783a6b88594195048d29a1fdc5b, type: 3}

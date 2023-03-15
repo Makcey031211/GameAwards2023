@@ -61,11 +61,6 @@ public class BlastCracker : MonoBehaviour
             Debug.DrawRay(CrackerTransform.transform.position, RightRay * BrustDis, Color.red);
             Debug.DrawRay(CrackerTransform.transform.position, LeftRay * BrustDis, Color.red);
         }
-        //- 爆破依頼を受けた瞬間、回転スクリプトを無効化
-        if (bIsOldExploded == false && FireflowerScript.isExploded)
-        {
-            this.gameObject.GetComponent<EnemySpinY>().enabled = false;
-        }
         //- 1フレーム前の、爆破依頼変数を更新
         bIsOldExploded = FireflowerScript.isExploded;
 
@@ -113,7 +108,7 @@ public class BlastCracker : MonoBehaviour
             for (int i = 0; i < 30; i++)
             {
                 //- 吹っ飛ぶ力を生成
-                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(300,1300);
+                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(200,1500);
                 // 指定した位置に生成
                 GameObject fire = Instantiate(
                     particleObject,                     // 生成(コピー)する対象
