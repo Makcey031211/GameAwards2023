@@ -26,12 +26,14 @@ public class SceneChange : MonoBehaviour
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
+    public bool bIsLife;     // プレイヤーが生存しているか
 
     // Start is called before the first frame update
     void Start()
     {
         bIsChange = false;
         bIsRetry = false;
+        bIsLife = true;
         countEnemy = UIObject.GetComponent<CountEnemy>();
     }
 
@@ -52,7 +54,7 @@ public class SceneChange : MonoBehaviour
         }
 
         // パーティクルの再生が終わる + 敵が残っている
-        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0)
+        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
