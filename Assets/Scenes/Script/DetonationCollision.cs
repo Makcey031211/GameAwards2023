@@ -69,8 +69,27 @@ public class DetonationCollision : MonoBehaviour
         if (other.gameObject.tag == "Fireworks" ||
             other.gameObject.tag == "ShotFireworks")
         {
-            // 当たったオブジェクトのFireFlowerスクリプト内のisExplodedをtrueに変える
-            other.gameObject.GetComponent<FireFlower>().isExploded = true;
+            // 自身から花火に向かう方向を計算
+            Vector3 direction = other.gameObject.transform.position - transform.position;
+            // 自身から花火に向かうレイを作成
+            Ray ray = new Ray(transform.position, direction);
+            // レイが当たったオブジェクトの情報を入れる変数
+            RaycastHit hit;
+            // レイがステージに当たったかフラグ
+            bool StageHit = false;
+            if (Physics.Raycast(ray, out hit))
+            {
+                // レイが当たったオブジェクトのタグが「Stage」なら、フラグをtrueに変える
+                if (hit.collider.gameObject.tag == "Stage")
+                { StageHit = true; }
+
+                // レイがステージと当たっていなかったら
+                if (StageHit == false)
+                {
+                    // 当たったオブジェクトのFireFlowerスクリプト内のisExplodedをtrueに変える
+                    other.gameObject.GetComponent<FireFlower>().isExploded = true;
+                }
+            }
         }
     }
 }
