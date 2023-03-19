@@ -65,7 +65,9 @@ public class SceneChange : MonoBehaviour
 
         // シーン遷移フラグがtrueなら次のシーンに移動
         if (bIsChange)
-        { SceneManager.LoadScene(NextScene); }
+        { 
+        //    SceneManager.LoadScene(NextScene); 
+        }
 
         // リトライフラグがtrueなら現在のシーンを再読み込み
         if (bIsRetry)
