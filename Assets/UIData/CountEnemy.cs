@@ -79,4 +79,9 @@ public class CountEnemy : MonoBehaviour
             OldCountNum = CurrentCountNum;
         }
     }
+
+    public int GetCurrentCountNum()
+    {
+        return CurrentCountNum;
+    }
 }
