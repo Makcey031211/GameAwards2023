@@ -38,11 +38,15 @@ public class PController : MonoBehaviour
     private bool isGroundedPrev;
     bool isOnce; // 処理を一回だけ行う
     Rigidbody playerRB;
+    private GameObject CameraObject;
+    SceneChange sceneChange;
 
     void Start()
     {
         _transform = transform;
         playerRB = GetComponent<Rigidbody>();
+        CameraObject = GameObject.Find("Main Camera");
+        sceneChange = CameraObject.GetComponent<SceneChange>();
 
         isOnce = false;
     }
@@ -79,7 +83,8 @@ public class PController : MonoBehaviour
             // 子オブジェクト2個目
             transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
 
-            //Destroy(gameObject);
+            //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
+            sceneChange.bIsLife = false;
         }
     }
 
@@ -120,6 +125,10 @@ public class PController : MonoBehaviour
         }
 
         isGroundedPrev = isGrounded;
+
+
+        if(isOnce)
+        { inputMove = Vector2.zero; }
 
         // 操作入力と鉛直方向速度から、現在速度を計算
         var moveVelocity = new Vector3(

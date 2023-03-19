@@ -20,10 +20,15 @@ public class ResurrectionBox : MonoBehaviour
 
     bool isOnce; //- 処理を一回だけ行う
 
+    private GameObject CameraObject;
+    SceneChange sceneChange;
+
     private void Start()
     {
         delayTime = delayTimer;
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        CameraObject = GameObject.Find("Main Camera");
+        sceneChange = CameraObject.GetComponent<SceneChange>();
     }
 
     private void Update()
@@ -45,6 +50,8 @@ public class ResurrectionBox : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         //- プレイヤーを生成する
         Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
+        //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
+        sceneChange.bIsLife = true;
         //- プレイヤーを生成後、復活箱を削除
         Destroy(gameObject);
     }
