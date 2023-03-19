@@ -52,8 +52,11 @@ public class PController : MonoBehaviour
     /// </summary>
     public void OnMove(InputAction.CallbackContext context)
     {
-        // “ü—Í’l‚ğ•Û‚µ‚Ä‚¨‚­
-        inputMove = context.ReadValue<Vector2>();
+        if (!isOnce)
+        {
+            // “ü—Í’l‚ğ•Û‚µ‚Ä‚¨‚­
+            inputMove = context.ReadValue<Vector2>();
+        }
     }
 
     public void OnDestruct(InputAction.CallbackContext context)
