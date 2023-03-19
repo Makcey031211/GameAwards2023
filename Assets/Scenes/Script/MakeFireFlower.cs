@@ -7,8 +7,8 @@ public class MakeFireFlower : MonoBehaviour
     [SerializeField, Header("火花用のオブジェクト")]
     private GameObject particleObject;
 
-    [SerializeField, Header("爆発までの時間(秒)")]
-    private float time = 3.0f;
+    //[SerializeField, Header("爆発までの時間(秒)")]
+    //private float time = 3.0f;
 
     Rigidbody rb;
 
@@ -56,7 +56,7 @@ public class MakeFireFlower : MonoBehaviour
                 GetComponent<MeshRenderer>().enabled = false;
                 gameObject.tag = "ExplodeCollision";
                 rb.isKinematic = true;
-                //GetComponent<DestroyTimer>().enabled = true;
+                GetComponent<DestroyTimer>().enabled = true;
                 GetComponent<SphereCollider>().isTrigger = true;
             }
         }
