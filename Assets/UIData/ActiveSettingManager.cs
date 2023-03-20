@@ -11,20 +11,29 @@ public class ActiveSettingManager : MonoBehaviour
     private GameObject Object_B;
 
     private bool bActive = false;
-    void Awake()
+    void Start()
     {
+        
         //- 指定したタグのオブジェクトを取得
         Object_A.SetActive(false);
         Object_B.SetActive(false);
+        Debug.Log("Start");
     }
 
     void Update()
     {
+        
         if (SceneChange.bIsChange && !bActive)
         {
             Object_A.SetActive(true);
             Object_B.SetActive(true);
             bActive = true;
+        }
+        else if(!SceneChange.bIsChange && bActive)
+        {
+            Debug.Log("非表示");
+            Object_A.SetActive(false);
+            Object_B.SetActive(false);
         }
     }
 
