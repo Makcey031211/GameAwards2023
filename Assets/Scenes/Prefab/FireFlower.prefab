@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7161690513175085057}
   - component: {fileID: 2156135512242230295}
   - component: {fileID: 7397865706095209846}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +60,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   power: 350
   time: 2
+  ColSize: {x: 1, y: 1, z: 1}
+  bIsDoubleBlast: 0
 --- !u!1 &7171924692625481344
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +78,7 @@ GameObject:
   - component: {fileID: 8055802166185234229}
   - component: {fileID: 6960693714021449562}
   - component: {fileID: 6768004921166766225}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FireFlower
   m_TagString: Fireworks
   m_Icon: {fileID: 0}
@@ -219,4 +221,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particleObject: {fileID: 8595371778189184913, guid: f052686e11a0c714f96d5f063dbbbcdb,
     type: 3}
-  time: 1
