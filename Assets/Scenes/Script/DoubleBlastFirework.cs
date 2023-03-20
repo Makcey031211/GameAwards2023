@@ -13,6 +13,9 @@ public class DoubleBlastFirework : MonoBehaviour
     [SerializeField, Header("無敵時間中の色(RGB)")]
     private Color color;
 
+    [SerializeField, Header("火花SE")]
+    private AudioClip sound;
+
     //- 無敵時間用のフレームカウンタ
     int nInvFrameCount = 0;
 
@@ -52,6 +55,8 @@ public class DoubleBlastFirework : MonoBehaviour
         {
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = color;
+            //- 音の再生
+            gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             //- 爆発回数を更新
             nBlastCount++;
             //- 爆発中の判定を設定

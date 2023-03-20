@@ -14,8 +14,17 @@ public class SceneChange : MonoBehaviour
     [SerializeField, Header("クリア時のシーン遷移を遅らす時間(秒)")]
     private float ClearDelayTime = 2.0f;
 
+    [SerializeField, Header("リトライ時のサウンドが発生する時間(秒)")]
+    private float SoundDelayTime = 2.0f;
+
     [SerializeField, Header("リトライ時のシーン遷移を遅らす時間(秒)")]
     private float RetryDelayTime = 2.0f;
+
+    [SerializeField, Header("クリアSE")]
+    private AudioClip ClearSound;
+
+    [SerializeField, Header("失敗SE")]
+    private AudioClip FailureSound;
 
     CountEnemy countEnemy;          // CountEnemyスクリプトを入れる変数
 
@@ -23,6 +32,7 @@ public class SceneChange : MonoBehaviour
     private float CurrentTime;      // 現在の時間(敵が全滅してからカウント開始)
     private float CurrentParticleTime = 0.0f;   // パーティクルの現在の時間
     private float TotalParticleTime = 999.0f;   // パーティクルの総時間
+    private bool bIsShotSound = false;          //- 音が再生されたかどうか
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -48,9 +58,19 @@ public class SceneChange : MonoBehaviour
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
-            // 現在の時間が遅延時間を超えたらシーン遷移フラグをtrueに変える
+            // 現在の時間が遅延時間を超えたらシーン遷移フラグをtrueに変えて、音を再生する
             if (CurrentTime >= ClearDelayTime)
-            { bIsChange = true; }
+            {
+                //- 1度だけ再生
+                if (!bIsShotSound)
+                {
+                    //- 変数の設定
+                    bIsShotSound = true;
+                    //- 音の再生
+                    gameObject.GetComponent<AudioSource>().PlayOneShot(ClearSound);
+                }
+                bIsChange = true;
+            }
         }
 
         // パーティクルの再生が終わる + 敵が残っている
@@ -60,7 +80,10 @@ public class SceneChange : MonoBehaviour
             CurrentTime += Time.deltaTime;
             // 現在の時間が遅延時間を超えたらリトライフラグをtrueに変える
             if (CurrentTime >= RetryDelayTime)
-            { bIsRetry = true; }
+            {
+                CurrentTime = 0;
+                bIsRetry = true;
+            }
         }
 
         // シーン遷移フラグがtrueなら次のシーンに移動
@@ -71,7 +94,22 @@ public class SceneChange : MonoBehaviour
 
         // リトライフラグがtrueなら現在のシーンを再読み込み
         if (bIsRetry)
-        { SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+        {
+            // 現在の時間を更新
+            CurrentTime += Time.deltaTime;
+            //- 1度だけ再生
+            if (!bIsShotSound)
+            {
+                //- 変数の設定
+                bIsShotSound = true;
+                //- 音の再生
+                gameObject.GetComponent<AudioSource>().PlayOneShot(FailureSound);
+            }
+            if (CurrentTime >= RetryDelayTime)
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+        }
     }
 
     public void SetParticleTime(float currentTime, float totalTime)

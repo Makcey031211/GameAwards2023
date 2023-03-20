@@ -7,8 +7,8 @@ public class MakeFireFlower : MonoBehaviour
     [SerializeField, Header("火花用のオブジェクト")]
     private GameObject particleObject;
 
-    //[SerializeField, Header("爆発までの時間(秒)")]
-    //private float time = 3.0f;
+    [SerializeField, Header("火花SE")]
+    private AudioClip sound;
 
     Rigidbody rb;
 
@@ -58,6 +58,8 @@ public class MakeFireFlower : MonoBehaviour
                 rb.isKinematic = true;
                 GetComponent<DestroyTimer>().enabled = true;
                 GetComponent<SphereCollider>().isTrigger = true;
+                //- 音の再生
+                gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             }
         }
     }
