@@ -10,6 +10,9 @@ public class ExplodeMoveBox : MonoBehaviour
     [Header("爆風の速さ"), SerializeField]
     private float speed = 3;
 
+    [SerializeField, Header("風SE")]
+    private AudioClip sound;
+
     Rigidbody rb;
 
     // Start is called before the first frame update
@@ -31,6 +34,8 @@ public class ExplodeMoveBox : MonoBehaviour
             var Verocity = (transform.position - other.gameObject.transform.position).normalized * speed;
 
             rb.AddForce(coefficient * Verocity);
+            //- 音の再生
+            gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
         }
     }
 }
