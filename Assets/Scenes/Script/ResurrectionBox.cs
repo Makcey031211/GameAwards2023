@@ -14,6 +14,9 @@ public class ResurrectionBox : MonoBehaviour
     [SerializeField, Header("生成までの待ち時間(秒)")]
     private float delayTimer = 0.1f;
 
+    [SerializeField, Header("生成音SE")]
+    private AudioClip sound;
+
     FireFlower FireflowerScript; //- 花火点火スクリプト
 
     float delayTime; //- 生成までの待ち時間(秒)
@@ -50,6 +53,8 @@ public class ResurrectionBox : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         //- プレイヤーを生成する
         Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
+        //- 音の再生
+        gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
         //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
         sceneChange.bIsLife = true;
         //- プレイヤーを生成後、復活箱を削除
