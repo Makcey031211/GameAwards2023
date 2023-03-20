@@ -10,6 +10,9 @@ public class BlastCracker : MonoBehaviour
     [SerializeField, Header("クラッカーの範囲表示")]
     private bool bIsDrawArea = true;
 
+    [SerializeField, Header("クラッカーの円部分の線の数")]
+    private int nCircleComplementNum = 10;
+
     [SerializeField, Header("クラッカーの破裂角度範囲(0度～180度)")]
     private float BrustAngle = 1.0f;
 
@@ -43,26 +46,49 @@ public class BlastCracker : MonoBehaviour
     //- 爆破時の弾け、生成の処理を行ったかどうか
     bool bIsBomb = false;
 
+    //- 当たり判定表示用の線
+    LineRenderer linerend;
+
     // Start is called before the first frame update
     void Start()
     {
         CrackerTransform = this.gameObject.GetComponent<Transform>();
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
         ShotHitFrame = ShotHitSecond * 60;
+        //- 線の追加
+        linerend = gameObject.AddComponent<LineRenderer>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         //- 破裂時の当たり判定の表示
         if (bIsDrawArea)
         {
-            //- 左右それぞれのレイの生成
-            var RightRay = Quaternion.Euler(0, BrustAngle / 2, 0) * CrackerTransform.forward.normalized;
-            var LeftRay = Quaternion.Euler(0, -BrustAngle / 2, 0) * CrackerTransform.forward.normalized;
-            //- それぞれのレイの表示
-            Debug.DrawRay(CrackerTransform.transform.position, RightRay * BrustDis, Color.red);
-            Debug.DrawRay(CrackerTransform.transform.position, LeftRay * BrustDis, Color.red);
+            //- 点の配列を生成
+            Vector3[] positions = new Vector3[nCircleComplementNum + 2];
+            //- 始点の生成
+            positions[0] = this.transform.position;
+
+            //- 円部分の点の生成
+            for (int i = 0; i < nCircleComplementNum + 1; i++)
+            {
+                //- 中心から円部分へのレイを生成(少しずつ回転させる)
+                var CircleRay = Quaternion.Euler(0, (-BrustAngle / 2) + (BrustAngle / nCircleComplementNum * i), 0) * CrackerTransform.forward.normalized;
+                //- 中心座標をレイ方向へ進める
+                var LineTransform = this.transform.position + (CircleRay * BrustDis);
+                //- 点を追加
+                positions[i + 1] = LineTransform;
+            }
+
+            // 点の数を指定する
+            linerend.positionCount = positions.Length;
+            // 線を引く場所を指定する
+            linerend.SetPositions(positions);
+            //- 幅と色の決定
+            linerend.startWidth = 0.1f;
+            linerend.endWidth = 0.1f;
+            //- 始点と終点をつなぐ
+            linerend.loop = true;
         }
         //- 1フレーム前の、爆破依頼変数を更新
         bIsOldExploded = FireflowerScript.isExploded;
@@ -101,6 +127,20 @@ public class BlastCracker : MonoBehaviour
                 //- 花火との距離が射程内じゃなかったら処理しない
                 if (dis > BrustDis) continue;
 
+                // 自身から花火に向かうレイを作成
+                Ray ray = new Ray(transform.position, FireworkDir);
+                {
+                    // レイが当たったオブジェクトの情報を入れる変数
+                    RaycastHit hit;
+                    // レイがステージに当たったかフラグ
+                    bool StageHit = false;
+                    //- レイを飛ばす
+                    if (Physics.Raycast(ray, out hit))
+                    {
+                        //- ステージに当たった場合処理しない
+                        if (hit.collider.gameObject.tag == "Stage") continue;
+                    }
+                }
                 //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
                 var angle = Vector3.Angle((CrackerTransform.forward).normalized, (FireworkDir).normalized);
                 if (angle != 0 && (angle < BrustAngle / 2))
@@ -113,7 +153,7 @@ public class BlastCracker : MonoBehaviour
             for (int i = 0; i < 30; i++)
             {
                 //- 吹っ飛ぶ力を生成
-                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(200,1500);
+                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(200, 1500);
                 // 指定した位置に生成
                 GameObject fire = Instantiate(
                     particleObject,                     // 生成(コピー)する対象
@@ -123,7 +163,7 @@ public class BlastCracker : MonoBehaviour
                 //- 紙吹雪に吹っ飛ぶ力を与える
                 fire.GetComponent<Rigidbody>().AddForce(ForceRay);
             }
-            
+
             //- 自身を破壊する
             Destroy(this.gameObject, DestroyTime);
         }
