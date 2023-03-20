@@ -22,6 +22,9 @@ public class BlastCracker : MonoBehaviour
     [SerializeField, Header("破裂後クラッカーの見た目が残り続ける時間(秒)")]
     private float DestroyTime = 1.0f;
 
+    [SerializeField, Header("破裂SE")]
+    private AudioClip sound;
+
     //- クラッカーが破裂する方向
     Transform CrackerTransform;
 
@@ -78,6 +81,8 @@ public class BlastCracker : MonoBehaviour
         //- このif文の中身は一度だけ呼ばれる。
         if (!bIsBomb)
         {
+            //- 音の再生
+            gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             //- 弾けるときの処理判定変数を設定
             bIsBomb = true;
             //- タグが花火のオブジェクトを全て取得

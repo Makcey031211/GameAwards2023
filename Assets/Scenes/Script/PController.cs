@@ -28,9 +28,11 @@ public class PController : MonoBehaviour
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
 
+    AudioSource audioSource;
 
     private Transform _transform;
     private CharacterController characterController;
+    private bool bIsPlaySound;
 
     private Vector2 inputMove;
     private float verticalVelocity;
@@ -47,6 +49,7 @@ public class PController : MonoBehaviour
         playerRB = GetComponent<Rigidbody>();
         CameraObject = GameObject.Find("Main Camera");
         sceneChange = CameraObject.GetComponent<SceneChange>();
+        audioSource = GetComponent<AudioSource>();
 
         isOnce = false;
     }
@@ -60,6 +63,17 @@ public class PController : MonoBehaviour
         {
             // 入力値を保持しておく
             inputMove = context.ReadValue<Vector2>();
+            //- 音の再生
+            if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
+            {
+                bIsPlaySound = true;
+                audioSource.Play();
+            }
+            else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
+            {
+                bIsPlaySound = false;
+                audioSource.Stop();
+            }
         }
     }
 
