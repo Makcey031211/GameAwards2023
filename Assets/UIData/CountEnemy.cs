@@ -6,7 +6,6 @@ using TMPro;
 
 public class CountEnemy : MonoBehaviour
 {
-
     [SerializeField, Header("カウントを表示するTMPro")]
     private TextMeshProUGUI CountDrowText;
 
