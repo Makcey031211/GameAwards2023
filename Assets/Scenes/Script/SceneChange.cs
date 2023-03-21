@@ -33,6 +33,7 @@ public class SceneChange : MonoBehaviour
     private float CurrentParticleTime = 0.0f;   // パーティクルの現在の時間
     private float TotalParticleTime = 999.0f;   // パーティクルの総時間
     private bool bIsShotSound = false;          //- 音が再生されたかどうか
+    private ObjectFade fade;              // フェード用のスプライト
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -45,6 +46,7 @@ public class SceneChange : MonoBehaviour
         bIsRetry = false;
         bIsLife = true;
         countEnemy = UIObject.GetComponent<CountEnemy>();
+        fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
     }
 
     // Update is called once per frame
@@ -104,9 +106,10 @@ public class SceneChange : MonoBehaviour
                 bIsShotSound = true;
                 //- 音の再生
                 gameObject.GetComponent<AudioSource>().PlayOneShot(FailureSound);
+                // フェードの設定
+                fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
             }
-            if (CurrentTime >= RetryDelayTime)
-            {
+            if (!fade.isFade) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
