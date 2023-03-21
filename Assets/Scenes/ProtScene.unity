@@ -441,7 +441,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b54abaf3aba21124ba25cc1d053044b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CountDrowText: {fileID: 324896540}
   SelectedTag: 0
 --- !u!114 &324896540
 MonoBehaviour:
@@ -705,6 +704,7 @@ GameObject:
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
   - component: {fileID: 330585550}
+  - component: {fileID: 330585551}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -825,7 +825,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextScene:
     m_SceneName: AlphaScene1
-  UIObject: {fileID: 324896537}
   ClearDelayTime: 1
   SoundDelayTime: 1
   RetryDelayTime: 1.5
@@ -940,6 +939,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &330585551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b54abaf3aba21124ba25cc1d053044b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectedTag: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0

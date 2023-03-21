@@ -8,8 +8,8 @@ public class SceneChange : MonoBehaviour
     [SerializeField, Header("シーン遷移先")]
     private SceneObject NextScene;
 
-    [SerializeField, Header("敵をカウントしているUI")]
-    private GameObject UIObject;
+    //[SerializeField, Header("敵をカウントしているオブジェクト")]
+    //private GameObject CountObject;
 
     [SerializeField, Header("クリア時のシーン遷移を遅らす時間(秒)")]
     private float ClearDelayTime = 2.0f;
@@ -44,7 +44,7 @@ public class SceneChange : MonoBehaviour
         bIsChange = false;
         bIsRetry = false;
         bIsLife = true;
-        countEnemy = UIObject.GetComponent<CountEnemy>();
+        countEnemy = this.gameObject.GetComponent<CountEnemy>();
     }
 
     // Update is called once per frame
