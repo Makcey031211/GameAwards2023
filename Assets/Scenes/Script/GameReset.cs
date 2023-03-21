@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 
 public class GameReset : MonoBehaviour
 {
-    [SerializeField, Header("敵をカウントしているUI")]
-    private GameObject UIObject;
+    //[SerializeField, Header("敵をカウントしているオブジェクト")]
+    //private GameObject CountObject;
 
     [SerializeField, Header("リトライにかかる長押し時間(秒)")]
     private float RetryTime = 1.0f;
@@ -38,7 +38,7 @@ public class GameReset : MonoBehaviour
         //- コンポーネントの取得
         image = Object.GetComponent<Image>();
         //- 敵カウントUIの取得
-        countEnemy = UIObject.GetComponent<CountEnemy>();
+        countEnemy = GameObject.Find("Main Camera").GetComponent<CountEnemy>();
     }
     
     void FixedUpdate()
