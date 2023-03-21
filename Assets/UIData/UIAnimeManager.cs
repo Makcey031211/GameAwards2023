@@ -68,18 +68,6 @@ public class UIAnimeManager : MonoBehaviour
         Move(trans);
     }
 
-    private void Update()
-    {
-        RectTransform trans = GetComponent<RectTransform>();
-        Keyboard key = Keyboard.current;
-        var Onekey = key.digit1Key;
-        if (Onekey.wasPressedThisFrame)
-        {
-            Debug.Log("“ü‚Á‚½");
-            Move(trans);
-        }
-    }
-
 /// <summary>
 /// ‹““®Ä¶
 /// </summary>
