@@ -43,6 +43,8 @@ public class PController : MonoBehaviour
     private GameObject CameraObject;
     SceneChange sceneChange;
 
+    public UIAnimeManager UIanimemanager;
+
     void Start()
     {
         _transform = transform;
@@ -50,29 +52,37 @@ public class PController : MonoBehaviour
         CameraObject = GameObject.Find("Main Camera");
         sceneChange = CameraObject.GetComponent<SceneChange>();
         audioSource = GetComponent<AudioSource>();
+        UIanimemanager = GameObject.Find("CountObjectText").GetComponent<UIAnimeManager>();
 
         isOnce = false;
     }
-
     /// <summary>
     /// ˆÚ“®Action(PlayerInput‘¤‚©‚çŒÄ‚Î‚ê‚é)
     /// </summary>
+    
+    
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!isOnce)
+        bool Animeconfirm;
+        Animeconfirm = UIanimemanager.bUIMoveComplete;
+        
+        if (Animeconfirm)
         {
-            // “ü—Í’l‚ğ•Û‚µ‚Ä‚¨‚­
-            inputMove = context.ReadValue<Vector2>();
-            //- ‰¹‚ÌÄ¶
-            if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
+            if (!isOnce)
             {
-                bIsPlaySound = true;
-                audioSource.Play();
-            }
-            else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
-            {
-                bIsPlaySound = false;
-                audioSource.Stop();
+                // “ü—Í’l‚ğ•Û‚µ‚Ä‚¨‚­
+                inputMove = context.ReadValue<Vector2>();
+                //- ‰¹‚ÌÄ¶
+                if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
+                {
+                    bIsPlaySound = true;
+                    audioSource.Play();
+                }
+                else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
+                {
+                    bIsPlaySound = false;
+                    audioSource.Stop();
+                }
             }
         }
     }
