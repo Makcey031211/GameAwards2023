@@ -25,6 +25,9 @@ public class PController : MonoBehaviour
     [SerializeField, Header("火花用のオブジェクト")]
     private GameObject particleObject;
 
+    [SerializeField, Header("火花SE")]
+    private AudioClip sound;
+
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
 
@@ -96,6 +99,11 @@ public class PController : MonoBehaviour
 
             // 子オブジェクト2個目
             transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+            //- 花火SE再生
+            audioSource.volume = 0.6f;
+            audioSource.pitch = 1.3f;
+            audioSource.PlayOneShot(sound);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;
