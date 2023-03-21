@@ -48,6 +48,9 @@ public class UIAnimeManager : MonoBehaviour
     private Vector2 MoveEndPos;
     private Vector2 initSize;
     private Vector2 scall;
+
+    public bool bUIMoveComplete;
+
     //========= 座標の登録 ==============
     private readonly float CENTER = 0.0f;
     private readonly float RIGHT = Screen.width / 2.0f;
@@ -57,6 +60,8 @@ public class UIAnimeManager : MonoBehaviour
 
     void Start()
     {
+        //- フラグを初期化
+        bUIMoveComplete = false;
         //- Canvas座標を取得
         RectTransform trans = GetComponent<RectTransform>();
         //- アニメーション
@@ -96,7 +101,12 @@ public class UIAnimeManager : MonoBehaviour
             .OnComplete(() =>
             {
                 //- 移動
-                transform.DOLocalMove(MoveEndPos, MoveTime).SetEase(Ease.OutSine);
+                transform.DOLocalMove(MoveEndPos, MoveTime).SetEase(Ease.OutSine)
+                    .OnComplete(()=>
+                {
+                    //- 移動が完了したらtrueにする
+                    bUIMoveComplete = true;
+                });
             });
 
 
