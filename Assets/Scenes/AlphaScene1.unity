@@ -668,8 +668,9 @@ GameObject:
   - component: {fileID: 204878132}
   - component: {fileID: 204878131}
   - component: {fileID: 204878130}
+  - component: {fileID: 204878133}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: CountObjcetText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -807,6 +808,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204878128}
   m_CullTransparentMesh: 1
+--- !u!114 &204878133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204878128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420cb047416a246459b2dadf1b80aec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SetSize: 1
+  SizeTime: 1
+  StartPos: 0
+  EndPos: 6
+  MoveTime: 0.7
 --- !u!1 &228539230
 GameObject:
   m_ObjectHideFlags: 0
@@ -1339,7 +1357,7 @@ GameObject:
   - component: {fileID: 784271734}
   - component: {fileID: 784271733}
   m_Layer: 0
-  m_Name: Button (1)
+  m_Name: RetrySceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1585,7 +1603,7 @@ GameObject:
   - component: {fileID: 918622993}
   - component: {fileID: 918622994}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: ActiveObjectManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2241,7 +2259,7 @@ GameObject:
   - component: {fileID: 1236911753}
   - component: {fileID: 1236911752}
   m_Layer: 0
-  m_Name: Button
+  m_Name: NextSceneButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
