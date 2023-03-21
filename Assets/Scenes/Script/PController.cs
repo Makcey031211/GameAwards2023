@@ -31,6 +31,9 @@ public class PController : MonoBehaviour
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
 
+    //- 振動用のコンポーネント
+    VibrationManager vibration;
+
     AudioSource audioSource;
 
     private Transform _transform;
@@ -58,6 +61,8 @@ public class PController : MonoBehaviour
         UIanimemanager = GameObject.Find("CountObjectText").GetComponent<UIAnimeManager>();
 
         isOnce = false;
+        //- 振動コンポーネントの取得
+        vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
     }
     /// <summary>
     /// 移動Action(PlayerInput側から呼ばれる)
@@ -94,7 +99,10 @@ public class PController : MonoBehaviour
     {
         //自爆
         if (!isOnce)
-        { // 爆発直後
+        {
+            //- 振動の設定
+            vibration.SetVibration(60,1.0f);
+            // 爆発直後
             isOnce = true;
             // 指定した位置に生成
             GameObject fire = Instantiate(

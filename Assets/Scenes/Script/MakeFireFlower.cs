@@ -12,6 +12,9 @@ public class MakeFireFlower : MonoBehaviour
 
     Rigidbody rb;
 
+    //- 振動用のコンポーネント
+    VibrationManager vibration;
+
     float currentTime; // 生成からの経過時間
     bool isOnce; // 処理を一回だけ行う
     FireFlower FireflowerScript; //- 花火点火スクリプト
@@ -23,6 +26,8 @@ public class MakeFireFlower : MonoBehaviour
         currentTime = 0.0f;
         isOnce = false;
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        //- 振動コンポーネントの取得
+        vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
     }
 
     // Update is called once per frame
@@ -38,7 +43,10 @@ public class MakeFireFlower : MonoBehaviour
         if (FireflowerScript.isExploded)
         { // 爆発した後
             if (!isOnce)
-            { // 爆発直後
+            {
+                //- 振動の設定
+                vibration.SetVibration(60, 1.0f);
+                // 爆発直後
                 isOnce = true;
 
                 // 当たったオブジェクトのSphereColliderを有効にする
