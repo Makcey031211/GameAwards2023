@@ -20,28 +20,37 @@ public class CircleMove : MonoBehaviour
     private bool updateRotation = true;
 
     float angle = 360;
+    FireFlower FireflowerScript; //- 花火点火スクリプト
+
+    private void Start()
+    {
+        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+    }
 
     // Update is called once per frame
     private void Update()
     {
-        var Trans = transform;
-
-        //- 回転のクォータニオン作成
-        var angleAxis = Quaternion.AngleAxis(angle / PeriodTime * Time.deltaTime,Axis);
-
-        //- 円運動の位置計算
-        var pos = Trans.position;
-
-        pos -= Center;
-        pos = angleAxis * pos;
-        pos += Center;
-
-        Trans.position = pos;
-
-        //- 向き更新
-        if (updateRotation)
+        if (!FireflowerScript.isExploded)
         {
-            Trans.rotation = Trans.rotation * angleAxis;
+            var Trans = transform;
+
+            //- 回転のクォータニオン作成
+            var angleAxis = Quaternion.AngleAxis(angle / PeriodTime * Time.deltaTime, Axis);
+
+            //- 円運動の位置計算
+            var pos = Trans.position;
+
+            pos -= Center;
+            pos = angleAxis * pos;
+            pos += Center;
+
+            Trans.position = pos;
+
+            //- 向き更新
+            if (updateRotation)
+            {
+                Trans.rotation = Trans.rotation * angleAxis;
+            }
         }
     }
 }
