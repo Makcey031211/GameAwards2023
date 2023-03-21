@@ -1880,6 +1880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1098836925}
   - component: {fileID: 1098836924}
+  - component: {fileID: 1098836926}
   m_Layer: 0
   m_Name: BGMManager
   m_TagString: Untagged
@@ -1998,6 +1999,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 42
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1098836926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1098836923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb6ec4524eead44eae43cd427607957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1120278569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2949,6 +2962,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6778845893802623876, guid: e5ee89783428cc7409c0bcd40e0f8762,
+        type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
     - target: {fileID: 6778845895047833763, guid: e5ee89783428cc7409c0bcd40e0f8762,
         type: 3}
       propertyPath: m_Name
