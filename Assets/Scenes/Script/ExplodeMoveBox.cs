@@ -13,18 +13,32 @@ public class ExplodeMoveBox : MonoBehaviour
     [SerializeField, Header("風SE")]
     private AudioClip sound;
 
+    [SerializeField, Header("減速フラグ (trueで減速)")]
+    private bool SlowDown = true;
+
+    [SerializeField, Header("減速度 (値が大きいほど減速する)")]
+    private float Deceleration = 0.005f;
+
     Rigidbody rb;
+
+    //- 減速するかのフラグ
+    private bool bIsDrag;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        bIsDrag = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(SlowDown && bIsDrag)
+        {
+            //- 徐々に減速
+            rb.drag += Deceleration;
+        }
     }
 
     void OnTriggerStay(Collider other)
@@ -36,6 +50,9 @@ public class ExplodeMoveBox : MonoBehaviour
             rb.AddForce(coefficient * Verocity);
             //- 音の再生
             gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
+
+            //- 減速フラグをtrueに変える
+            bIsDrag = true;
         }
     }
 }

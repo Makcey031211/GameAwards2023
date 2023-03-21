@@ -1854,7 +1854,7 @@ GameObject:
   - component: {fileID: 965528741}
   - component: {fileID: 965528740}
   - component: {fileID: 965528746}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: ObstacleBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1876,6 +1876,8 @@ MonoBehaviour:
   coefficient: 3
   speed: 3
   sound: {fileID: 8300000, guid: 6dede6c58440dcb4ea8eeefd74ec4dde, type: 3}
+  SlowDown: 1
+  Deceleration: 0.007
 --- !u!54 &965528741
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1890,7 +1892,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!65 &965528742
 BoxCollider:
@@ -1900,7 +1902,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 965528739}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
