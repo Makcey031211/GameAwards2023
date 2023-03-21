@@ -24,11 +24,15 @@ public class ExplodeMoveBox : MonoBehaviour
     //- 減速するかのフラグ
     private bool bIsDrag;
 
+    //- 一度だけ処理をする用のフラグ
+    private bool IsOnce;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         bIsDrag = false;
+        IsOnce = false;
     }
 
     // Update is called once per frame
@@ -48,8 +52,14 @@ public class ExplodeMoveBox : MonoBehaviour
             var Verocity = (transform.position - other.gameObject.transform.position).normalized * speed;
 
             rb.AddForce(coefficient * Verocity);
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
+
+            //- 一度だけ処理をする
+            if (!IsOnce)
+            {
+                IsOnce = true;
+                //- 音の再生
+                gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
+            }
 
             //- 減速フラグをtrueに変える
             bIsDrag = true;
