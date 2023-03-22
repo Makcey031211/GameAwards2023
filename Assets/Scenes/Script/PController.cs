@@ -4,34 +4,34 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PController : MonoBehaviour
 {
-    [Header("ˆÚ“®‚Ì‘¬‚³"), SerializeField]
+    [Header("ç§»å‹•ã®é€Ÿã•"), SerializeField]
     private float speed = 3;
 
-    //[Header("ƒWƒƒƒ“ƒv‚·‚éuŠÔ‚Ì‘¬‚³"), SerializeField]
+    //[Header("ã‚¸ãƒ£ãƒ³ãƒ—ã™ã‚‹ç¬é–“ã®é€Ÿã•"), SerializeField]
     //private float jumpSpeed = 7;
 
-    //[Header("ƒX[ƒp[ƒWƒƒƒ“ƒv‚Ì‘¬‚³‚Ì”{—¦"), SerializeField]
+    //[Header("ã‚¹ãƒ¼ãƒ‘ãƒ¼ã‚¸ãƒ£ãƒ³ãƒ—ã®é€Ÿã•ã®å€ç‡"), SerializeField]
     //private float SuperJumpRatio = 2;
 
-    [Header("d—Í‰Á‘¬“x"), SerializeField]
+    [Header("é‡åŠ›åŠ é€Ÿåº¦"), SerializeField]
     private float gravity = 15;
 
-    [Header("—‰º‚Ì‘¬‚³§ŒÀiInfinity‚Å–³§ŒÀj"), SerializeField]
+    [Header("è½ä¸‹æ™‚ã®é€Ÿã•åˆ¶é™ï¼ˆInfinityã§ç„¡åˆ¶é™ï¼‰"), SerializeField]
     private float fallSpeed = 10;
 
-    [Header("—‰º‚Ì‰‘¬"), SerializeField]
+    [Header("è½ä¸‹ã®åˆé€Ÿ"), SerializeField]
     private float initFallSpeed = 2;
 
-    [SerializeField, Header("‰Î‰Ô—p‚ÌƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Header("ç«èŠ±ç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     private GameObject particleObject;
 
-    [SerializeField, Header("‰Î‰ÔSE")]
+    [SerializeField, Header("ç«èŠ±SE")]
     private AudioClip sound;
 
-    //- ƒWƒƒƒ“ƒv‚µ‚½‰ñ”(ƒWƒƒƒ“ƒv‰ñ”‚ª‰ñ•œ‚·‚é‚Æ,‚±‚Ì•Ï”‚Í0‚É–ß‚é)
+    //- ã‚¸ãƒ£ãƒ³ãƒ—ã—ãŸå›æ•°(ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ãŒå›å¾©ã™ã‚‹ã¨,ã“ã®å¤‰æ•°ã¯0ã«æˆ»ã‚‹)
     private int nJumpCount = 0;
 
-    //- U“®—p‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg
+    //- æŒ¯å‹•ç”¨ã®ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     VibrationManager vibration;
 
     AudioSource audioSource;
@@ -44,7 +44,7 @@ public class PController : MonoBehaviour
     private float verticalVelocity;
     private float turnVelocity;
     private bool isGroundedPrev;
-    bool isOnce; // ˆ—‚ğˆê‰ñ‚¾‚¯s‚¤
+    bool isOnce; // å‡¦ç†ã‚’ä¸€å›ã ã‘è¡Œã†
     Rigidbody playerRB;
     private GameObject CameraObject;
     SceneChange sceneChange;
@@ -61,26 +61,26 @@ public class PController : MonoBehaviour
         UIanimemanager = GameObject.Find("CountObjectText").GetComponent<UIAnimeManager>();
 
         isOnce = false;
-        //- U“®ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+        //- æŒ¯å‹•ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
     }
     /// <summary>
-    /// ˆÚ“®Action(PlayerInput‘¤‚©‚çŒÄ‚Î‚ê‚é)
+    /// ç§»å‹•Action(PlayerInputå´ã‹ã‚‰å‘¼ã°ã‚Œã‚‹)
     /// </summary>
     
     
     public void OnMove(InputAction.CallbackContext context)
     {
         bool Animeconfirm;
-        Animeconfirm = UIanimemanager.bUIMoveComplete;
+        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
         
         if (Animeconfirm)
         {
             if (!isOnce)
             {
-                // “ü—Í’l‚ğ•Û‚µ‚Ä‚¨‚­
+                // å…¥åŠ›å€¤ã‚’ä¿æŒã—ã¦ãŠã
                 inputMove = context.ReadValue<Vector2>();
-                //- ‰¹‚ÌÄ¶
+                //- éŸ³ã®å†ç”Ÿ
                 if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
                 {
                     bIsPlaySound = true;
@@ -97,34 +97,40 @@ public class PController : MonoBehaviour
 
     public void OnDestruct(InputAction.CallbackContext context)
     {
-        //©”š
-        if (!isOnce)
+        bool Animeconfirm;
+        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
+
+        if (Animeconfirm)
         {
-            //- U“®‚Ìİ’è
-            vibration.SetVibration(60,1.0f);
-            // ”š”­’¼Œã
-            isOnce = true;
-            // w’è‚µ‚½ˆÊ’u‚É¶¬
-            GameObject fire = Instantiate(
-                particleObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-                transform.position,                 // ¶¬‚³‚ê‚éˆÊ’u
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
-                );
+            //è‡ªçˆ†
+            if (!isOnce)
+            {
+                //- æŒ¯å‹•ã®è¨­å®š
+                vibration.SetVibration(60,1.0f);
+                // çˆ†ç™ºç›´å¾Œ
+                isOnce = true;
+                // æŒ‡å®šã—ãŸä½ç½®ã«ç”Ÿæˆ
+                GameObject fire = Instantiate(
+                    particleObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+                    transform.position,                 // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
+                    );
 
-            // qƒIƒuƒWƒFƒNƒg1ŒÂ–Ú
-            transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
-            transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
+                // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ1å€‹ç›®
+                transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
+                transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
 
-            // qƒIƒuƒWƒFƒNƒg2ŒÂ–Ú
-            transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+                // å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ2å€‹ç›®
+                transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+                
+                //- èŠ±ç«SEå†ç”Ÿ
+                audioSource.volume = 0.6f;
+                audioSource.pitch = 1.3f;
+                audioSource.PlayOneShot(sound);
 
-            //- ‰Ô‰ÎSEÄ¶
-            audioSource.volume = 0.6f;
-            audioSource.pitch = 1.3f;
-            audioSource.PlayOneShot(sound);
-
-            //- SceneChangeƒXƒNƒŠƒvƒg‚ÌƒvƒŒƒCƒ„[¶‘¶ƒtƒ‰ƒO‚ğfalse‚É‚·‚é
-            sceneChange.bIsLife = false;
+                //- SceneChangeã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”Ÿå­˜ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
+                sceneChange.bIsLife = false;
+            }
         }
     }
 
@@ -142,21 +148,21 @@ public class PController : MonoBehaviour
 
         if (isGrounded && !isGroundedPrev)
         {
-            // ’…’n‚·‚éuŠÔ‚É—‰º‚Ì‰‘¬‚ğw’è‚µ‚Ä‚¨‚­
+            // ç€åœ°ã™ã‚‹ç¬é–“ã«è½ä¸‹ã®åˆé€Ÿã‚’æŒ‡å®šã—ã¦ãŠã
             verticalVelocity = -initFallSpeed;
-            //- ’…’n‚µ‚½‚Æ‚«‚ÉAƒWƒƒƒ“ƒv‚ğ‰ñ•œ‚·‚é(ƒWƒƒƒ“ƒv‰ñ”‚ğ0‚É‚·‚é)
+            //- ç€åœ°ã—ãŸã¨ãã«ã€ã‚¸ãƒ£ãƒ³ãƒ—ã‚’å›å¾©ã™ã‚‹(ã‚¸ãƒ£ãƒ³ãƒ—å›æ•°ã‚’0ã«ã™ã‚‹)
             nJumpCount = 0;
         }
         else if (!isGrounded)
         {
-            // ‹ó’†‚É‚¢‚é‚Æ‚«‚ÍA‰ºŒü‚«‚Éd—Í‰Á‘¬“x‚ğ—^‚¦‚Ä—‰º‚³‚¹‚é
+            // ç©ºä¸­ã«ã„ã‚‹ã¨ãã¯ã€ä¸‹å‘ãã«é‡åŠ›åŠ é€Ÿåº¦ã‚’ä¸ãˆã¦è½ä¸‹ã•ã›ã‚‹
             verticalVelocity -= gravity * Time.deltaTime;
 
-            // —‰º‚·‚é‘¬‚³ˆÈã‚É‚È‚ç‚È‚¢‚æ‚¤‚É•â³
+            // è½ä¸‹ã™ã‚‹é€Ÿã•ä»¥ä¸Šã«ãªã‚‰ãªã„ã‚ˆã†ã«è£œæ­£
             if (verticalVelocity < -fallSpeed)
                 verticalVelocity = -fallSpeed;
 
-            //// ‹ó’†‚Å•¨‚É‚Ô‚Â‚©‚Á‚ÄY²‚ª~‚Ü‚é(“ª‚²‚Á‚Â‚ñ‚±)
+            //// ç©ºä¸­ã§ç‰©ã«ã¶ã¤ã‹ã£ã¦Yè»¸ãŒæ­¢ã¾ã‚‹(é ­ã”ã£ã¤ã‚“ã“)
             //if (oldposY == this.transform.position.y)
             //{
             //    verticalVelocity = -1;
@@ -170,28 +176,28 @@ public class PController : MonoBehaviour
         if(isOnce)
         { inputMove = Vector2.zero; }
 
-        // ‘€ì“ü—Í‚Æ‰”’¼•ûŒü‘¬“x‚©‚çAŒ»İ‘¬“x‚ğŒvZ
+        // æ“ä½œå…¥åŠ›ã¨é‰›ç›´æ–¹å‘é€Ÿåº¦ã‹ã‚‰ã€ç¾åœ¨é€Ÿåº¦ã‚’è¨ˆç®—
         var moveVelocity = new Vector3(
             inputMove.x * speed,
             verticalVelocity,
             inputMove.y * speed
         );
 
-        // Œ»İƒtƒŒ[ƒ€‚ÌˆÚ“®—Ê‚ğˆÚ“®‘¬“x‚©‚çŒvZ
+        // ç¾åœ¨ãƒ•ãƒ¬ãƒ¼ãƒ ã®ç§»å‹•é‡ã‚’ç§»å‹•é€Ÿåº¦ã‹ã‚‰è¨ˆç®—
         var moveDelta = moveVelocity * Time.deltaTime;
 
-        // CharacterController‚ÉˆÚ“®—Ê‚ğw’è‚µAƒIƒuƒWƒFƒNƒg‚ğ“®‚©‚·
+        // CharacterControllerã«ç§»å‹•é‡ã‚’æŒ‡å®šã—ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å‹•ã‹ã™
         characterController.Move(moveDelta);
 
         if (inputMove != Vector2.zero)
         {
-            // ˆÚ“®“ü—Í‚ª‚ ‚éê‡‚ÍAU‚èŒü‚«“®ì‚às‚¤
+            // ç§»å‹•å…¥åŠ›ãŒã‚ã‚‹å ´åˆã¯ã€æŒ¯ã‚Šå‘ãå‹•ä½œã‚‚è¡Œã†
 
-            // ‘€ì“ü—Í‚©‚çy²ü‚è‚Ì–Ú•WŠp“x[deg]‚ğŒvZ
+            // æ“ä½œå…¥åŠ›ã‹ã‚‰yè»¸å‘¨ã‚Šã®ç›®æ¨™è§’åº¦[deg]ã‚’è¨ˆç®—
             var targetAngleY = -Mathf.Atan2(inputMove.y, inputMove.x)
                 * Mathf.Rad2Deg + 90;
 
-            // ƒC[ƒWƒ“ƒO‚µ‚È‚ª‚çŸ‚Ì‰ñ“]Šp“x[deg]‚ğŒvZ
+            // ã‚¤ãƒ¼ã‚¸ãƒ³ã‚°ã—ãªãŒã‚‰æ¬¡ã®å›è»¢è§’åº¦[deg]ã‚’è¨ˆç®—
             var angleY = Mathf.SmoothDampAngle(
                 transform.eulerAngles.y,
                 targetAngleY,
@@ -199,7 +205,7 @@ public class PController : MonoBehaviour
                 0.1f
             );
 
-            // ƒIƒuƒWƒFƒNƒg‚Ì‰ñ“]‚ğXV
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å›è»¢ã‚’æ›´æ–°
             transform.rotation = Quaternion.Euler(0, angleY, 0);
         }
     }
