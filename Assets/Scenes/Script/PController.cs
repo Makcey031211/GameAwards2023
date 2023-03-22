@@ -25,6 +25,9 @@ public class PController : MonoBehaviour
     [SerializeField, Header("火花用のオブジェクト")]
     private GameObject particleObject;
 
+    [SerializeField, Header("自爆SE")]
+    private AudioClip sound;
+
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
 
@@ -114,6 +117,9 @@ public class PController : MonoBehaviour
 
                 //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
                 sceneChange.bIsLife = false;
+
+                //- 音の再生
+                gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             }
         }
     }
