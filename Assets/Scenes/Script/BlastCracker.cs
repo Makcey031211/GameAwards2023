@@ -78,7 +78,7 @@ public class BlastCracker : MonoBehaviour
             for (int i = 0; i < nCircleComplementNum + 1; i++)
             {
                 //- 中心から円部分へのレイを生成(少しずつ回転させる)
-                var CircleRay = Quaternion.Euler(0, (-BrustAngle / 2) + (BrustAngle / nCircleComplementNum * i), 0) * CrackerTransform.forward.normalized;
+                var CircleRay = Quaternion.Euler(0, 0, (-BrustAngle / 2) + (BrustAngle / nCircleComplementNum * i)) * CrackerTransform.up.normalized;
                 //- 中心座標をレイ方向へ進める
                 var LineTransform = this.transform.position + (CircleRay * BrustDis);
                 //- 点を追加
@@ -97,8 +97,7 @@ public class BlastCracker : MonoBehaviour
         }
         //- 1フレーム前の、爆破依頼変数を更新
         bIsOldExploded = FireflowerScript.isExploded;
-
-
+        
         //- 弾けるタイミングになるまでは、以下の爆破処理を行わない
         if (!FireflowerScript.isExploded) return;
 
@@ -149,7 +148,7 @@ public class BlastCracker : MonoBehaviour
                     }
                 }
                 //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
-                var angle = Vector3.Angle((CrackerTransform.forward).normalized, (FireworkDir).normalized);
+                var angle = Vector3.Angle((CrackerTransform.up).normalized, (FireworkDir).normalized);
                 if (angle != 0 && (angle < BrustAngle / 2))
                 {
                     obj.gameObject.GetComponent<FireFlower>().isExploded = true;
@@ -160,7 +159,7 @@ public class BlastCracker : MonoBehaviour
             for (int i = 0; i < 30; i++)
             {
                 //- 吹っ飛ぶ力を生成
-                Vector3 ForceRay = Quaternion.Euler(0, Random.Range(-20, 21), 0) * CrackerTransform.forward * Random.Range(200, 1500);
+                Vector3 ForceRay = Quaternion.Euler(0, 0, Random.Range(-20, 21)) * CrackerTransform.up * Random.Range(200, 1500);
                 // 指定した位置に生成
                 GameObject fire = Instantiate(
                     particleObject,                     // 生成(コピー)する対象

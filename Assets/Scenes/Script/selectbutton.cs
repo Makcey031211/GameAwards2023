@@ -10,8 +10,8 @@ public class selectbutton : MonoBehaviour
     void Start()
     {
         // ボタンコンポーネントの取得
-        _next = GameObject.Find("/Canvas/NextSceneButton").GetComponent<Button>();
-        _retry = GameObject.Find("/Canvas/RetrySceneButton").GetComponent<Button>();
+        _next = GameObject.Find("Canvas/NextSceneButton").GetComponent<Button>();
+        _retry = GameObject.Find("Canvas/RetrySceneButton").GetComponent<Button>();
 
         // 最初に選択状態にしたいボタンの設定
         _next.Select();
