@@ -704,7 +704,6 @@ GameObject:
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
   - component: {fileID: 330585549}
-  - component: {fileID: 330585550}
   - component: {fileID: 330585551}
   m_Layer: 0
   m_Name: Main Camera
@@ -928,18 +927,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &330585550
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &330585551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2940,6 +2927,7 @@ GameObject:
   - component: {fileID: 1141221213}
   - component: {fileID: 1141221212}
   - component: {fileID: 1141221216}
+  - component: {fileID: 1141221217}
   m_Layer: 5
   m_Name: NextSceneButton
   m_TagString: Untagged
@@ -3091,6 +3079,19 @@ MonoBehaviour:
   StartPos: 0
   MoveTime: 0.5
   Delay: 0
+--- !u!114 &1141221217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141221210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIAnimeComplete: {fileID: 1141221210}
 --- !u!1 &1169064307
 GameObject:
   m_ObjectHideFlags: 0
@@ -4656,6 +4657,7 @@ GameObject:
   - component: {fileID: 1972420208}
   - component: {fileID: 1972420207}
   - component: {fileID: 1972420211}
+  - component: {fileID: 1972420212}
   m_Layer: 5
   m_Name: RetrySceneButton
   m_TagString: Untagged
@@ -4807,6 +4809,19 @@ MonoBehaviour:
   StartPos: 0
   MoveTime: 0.5
   Delay: 0
+--- !u!114 &1972420212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972420205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIAnimeComplete: {fileID: 1972420205}
 --- !u!1 &1980517593
 GameObject:
   m_ObjectHideFlags: 0
