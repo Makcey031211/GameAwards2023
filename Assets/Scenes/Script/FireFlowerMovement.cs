@@ -26,7 +26,7 @@ public class FireFlowerMovement : MonoBehaviour
 
     private Vector3 startPosition; // 開始位置
     private Vector3 endPosition;   // 終了位置
-    FireFlower FireflowerScript; //- 花火点火スクリプト
+    FireFlower FireflowerScript;   // 花火点火スクリプト
 
     private void Start()
     {
@@ -41,10 +41,10 @@ public class FireFlowerMovement : MonoBehaviour
                 endPosition = startPosition + Vector3.right * moveDistance;
                 break;
             case MoveDirection.Vertical:
-                endPosition = startPosition + Vector3.forward * moveDistance;
+                endPosition = startPosition + Vector3.up * moveDistance;
                 break;
             case MoveDirection.Diagonal:
-                endPosition = startPosition + new Vector3(moveDistance, 0, moveDistance);
+                endPosition = startPosition + new Vector3(moveDistance, moveDistance, 0);
                 break;
         }
     }

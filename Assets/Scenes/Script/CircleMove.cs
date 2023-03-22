@@ -11,45 +11,50 @@ public class CircleMove : MonoBehaviour
     private Vector3 Center = Vector3.zero;
 
     [SerializeField, Header("回転軸")]
-    private Vector3 Axis = Vector3.up;
+    private Vector3 Axis = Vector3.forward;
+
+    [SerializeField, Header("半径の大きさ")]
+    private float Radius = 1.0f;
 
     [SerializeField, Header("一周回るのにかかる時間(秒)")]
-    private float PeriodTime = 2;
+    private float PeriodTime = 2.0f;
 
     [SerializeField, Header("向きを更新するかどうか")]
     private bool updateRotation = true;
 
-    float angle = 360;
-    FireFlower FireflowerScript; //- 花火点火スクリプト
+    //- 角度
+    float angle = 360f;
+
+    //- 花火点火スクリプト
+    FireFlower FireflowerScript;
 
     private void Start()
     {
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!FireflowerScript.isExploded)
         {
-            var Trans = transform;
+            var trans = transform;
 
             //- 回転のクォータニオン作成
-            var angleAxis = Quaternion.AngleAxis(angle / PeriodTime * Time.deltaTime, Axis);
+            var angleAxis = Quaternion.AngleAxis((Time.time % PeriodTime) / PeriodTime * angle, Axis);
 
-            //- 円運動の位置計算
-            var pos = Trans.position;
+            //- 半径に対応するベクトルを作成し、回転軸に沿って回転させる
+            var radiusVec = angleAxis * (Vector3.right * Radius);
 
-            pos -= Center;
-            pos = angleAxis * pos;
-            pos += Center;
+            //- 中心点に半径に対応するベクトルを加算して位置を計算する
+            var pos = Center + radiusVec;
 
-            Trans.position = pos;
+            //- 位置を更新する
+            trans.position = pos;
 
-            //- 向き更新
+            //- 向きを更新する
             if (updateRotation)
             {
-                Trans.rotation = Trans.rotation * angleAxis;
+                trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);
             }
         }
     }
