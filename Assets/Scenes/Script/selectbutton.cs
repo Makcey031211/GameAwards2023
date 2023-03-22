@@ -4,16 +4,16 @@ using UnityEngine.UI; // UIコンポーネントの使用
 
 public class selectbutton : MonoBehaviour
 {
-    Button _next;
-    Button _retry;
+    Button UISelect;
+    [SerializeField, Header("UIの選択")]
+    private GameObject UIAnimeComplete;
 
     void Start()
     {
         // ボタンコンポーネントの取得
-        _next = GameObject.Find("Canvas/NextSceneButton").GetComponent<Button>();
-        _retry = GameObject.Find("Canvas/RetrySceneButton").GetComponent<Button>();
+        UISelect = UIAnimeComplete.GetComponent<Button>();
 
         // 最初に選択状態にしたいボタンの設定
-        _next.Select();
+        UISelect.Select();
     }
 }

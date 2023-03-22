@@ -1445,6 +1445,7 @@ GameObject:
   - component: {fileID: 837074632}
   - component: {fileID: 837074631}
   - component: {fileID: 837074630}
+  - component: {fileID: 837074636}
   m_Layer: 5
   m_Name: NextSceneButton
   m_TagString: Untagged
@@ -1596,6 +1597,19 @@ RectTransform:
   m_AnchoredPosition: {x: 312, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &837074636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 837074629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIAnimeComplete: {fileID: 837074629}
 --- !u!1001 &993349564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2991,7 +3005,6 @@ GameObject:
   - component: {fileID: 1851944189}
   - component: {fileID: 1851944188}
   - component: {fileID: 1851944187}
-  - component: {fileID: 1851944193}
   - component: {fileID: 1851944185}
   m_Layer: 0
   m_Name: Main Camera
@@ -3228,18 +3241,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1851944193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851944184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1890984597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3457,6 +3458,7 @@ GameObject:
   - component: {fileID: 1931985447}
   - component: {fileID: 1931985446}
   - component: {fileID: 1931985445}
+  - component: {fileID: 1931985451}
   m_Layer: 5
   m_Name: RetrySceneButton
   m_TagString: Untagged
@@ -3608,6 +3610,19 @@ RectTransform:
   m_AnchoredPosition: {x: -365, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1931985451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931985444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7928a3550fb56a34f8b36ca17f089397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIAnimeComplete: {fileID: 1931985444}
 --- !u!1001 &1998153037
 PrefabInstance:
   m_ObjectHideFlags: 0
