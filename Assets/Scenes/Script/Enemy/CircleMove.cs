@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒNƒH[ƒ^ƒjƒIƒ“‚Å‰~‰^“®‚Ì‹O“¹‚ğŒvZ
+/// ‰~‰^“®
 /// </summary>
 public class CircleMove : MonoBehaviour
 {
