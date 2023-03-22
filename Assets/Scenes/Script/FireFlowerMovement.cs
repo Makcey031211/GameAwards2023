@@ -26,10 +26,13 @@ public class FireFlowerMovement : MonoBehaviour
 
     private Vector3 startPosition; // 開始位置
     private Vector3 endPosition;   // 終了位置
+    FireFlower FireflowerScript; //- 花火点火スクリプト
 
     private void Start()
     {
         startPosition = transform.position;
+
+        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
 
         //- 移動の状態遷移
         switch (moveDirection)
@@ -48,8 +51,11 @@ public class FireFlowerMovement : MonoBehaviour
 
     private void Update()
     {
-        //- 線形補間を使ってオブジェクトを移動
-        float t = Mathf.PingPong(Time.time / travelTime, 1.0f);
-        transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        if (!FireflowerScript.isExploded)
+        {
+            //- 線形補間を使ってオブジェクトを移動
+            float t = Mathf.PingPong(Time.time / travelTime, 1.0f);
+            transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        }
     }
 }

@@ -49,6 +49,9 @@ public class BlastCracker : MonoBehaviour
     //- 当たり判定表示用の線
     LineRenderer linerend;
 
+    //- 振動用のコンポーネント
+    VibrationManager vibration;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,6 +60,8 @@ public class BlastCracker : MonoBehaviour
         ShotHitFrame = ShotHitSecond * 60;
         //- 線の追加
         linerend = gameObject.AddComponent<LineRenderer>();
+        //- 振動コンポーネントの取得
+        vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
     }
 
     void FixedUpdate()
@@ -107,6 +112,8 @@ public class BlastCracker : MonoBehaviour
         //- このif文の中身は一度だけ呼ばれる。
         if (!bIsBomb)
         {
+            //- 振動の設定
+            vibration.SetVibration(60, 1.0f);
             //- 音の再生
             gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             //- 弾けるときの処理判定変数を設定

@@ -11,24 +11,30 @@ public class EnemyMovement1 : MonoBehaviour
     [SerializeField, Header("現在の位置")]
     private int CurrentWaypointIndex = 0;
 
+    FireFlower FireflowerScript; //- 花火点火スクリプト
+
     // Start is called before the first frame update
     void Start()
     {
         transform.position = wayPoints[CurrentWaypointIndex].position;
+        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (transform.position == wayPoints[CurrentWaypointIndex].position)
+        if (!FireflowerScript.isExploded)
         {
-            CurrentWaypointIndex++;
-            if (CurrentWaypointIndex >= wayPoints.Count)
+            if (transform.position == wayPoints[CurrentWaypointIndex].position)
             {
-                CurrentWaypointIndex = 0;
+                CurrentWaypointIndex++;
+                if (CurrentWaypointIndex >= wayPoints.Count)
+                {
+                    CurrentWaypointIndex = 0;
+                }
             }
+            transform.position = Vector3.MoveTowards(transform.position,
+                wayPoints[CurrentWaypointIndex].position, moveSpeed * Time.deltaTime);
         }
-        transform.position = Vector3.MoveTowards(transform.position,
-            wayPoints[CurrentWaypointIndex].position, moveSpeed * Time.deltaTime);
     }
 }

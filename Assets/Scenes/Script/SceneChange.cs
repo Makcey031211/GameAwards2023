@@ -5,38 +5,39 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    [SerializeField, Header("ƒV[ƒ“‘JˆÚæ")]
+    [SerializeField, Header("ã‚·ãƒ¼ãƒ³é·ç§»å…ˆ")]
     private SceneObject NextScene;
 
-    [SerializeField, Header("“G‚ğƒJƒEƒ“ƒg‚µ‚Ä‚¢‚éUI")]
-    private GameObject UIObject;
+    //[SerializeField, Header("æ•µã‚’ã‚«ã‚¦ãƒ³ãƒˆã—ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    //private GameObject CountObject;
 
-    [SerializeField, Header("ƒNƒŠƒA‚ÌƒV[ƒ“‘JˆÚ‚ğ’x‚ç‚·ŠÔ(•b)")]
+    [SerializeField, Header("ã‚¯ãƒªã‚¢æ™‚ã®ã‚·ãƒ¼ãƒ³é·ç§»ã‚’é…ã‚‰ã™æ™‚é–“(ç§’)")]
     private float ClearDelayTime = 2.0f;
 
-    [SerializeField, Header("ƒŠƒgƒ‰ƒC‚ÌƒTƒEƒ“ƒh‚ª”­¶‚·‚éŠÔ(•b)")]
+    [SerializeField, Header("ãƒªãƒˆãƒ©ã‚¤æ™‚ã®ã‚µã‚¦ãƒ³ãƒ‰ãŒç™ºç”Ÿã™ã‚‹æ™‚é–“(ç§’)")]
     private float SoundDelayTime = 2.0f;
 
-    [SerializeField, Header("ƒŠƒgƒ‰ƒC‚ÌƒV[ƒ“‘JˆÚ‚ğ’x‚ç‚·ŠÔ(•b)")]
+    [SerializeField, Header("ãƒªãƒˆãƒ©ã‚¤æ™‚ã®ã‚·ãƒ¼ãƒ³é·ç§»ã‚’é…ã‚‰ã™æ™‚é–“(ç§’)")]
     private float RetryDelayTime = 2.0f;
 
-    [SerializeField, Header("ƒNƒŠƒASE")]
+    [SerializeField, Header("ã‚¯ãƒªã‚¢SE")]
     private AudioClip ClearSound;
 
-    [SerializeField, Header("¸”sSE")]
+    [SerializeField, Header("å¤±æ•—SE")]
     private AudioClip FailureSound;
 
-    CountEnemy countEnemy;          // CountEnemyƒXƒNƒŠƒvƒg‚ğ“ü‚ê‚é•Ï”
+    CountEnemy countEnemy;          // CountEnemyã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å…¥ã‚Œã‚‹å¤‰æ•°
 
-    private int EnemyNum;           // “G‚Ì”
-    private float CurrentTime;      // Œ»İ‚ÌŠÔ(“G‚ª‘S–Å‚µ‚Ä‚©‚çƒJƒEƒ“ƒgŠJn)
-    private float CurrentParticleTime = 0.0f;   // ƒp[ƒeƒBƒNƒ‹‚ÌŒ»İ‚ÌŠÔ
-    private float TotalParticleTime = 999.0f;   // ƒp[ƒeƒBƒNƒ‹‚Ì‘ŠÔ
-    private bool bIsShotSound = false;          //- ‰¹‚ªÄ¶‚³‚ê‚½‚©‚Ç‚¤‚©
+    private int EnemyNum;           // æ•µã®æ•°
+    private float CurrentTime;      // ç¾åœ¨ã®æ™‚é–“(æ•µãŒå…¨æ»…ã—ã¦ã‹ã‚‰ã‚«ã‚¦ãƒ³ãƒˆé–‹å§‹)
+    private float CurrentParticleTime = 0.0f;   // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®ç¾åœ¨ã®æ™‚é–“
+    private float TotalParticleTime = 999.0f;   // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®ç·æ™‚é–“
+    private bool bIsShotSound = false;          //- éŸ³ãŒå†ç”Ÿã•ã‚ŒãŸã‹ã©ã†ã‹
+    private ObjectFade fade;              // ãƒ•ã‚§ãƒ¼ãƒ‰ç”¨ã®ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ
 
-    public static bool bIsChange;   // Ÿ‚ÌƒV[ƒ“‚ÉˆÚ“®‚·‚é‚©‚Ìƒtƒ‰ƒO
-    public static bool bIsRetry;    // ƒŠƒgƒ‰ƒC‚·‚é‚©‚Ìƒtƒ‰ƒO
-    public bool bIsLife;     // ƒvƒŒƒCƒ„[‚ª¶‘¶‚µ‚Ä‚¢‚é‚©
+    public static bool bIsChange;   // æ¬¡ã®ã‚·ãƒ¼ãƒ³ã«ç§»å‹•ã™ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°
+    public static bool bIsRetry;    // ãƒªãƒˆãƒ©ã‚¤ã™ã‚‹ã‹ã®ãƒ•ãƒ©ã‚°
+    public bool bIsLife;     // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ã‚‹ã‹
 
     // Start is called before the first frame update
     void Start()
@@ -44,41 +45,42 @@ public class SceneChange : MonoBehaviour
         bIsChange = false;
         bIsRetry = false;
         bIsLife = true;
-        countEnemy = UIObject.GetComponent<CountEnemy>();
+        countEnemy = this.gameObject.GetComponent<CountEnemy>();
+        fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Œ»İ‚Ì“G‚Ì”‚ğXV
+        // ç¾åœ¨ã®æ•µã®æ•°ã‚’æ›´æ–°
         EnemyNum = countEnemy.GetCurrentCountNum();
 
-        // ƒp[ƒeƒBƒNƒ‹‚ÌÄ¶‚ªI‚í‚é + “G‚ğ‘S–Å‚³‚¹‚½‚ç
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®å†ç”ŸãŒçµ‚ã‚ã‚‹ + æ•µã‚’å…¨æ»…ã•ã›ãŸã‚‰
         if(CurrentParticleTime == TotalParticleTime && EnemyNum <= 0)
         {
-            // Œ»İ‚ÌŠÔ‚ğXV
+            // ç¾åœ¨ã®æ™‚é–“ã‚’æ›´æ–°
             CurrentTime += Time.deltaTime;
-            // Œ»İ‚ÌŠÔ‚ª’x‰„ŠÔ‚ğ’´‚¦‚½‚çƒV[ƒ“‘JˆÚƒtƒ‰ƒO‚ğtrue‚É•Ï‚¦‚ÄA‰¹‚ğÄ¶‚·‚é
+            // ç¾åœ¨ã®æ™‚é–“ãŒé…å»¶æ™‚é–“ã‚’è¶…ãˆãŸã‚‰ã‚·ãƒ¼ãƒ³é·ç§»ãƒ•ãƒ©ã‚°ã‚’trueã«å¤‰ãˆã¦ã€éŸ³ã‚’å†ç”Ÿã™ã‚‹
             if (CurrentTime >= ClearDelayTime)
             {
-                //- 1“x‚¾‚¯Ä¶
+                //- 1åº¦ã ã‘å†ç”Ÿ
                 if (!bIsShotSound)
                 {
-                    //- •Ï”‚Ìİ’è
+                    //- å¤‰æ•°ã®è¨­å®š
                     bIsShotSound = true;
-                    //- ‰¹‚ÌÄ¶
+                    //- éŸ³ã®å†ç”Ÿ
                     gameObject.GetComponent<AudioSource>().PlayOneShot(ClearSound);
                 }
                 bIsChange = true;
             }
         }
 
-        // ƒp[ƒeƒBƒNƒ‹‚ÌÄ¶‚ªI‚í‚é + “G‚ªc‚Á‚Ä‚¢‚é
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®å†ç”ŸãŒçµ‚ã‚ã‚‹ + æ•µãŒæ®‹ã£ã¦ã„ã‚‹
         if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife)
         {
-            // Œ»İ‚ÌŠÔ‚ğXV
+            // ç¾åœ¨ã®æ™‚é–“ã‚’æ›´æ–°
             CurrentTime += Time.deltaTime;
-            // Œ»İ‚ÌŠÔ‚ª’x‰„ŠÔ‚ğ’´‚¦‚½‚çƒŠƒgƒ‰ƒCƒtƒ‰ƒO‚ğtrue‚É•Ï‚¦‚é
+            // ç¾åœ¨ã®æ™‚é–“ãŒé…å»¶æ™‚é–“ã‚’è¶…ãˆãŸã‚‰ãƒªãƒˆãƒ©ã‚¤ãƒ•ãƒ©ã‚°ã‚’trueã«å¤‰ãˆã‚‹
             if (CurrentTime >= RetryDelayTime)
             {
                 CurrentTime = 0;
@@ -86,27 +88,28 @@ public class SceneChange : MonoBehaviour
             }
         }
 
-        // ƒV[ƒ“‘JˆÚƒtƒ‰ƒO‚ªtrue‚È‚çŸ‚ÌƒV[ƒ“‚ÉˆÚ“®
+        // ã‚·ãƒ¼ãƒ³é·ç§»ãƒ•ãƒ©ã‚°ãŒtrueãªã‚‰æ¬¡ã®ã‚·ãƒ¼ãƒ³ã«ç§»å‹•
         if (bIsChange)
         { 
         //    SceneManager.LoadScene(NextScene); 
         }
 
-        // ƒŠƒgƒ‰ƒCƒtƒ‰ƒO‚ªtrue‚È‚çŒ»İ‚ÌƒV[ƒ“‚ğÄ“Ç‚İ‚İ
+        // ãƒªãƒˆãƒ©ã‚¤ãƒ•ãƒ©ã‚°ãŒtrueãªã‚‰ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’å†èª­ã¿è¾¼ã¿
         if (bIsRetry)
         {
-            // Œ»İ‚ÌŠÔ‚ğXV
+            // ç¾åœ¨ã®æ™‚é–“ã‚’æ›´æ–°
             CurrentTime += Time.deltaTime;
-            //- 1“x‚¾‚¯Ä¶
+            //- 1åº¦ã ã‘å†ç”Ÿ
             if (!bIsShotSound)
             {
-                //- •Ï”‚Ìİ’è
+                //- å¤‰æ•°ã®è¨­å®š
                 bIsShotSound = true;
-                //- ‰¹‚ÌÄ¶
+                //- éŸ³ã®å†ç”Ÿ
                 gameObject.GetComponent<AudioSource>().PlayOneShot(FailureSound);
+                // ãƒ•ã‚§ãƒ¼ãƒ‰ã®è¨­å®š
+                fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
             }
-            if (CurrentTime >= RetryDelayTime)
-            {
+            if (!fade.isFade) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             }
         }
@@ -114,9 +117,9 @@ public class SceneChange : MonoBehaviour
 
     public void SetParticleTime(float currentTime, float totalTime)
     {
-        // ƒp[ƒeƒBƒNƒ‹‚ÌŒ»İ‚ÌŠÔ‚ğ‘ã“ü
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®ç¾åœ¨ã®æ™‚é–“ã‚’ä»£å…¥
         CurrentParticleTime = currentTime;
-        // ƒp[ƒeƒBƒNƒ‹‚Ì‘ŠÔ‚ğ‘ã“ü
+        // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®ç·æ™‚é–“ã‚’ä»£å…¥
         TotalParticleTime = totalTime;
     }
 }

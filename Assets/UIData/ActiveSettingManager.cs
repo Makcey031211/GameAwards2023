@@ -4,27 +4,29 @@ using UnityEngine;
 
 public class ActiveSettingManager : MonoBehaviour
 {
-
-    [SerializeField, Header("ゲーム開始時に非表示にするオブジェクトA")]
-    private GameObject Object_A;
-    [SerializeField, Header("ゲーム開始時に非表示にするオブジェクトB")]
-    private GameObject Object_B;
+    [SerializeField, Header("ゲーム開始時に非表示にするオブジェクト")]
+    private List<GameObject> Objects;
 
     private bool bActive = false;
     void Start()
     {
         
         //- 指定したタグのオブジェクトを取得
-        Object_A.SetActive(false);
-        Object_B.SetActive(false);
+        foreach(GameObject o in Objects)
+        {
+            o.SetActive(false);
+        }
+
     }
 
     void Update()
     {
         if (SceneChange.bIsChange && !bActive)
         {
-            Object_A.SetActive(true);
-            Object_B.SetActive(true);
+            foreach(GameObject o in Objects)
+            {
+                o.SetActive(true);
+            }
             bActive = true;
         }
     }
