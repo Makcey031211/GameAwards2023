@@ -214,4 +214,9 @@ public class UIAnimeManager : MonoBehaviour
         }
     }
 
+    public bool GetUIAnimeComplete()
+    {
+        return bUIMoveComplete;
+    }
+
 }

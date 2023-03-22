@@ -64,7 +64,7 @@ public class PController : MonoBehaviour
     public void OnMove(InputAction.CallbackContext context)
     {
         bool Animeconfirm;
-        Animeconfirm = UIanimemanager.bUIMoveComplete;
+        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
         
         if (Animeconfirm)
         {
@@ -89,26 +89,32 @@ public class PController : MonoBehaviour
 
     public void OnDestruct(InputAction.CallbackContext context)
     {
-        //自爆
-        if (!isOnce)
-        { // 爆発直後
-            isOnce = true;
-            // 指定した位置に生成
-            GameObject fire = Instantiate(
-                particleObject,                     // 生成(コピー)する対象
-                transform.position,                 // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                );
+        bool Animeconfirm;
+        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
 
-            // 子オブジェクト1個目
-            transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
-            transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
+        if (Animeconfirm)
+        {
+            //自爆
+            if (!isOnce)
+            { // 爆発直後
+                isOnce = true;
+                // 指定した位置に生成
+                GameObject fire = Instantiate(
+                    particleObject,                     // 生成(コピー)する対象
+                    transform.position,                 // 生成される位置
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                    );
 
-            // 子オブジェクト2個目
-            transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+                // 子オブジェクト1個目
+                transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
+                transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
 
-            //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
-            sceneChange.bIsLife = false;
+                // 子オブジェクト2個目
+                transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
+
+                //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
+                sceneChange.bIsLife = false;
+            }
         }
     }
 
