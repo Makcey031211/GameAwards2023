@@ -38,8 +38,8 @@ public class EnemySpinY : MonoBehaviour
 
         //- ワールド回転を取得
         Vector3 worldAngle = myTransform.eulerAngles;
-        //- ワールド系でY軸回転
-        worldAngle.y += FrameSpinSpeed;
+        //- ワールド系でZ軸回転
+        worldAngle.z += FrameSpinSpeed;
         //- ワールド回転を反映
         myTransform.eulerAngles = worldAngle;
     }

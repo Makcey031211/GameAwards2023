@@ -50,7 +50,7 @@ public class CrackerQuickSpin : MonoBehaviour
         //- ワールド座標を基準に、回転を取得
         Vector3 worldAngle = myTransform.eulerAngles;
         //- ワールド座標を基準にした、y軸を軸にした回転角度の補完処理
-        worldAngle.y += (LookAngleNum[nNowLookNum] - worldAngle.y) * (CompensatePercent / 100.0f);
+        worldAngle.z += (LookAngleNum[nNowLookNum] - worldAngle.z) * (CompensatePercent / 100.0f);
         //- 回転の適用
         this.transform.eulerAngles = worldAngle;
 
