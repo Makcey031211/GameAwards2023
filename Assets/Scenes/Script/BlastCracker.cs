@@ -155,19 +155,15 @@ public class BlastCracker : MonoBehaviour
                     continue;
                 }
             }
-
-            for (int i = 0; i < 30; i++)
+            
+            // 指定した位置に生成
+            for (int i = 0; i < 2; i++)
             {
-                //- 吹っ飛ぶ力を生成
-                Vector3 ForceRay = Quaternion.Euler(0, 0, Random.Range(-20, 21)) * CrackerTransform.up * Random.Range(200, 1500);
-                // 指定した位置に生成
                 GameObject fire = Instantiate(
                     particleObject,                     // 生成(コピー)する対象
                     transform.position,           // 生成される位置
-                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                    Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
                     );
-                //- 紙吹雪に吹っ飛ぶ力を与える
-                fire.GetComponent<Rigidbody>().AddForce(ForceRay);
             }
 
             //- 自身を破壊する
