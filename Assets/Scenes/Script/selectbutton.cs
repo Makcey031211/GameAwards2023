@@ -1,19 +1,19 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; // UIã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®ä½¿ç”¨
+using UnityEngine.UI; // UIƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìg—p
 
 public class selectbutton : MonoBehaviour
 {
-    Button UISelect;
-    [SerializeField, Header("UIã®é¸æŠ")]
-    private GameObject UIAnimeComplete;
+    Button _next;
+    Button _retry;
 
     void Start()
     {
-        // ãƒœã‚¿ãƒ³ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
-        UISelect = UIAnimeComplete.GetComponent<Button>();
+        // ƒ{ƒ^ƒ“ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
+        _next = GameObject.Find("Canvas/NextSceneButton").GetComponent<Button>();
+        _retry = GameObject.Find("Canvas/RetrySceneButton").GetComponent<Button>();
 
-        // æœ€åˆã«é¸æŠçŠ¶æ…‹ã«ã—ãŸã„ãƒœã‚¿ãƒ³ã®è¨­å®š
-        UISelect.Select();
+        // Å‰‚É‘I‘ğó‘Ô‚É‚µ‚½‚¢ƒ{ƒ^ƒ“‚Ìİ’è
+        _next.Select();
     }
 }
