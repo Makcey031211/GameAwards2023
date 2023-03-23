@@ -17,11 +17,14 @@ public class ResurrectionBox : MonoBehaviour
     [SerializeField, Header("生成音SE")]
     private AudioClip sound;
 
-    FireFlower FireflowerScript; //- 花火点火スクリプト
+    //- 花火点火スクリプト
+    FireFlower FireflowerScript;
 
-    float delayTime; //- 生成までの待ち時間(秒)
+    //- 生成までの待ち時間(秒)
+    float delayTime;
 
-    bool isOnce; //- 処理を一回だけ行う
+    //- 処理を一回だけ行う
+    bool isOnce;
 
     private GameObject CameraObject;
     SceneChange sceneChange;
