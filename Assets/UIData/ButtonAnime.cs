@@ -21,11 +21,12 @@ public class ButtonAnime : MonoBehaviour,
     {
         button = GetComponent<Button>();
         Size =  button.transform.localScale;
+        transform.DOScale(new Vector3(Size.x,Size.y),0.0f)
+            .SetLink(button.gameObject,LinkBehaviour.PauseOnDisable);
     }
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
-        
         transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
             .SetEase(Ease.OutSine);
         Debug.Log("ÅyUIÅzëIë");
