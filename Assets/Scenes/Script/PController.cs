@@ -25,6 +25,9 @@ public class PController : MonoBehaviour
     [SerializeField, Header("火花用のオブジェクト")]
     private GameObject particleObject;
 
+    [SerializeField, Header("消滅するオブジェクト")]
+    private GameObject DeleteObject;
+
     [SerializeField, Header("自爆SE")]
     private AudioClip sound;
 
@@ -107,6 +110,8 @@ public class PController : MonoBehaviour
                     transform.position,                 // 生成される位置
                     Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                     );
+
+                Destroy(DeleteObject);
 
                 // 子オブジェクト1個目
                 transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
