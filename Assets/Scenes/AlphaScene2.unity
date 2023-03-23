@@ -2096,6 +2096,7 @@ GameObject:
   - component: {fileID: 490985410}
   - component: {fileID: 490985409}
   - component: {fileID: 490985415}
+  - component: {fileID: 490985416}
   m_Layer: 5
   m_Name: NextSceneButton
   m_TagString: Untagged
@@ -2266,6 +2267,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIAnimeComplete: {fileID: 490985408}
+--- !u!114 &490985416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490985408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e9e70fb24b54549bb17a7d40e9117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectSize: {x: 1.2, y: 1.2}
+  MoveTime: 0.2
 --- !u!1001 &497144205
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2918,6 +2933,7 @@ GameObject:
   - component: {fileID: 662440532}
   - component: {fileID: 662440531}
   - component: {fileID: 662440537}
+  - component: {fileID: 662440538}
   m_Layer: 5
   m_Name: RetrySceneButton
   m_TagString: Untagged
@@ -3088,6 +3104,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UIAnimeComplete: {fileID: 662440530}
+--- !u!114 &662440538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662440530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e9e70fb24b54549bb17a7d40e9117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SelectSize: {x: 1.2, y: 1.2}
+  MoveTime: 0.2
 --- !u!1001 &671159546
 PrefabInstance:
   m_ObjectHideFlags: 0
