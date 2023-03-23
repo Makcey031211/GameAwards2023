@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 二点間挙動
+/// </summary>
 public class LerpPingPong : MonoBehaviour
 {
-    [SerializeField,Header("線形補間の始点")]
+    [SerializeField,Header("始点")]
     private Transform startPoint;
 
-    [SerializeField,Header("線形補間の終点")]
+    [SerializeField,Header("終点")]
     private Transform endPoint;
 
     [SerializeField,Header("移動時間")]

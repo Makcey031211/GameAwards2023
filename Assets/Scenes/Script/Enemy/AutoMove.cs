@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 指定した区間を自動移動
+/// </summary>
 public class AutoMove : MonoBehaviour
 {
     [SerializeField, Header("移動量")]
@@ -11,18 +14,21 @@ public class AutoMove : MonoBehaviour
     [SerializeField]
     private Transform Right;
 
+    //- 開始位置
     private Vector2 StartPosition;
-    private int direction = 1;
-    FireFlower FireflowerScript; //- 花火点火スクリプト
 
-    // Start is called before the first frame update
+    //- 方向
+    private int direction = 1;
+
+    //- 花火点火スクリプト
+    FireFlower FireflowerScript; 
+
     void Start()
     {
         StartPosition = transform.position;
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!FireflowerScript.isExploded)

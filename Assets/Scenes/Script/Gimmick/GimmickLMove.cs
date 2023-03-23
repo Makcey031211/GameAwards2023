@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// L字挙動
+/// L字挙動(ギミック用)
 /// </summary>
-public class LSharpMoveGmi : MonoBehaviour
+public class GimmickLMove : MonoBehaviour
 {
     [SerializeField, Header("始点")]
     private List<Vector3> startPoint;

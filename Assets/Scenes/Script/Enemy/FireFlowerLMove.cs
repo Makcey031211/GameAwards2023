@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// LŽš‹““®
+/// LŽš‹““®(‰Ô‰Î‹Ê—p)
 /// </summary>
-public class LSharpMove : MonoBehaviour
+public class FireFlowerLMove : MonoBehaviour
 {
     [SerializeField, Header("Žn“_")]
     private List<Vector3> startPoint;
