@@ -44,7 +44,6 @@ public class VibrationManager : MonoBehaviour
         {
             //- 振動を設定
             gamepad.SetMotorSpeeds(VibrationPower, VibrationPower);
-            Debug.Log("S");
         }
         else
         {
@@ -68,7 +67,6 @@ public class VibrationManager : MonoBehaviour
     {
         //- 振動の強さ設定
         VibrationPower = power;
-        Debug.Log("T");
         //- 振動のフレーム数が現在のフレーム数より長かったら更新
         if (nVibrationFrameCount < nFrame) { nVibrationFrameCount = nFrame; }
     }
