@@ -21,5 +21,9 @@ public class ParticleTime : MonoBehaviour
     void Update()
     {
         sceneChange.SetParticleTime(particleSystem.time, particleSystem.main.duration);
+        if(particleSystem.time == particleSystem.main.duration)
+        {
+            Destroy(gameObject);
+        }
     }
 }
