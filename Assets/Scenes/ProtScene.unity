@@ -559,137 +559,6 @@ MonoBehaviour:
   EndPos: 6
   MoveTime: 0
   bUIMoveComplete: 0
---- !u!1 &329529048 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2170910268284030829, guid: aa2430fd0d81f534c8ea9fff80b1a285,
-    type: 3}
-  m_PrefabInstance: {fileID: 2170910268076685749}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &329529053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329529048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f691fd6eafa17ea4bbdef1df4ad51c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerPrefab: {fileID: 6778845895047833763, guid: e5ee89783428cc7409c0bcd40e0f8762,
-    type: 3}
-  delayTimer: 1
-  sound: {fileID: 8300000, guid: bca1d64db1c027a4892aefd0d38ce0e4, type: 3}
---- !u!114 &329529054
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329529048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff638ff03d90ee43af3b8e7852bf083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isExploded: 0
---- !u!82 &329529059
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329529048}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,9 +1251,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseMove: 0
   StartPos: 0
   MoveTime: 0.3
   Delay: 0.1
+  UseFade: 0
+  StartAlpha: 1
+  EndAlpha: 0
+  FadeTime: 0
 --- !u!1 &569986284
 GameObject:
   m_ObjectHideFlags: 0
@@ -3076,9 +2950,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseMove: 0
   StartPos: 0
   MoveTime: 0.5
   Delay: 0
+  UseFade: 0
+  StartAlpha: 1
+  EndAlpha: 0
+  FadeTime: 0
 --- !u!114 &1141221217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3656,9 +3535,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseMove: 0
   StartPos: 0
   MoveTime: 0.3
   Delay: 0
+  UseFade: 0
+  StartAlpha: 1
+  EndAlpha: 0
+  FadeTime: 0
 --- !u!1001 &1556973301
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4806,9 +4690,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseMove: 0
   StartPos: 0
   MoveTime: 0.5
   Delay: 0
+  UseFade: 0
+  StartAlpha: 1
+  EndAlpha: 0
+  FadeTime: 0
 --- !u!114 &1972420212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4964,21 +4853,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2170910268284030825, guid: aa2430fd0d81f534c8ea9fff80b1a285,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170910268284030825, guid: aa2430fd0d81f534c8ea9fff80b1a285,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170910268284030825, guid: aa2430fd0d81f534c8ea9fff80b1a285,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170910268284030825, guid: aa2430fd0d81f534c8ea9fff80b1a285,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: -13
       objectReference: {fileID: 0}
@@ -5031,11 +4905,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ResurrectionBox
-      objectReference: {fileID: 0}
-    - target: {fileID: 2170910268284030829, guid: aa2430fd0d81f534c8ea9fff80b1a285,
-        type: 3}
-      propertyPath: m_TagString
-      value: Fireworks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aa2430fd0d81f534c8ea9fff80b1a285, type: 3}
