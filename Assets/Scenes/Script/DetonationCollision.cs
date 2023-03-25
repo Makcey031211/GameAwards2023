@@ -7,6 +7,9 @@ public class DetonationCollision : MonoBehaviour
     [Header("“–‚½‚è”»’è‚ÌL‚ª‚è‹ï‡"), SerializeField]
     private float power = 3;
 
+    [Header("“–‚½‚è”»’è‚ÌÅ‘å’l"), SerializeField]
+    private float MaxColSize = 7.5f;
+
     [Header("íœ‚Ü‚Å‚ÌŠÔ"), SerializeField]
     private float time = 3.0f;
 
@@ -57,7 +60,7 @@ public class DetonationCollision : MonoBehaviour
     private void FixedUpdate()
     {
         float collSize = power * 0.0004f;
-        if (transform.localScale.x <= 7.5f)
+        if (transform.localScale.x <= MaxColSize)
         {
             transform.localScale += new Vector3(collSize, collSize, collSize);
         }
