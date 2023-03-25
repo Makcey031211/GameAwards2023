@@ -19,14 +19,11 @@ public class BlastCracker : MonoBehaviour
     [SerializeField, Header("クラッカーの破裂射程")]
     private float BrustDis = 10.0f;
 
-    [SerializeField, Header("破裂の引火の遅延(秒)")]
-    private float ShotHitSecond = 1.0f;
-
-    [SerializeField, Header("破裂後クラッカーの見た目が残り続ける時間(秒)")]
-    private float DestroyTime = 1.0f;
-
     [SerializeField, Header("破裂SE")]
     private AudioClip sound;
+
+    [SerializeField, Header("クラッカーの見た目が残る時間(秒)")]
+    private float ModelDeleteTime = 1.0f;
 
     //- クラッカーが破裂する方向
     Transform CrackerTransform;
@@ -52,16 +49,23 @@ public class BlastCracker : MonoBehaviour
     //- 振動用のコンポーネント
     VibrationManager vibration;
 
+    //- パーティクルシステム
+    ParticleSystem particle;
+
+    //- 完全にオブジェクトを消去する時間
+    float DestroyTime = 3.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         CrackerTransform = this.gameObject.GetComponent<Transform>();
         FireflowerScript = this.gameObject.GetComponent<FireFlower>();
-        ShotHitFrame = ShotHitSecond * 60;
         //- 線の追加
         linerend = gameObject.AddComponent<LineRenderer>();
         //- 振動コンポーネントの取得
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
+        //- パーティクルの取得
+        particle = particleObject.transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     void FixedUpdate()
@@ -100,17 +104,17 @@ public class BlastCracker : MonoBehaviour
         
         //- 弾けるタイミングになるまでは、以下の爆破処理を行わない
         if (!FireflowerScript.isExploded) return;
-
-        //- 爆破依頼を受けた後、弾ける時の遅延処理
-        if (HitFrameCount < ShotHitFrame)
-        {
-            HitFrameCount++;
-            return;
-        }
-
+        
         //- このif文の中身は一度だけ呼ばれる。
         if (!bIsBomb)
         {
+            //- クラッカーのエフェクト生成
+            GameObject fire = Instantiate(
+                particleObject,                     // 生成(コピー)する対象
+                transform.position,           // 生成される位置
+                Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
+                );
+
             //- 振動の設定
             vibration.SetVibration(60, 1.0f);
             //- 音の再生
@@ -151,23 +155,37 @@ public class BlastCracker : MonoBehaviour
                 var angle = Vector3.Angle((CrackerTransform.up).normalized, (FireworkDir).normalized);
                 if (angle != 0 && (angle < BrustAngle / 2))
                 {
-                    obj.gameObject.GetComponent<FireFlower>().isExploded = true;
+                    float DisDelayRatio = (dis) / (BrustDis *  particle.main.startSpeed.constantMin / 25) / 1.8f;
+                    float DelayTime = (10 / particle.main.startSpeed.constantMin / 25) + DisDelayRatio;
+                    //- 遅延をかけて爆破
+                    StartCoroutine(DelayDestroy(obj, DelayTime));
                     continue;
                 }
+
+                //- 遅延をかけて見た目のモデルを消す
+                StartCoroutine(DelayDeleteModel(this.transform.GetChild(0).gameObject, ModelDeleteTime));
             }
             
-            // 指定した位置に生成
-            for (int i = 0; i < 2; i++)
-            {
-                GameObject fire = Instantiate(
-                    particleObject,                     // 生成(コピー)する対象
-                    transform.position,           // 生成される位置
-                    Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
-                    );
-            }
-
             //- 自身を破壊する
             Destroy(this.gameObject, DestroyTime);
         }
+    }
+
+    //- 遅れて起爆する関数
+    private IEnumerator DelayDestroy(GameObject Obj,float delayTime)
+    {
+        //- delayTime秒待機する
+        yield return new WaitForSeconds(delayTime);
+        //- 起爆判定を有効にする
+        Obj.gameObject.GetComponent<FireFlower>().isExploded = true;
+    }
+
+    //- 遅れて見た目を消す関数
+    private IEnumerator DelayDeleteModel(GameObject Obj, float delayTime)
+    {
+        //- delayTime秒待機する
+        yield return new WaitForSeconds(delayTime);
+        //- 見た目を消す
+        Obj.SetActive(false);
     }
 }
