@@ -61,7 +61,8 @@ public class MakeFireFlower : MonoBehaviour
                     );
                 //----- 弾をそのまま当たり判定に流用する
                 // 爆発時に描画をやめる
-                GetComponent<MeshRenderer>().enabled = false;
+                StopRenderer(gameObject);
+
                 gameObject.tag = "ExplodeCollision";
                 rb.isKinematic = true;
                 GetComponent<DestroyTimer>().enabled = true;
@@ -69,6 +70,16 @@ public class MakeFireFlower : MonoBehaviour
                 //- 音の再生
                 gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
             }
+        }
+    }
+
+    // 爆発時に子オブジェクト含め描画をやめる処理
+    void StopRenderer(GameObject gameObject)
+    {
+        var renderer = GetComponentsInChildren<Renderer>();
+
+        for (int i = 0; i < renderer.Length; i++) {
+            renderer[i].enabled = false;
         }
     }
 }
