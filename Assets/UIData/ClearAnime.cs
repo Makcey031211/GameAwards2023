@@ -14,6 +14,16 @@ public class ClearAnime : MonoBehaviour
         LEFT,
     }
 
+    [HeaderAttribute("---フェード設定---")]
+    [SerializeField, Header("移動処理を実行する:チェックで実行")]
+    private bool UseFade = false;
+    [SerializeField, Header("開始のアルファ値")]
+    private float StartAlpha = 1.0f;
+    [SerializeField, Header("終了のアルファ値")]
+    private float EndAlpha = 0.0f;
+    [SerializeField, Header("フェード完了までの時間:float")]
+    private float FadeTime = 0.0f;
+
     [HeaderAttribute("---移動設定--")]
     [SerializeField, Header("移動処理を実行する:チェックで実行")]
     private bool UseMove = false;
@@ -25,25 +35,24 @@ public class ClearAnime : MonoBehaviour
     private float Delay = 0.0f;
     private Vector2 InitPos;
 
-
-    [HeaderAttribute("---フェード設定---")]
-    [SerializeField, Header("移動処理を実行する:チェックで実行")]
-    private bool UseFade = false;
-    [SerializeField, Header("開始のアルファ値")]
-    private float StartAlpha = 1.0f;
-    [SerializeField, Header("終了のアルファ値")]
-    private float EndAlpha = 0.0f;
-    [SerializeField, Header("フェード完了までの時間:float")]
-    private float FadeTime = 0.0f;
+    [HeaderAttribute("---ポップ設定---")]
+    [SerializeField, Header("ポップ処理を実行する：チェックで実行")]
+    private bool UsePop = false;
+    [SerializeField, Header("ポップの最大倍率：float")]
+    private Vector2 PopSize;
+    [SerializeField, Header("ポップの最大倍率までの時間：float")]
+    private float PopMaxSizeTime = 1.0f;
+    [SerializeField, Header("ポップ後元サイズに戻るまでの時間：float")]
+    private float PopInitSizeTime = 1.0f;
 
     private void Start()
     {
-        
+        if (UseFade)
+        { DoFade(); }
         if (UseMove)
         {   PosMove();   }
-        
-        if(UseFade)
-        {   DoFade();   }
+        if(UsePop)
+        { DoPop(); }
     }
 
     /// <summary>
@@ -92,5 +101,20 @@ public class ClearAnime : MonoBehaviour
         //- フェードを行う
         image.DOFade(EndAlpha,FadeTime).SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);
        
+    }
+
+    private void DoPop()
+    {
+        Image image = GetComponent<Image>();
+        Vector2 Initsize = this.gameObject.transform.localScale;
+        transform.DOScale(new Vector3(Initsize.x * PopSize.x, Initsize.y * PopSize.y, 0.0f), PopMaxSizeTime)
+            .SetEase(Ease.OutSine)
+            .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
+            .OnComplete(() => 
+            {
+                transform.DOScale(new Vector3(Initsize.x, Initsize.y, 0.0f), PopMaxSizeTime)
+                .SetEase(Ease.OutSine)
+                .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);
+            });
     }
 }
