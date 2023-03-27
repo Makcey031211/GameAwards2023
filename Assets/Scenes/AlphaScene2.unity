@@ -1304,14 +1304,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UseFade: 0
+  StartAlpha: 0
+  EndAlpha: 1
+  FadeTime: 0.2
   UseMove: 1
   StartPos: 1
   MoveTime: 0.3
   Delay: 0
-  UseFade: 0
-  StartAlpha: 0
-  EndAlpha: 1
-  FadeTime: 0.5
+  UsePop: 0
+  PopSize: {x: 1.3, y: 1.3}
+  PopMaxSizeTime: 0.1
+  PopInitSizeTime: 0.1
 --- !u!114 &318023401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2889,14 +2893,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseMove: 1
-  StartPos: 1
-  MoveTime: 0.4
-  Delay: 0
   UseFade: 0
   StartAlpha: 1
   EndAlpha: 0
   FadeTime: 0
+  UseMove: 1
+  StartPos: 1
+  MoveTime: 0.4
+  Delay: 0
+  UsePop: 0
+  PopSize: {x: 0, y: 0}
+  PopMaxSizeTime: 1
+  PopInitSizeTime: 1
 --- !u!114 &662440532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4002,14 +4010,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseMove: 0
-  StartPos: 1
-  MoveTime: 0.3
-  Delay: 0
   UseFade: 1
   StartAlpha: 0
   EndAlpha: 0.5
   FadeTime: 1
+  UseMove: 0
+  StartPos: 1
+  MoveTime: 0.3
+  Delay: 0
+  UsePop: 0
+  PopSize: {x: 0, y: 0}
+  PopMaxSizeTime: 1
+  PopInitSizeTime: 1
 --- !u!114 &1164598046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5391,14 +5403,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseMove: 1
-  StartPos: 1
-  MoveTime: 0.4
-  Delay: 0
   UseFade: 0
   StartAlpha: 1
   EndAlpha: 0
   FadeTime: 0
+  UseMove: 1
+  StartPos: 1
+  MoveTime: 0.4
+  Delay: 0
+  UsePop: 0
+  PopSize: {x: 0, y: 0}
+  PopMaxSizeTime: 1
+  PopInitSizeTime: 1
 --- !u!114 &1888897799
 MonoBehaviour:
   m_ObjectHideFlags: 0
