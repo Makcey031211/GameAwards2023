@@ -164,6 +164,9 @@ public class BlastCracker : MonoBehaviour
 
                 //- 遅延をかけて見た目のモデルを消す
                 StartCoroutine(DelayDeleteModel(this.transform.GetChild(0).gameObject, ModelDeleteTime));
+
+                //- タグの変更
+                this.tag = "Untagged";
             }
             
             //- 自身を破壊する
