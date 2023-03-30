@@ -24,22 +24,23 @@ public class CrackerQuickSpin : MonoBehaviour
     int nGoAroundFrame;
 
     //- 花火点火スクリプト
-    FireFlower FireflowerScript;
+    FireworksModule fireworks;
 
     void Start()
     {
         //- 一周にかかるフレーム数を設定
         nGoAroundFrame = (int)GoAroundTime * 60;
         //- 花火点火スクリプトの取得
-        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        fireworks = this.gameObject.GetComponent<FireworksModule>();
     }
 
     void FixedUpdate()
     {
         //- 爆破時、回転スクリプトを無効化
-        if (FireflowerScript.isExploded)
+        if (fireworks.IsExploded)
         {
-            this.gameObject.GetComponent<CrackerQuickSpin>().enabled = false;
+            Debug.Log("test");
+            enabled = false;
         }
 
         //- 現在が配列何番目の角度を目指しているか求める

@@ -21,17 +21,17 @@ public class AutoMove : MonoBehaviour
     private int direction = 1;
 
     //- 花火点火スクリプト
-    FireFlower FireflowerScript; 
+    FireworksModule fireworks; 
 
     void Start()
     {
         StartPosition = transform.position;
-        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        fireworks = this.gameObject.GetComponent<FireworksModule>();
     }
 
     void Update()
     {
-        if (!FireflowerScript.isExploded)
+        if (!fireworks.IsExploded)
         {
             //- 右方向へ一定地点たどり着いたら左方向へ
             if (transform.position.x >= Right.position.x)

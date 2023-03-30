@@ -27,8 +27,8 @@ public class FireFlowerLMove : MonoBehaviour
 
     private List<Vector3> points = new List<Vector3>();
 
-    //- 花火点火スクリプト
-    FireFlower FireflowerScript;
+    //- 花火スクリプト
+    FireworksModule fireworks;
 
     private void Start()
     {
@@ -37,12 +37,12 @@ public class FireFlowerLMove : MonoBehaviour
         points.AddRange(halfwayPoint);
         points.AddRange(endPoint);
 
-        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        fireworks = this.gameObject.GetComponent<FireworksModule>();
     }
 
     private void Update()
     {
-        if (!FireflowerScript.isExploded)
+        if (!fireworks.IsExploded)
         {
             //- 次の位置に移動するための方向ベクトルを計算する
             Vector3 directionVector = (points[currentPoint] - transform.position).normalized;

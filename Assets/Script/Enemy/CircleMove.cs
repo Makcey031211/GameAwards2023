@@ -26,16 +26,16 @@ public class CircleMove : MonoBehaviour
     float angle = 360f;
 
     //- 花火点火スクリプト
-    FireFlower FireflowerScript;
+    FireworksModule fireworks;
 
     private void Start()
     {
-        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
+        fireworks = this.gameObject.GetComponent<FireworksModule>();
     }
 
     private void Update()
     {
-        if (!FireflowerScript.isExploded)
+        if (!fireworks.IsExploded)
         {
             var trans = transform;
 
