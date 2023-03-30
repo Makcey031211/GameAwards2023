@@ -77,7 +77,7 @@ public class FireworksModule : MonoBehaviour
     private bool _isInvinsible = false; // 爆発中かどうか
     //-- 外部からの値取得用
     public float BlastInvSeconds => _blastInvSeconds;
-    public Color InitColor => _initColor;
+    public Color InvColor => _invColor;
     public int BlastNum => _blastNum;
 
     //- 復活箱用の項目
@@ -141,6 +141,9 @@ public class FireworksModule : MonoBehaviour
                 break;
             case FireworksType.MultiBlast:
                 MultiBlastFire();
+                break;
+            case FireworksType.ResurrectionBox:
+                ResurrectionBoxFire();
                 break;
             default:
                 break;

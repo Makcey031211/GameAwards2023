@@ -30,9 +30,9 @@ public class FireworksModuleEditor : Editor {
         case FireworksModule.FireworksType.Hard:
         case FireworksModule.FireworksType.MultiBlast:
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
-            _target._blastInvSeconds = EditorGUILayout.FloatField("”š”jŒã–³“GŠÔ(•b)", _target._blastInvSeconds);
-            _target._invColor = EditorGUILayout.ColorField("–³“GŠÔ’†‚ÌF(RGB)", _target._invColor);
-            _target._blastNum = EditorGUILayout.IntField("”š”j‰ñ”", _target._blastNum);
+            _target._blastInvSeconds = EditorGUILayout.FloatField("”š”jŒã–³“GŠÔ(•b)", _target.BlastInvSeconds);
+            _target._invColor = EditorGUILayout.ColorField("–³“GŠÔ’†‚ÌF(RGB)", _target.InvColor);
+            _target._blastNum = EditorGUILayout.IntField("”š”j‰ñ”", _target.BlastNum);
             break;
         case FireworksModule.FireworksType.ResurrectionBox:
             _target._playerPrefab = (GameObject)EditorGUILayout.ObjectField("¶¬‚·‚éƒIƒuƒWƒFƒNƒg", _target.PlayerPrefab, typeof(GameObject), true);
