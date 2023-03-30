@@ -35,7 +35,7 @@ public class ShotBullet : MonoBehaviour {
                 transform.position + pos,     // ê∂ê¨Ç≥ÇÍÇÈà íu
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)    // ç≈èâÇ…Ç«ÇÍÇæÇØâÒì]Ç∑ÇÈÇ©
         );
-        bullet.GetComponent<FireFlower>().enabled = true;
+        bullet.GetComponent<FireworksModule>().enabled = true;
         bullet.GetComponent<Rigidbody>().AddForce(ForceDirection);
     }
 

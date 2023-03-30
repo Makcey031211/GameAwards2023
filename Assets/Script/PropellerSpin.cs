@@ -13,9 +13,6 @@ public class PropellerSpin : MonoBehaviour
     //- 1フレームの移動量
     private float FrameSpinSpeed;
 
-    //- 花火点火スクリプト
-    FireFlower FireflowerScript;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +20,6 @@ public class PropellerSpin : MonoBehaviour
         myTransform = this.transform;
         //- 1フレームの移動量を計算
         FrameSpinSpeed = SecondSpinSpeed / 60;
-        //- 花火点火スクリプトの取得
-        FireflowerScript = this.gameObject.GetComponent<FireFlower>();
     }
 
     // Update is called once per frame

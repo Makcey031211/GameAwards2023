@@ -93,10 +93,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7601643690255727284}
   - component: {fileID: 7601643690255727295}
-  - component: {fileID: 7601643690255727281}
-  - component: {fileID: 7601643690255727280}
   - component: {fileID: 7601643690255727293}
   - component: {fileID: 6295186438545428369}
+  - component: {fileID: -6295549283982643540}
   m_Layer: 10
   m_Name: Cracker
   m_TagString: Fireworks
@@ -134,39 +133,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 2
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &7601643690255727281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7601643690255727287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff638ff03d90ee43af3b8e7852bf083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isExploded: 0
---- !u!114 &7601643690255727280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7601643690255727287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 894daa5f3520e2a41bf0f4651531f232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleObject: {fileID: 1154026849375511719, guid: 69e3c5bf1f18c754492d49384adc9f35,
-    type: 3}
-  bIsDrawArea: 0
-  nCircleComplementNum: 10
-  BrustAngle: 50
-  BrustDis: 15
-  sound: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
-  ModelDeleteTime: 1
 --- !u!114 &7601643690255727293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -276,6 +242,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6295549283982643540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7601643690255727287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0c7c58ea170af4ba18c7a26f0b16a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _particleObject: {fileID: 1154026849375511719, guid: 69e3c5bf1f18c754492d49384adc9f35,
+    type: 3}
+  _sound: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
+  _collisionObject: {fileID: 0}
+  _circleComplementNum: 10
+  _blastAngle: 50
+  _blastDis: 15
+  _modelDeleteTime: 1
+  _isDrawArea: 0
+  _blastInvSeconds: 3
+  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _blastNum: 2
 --- !u!1001 &1297395822256329035
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -306,7 +297,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f2964d4f15518bc43b72b1e78156b1c5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f2964d4f15518bc43b72b1e78156b1c5,
         type: 3}
@@ -316,7 +307,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: f2964d4f15518bc43b72b1e78156b1c5,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5.9604643e-10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: f2964d4f15518bc43b72b1e78156b1c5,
         type: 3}

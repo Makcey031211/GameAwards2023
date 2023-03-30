@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b2bb837ae110ce4fbf791d491af5141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  power: 350
+  power: 1000
   MaxColSize: 7
   time: 0.75
   ColSize: {x: 1, y: 1, z: 1}
@@ -89,7 +89,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2945599561389004759}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.059554517, z: -0.454818}
+  m_LocalPosition: {x: 0, y: 0.100000024, z: -0.454818}
   m_LocalScale: {x: 0.086506985, y: 0.08650699, z: 0.08650699}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -159,10 +159,8 @@ GameObject:
   - component: {fileID: 2932965109810916585}
   - component: {fileID: 901810736887906299}
   - component: {fileID: 8289348789663898956}
-  - component: {fileID: 8055802166185234229}
-  - component: {fileID: 6960693714021449562}
-  - component: {fileID: 6768004921166766225}
   - component: {fileID: 8573916713547162031}
+  - component: {fileID: 564008265277867530}
   m_Layer: 10
   m_Name: FireFlower
   m_TagString: Fireworks
@@ -179,7 +177,7 @@ Transform:
   m_GameObject: {fileID: 7171924692625481344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7161690513175085057}
@@ -267,48 +265,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 8
   m_CollisionDetection: 0
---- !u!114 &8055802166185234229
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7171924692625481344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff638ff03d90ee43af3b8e7852bf083, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isExploded: 0
---- !u!114 &6960693714021449562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7171924692625481344}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc9f8981b1e033c45948c9e47db8a1b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  destroyTime: 0.8
-  timeRange: 0
---- !u!114 &6768004921166766225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7171924692625481344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e02cb6364490ba74687e2fa96275ee48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  particleObject: {fileID: 2106132974334356141, guid: 8c4ac27a8bb81a540b656c84b8907c05,
-    type: 3}
-  sound: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
 --- !u!82 &8573916713547162031
 AudioSource:
   m_ObjectHideFlags: 0
@@ -405,6 +361,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &564008265277867530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7171924692625481344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0c7c58ea170af4ba18c7a26f0b16a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _particleObject: {fileID: 2106132974334356141, guid: 8c4ac27a8bb81a540b656c84b8907c05,
+    type: 3}
+  _sound: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
+  _collisionObject: {fileID: 448602364086451437}
+  _circleComplementNum: 10
+  _blastAngle: 0
+  _blastDis: 0
+  _modelDeleteTime: 1
+  _isDrawArea: 1
+  _blastInvSeconds: 3
+  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _blastNum: 2
 --- !u!1001 &6132355235937114060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -440,7 +421,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d49ef1ef60928c54a9e857d4dd002914,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.429
+      value: -0.436
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d49ef1ef60928c54a9e857d4dd002914,
         type: 3}

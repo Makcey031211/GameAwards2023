@@ -90,7 +90,7 @@ public class DetonationCollision : MonoBehaviour
                 if (StageHit == false)
                 {
                     // 当たったオブジェクトのFireFlowerスクリプト内のisExplodedをtrueに変える
-                    other.gameObject.GetComponent<FireFlower>().isExploded = true;
+                    other.gameObject.GetComponent<FireworksModule>().Ignition();
                 }
             }
         }

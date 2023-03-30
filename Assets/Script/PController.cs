@@ -45,20 +45,19 @@ public class PController : MonoBehaviour
     private float turnVelocity;
     private bool isGroundedPrev;
     bool isOnce; // 処理を一回だけ行う
-    Rigidbody playerRB;
     private GameObject CameraObject;
-    SceneChange sceneChange;
 
-    public UIAnimeManager UIanimemanager;
+    FireworksModule fireworks;
+    SceneChange sceneChange;
 
     void Start()
     {
         _transform = transform;
-        playerRB = GetComponent<Rigidbody>();
         CameraObject = GameObject.Find("Main Camera");
         sceneChange = CameraObject.GetComponent<SceneChange>();
-        audioSource = GetComponent<AudioSource>();
-        UIanimemanager = GameObject.Find("CountObjectText").GetComponent<UIAnimeManager>();
+        audioSource = GetComponent<AudioSource>(); ;
+
+        fireworks = GetComponent<FireworksModule>();
 
         isOnce = false;
     }
@@ -69,63 +68,31 @@ public class PController : MonoBehaviour
     
     public void OnMove(InputAction.CallbackContext context)
     {
-        bool Animeconfirm;
-        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
-        
-        if (Animeconfirm)
+        // 入力値を保持しておく
+        inputMove = context.ReadValue<Vector2>();
+        //- 音の再生
+        if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
         {
-            if (!isOnce)
-            {
-                // 入力値を保持しておく
-                inputMove = context.ReadValue<Vector2>();
-                //- 音の再生
-                if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
-                {
-                    bIsPlaySound = true;
-                    audioSource.Play();
-                }
-                else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
-                {
-                    bIsPlaySound = false;
-                    audioSource.Stop();
-                }
-            }
+            bIsPlaySound = true;
+            audioSource.Play();
+        }
+        else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
+        {
+            bIsPlaySound = false;
+            audioSource.Stop();
         }
     }
 
     public void OnDestruct(InputAction.CallbackContext context)
     {
-        bool Animeconfirm;
-        Animeconfirm = UIanimemanager.GetUIAnimeComplete();
-
-        if (Animeconfirm)
+        //自爆
+        if (!isOnce)
         {
-            //自爆
-            if (!isOnce)
-            { // 爆発直後
-                isOnce = true;
-                // 指定した位置に生成
-                GameObject fire = Instantiate(
-                    particleObject,                     // 生成(コピー)する対象
-                    transform.position,                 // 生成される位置
-                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                    );
+            //- 爆発処理
+            fireworks.Ignition();
 
-                Destroy(DeleteObject);
-
-                // 子オブジェクト1個目
-                transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
-                transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
-
-                // 子オブジェクト2個目
-                transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().enabled = false;
-
-                //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
-                sceneChange.bIsLife = false;
-
-                //- 音の再生
-                gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
-            }
+            //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
+            sceneChange.bIsLife = false;
         }
     }
 

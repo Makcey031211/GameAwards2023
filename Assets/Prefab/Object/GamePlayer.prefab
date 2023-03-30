@@ -77,6 +77,7 @@ GameObject:
   - component: {fileID: 6778845893802623877}
   - component: {fileID: 6778845893802623876}
   - component: {fileID: 6778845893802623896}
+  - component: {fileID: 7666155976586742887}
   - component: {fileID: 1868856877052305809}
   m_Layer: 6
   m_Name: Player
@@ -170,7 +171,6 @@ MonoBehaviour:
     type: 3}
   DeleteObject: {fileID: 6778845893938954530}
   sound: {fileID: 0}
-  UIanimemanager: {fileID: 0}
 --- !u!114 &6778845893802623896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,6 +286,31 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &7666155976586742887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6778845893802623889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac0c7c58ea170af4ba18c7a26f0b16a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _particleObject: {fileID: 2106132974334356141, guid: e9fe91503efb48343960386e06f629da,
+    type: 3}
+  _sound: {fileID: 8300000, guid: 0454ea4f9722a4948b5b4703f9faab3b, type: 3}
+  _collisionObject: {fileID: 6778845893404352707}
+  _circleComplementNum: 10
+  _blastAngle: 0
+  _blastDis: 0
+  _modelDeleteTime: 1
+  _isDrawArea: 1
+  _blastInvSeconds: 3
+  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _blastNum: 2
 --- !u!82 &1868856877052305809
 AudioSource:
   m_ObjectHideFlags: 0
