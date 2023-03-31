@@ -25,6 +25,8 @@ public class FireworksModule : MonoBehaviour
     private AudioClip _sound;
     [SerializeField, HideInInspector]
     public GameObject _collisionObject; // 当たり判定用オブジェクト   通常、ハード、マルチブラスト
+    [SerializeField, Header("破裂後の表情オブジェクト")]
+    public GameObject _eyeObject; // 破裂後表情用オブジェクト
     //-- インスペクターから非表示
     private VibrationManager vibration; // コントローラーの振動用
     private bool _isExploded; // 爆発フラグ
@@ -35,6 +37,7 @@ public class FireworksModule : MonoBehaviour
     public AudioClip Sound => _sound;
     public bool IsExploded => _isExploded;
     public GameObject CollisionObject => _collisionObject;
+    public GameObject EyeObject => _eyeObject;
 
 
     //- クラッカーの項目
@@ -179,6 +182,16 @@ public class FireworksModule : MonoBehaviour
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
+            if (_eyeObject)
+            {
+                //- 指定した位置に表情生成
+                GameObject eye = Instantiate(
+                    _eyeObject,                     // 生成(コピー)する対象
+                    transform.position,           // 生成される位置
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                    );
+            }
+            
             //- コントローラーの振動の設定
             vibration.SetVibration(60, 1.0f);
 
