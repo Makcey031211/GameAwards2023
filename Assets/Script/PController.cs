@@ -28,9 +28,6 @@ public class PController : MonoBehaviour
     [SerializeField, Header("消滅するオブジェクト")]
     private GameObject DeleteObject;
 
-    [SerializeField, Header("自爆SE")]
-    private AudioClip sound;
-
     //- ジャンプした回数(ジャンプ回数が回復すると,この変数は0に戻る)
     private int nJumpCount = 0;
 

@@ -204,8 +204,8 @@ public class FireworksModule : MonoBehaviour
             //- 爆発時に描画をやめる
             StopRenderer(gameObject);
 
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(Sound);
+            //- 火花音の再生
+            SEManager.Instance.SetPlaySE(Sound,0.6f);
         }
     }
 
@@ -256,8 +256,8 @@ public class FireworksModule : MonoBehaviour
 
             //- 振動の設定
             vibration.SetVibration(60, 1.0f);
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(Sound);
+            //- 火花音の再生
+            SEManager.Instance.SetPlaySE(Sound, 0.6f);
             //- タグが花火のオブジェクトを全て取得
             GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
             // 原点からクラッカーへのベクトル
@@ -312,8 +312,8 @@ public class FireworksModule : MonoBehaviour
         if (IsExploded && !_isInvinsible) {
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(_sound);
+            //- 火花音の再生
+            SEManager.Instance.SetPlaySE(Sound, 0.6f);
             //- 無敵フラグを設定
             _isInvinsible = true;
             //- 何回目の爆破かを更新     
@@ -363,8 +363,8 @@ public class FireworksModule : MonoBehaviour
         if (IsExploded && !_isInvinsible) {
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(_sound);
+            //- 火花音の再生
+            SEManager.Instance.SetPlaySE(Sound, 0.6f);
             //- 爆発回数を更新
             _blastCount++;
             //- 無敵フラグを設定
@@ -383,7 +383,6 @@ public class FireworksModule : MonoBehaviour
 
             //- コントローラーの振動の設定
             vibration.SetVibration(60, 1.0f);
-
 
             // 爆発時に当たり判定を無効化
             GetComponent<SphereCollider>().isTrigger = true;
@@ -440,6 +439,7 @@ public class FireworksModule : MonoBehaviour
         obj.SetActive(false);
     }
 
+    //- プレイヤーを再生成する関数
     private IEnumerator SpawnPlayer(float delayTime)
     {
         //- delayTime秒待機する
@@ -451,26 +451,27 @@ public class FireworksModule : MonoBehaviour
         //- 徐々に生成するプレイヤーの数
         int numPlayers = 1;
 
-        //- 生成位置(Z)
-        float playerPosZ = 1.5f;
-
         //- プレイヤーを徐々に生成する
-        for (int i = 0; i < numPlayers; i++) {
+        for (int i = 0; i < numPlayers; i++) 
+        {
             //- プレイヤーを生成する
             Vector3 spawnPosition = new Vector3(
-                transform.position.x, transform.position.y, playerPosZ);
-            GameObject player = Instantiate(_playerPrefab, spawnPosition, Quaternion.identity);
+                transform.position.x, transform.position.y, transform.position.z);
+            GameObject player = Instantiate(
+                _playerPrefab, spawnPosition, Quaternion.identity);
 
-            //- 音の再生
-            gameObject.GetComponent<AudioSource>().PlayOneShot(_generatedSound);
+            //- 生成音の再生
+            SEManager.Instance.SetPlaySE(GeneratedSound, 1.0f);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
             sceneChange.bIsLife = true;
 
             //- 徐々に生成するアニメーション
-            while (elapsed < _animationTime) {
+            while (elapsed < _animationTime) 
+            {
                 float t = elapsed / _animationTime;
-                player.transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, t);
+                player.transform.localScale = 
+                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
                 elapsed += Time.deltaTime;
                 yield return null;
             }
@@ -483,11 +484,12 @@ public class FireworksModule : MonoBehaviour
         float startTime = Time.time;
         Vector3 initialScale = transform.localScale;
 
-        //- 音の再生
-        gameObject.GetComponent<AudioSource>().PlayOneShot(_disSound);
+        //- 消滅音の再生
+        SEManager.Instance.SetPlaySE(DisSound, 1.0f);
 
         //- 復活箱を徐々に消滅させる
-        while (Time.time < startTime + _boxDisTime) {
+        while (Time.time < startTime + _boxDisTime) 
+        {
             float t = (Time.time - startTime) / _boxDisTime;
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
             yield return null;
