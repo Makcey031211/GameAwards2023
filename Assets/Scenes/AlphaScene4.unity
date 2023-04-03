@@ -735,6 +735,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7666155976586742887, guid: e5ee89783428cc7409c0bcd40e0f8762,
+        type: 3}
+      propertyPath: _seVolume
+      value: 0.6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5ee89783428cc7409c0bcd40e0f8762, type: 3}
 --- !u!1 &357962162
@@ -4984,6 +4989,7 @@ MonoBehaviour:
   RetryDelayTime: 1.5
   ClearSound: {fileID: 8300000, guid: 75d38bec093cd7543ac59cbe6490e41e, type: 3}
   FailureSound: {fileID: 8300000, guid: 8fc9aa52a9ca38943a6991eaf4a081cd, type: 3}
+  seVolume: 1
   bIsLife: 0
 --- !u!114 &1579414398
 MonoBehaviour:

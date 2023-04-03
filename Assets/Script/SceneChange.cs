@@ -26,6 +26,9 @@ public class SceneChange : MonoBehaviour
     [SerializeField, Header("失敗SE")]
     private AudioClip FailureSound;
 
+    [SerializeField, Header("SEの音量")]
+    private float seVolume = 1.0f;
+
     CountEnemy countEnemy;          // CountEnemyスクリプトを入れる変数
 
     private int EnemyNum;           // 敵の数
@@ -68,8 +71,8 @@ public class SceneChange : MonoBehaviour
                 {
                     //- 変数の設定
                     bIsShotSound = true;
-                    //- 音の再生
-                    gameObject.GetComponent<AudioSource>().PlayOneShot(ClearSound);
+                    //- クリア音の再生
+                    SEManager.Instance.SetPlaySE(ClearSound, seVolume);
                 }
                 bIsChange = true;
             }
@@ -104,8 +107,8 @@ public class SceneChange : MonoBehaviour
             {
                 //- 変数の設定
                 bIsShotSound = true;
-                //- 音の再生
-                gameObject.GetComponent<AudioSource>().PlayOneShot(FailureSound);
+                //- 失敗音の再生
+                SEManager.Instance.SetPlaySE(FailureSound, seVolume);
                 // フェードの設定
                 fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
             }

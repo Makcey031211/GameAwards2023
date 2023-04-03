@@ -25,12 +25,19 @@ public class CircleMove : MonoBehaviour
     //- 角度
     float angle = 360f;
 
+    //- 現在の回転角度
+    float currentAngle;
+
     //- 花火点火スクリプト
     FireworksModule fireworks;
+
+    //- 初期位置
+    private Vector3 initialPosition;
 
     private void Start()
     {
         fireworks = this.gameObject.GetComponent<FireworksModule>();
+        initialPosition = transform.position; // 初期位置を保存する
     }
 
     private void Update()
@@ -40,7 +47,7 @@ public class CircleMove : MonoBehaviour
             var trans = transform;
 
             //- 回転のクォータニオン作成
-            var angleAxis = Quaternion.AngleAxis((Time.time % PeriodTime) / PeriodTime * angle, Axis);
+            var angleAxis = Quaternion.AngleAxis(currentAngle, Axis);
 
             //- 半径に対応するベクトルを作成し、回転軸に沿って回転させる
             var radiusVec = angleAxis * (Vector3.right * Radius);
@@ -56,6 +63,16 @@ public class CircleMove : MonoBehaviour
             {
                 trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);
             }
+
+            //- 現在の回転角度を更新する
+            currentAngle = (Time.time % PeriodTime) / PeriodTime * angle;
         }
+    }
+
+    //- 初期位置と回転角度をリセットする
+    public void MoveRestart()
+    {
+        transform.position = initialPosition;
+        currentAngle = 0f;
     }
 }
