@@ -52,7 +52,7 @@ public class PController : MonoBehaviour
         _transform = transform;
         CameraObject = GameObject.Find("Main Camera");
         sceneChange = CameraObject.GetComponent<SceneChange>();
-        audioSource = GetComponent<AudioSource>(); ;
+        audioSource = GetComponent<AudioSource>();
 
         fireworks = GetComponent<FireworksModule>();
 
