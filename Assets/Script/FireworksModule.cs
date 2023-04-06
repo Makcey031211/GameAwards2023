@@ -137,6 +137,7 @@ public class FireworksModule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (IsExploded) { // 爆発した後
             switch (Type) {
             case FireworksType.Normal:
@@ -180,7 +181,12 @@ public class FireworksModule : MonoBehaviour
     {
         if (!_isOnce) { // 爆発直後一回のみ
             _isOnce = true;
-
+            ShakeByPerlinNoise shakeByPerlinNoise;
+            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
+            var duration = 0.2f;
+            var strength = 0.1f;
+            var vibrato = 1.0f;
+            shakeByPerlinNoise.StartShake(duration, strength, vibrato);
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
