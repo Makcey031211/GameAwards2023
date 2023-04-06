@@ -53,6 +53,8 @@ public class FireworksModule : MonoBehaviour
     public float _blastDis; // 射程
     [SerializeField, HideInInspector]
     public float _modelDeleteTime; // モデルの残留時間
+    [SerializeField, Header("破裂後モデル")]
+    public GameObject _afterModel; // 破裂後の表示モデル
     [SerializeField, HideInInspector]
     public bool _isDrawArea = true; // 判定範囲の描画フラグ
     //-- インスペクターから非表示
@@ -65,6 +67,7 @@ public class FireworksModule : MonoBehaviour
     public float BlastAngle => _blastAngle;
     public float BlastDis => _blastDis;
     public float ModelDeleteTime => _modelDeleteTime;
+    public GameObject AfterModel => _afterModel;
     public bool IsDrawArea => _isDrawArea;
 
 
@@ -297,8 +300,11 @@ public class FireworksModule : MonoBehaviour
                     continue;
                 }
 
+                //- 見た目変更
+                this.transform.GetChild(0).gameObject.SetActive(false);
+                AfterModel.SetActive(true);
                 //- 遅延をかけて見た目のモデルを消す
-                StartCoroutine(DelayDeleteModel(this.transform.GetChild(0).gameObject, ModelDeleteTime));
+                StartCoroutine(DelayDeleteModel(AfterModel, ModelDeleteTime));
 
                 //- タグの変更
                 this.tag = "Untagged";
