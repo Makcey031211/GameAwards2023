@@ -564,8 +564,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextScene:
     m_SceneName: AlphaScene3
-  ClearDelayTime: 1
-  SoundDelayTime: 1
+  ClearDelayTime: 2
+  SoundDelayTime: 2
   RetryDelayTime: 1.5
   ClearSound: {fileID: 8300000, guid: 75d38bec093cd7543ac59cbe6490e41e, type: 3}
   FailureSound: {fileID: 8300000, guid: 8fc9aa52a9ca38943a6991eaf4a081cd, type: 3}
@@ -638,8 +638,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1824,7 +1824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NextScene:
-    m_SceneName: Stage_05
+    m_SceneName: Stage_03
 --- !u!114 &591905797
 MonoBehaviour:
   m_ObjectHideFlags: 0
