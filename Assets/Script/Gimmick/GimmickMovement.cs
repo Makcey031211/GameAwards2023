@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 三方向挙動
 /// </summary>
-public class FireFlowerMovement : MonoBehaviour
+public class GimmickMovement : MonoBehaviour
 {
     //- 列挙型定義
     private enum MoveDirection
@@ -26,13 +26,10 @@ public class FireFlowerMovement : MonoBehaviour
 
     private Vector3 startPosition; // 開始位置
     private Vector3 endPosition;   // 終了位置
-    FireworksModule fireworks;   // 花火スクリプト
 
     private void Start()
     {
         startPosition = transform.position;
-
-        fireworks = this.gameObject.GetComponent<FireworksModule>();
 
         //- 移動の状態遷移
         switch (moveDirection)
@@ -51,11 +48,8 @@ public class FireFlowerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (!fireworks.IsExploded)
-        {
-            //- 線形補間を使ってオブジェクトを移動
-            float t = Mathf.PingPong(Time.time / travelTime, 1.0f);
-            transform.position = Vector3.Lerp(startPosition, endPosition, t);
-        }
+        //- 線形補間を使ってオブジェクトを移動
+        float t = Mathf.PingPong(Time.time / travelTime, 1.0f);
+        transform.position = Vector3.Lerp(startPosition, endPosition, t);
     }
 }
