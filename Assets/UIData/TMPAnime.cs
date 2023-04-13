@@ -1,0 +1,138 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using DG.Tweening;
+using TMPro;
+
+public class TMPAnime : MonoBehaviour
+{
+    private enum E_TEXTCOLOR
+    {
+        Clear,  //無色透明
+        Black,  //黒
+        Blue,   //青
+        Cyan,   //シアン
+        Gray,   //灰色
+        Green,  //緑
+        Magenta,//マゼンタ
+        Red,    //赤
+        White,  //白
+        Yellow  //黄色
+    }
+
+    [SerializeField, Header("アニメーションさせるテキスト")]
+    private TextMeshProUGUI TMP;
+    [SerializeField, Header("テキスト初期カラー")]
+    private E_TEXTCOLOR textcolor = E_TEXTCOLOR.Black;
+    [SerializeField, Header("テキストアニメカラー")]
+    private E_TEXTCOLOR textAnicolor = E_TEXTCOLOR.Black;
+    [SerializeField, Header("回転秒")]
+    private float RotateTime = 0.0f;
+    [SerializeField, Header("波の高さ")]
+    private float WaveTop = 0.0f;
+    [SerializeField, Header("波移動完了までの時間")]
+    private float WaveTime = 0.0f;
+//    [SerializeField, Header("イージング設定")]
+    private float EaseTime = 2.0f;
+    [SerializeField, Header("文字フェード完了までの時間")]
+    private float FadeTime = 0.0f;
+    [SerializeField, Header("カラー遅延時間")]
+    private float DelayColor = 0.0f;
+    [SerializeField, Header("ループ遅延時間")]
+    private float DelayLoop = 0.0f;
+
+    private Vector3 initialScale;
+    private bool Active = false;
+    private void OnDisable()
+    {
+        TMP.color = GetColor(textcolor);
+        TMP.DOFade(0f, 0f);
+    }
+    private void OnEnable()
+    {
+        StartCoroutine(AnimationCoroutine());
+    }
+    
+
+    IEnumerator AnimationCoroutine()
+    {
+        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
+        for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+        { FirstAnime(tmpAnimator, i); }
+        while (true)
+        {
+            yield return new WaitForSeconds(DelayLoop); // 5秒間待機
+            for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+            {   LoopAnime(tmpAnimator, i);    }
+            
+        }
+
+    }
+
+    private void FirstAnime(DOTweenTMPAnimator tmpAnimator, int i)
+    { 
+        //- 初めのテキストを90度回転させておく
+        tmpAnimator.DORotateChar(i, Vector3.up * 90, 0);
+        //- 指定された文字に対してアニメーションを設定する
+        Vector3 currCharOffset = tmpAnimator.GetCharOffset(i);
+        DOTween.Sequence()
+            .Append(tmpAnimator //元位置に回転させる
+                .DORotateChar(i, Vector3.zero, RotateTime))
+            .Append(tmpAnimator //移動
+                .DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
+            .Join(tmpAnimator   //文字をフェードさせる
+                .DOFadeChar(i, 1, FadeTime))
+            .AppendInterval(DelayColor)  //遅延
+            .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
+                .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
+            .SetDelay(0.07f * i) //遅延
+            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);    
+    }
+
+    private void LoopAnime(DOTweenTMPAnimator tmpAnimator, int i)
+    {
+        //- 指定された文字に対してアニメーションを設定する
+        Vector3 currCharOffset = tmpAnimator.GetCharOffset(i);
+        DOTween.Sequence()
+            .Append(tmpAnimator //移動
+                .DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
+            .Join(tmpAnimator   //文字をフェードさせる
+                .DOFadeChar(i, 1, FadeTime))
+            .AppendInterval(DelayColor)  //遅延
+            .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
+                .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
+            .SetDelay(0.07f * i) //遅延
+            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);
+    }
+
+    private Color GetColor(E_TEXTCOLOR color)
+    {
+        switch (color)
+        {
+            case E_TEXTCOLOR.Clear:
+                return new Color(1f, 1f, 1f, 0f);
+            case E_TEXTCOLOR.Black:
+                return Color.black;
+            case E_TEXTCOLOR.Blue:
+                return Color.blue;
+            case E_TEXTCOLOR.Cyan:
+                return Color.cyan;
+            case E_TEXTCOLOR.Gray:
+                return Color.gray;
+            case E_TEXTCOLOR.Green:
+                return Color.green;
+            case E_TEXTCOLOR.Magenta:
+                return Color.magenta;
+            case E_TEXTCOLOR.Red:
+                return Color.red;
+            case E_TEXTCOLOR.White:
+                return Color.white;
+            case E_TEXTCOLOR.Yellow:
+                return Color.yellow;
+            default:
+                return Color.black;
+        }
+    }
+
+
+}
