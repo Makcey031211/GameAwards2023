@@ -442,7 +442,7 @@ public class FireworksModule : MonoBehaviour
         //- delayTime•b‘Ò‹@‚·‚é
         yield return new WaitForSeconds(delayTime);
         //- ‹N”š”»’è‚ğ—LŒø‚É‚·‚é
-        obj.GetComponent<FireworksModule>().Ignition();
+        if (obj) obj.GetComponent<FireworksModule>().Ignition();
     }
 
     //- ’x‚ê‚ÄŒ©‚½–Ú‚ğÁ‚·ŠÖ”
