@@ -24,9 +24,14 @@ public class FireFlowerMovement : MonoBehaviour
     [SerializeField, Header("移動時間")]
     private float travelTime = 1.0f;
 
-    private Vector3 startPosition; // 開始位置
-    private Vector3 endPosition;   // 終了位置
-    FireworksModule fireworks;   // 花火スクリプト
+    //- 開始位置
+    private Vector3 startPosition;
+
+    //- 終了位置
+    private Vector3 endPosition;
+
+    //- 花火スクリプト
+    FireworksModule fireworks;  
 
     private void Start()
     {

@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class ExplodeMoveBox : MonoBehaviour
 {
-    [Header("空気抵抗係数"), SerializeField]
+    [SerializeField, Header("空気抵抗係数")]
     private float coefficient = 3;
 
-    [Header("爆風の速さ"), SerializeField]
+    [SerializeField, Header("爆風の速さ")]
     private float speed = 3;
 
     [SerializeField, Header("風SE")]
-    private AudioClip sound;
+    private AudioClip windSound;
+
+    [SerializeField, Header("SE音量")]
+    private float seVolume = 1.0f;
 
     [SerializeField, Header("減速フラグ (trueで減速)")]
     private bool SlowDown = true;
@@ -58,7 +61,7 @@ public class ExplodeMoveBox : MonoBehaviour
             {
                 IsOnce = true;
                 //- 音の再生
-                gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
+                SEManager.Instance.SetPlaySE(windSound, seVolume);
             }
 
             //- 減速フラグをtrueに変える
