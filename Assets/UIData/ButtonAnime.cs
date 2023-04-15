@@ -17,7 +17,7 @@ public class ButtonAnime : MonoBehaviour,
      
     private Button button;
     private Vector2 Size;
-    void Start()
+    void Awake()
     {
         button = GetComponent<Button>();
         Size =  button.transform.localScale;
@@ -29,13 +29,11 @@ public class ButtonAnime : MonoBehaviour,
     {
         transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
             .SetEase(Ease.OutSine);
-        Debug.Log("ÅyUIÅzëIë");
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
         transform.DOScale(new Vector3( Size.x,Size.y),MoveTime)
             .SetEase(Ease.OutSine);
-        Debug.Log("ÅyUIÅzNoëIë");
     }
 
     void ISubmitHandler.OnSubmit(BaseEventData eventData)

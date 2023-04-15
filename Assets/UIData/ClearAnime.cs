@@ -42,8 +42,8 @@ public class ClearAnime : MonoBehaviour
     private Vector2 PopSize;
     [SerializeField, Header("ポップの最大倍率までの時間：float")]
     private float PopMaxSizeTime = 1.0f;
-    [SerializeField, Header("ポップ後元サイズに戻るまでの時間：float")]
-    private float PopInitSizeTime = 1.0f;
+    //[SerializeField, Header("ポップ後元サイズに戻るまでの時間：float")]
+    //private float PopInitSizeTime = 1.0f;
 
     private void Start()
     {

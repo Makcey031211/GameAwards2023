@@ -42,17 +42,17 @@ public class TMPAnime : MonoBehaviour
     private float DelayLoop = 0.0f;
 
     private Vector3 initialScale;
-    private bool Active = false;
-    private void OnDisable()
+    private void Awake()
     {
         TMP.color = GetColor(textcolor);
         TMP.DOFade(0f, 0f);
     }
+   
+
     private void OnEnable()
     {
         StartCoroutine(AnimationCoroutine());
     }
-    
 
     IEnumerator AnimationCoroutine()
     {
@@ -61,9 +61,9 @@ public class TMPAnime : MonoBehaviour
         { FirstAnime(tmpAnimator, i); }
         while (true)
         {
-            yield return new WaitForSeconds(DelayLoop); // 5秒間待機
+            yield return new WaitForSeconds(DelayLoop);
             for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
-            {   LoopAnime(tmpAnimator, i);    }
+            {   LoopAnime(tmpAnimator, i);  }
             
         }
 
@@ -71,6 +71,7 @@ public class TMPAnime : MonoBehaviour
 
     private void FirstAnime(DOTweenTMPAnimator tmpAnimator, int i)
     { 
+
         //- 初めのテキストを90度回転させておく
         tmpAnimator.DORotateChar(i, Vector3.up * 90, 0);
         //- 指定された文字に対してアニメーションを設定する
