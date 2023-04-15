@@ -35,7 +35,7 @@ public class SceneChange : MonoBehaviour
     private float CurrentTime;      // 現在の時間(敵が全滅してからカウント開始)
     private float CurrentParticleTime = 0.0f;   // パーティクルの現在の時間
     private float TotalParticleTime = 999.0f;   // パーティクルの総時間
-    private bool bIsShotSound = false;          //- 音が再生されたかどうか
+    private bool bIsShotSound = false;          // 音が再生されたかどうか
     private ObjectFade fade;              // フェード用のスプライト
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ

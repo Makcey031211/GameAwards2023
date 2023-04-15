@@ -18,6 +18,10 @@ public class FireBelt : MonoBehaviour
     private bool ExceptionObj = false;
     [SerializeField, Header("生成したい位置にあるオブジェクト")]
     private GameObject PentObj;
+    [SerializeField, Header("帯SE")]
+    private AudioClip beltSE;
+    [SerializeField, Header("SEの音量")]
+    private float seVolume = 1.0f;
 
     private Image img;
     private Slider sli;
@@ -52,12 +56,12 @@ public class FireBelt : MonoBehaviour
             .DOLocalMoveY(TargetPos - DiffPosY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
+            .OnPlay(() => { SEManager.Instance.SetPlaySE(beltSE,seVolume); }) // 帯音再生
             .OnComplete(() =>
             { MoveComplete = true; });
         img.DOFade(0, FadeTIme)
             .SetEase(Ease.OutSine)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);
-
     }
 
     public bool GetMoveComplete()
