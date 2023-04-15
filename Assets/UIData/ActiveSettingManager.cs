@@ -13,8 +13,10 @@ public class ActiveSettingManager : MonoBehaviour
 
     [SerializeField, Header("ゲーム開始時に非表示にするオブジェクト")]
     private List<GameObject> Objects;
-    [SerializeField, Header("アクティブになるまでの遅延時間")]
+    [SerializeField, Header("最初のオブジェクトがアクティブになるまでの遅延時間")]
     private float DelayTime = 0.0f;
+    [SerializeField, Header("次オブジェクトがアクティブになるまでの時間")]
+    private float ActiveTime = 0.0f;
     [SerializeField, Header("アクティブの仕方")]
     private E_DELAYTIMESTATE DelayState = E_DELAYTIMESTATE.AllAtOnce;
     
@@ -43,7 +45,7 @@ public class ActiveSettingManager : MonoBehaviour
                 case E_DELAYTIMESTATE.AllAtOnce:
                     CurrentTime += Time.deltaTime;
                     //- 遅延時間が経過したか
-                    if (CurrentTime >= DelayTime)
+                    if (CurrentTime >= ActiveTime)
                     {
                         foreach (GameObject obj in Objects)
                         {
@@ -56,9 +58,23 @@ public class ActiveSettingManager : MonoBehaviour
 
                 //- 遅延時間が経過する度にアクティブ化する
                 case E_DELAYTIMESTATE.InTurn:
+                    //- 配列なおす
                     CurrentTime += Time.deltaTime;
+
+                    if(CurrentTime >= DelayTime&&!bFirstActive)
+                    {
+                        //- 遅延時間を超えたらアクティブにする
+                        Objects[0].SetActive(true);
+                        //- カウント増加
+                        i++;
+                        //- 時間リセット
+                        CurrentTime = 0.0f;
+                        
+                        bFirstActive = true;
+                    }
+                    
                     //- 遅延時間が経過かつリスト要素数を超えていない
-                    if (CurrentTime >= DelayTime && i < Objects.Count)
+                    if (CurrentTime >= ActiveTime && i < Objects.Count && bFirstActive)
                     {
                         //- 遅延時間を超えたらアクティブにする
                         Objects[i].SetActive(true);
@@ -66,24 +82,25 @@ public class ActiveSettingManager : MonoBehaviour
                         i++;
                         //- 時間リセット
                         CurrentTime = 0.0f;
-                        if(i == 0)
-                        {
-                            //- はじめのオブジェクトがアクティブになる
-                            bFirstActive = true;
-                        }
                     }
                     if (i == Objects.Count)
                     {
                         //- すべてのオブジェクトがアクティブになったらフラグ更新
                         bActive = true;
+                        i = 0;
                     }
                     break;
+
             }
             
         }
 
     }
 
+    /// <summary>
+    /// リストの初めのオブジェクトがアクティブか
+    /// </summary>
+    /// <returns> bFirstActive </returns>
     public bool GetFirstActive()
     {
         return bFirstActive;

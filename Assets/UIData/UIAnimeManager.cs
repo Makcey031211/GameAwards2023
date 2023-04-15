@@ -34,8 +34,8 @@ public class UIAnimeManager : MonoBehaviour
     [HeaderAttribute("---Šgkİ’è---")]
     [SerializeField, Header("‰ŠúƒTƒCƒY")]
     private E_Scaling SetSize;
-    [SerializeField, Header("ŠgkŠ®—¹‚Ü‚Å‚ÌŠÔ:float")]
-    private float SizeTime = 1.0f;
+//    [SerializeField, Header("ŠgkŠ®—¹‚Ü‚Å‚ÌŠÔ:float")]
+//    private float SizeTime = 1.0f;
 
     [HeaderAttribute("---ˆÚ“®İ’è---")]
     [SerializeField, Header("‰ŠúˆÊ’u")]

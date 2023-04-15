@@ -10,13 +10,17 @@ public class ObjectTransformSetting : MonoBehaviour
     [SerializeField, Header("開始地点オブジェクト")]
     private GameObject StartObj = null;
 
+
     [SerializeField, Header("ずらす間隔")]
     private Vector3 shift;
 
-    [SerializeField, Header("サイズも統一する")]
-    private bool size;
+    [SerializeField, Header("ずらし幅：上限値")]
+    private float Upper;
+    [SerializeField, Header("ずらし幅：下限値")]
+    private float Lower;
 
-    void Start()
+
+    void Awake()
     {
         //- 開始地点のオブジェクトが登録されていない時
         if(StartObj == null)
@@ -31,18 +35,14 @@ public class ObjectTransformSetting : MonoBehaviour
         //- 開始地点オブジェクトを参考に、等間隔にずらす
         for (int i = 0; i < objs.Count - 1; i++)
         {
-            if(size)
-            {
-                objs[i].transform.localScale = StartObj.transform.localScale;
-            }
+            //- ランダムにずらす
+            Vector3 randomOffset = new Vector3(0, Random.Range(Lower,Upper), 0f);
             //- 次のオブジェクトを今のオブジェクトから設定数値分ずらす
-            objs[i + 1].transform.position = new Vector3(objs[i].transform.position.x + shift.x, objs[i].transform.position.y + shift.y, objs[i].transform.position.z + shift.z);
+            objs[i + 1].transform.position =
+                new Vector3(
+                    objs[i].transform.position.x + shift.x + randomOffset.x,
+                    objs[0].transform.position.y + shift.y + randomOffset.y,
+                    objs[0].transform.position.z + shift.z);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
