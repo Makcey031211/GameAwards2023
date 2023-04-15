@@ -72,7 +72,11 @@ public class CircleMove : MonoBehaviour
     //- 初期位置と回転角度をリセットする
     public void MoveRestart()
     {
+        if (initialPosition == Vector3.zero)
+        {
+            initialPosition = transform.position;
+        }
         transform.position = initialPosition;
-        currentAngle = 0f;
+        currentAngle = 0.0f;
     }
 }
