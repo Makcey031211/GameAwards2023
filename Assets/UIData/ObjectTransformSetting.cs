@@ -40,8 +40,8 @@ public class ObjectTransformSetting : MonoBehaviour
             //- 次のオブジェクトを今のオブジェクトから設定数値分ずらす
             objs[i + 1].transform.position =
                 new Vector3(
-                    objs[i].transform.position.x + shift.x + randomOffset.x,
-                    objs[0].transform.position.y + shift.y + randomOffset.y,
+                    objs[i].transform.position.x + shift.x,
+                    objs[i + 1].transform.position.y + shift.y + randomOffset.y,
                     objs[0].transform.position.z + shift.z);
         }
     }
