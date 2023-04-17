@@ -41,6 +41,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8761822506094533888, guid: fd242283103ced04894bbfa1392ddcf1,
         type: 3}
+      propertyPath: lengthInSec
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8761822506094533888, guid: fd242283103ced04894bbfa1392ddcf1,
+        type: 3}
       propertyPath: CollisionModule.minKillSpeed
       value: 0
       objectReference: {fileID: 0}
@@ -136,6 +141,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd242283103ced04894bbfa1392ddcf1, type: 3}
+--- !u!1 &4684313738463578821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8761822506094533890, guid: fd242283103ced04894bbfa1392ddcf1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4078635786412693447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7688421186592001479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4684313738463578821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ca5fc5b7cb9a14d8ad3f5dddd7464f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4684313738463578822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8761822506094533889, guid: fd242283103ced04894bbfa1392ddcf1,

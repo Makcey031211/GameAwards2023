@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8890074931926174085}
   - component: {fileID: 8890074931926174086}
   - component: {fileID: 8890074931926174087}
+  - component: {fileID: 3573796256959865427}
   m_Layer: 0
   m_Name: FallFireflower
   m_TagString: Untagged
@@ -42,14 +43,14 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8890074931926174080}
   serializedVersion: 8
-  lengthInSec: 5
+  lengthInSec: 2
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4813,6 +4814,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &3573796256959865427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890074931926174080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ca5fc5b7cb9a14d8ad3f5dddd7464f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8890074932256170969
 GameObject:
   m_ObjectHideFlags: 0
