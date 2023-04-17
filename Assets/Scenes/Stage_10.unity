@@ -5607,6 +5607,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4958108311801821032, guid: ad94c2d645fe7304fb99845e26a67892,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad94c2d645fe7304fb99845e26a67892, type: 3}
 --- !u!224 &1859447412 stripped
@@ -6515,9 +6520,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextScene:
     m_SceneName: AlphaScene3
-  ClearDelayTime: 4
-  SoundDelayTime: 4
-  RetryDelayTime: 3
+  ClearDelayTime: 1
+  SoundDelayTime: 1
+  RetryDelayTime: 2
   ClearSound: {fileID: 8300000, guid: 75d38bec093cd7543ac59cbe6490e41e, type: 3}
   FailureSound: {fileID: 8300000, guid: 8fc9aa52a9ca38943a6991eaf4a081cd, type: 3}
   seVolume: 1

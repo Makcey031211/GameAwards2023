@@ -479,8 +479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextScene:
     m_SceneName: AlphaScene2
-  ClearDelayTime: 2
-  SoundDelayTime: 2
+  ClearDelayTime: 0.5
+  SoundDelayTime: 0.5
   RetryDelayTime: 1.5
   ClearSound: {fileID: 8300000, guid: 75d38bec093cd7543ac59cbe6490e41e, type: 3}
   FailureSound: {fileID: 8300000, guid: 8fc9aa52a9ca38943a6991eaf4a081cd, type: 3}
@@ -5103,6 +5103,11 @@ PrefabInstance:
     - target: {fileID: 4958108311801821031, guid: ad94c2d645fe7304fb99845e26a67892,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4958108311801821032, guid: ad94c2d645fe7304fb99845e26a67892,
+        type: 3}
+      propertyPath: m_FillAmount
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
