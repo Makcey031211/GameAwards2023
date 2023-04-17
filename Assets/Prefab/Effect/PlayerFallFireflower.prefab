@@ -9846,6 +9846,7 @@ GameObject:
   - component: {fileID: 8890074932314801889}
   - component: {fileID: 8890074932314801895}
   - component: {fileID: 8890074932314801888}
+  - component: {fileID: 2306332305222478926}
   m_Layer: 0
   m_Name: Small Fire
   m_TagString: Untagged
@@ -13793,7 +13794,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     minKillSpeed: 0
-    maxKillSpeed: 10000
+    maxKillSpeed: 0
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
@@ -13801,7 +13802,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -14824,6 +14825,20 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &2306332305222478926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890074932314801890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89ff3b7a227745b4f8c61b5ac8c02ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound: {fileID: 8300000, guid: 0454ea4f9722a4948b5b4703f9faab3b, type: 3}
+  volume: 0.5
 --- !u!1 &8890074933232328809
 GameObject:
   m_ObjectHideFlags: 0
