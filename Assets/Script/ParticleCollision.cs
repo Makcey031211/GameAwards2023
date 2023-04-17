@@ -6,6 +6,8 @@ public class ParticleCollision : MonoBehaviour
 {
     [SerializeField, Header("‰Î‰ÔSE")]
     private AudioClip sound;
+    [SerializeField, Header("SE‚Ì‰¹—Ê")]
+    private float volume;
 
     private bool IsOnse = false;
 
@@ -17,7 +19,7 @@ public class ParticleCollision : MonoBehaviour
             if (!IsOnse)
             {
                 IsOnse = true;
-                transform.parent.gameObject.GetComponent<AudioSource>().PlayOneShot(sound);
+                GameObject.Find("SEManager").GetComponent<SEManager>().SetPlaySE(sound,volume);
             }
         }
     }
