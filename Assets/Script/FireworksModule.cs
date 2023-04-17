@@ -258,67 +258,76 @@ public class FireworksModule : MonoBehaviour
 
         if (!_isOnce) { // 爆破直後一回のみ
             _isOnce = true;
+            StartCoroutine(DelayCracker(0.3f));
+        }
+    }
 
-            //- クラッカーのエフェクト生成
-            GameObject fire = Instantiate(
-                _particleObject,                     // 生成(コピー)する対象
-                transform.position,           // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
-                );
+    private IEnumerator DelayCracker(float delayTime)
+    {
+        //- delayTime秒待機する
+        yield return new WaitForSeconds(delayTime);
+        //- クラッカーのエフェクト生成
+        GameObject fire = Instantiate(
+            _particleObject,                     // 生成(コピー)する対象
+            transform.position,           // 生成される位置
+            Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
+            );
 
-            //- 振動の設定
-            vibration.SetVibration(60, 1.0f);
-            //- 火花音の再生
-            SEManager.Instance.SetPlaySE(Sound, SEVolume);
-            //- タグが花火のオブジェクトを全て取得
-            GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
-            // 原点からクラッカーへのベクトル
-            Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-            //- 花火のオブジェクトを一つずつ実行
-            foreach (var obj in Fireworks) {
-                //- 原点から花火へのベクトル
-                Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-                //- クラッカーから花火へのベクトル
-                Vector3 FireworkDir = direction - origin;
-                //- 花火との距離を取得
-                float dis = Vector3.Distance(origin, direction);
-                //- 花火との距離が射程内じゃなかったら処理しない
-                if (dis > BlastDis) continue;
+        //- 振動の設定
+        vibration.SetVibration(60, 1.0f);
+        //- 火花音の再生
+        SEManager.Instance.SetPlaySE(Sound, SEVolume);
+        //- タグが花火のオブジェクトを全て取得
+        GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
+        // 原点からクラッカーへのベクトル
+        Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        //- 花火のオブジェクトを一つずつ実行
+        foreach (var obj in Fireworks)
+        {
+            //- 原点から花火へのベクトル
+            Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+            //- クラッカーから花火へのベクトル
+            Vector3 FireworkDir = direction - origin;
+            //- 花火との距離を取得
+            float dis = Vector3.Distance(origin, direction);
+            //- 花火との距離が射程内じゃなかったら処理しない
+            if (dis > BlastDis) continue;
 
-                // 自身から花火に向かうレイを作成
-                Ray ray = new Ray(transform.position, FireworkDir);
+            // 自身から花火に向かうレイを作成
+            Ray ray = new Ray(transform.position, FireworkDir);
+            {
+                // レイが当たったオブジェクトの情報を入れる変数
+                RaycastHit hit;
+                //- レイを飛ばす
+                if (Physics.Raycast(ray, out hit))
                 {
-                    // レイが当たったオブジェクトの情報を入れる変数
-                    RaycastHit hit;
-                    //- レイを飛ばす
-                    if (Physics.Raycast(ray, out hit)) {
-                        //- ステージに当たった場合処理しない
-                        if (hit.collider.gameObject.tag == "Stage") continue;
-                    }
+                    //- ステージに当たった場合処理しない
+                    if (hit.collider.gameObject.tag == "Stage") continue;
                 }
-                //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
-                var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
-                if (angle != 0 && (angle < BlastAngle / 2)) {
-                    float DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
-                    float DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
-                    //- 遅延をかけて爆破
-                    StartCoroutine(DelayDestroy(obj, DelayTime));
-                    continue;
-                }
-
-                //- 見た目変更
-                this.transform.GetChild(0).gameObject.SetActive(false);
-                AfterModel.SetActive(true);
-                //- 遅延をかけて見た目のモデルを消す
-                StartCoroutine(DelayDeleteModel(AfterModel, ModelDeleteTime));
-
-                //- タグの変更
-                this.tag = "Untagged";
+            }
+            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
+            var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
+            if (angle != 0 && (angle < BlastAngle / 2))
+            {
+                float DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
+                float DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
+                //- 遅延をかけて爆破
+                StartCoroutine(DelayDestroy(obj, DelayTime));
+                continue;
             }
 
-            //- 自身を破壊する
-            Destroy(this.gameObject, _destroyTime);
+            //- 見た目変更
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            AfterModel.SetActive(true);
+            //- 遅延をかけて見た目のモデルを消す
+            StartCoroutine(DelayDeleteModel(AfterModel, ModelDeleteTime));
+
+            //- タグの変更
+            this.tag = "Untagged";
         }
+
+        //- 自身を破壊する
+        Destroy(this.gameObject, _destroyTime);
     }
 
     private void HardFire()
