@@ -20,6 +20,8 @@ public class ParticleTime : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(particleSystem.main.duration);
+        Debug.Log(particleSystem.time);
         sceneChange.SetParticleTime(particleSystem.time, particleSystem.main.duration);
         if(particleSystem.time == particleSystem.main.duration)
         {
