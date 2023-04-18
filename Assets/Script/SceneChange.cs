@@ -20,9 +20,6 @@ public class SceneChange : MonoBehaviour
     [SerializeField, Header("リトライ時のシーン遷移を遅らす時間(秒)")]
     private float RetryDelayTime = 2.0f;
 
-    [SerializeField, Header("クリアSE")]
-    private AudioClip ClearSound;
-
     [SerializeField, Header("失敗SE")]
     private AudioClip FailureSound;
 
@@ -66,14 +63,6 @@ public class SceneChange : MonoBehaviour
             // 現在の時間が遅延時間を超えたらシーン遷移フラグをtrueに変えて、音を再生する
             if (CurrentTime >= ClearDelayTime)
             {
-                //- 1度だけ再生
-                if (!bIsShotSound)
-                {
-                    //- 変数の設定
-                    bIsShotSound = true;
-                    //- クリア音の再生
-                    SEManager.Instance.SetPlaySE(ClearSound, seVolume);
-                }
                 bIsChange = true;
             }
         }

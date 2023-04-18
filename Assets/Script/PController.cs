@@ -176,5 +176,16 @@ public class PController : MonoBehaviour
             }
         }
     }
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Stage")
+        {
+            float HitBlockMoveX = _transform.position.x - other.gameObject.transform.position.x;
+            float HitBlockMoveY = _transform.position.y - other.gameObject.transform.position.y;
+            var HitMove = new Vector3(HitBlockMoveX * 0.1f, HitBlockMoveY * 0.1f);
+            characterController.Move(HitMove);
+            Debug.Log("ÅIÅH");
+        }
+    }
 }
 
