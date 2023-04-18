@@ -52,22 +52,18 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public float _blastDis; // 射程
     [SerializeField, HideInInspector]
-    public float _modelDeleteTime; // モデルの残留時間
-    [SerializeField, Header("破裂後モデル")]
-    public GameObject _afterModel; // 破裂後の表示モデル
+    public float _modelDeleteTime; // 破裂後モデルの残留時間
     [SerializeField, HideInInspector]
     public bool _isDrawArea = true; // 判定範囲の描画フラグ
     //-- インスペクターから非表示
     private float _destroyTime = 3.0f;    // 完全にオブジェクトを消去する時間
     private LineRenderer _linerend;       // 当たり判定表示用の線
     private ParticleSystem _particleSystem;     // パーティクルシステム
-    private bool _isOldExploded = false;        // 爆破時の弾け、生成の処理を行ったかどうか
     //-- 外部からの値取得用
     public int CircleComplementNum => _circleComplementNum;
     public float BlastAngle => _blastAngle;
     public float BlastDis => _blastDis;
     public float ModelDeleteTime => _modelDeleteTime;
-    public GameObject AfterModel => _afterModel;
     public bool IsDrawArea => _isDrawArea;
 
 
@@ -223,42 +219,25 @@ public class FireworksModule : MonoBehaviour
 
     private void CrackerFire()
     {
-        //- 破裂時の当たり判定の表示
-        if (IsDrawArea) {
-            //- 点の配列を生成
-            Vector3[] positions = new Vector3[_circleComplementNum + 2];
-            //- 始点の生成
-            positions[0] = this.transform.position;
-
-            //- 円部分の点の生成
-            for (int i = 0; i < _circleComplementNum + 1; i++) {
-                //- 中心から円部分へのレイを生成(少しずつ回転させる)
-                var CircleRay = Quaternion.Euler(0, 0, (-BlastAngle / 2) + (BlastAngle / _circleComplementNum * i)) * transform.up.normalized;
-                //- 中心座標をレイ方向へ進める
-                var LineTransform = this.transform.position + (CircleRay * BlastDis);
-                //- 点を追加
-                positions[i + 1] = LineTransform;
-            }
-
-            // 点の数を指定する
-            _linerend.positionCount = positions.Length;
-            // 線を引く場所を指定する
-            _linerend.SetPositions(positions);
-            //- 幅と色の決定
-            _linerend.startWidth = 0.1f;
-            _linerend.endWidth = 0.1f;
-            //- 始点と終点をつなぐ
-            _linerend.loop = true;
-        }
-        //- 1フレーム前の、爆破依頼変数を更新
-        _isOldExploded = _isExploded;
-
         //- 弾けるタイミングになるまでは、以下の爆破処理を行わない
-        if (!_isExploded) return;
+        //if (!_isExploded) return;
 
         if (!_isOnce) { // 爆破直後一回のみ
+
+            //- 爆発処理フラグを変更
             _isOnce = true;
-            StartCoroutine(DelayCracker(0.3f));
+            //- 引火前のモデルを非アクティブ化
+            transform.GetChild(0).gameObject.SetActive(false);
+            //- アニメーション用のモデルをアクティブ化
+            transform.GetChild(1).gameObject.SetActive(true);
+            //- 一定時間後に発火する
+            StartCoroutine(DelayCracker(2.0f / 2));
+            //- 一定時間後にアニメーション用を非アクティブ化
+            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 3.0f / 2));
+            //- 破裂後モデルをアクティブ化
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 3.0f / 2));
+            //- 一定時間後に破裂後モデルを非アクティブ化
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 3.0f / 2 + ModelDeleteTime));
         }
     }
 
@@ -316,13 +295,7 @@ public class FireworksModule : MonoBehaviour
                 continue;
             }
 
-            //- 見た目変更
-            this.transform.GetChild(0).gameObject.SetActive(false);
-            AfterModel.SetActive(true);
-            //- 遅延をかけて見た目のモデルを消す
-            StartCoroutine(DelayDeleteModel(AfterModel, ModelDeleteTime));
-
-            //- タグの変更
+            //- タグの変更(残り花火数のタグ検索を回避するため)
             this.tag = "Untagged";
         }
 
@@ -454,13 +427,13 @@ public class FireworksModule : MonoBehaviour
         if (obj) obj.GetComponent<FireworksModule>().Ignition();
     }
 
-    //- 遅れて見た目を消す関数
-    private IEnumerator DelayDeleteModel(GameObject obj, float delayTime)
+    //- オブジェクトのアクティブ判定を変更する関数
+    private IEnumerator DelaySetActive(GameObject obj,bool bIsActive ,float delayTime)
     {
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
-        //- 見た目を消す
-        obj.SetActive(false);
+        //- アクティブ判定の変更
+        obj.SetActive(bIsActive);
     }
 
     //- プレイヤーを再生成する関数
