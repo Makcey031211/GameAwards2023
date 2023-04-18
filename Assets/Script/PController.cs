@@ -148,22 +148,32 @@ public class PController : MonoBehaviour
 
         if (inputMove != Vector2.zero)
         {
-            // 移動入力がある場合は、振り向き動作も行う
+           // 移動入力がある場合は、振り向き動作も行う
 
-            // 操作入力からy軸周りの目標角度[deg]を計算
-            var targetAngleY = -Mathf.Atan2(inputMove.y, inputMove.x)
-                * Mathf.Rad2Deg + 90;
+           // 操作入力からy軸周りの目標角度[deg]を計算
+           //var targetAngleY = -Mathf.Atan2(inputMove.y, inputMove.x)
+           //    * Mathf.Rad2Deg + 90;
 
-            // イージングしながら次の回転角度[deg]を計算
-            var angleY = Mathf.SmoothDampAngle(
-                transform.eulerAngles.y,
-                targetAngleY,
-                ref turnVelocity,
-                0.1f
-            );
+           // イージングしながら次の回転角度[deg]を計算
+           //var angleY = Mathf.SmoothDampAngle(
+           //    transform.eulerAngles.y,
+           //    targetAngleY,
+           //    ref turnVelocity,
+           //    0.01f
+           //);
 
-            // オブジェクトの回転を更新
-            transform.rotation = Quaternion.Euler(0, angleY, 0);
+           // オブジェクトの回転を更新
+           //  transform.rotation = Quaternion.Euler(0, angleY, 0);
+
+            //スティックが右に倒されたとき
+            if (inputMove.x >= 0.1f)
+            {
+                transform.rotation = Quaternion.Euler(0,90.0f,0);
+            }
+            if(inputMove.x <= -0.1)
+            {
+                transform.rotation = Quaternion.Euler(0,270.0f,0);
+            }
         }
     }
 }
