@@ -231,13 +231,13 @@ public class FireworksModule : MonoBehaviour
             //- アニメーション用のモデルをアクティブ化
             transform.GetChild(1).gameObject.SetActive(true);
             //- 一定時間後に発火する
-            StartCoroutine(DelayCracker(2.0f / 2));
+            StartCoroutine(DelayCracker(0.8f));
             //- 一定時間後にアニメーション用を非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 3.0f / 2));
+            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.9f));
             //- 破裂後モデルをアクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 3.0f / 2));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.9f));
             //- 一定時間後に破裂後モデルを非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 3.0f / 2 + ModelDeleteTime));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.9f + ModelDeleteTime));
         }
     }
 
