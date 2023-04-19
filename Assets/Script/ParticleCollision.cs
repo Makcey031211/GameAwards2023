@@ -4,22 +4,18 @@ using UnityEngine;
 
 public class ParticleCollision : MonoBehaviour
 {
-    [SerializeField, Header("火花SE")]
-    private AudioClip sound;
-    [SerializeField, Header("SEの音量")]
-    private float volume;
-
-    private bool IsOnse = false;
+    private bool IsOnce = false;
 
     private void OnParticleCollision(GameObject other)
     {
         // 当たったオブジェクトのタグが「ステージ」なら
         if (other.gameObject.tag == "Stage")
         {
-            if (!IsOnse)
+            if (!IsOnce)
             {
-                IsOnse = true;
-                GameObject.Find("SEManager").GetComponent<SEManager>().SetPlaySE(sound,volume);
+                IsOnce = true;
+                //- 火花音の再生
+                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Spark, 0.6f, 1.0f, false);
             }
         }
     }

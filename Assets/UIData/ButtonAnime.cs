@@ -14,10 +14,6 @@ public class ButtonAnime : MonoBehaviour,
     private Vector2 SelectSize;
     [SerializeField, Header("‹““®Š®—¹‚Ü‚Å‚ÌŠÔ")]
     private float MoveTime = 0.1f;
-    //[SerializeField, Header("‘I‘ğSE")]
-    //private AudioClip selectSE;
-    //[SerializeField, Header("SE‚Ì‰¹—Ê")]
-    //private float seVolume = 1.0f;
 
     private Button button;
     private Vector2 Size;
@@ -34,7 +30,7 @@ public class ButtonAnime : MonoBehaviour,
         transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
             .SetEase(Ease.OutSine);
         //- ‘I‘ğ‰¹Ä¶
-        //SEManager.Instance.SetPlaySE(selectSE,seVolume);
+        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
@@ -51,7 +47,7 @@ public class ButtonAnime : MonoBehaviour,
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
                 //- ‘I‘ğ‰¹Ä¶
-                //SEManager.Instance.SetPlaySE(selectSE,seVolume);
+                //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
             });
     }
 }

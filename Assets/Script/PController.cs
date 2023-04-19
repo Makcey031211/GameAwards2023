@@ -52,7 +52,7 @@ public class PController : MonoBehaviour
         _transform = transform;
         CameraObject = GameObject.Find("Main Camera");
         sceneChange = CameraObject.GetComponent<SceneChange>();
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
 
         fireworks = GetComponent<FireworksModule>();
 
@@ -71,12 +71,12 @@ public class PController : MonoBehaviour
         if ((inputMove.x != 0 || inputMove.y != 0) && !bIsPlaySound)
         {
             bIsPlaySound = true;
-            audioSource.Play();
+            //audioSource.Play();
         }
         else if (bIsPlaySound && (inputMove.x == 0 && inputMove.y == 0))
         {
             bIsPlaySound = false;
-            audioSource.Stop();
+            //audioSource.Stop();
         }
     }
 
@@ -165,17 +165,18 @@ public class PController : MonoBehaviour
            // オブジェクトの回転を更新
            //  transform.rotation = Quaternion.Euler(0, angleY, 0);
 
-            //スティックが右に倒されたとき
+            // スティックが右に倒されたとき
             if (inputMove.x >= 0.1f)
             {
                 transform.rotation = Quaternion.Euler(0,90.0f,0);
             }
-            if(inputMove.x <= -0.1)
+            if (inputMove.x <= -0.1f)
             {
                 transform.rotation = Quaternion.Euler(0,270.0f,0);
             }
         }
     }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Stage")
