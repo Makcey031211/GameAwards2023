@@ -40,8 +40,6 @@ public class FireworksModuleEditor : Editor {
             _target._animationTime = EditorGUILayout.FloatField("アニメーション時間(秒)", _target.AnimationTime);
             _target._animationDelayTime = EditorGUILayout.FloatField("アニメーションの遅延時間(秒)", _target.AnimationDelayTime);
             _target._boxDisTime = EditorGUILayout.FloatField("箱の消滅時間(秒)", _target.BoxDisTime);
-            _target._generatedSound = (AudioClip)EditorGUILayout.ObjectField("生成音SE", _target.GeneratedSound, typeof(AudioClip), true);
-            _target._disSound = (AudioClip)EditorGUILayout.ObjectField("消滅音SE", _target.DisSound, typeof(AudioClip), true);
             break;
         }
     }

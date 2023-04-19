@@ -10,12 +10,6 @@ public class ExplodeMoveBox : MonoBehaviour
     [SerializeField, Header("爆風の速さ")]
     private float speed = 3;
 
-    [SerializeField, Header("風SE")]
-    private AudioClip windSound;
-
-    [SerializeField, Header("SE音量")]
-    private float seVolume = 1.0f;
-
     [SerializeField, Header("減速フラグ (trueで減速)")]
     private bool SlowDown = true;
 
@@ -60,8 +54,6 @@ public class ExplodeMoveBox : MonoBehaviour
             if (!IsOnce)
             {
                 IsOnce = true;
-                //- 音の再生
-                SEManager.Instance.SetPlaySE(windSound, seVolume);
             }
 
             //- 減速フラグをtrueに変える

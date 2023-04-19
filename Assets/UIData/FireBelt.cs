@@ -37,11 +37,6 @@ public class FireBelt : MonoBehaviour
     private float DeleteTIme;
     [SerializeField, Header("フェード時間")]
     private float FadeTIme;
-    [SerializeField, Header("帯SE")]
-    private AudioClip beltSE;
-    [SerializeField, Header("SEの音量")]
-    private float seVolume = 1.0f;
-
 
     private Image img;
     private Slider sli;
@@ -113,7 +108,8 @@ public class FireBelt : MonoBehaviour
             .DOLocalMoveY(TargetPos - DiffY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
-            .OnPlay(() => { SEManager.Instance.SetPlaySE(beltSE, seVolume); }) // 帯音再生
+            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Belt,1.0f,1.0f,false); 
+            }) // 打ち上げ音再生
             .OnComplete(() =>
             { MoveComplete = true; });
         //- 徐々に画像が消える
