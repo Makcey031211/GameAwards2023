@@ -27,6 +27,8 @@ public class FireBelt : MonoBehaviour
     [Header("配置位置から目標オブジェクト地点に向かう際の設定")]
     [SerializeField, Header("生成したい位置にあるオブジェクト")]
     private GameObject PentObj = null;
+    [SerializeField, Header("目的地から数値分だけ目的地をずらす")]
+    private float DiffY = 7.0f;
 
     [Header("共通設定")]
     [SerializeField, Header("移動時間")]
@@ -44,7 +46,6 @@ public class FireBelt : MonoBehaviour
     private Image img;
     private Slider sli;
     private bool MoveComplete = false;
-    private float DiffPosY = 7.0f;  //クリア花火の
 
     void Start()
     {
@@ -109,7 +110,7 @@ public class FireBelt : MonoBehaviour
     {
         //- 移動
         transform
-            .DOLocalMoveY(TargetPos - DiffPosY, MoveTime)
+            .DOLocalMoveY(TargetPos - DiffY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .OnPlay(() => { SEManager.Instance.SetPlaySE(beltSE, seVolume); }) // 帯音再生
