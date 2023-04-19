@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
@@ -51,27 +51,43 @@ public class TMPAnime : MonoBehaviour
 
     private void OnEnable()
     {
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
         StartCoroutine(AnimationCoroutine());
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+    }
+
+    private void OnSceneUnloaded(Scene scene)
+    {
+        DOTween.KillAll();
     }
 
     IEnumerator AnimationCoroutine()
     {
+     
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
+        while (tmpAnimator.textInfo.characterCount == 0)
+        {
+            yield return null;
+        }
         for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
-        { FirstAnime(tmpAnimator, i); }
+        {
+            FirstAnime(tmpAnimator, i);
+        }
         while (true)
         {
             yield return new WaitForSeconds(DelayLoop);
             for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
             {   LoopAnime(tmpAnimator, i);  }
-            
         }
 
     }
 
     private void FirstAnime(DOTweenTMPAnimator tmpAnimator, int i)
     { 
-
         //- 初めのテキストを90度回転させておく
         tmpAnimator.DORotateChar(i, Vector3.up * 90, 0);
         //- 指定された文字に対してアニメーションを設定する
@@ -87,7 +103,8 @@ public class TMPAnime : MonoBehaviour
             .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
                 .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
             .SetDelay(0.07f * i) //遅延
-            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);    
+            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)    
+            .SetLink(gameObject);
     }
 
     private void LoopAnime(DOTweenTMPAnimator tmpAnimator, int i)
@@ -103,7 +120,8 @@ public class TMPAnime : MonoBehaviour
             .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
                 .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
             .SetDelay(0.07f * i) //遅延
-            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable);
+            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
+            .SetLink(gameObject);
     }
 
     private Color GetColor(E_TEXTCOLOR color)
