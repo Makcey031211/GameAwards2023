@@ -10,30 +10,46 @@ public class SEManager : MonoBehaviour
     public enum SoundEffect
     {
         //* 花火関連 */
-        Firework,   // 爆発
+        Explosion,  // 爆発
         Spark,      // 火花
         Belt,       // 打ち上げ
-        Reservoir,  // クラッカー溜め
+        //* クラッカー関連 */
+        Brust,      // 破裂
+        Reservoir,  // 溜め
+        //* 復活箱関連 */
+        Generated,  // 生成
+        Extinction, // 消滅
         //* シーン関連 */
-        Failure,    // 失敗
         Click,      // クリック
+        Select,     // ボタン選択
+        Failure,    // 失敗
     }
 
     //- インスペクターに表示
     [Header("花火関連")]
     [SerializeField, Header("爆発音")]
-    private AudioClip firework;
+    private AudioClip explosion;
     [SerializeField, Header("火花音")]
     private AudioClip spark;
     [SerializeField, Header("打ち上げ音")]
     private AudioClip belt;
-    [SerializeField, Header("クラッカー溜め音")]
+    [Header("クラッカー関連")]
+    [SerializeField, Header("破裂音")]
+    private AudioClip brust;
+    [SerializeField, Header("溜め音")]
     private AudioClip reservoir;
-    [Header("クリア関連")]
-    [SerializeField, Header("失敗音")]
-    private AudioClip failure;
+    [Header("復活箱関連")]
+    [SerializeField, Header("生成音")]
+    private AudioClip generated;
+    [SerializeField, Header("消滅音")]
+    private AudioClip extinction;
+    [Header("シーン関連")]
     [SerializeField, Header("クリック音")]
     private AudioClip click;
+    [SerializeField, Header("ボタン選択音")]
+    private AudioClip select;
+    [SerializeField, Header("失敗音")]
+    private AudioClip failure;
 
     //- SEManagerのインスタンスを保持する変数
     private static SEManager _instance;
@@ -72,13 +88,39 @@ public class SEManager : MonoBehaviour
 
         //- enumとAudioClipを関連付けさせる為の初期化
         // 花火関連
-        audioClips.Add(SoundEffect.Firework, firework);
-        audioClips.Add(SoundEffect.Spark, spark);
-        audioClips.Add(SoundEffect.Belt, belt);
-        audioClips.Add(SoundEffect.Reservoir, reservoir);
+        FireWorksSE();
+        // クラッカー関連
+        CrackerSE();
+        // 復活箱関連
+        ResurrectionBoxSE();
         // シーン関連
-        audioClips.Add(SoundEffect.Click, click);
-        audioClips.Add(SoundEffect.Failure, failure);
+        SceneSE();
+    }
+
+    private void FireWorksSE()
+    {
+            audioClips.Add(SoundEffect.Explosion, explosion);
+            audioClips.Add(SoundEffect.Spark, spark);
+            audioClips.Add(SoundEffect.Belt, belt);
+    }
+
+    private void CrackerSE()
+    {
+            audioClips.Add(SoundEffect.Brust, brust);
+            audioClips.Add(SoundEffect.Reservoir, reservoir);
+    }
+
+    private void ResurrectionBoxSE()
+    {
+            audioClips.Add(SoundEffect.Generated, generated);
+            audioClips.Add(SoundEffect.Extinction, extinction);
+    }
+
+    private void SceneSE()
+    {
+            audioClips.Add(SoundEffect.Click, click);
+            audioClips.Add(SoundEffect.Select, select);
+            audioClips.Add(SoundEffect.Failure, failure);
     }
 
     /// <summary>
