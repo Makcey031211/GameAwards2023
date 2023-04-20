@@ -50,6 +50,10 @@ public class SEManager : MonoBehaviour
     private AudioClip select;
     [SerializeField, Header("失敗音")]
     private AudioClip failure;
+    //- 外部から音量を設定
+    [Header("設定項目")]
+    [SerializeField, Header("SEの音量")]
+    public float volume = 1.0f;
 
     //- SEManagerのインスタンスを保持する変数
     private static SEManager _instance;
@@ -130,7 +134,7 @@ public class SEManager : MonoBehaviour
     /// <param name="volume">音量</param>
     /// <param name="pitch">再生速度</param>
     /// <param name="loop">持続するかどうか</param>
-    public void SetPlaySE(SoundEffect soundEffect, float volume, float pitch, bool loop)
+    public void SetPlaySE(SoundEffect soundEffect, float pitch, bool loop)
     {
         //- AudioClipが存在していない場合
         if (!audioClips.ContainsKey(soundEffect))
