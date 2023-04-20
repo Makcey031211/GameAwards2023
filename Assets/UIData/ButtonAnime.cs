@@ -17,39 +17,46 @@ public class ButtonAnime : MonoBehaviour,
 
     private Button button;
     private Vector2 Size;
+    private Tween currentTween;
+
     void Awake()
     {
         button = GetComponent<Button>();
         Size =  button.transform.localScale;
-        transform.DOScale(new Vector3(Size.x,Size.y),0.0f)
-            .SetLink(button.gameObject,LinkBehaviour.PauseOnDisable);
     }
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
+        if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
+        {   currentTween.Kill();    }
+
         transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
-            .SetEase(Ease.OutSine);
+            .SetEase(Ease.OutSine)
+            .SetLoops(-1,LoopType.Yoyo);
         //- ëIëâπçƒê∂
-        //if (SEManager.Instance != null)
-            //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
+        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
-        transform.DOScale(new Vector3( Size.x,Size.y),MoveTime)
-            .SetEase(Ease.OutSine);
+        if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
+        { currentTween.Kill(); }
+        transform.DOKill();
+        transform.localScale = Size;
     }
 
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
+        if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
+        { currentTween.Kill(); }
         var submit = DOTween.Sequence();
         submit.Append(transform.DOScale(new Vector3(Size.x, Size.y), MoveTime).SetEase(Ease.OutSine))
-            .OnComplete(()=>
+            .OnComplete(() =>
             {
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
                 //- ëIëâπçƒê∂
-                //if (SEManager.Instance != null)
-                   // SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
+                //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
             });
+        currentTween = submit;
     }
 }
