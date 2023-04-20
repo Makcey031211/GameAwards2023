@@ -2,9 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 三方向挙動
-/// </summary>
 public class GimmickMovement : MonoBehaviour
 {
     //- 列挙型定義
@@ -24,32 +21,74 @@ public class GimmickMovement : MonoBehaviour
     [SerializeField, Header("移動時間")]
     private float travelTime = 1.0f;
 
-    private Vector3 startPosition; // 開始位置
-    private Vector3 endPosition;   // 終了位置
+    //- 経過時間
+    private float timeElapsed;
+
+    //- 開始位置
+    private Vector3 startPosition;
+
+    //- 終了位置
+    private Vector3 endPosition;
+
+    //- 移動の方向転換用
+    private bool reverse = false;
 
     private void Start()
     {
         startPosition = transform.position;
 
-        //- 移動の状態遷移
-        switch (moveDirection)
-        {
-            case MoveDirection.Horizontal:
-                endPosition = startPosition + Vector3.right * moveDistance;
-                break;
-            case MoveDirection.Vertical:
-                endPosition = startPosition + Vector3.up * moveDistance;
-                break;
-            case MoveDirection.Diagonal:
-                endPosition = startPosition + new Vector3(moveDistance, moveDistance, 0);
-                break;
-        }
+        endPosition = startPosition + Vector3.right * moveDistance;
     }
 
     private void Update()
     {
-        //- 線形補間を使ってオブジェクトを移動
-        float t = Mathf.PingPong(Time.time / travelTime, 1.0f);
-        transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        //- 経過時間を計算する
+        timeElapsed += Time.deltaTime;
+
+        //- 移動の割合を計算する（0から1までの値）
+        float t = Mathf.Clamp01(timeElapsed / travelTime);
+
+        //- 移動方向に合わせて位置を変更する
+        if (!reverse)
+        {
+            switch (moveDirection)
+            {
+                case MoveDirection.Horizontal:
+                    transform.position = Vector3.Lerp(startPosition, endPosition, t);
+                    break;
+                case MoveDirection.Vertical:
+                    transform.position = Vector3.Lerp(
+                        startPosition, startPosition + Vector3.up * moveDistance, t);
+                    break;
+                case MoveDirection.Diagonal:
+                    transform.position = Vector3.Lerp(
+                        startPosition, startPosition + new Vector3(moveDistance, moveDistance, 0), t);
+                    break;
+                }
+            }
+        else
+        {
+            switch (moveDirection)
+            {
+                case MoveDirection.Horizontal:
+                    transform.position = Vector3.Lerp(endPosition, startPosition, t);
+                    break;
+                case MoveDirection.Vertical:
+                    transform.position = Vector3.Lerp(
+                        startPosition + Vector3.up * moveDistance, startPosition, t);
+                    break;
+                case MoveDirection.Diagonal:
+                    transform.position = Vector3.Lerp(
+                        startPosition + new Vector3(moveDistance, moveDistance, 0), startPosition, t);
+                    break;
+            }
+        }
+
+        //- 移動が完了したら経過時間をリセットする
+        if (t == 1.0f)
+        {
+            timeElapsed = 0.0f;
+            reverse = !reverse; // 移動方向を反転
+        }
     }
 }
