@@ -29,7 +29,6 @@ public class FireworksModule : MonoBehaviour
     private VibrationManager vibration; // コントローラーの振動用
     private bool _isExploded; // 爆発フラグ
     private bool _isOnce; // 一回だけフラグ
-    private float volume = 0.6f; // SEの音量
     private float pitch  = 1.0f; // SEの再生速度
     //-- 外部からの値取得用
     public FireworksType Type => _type;
@@ -202,7 +201,7 @@ public class FireworksModule : MonoBehaviour
             StopRenderer(gameObject);
 
             //- 爆発音の再生
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion,volume,pitch,false);
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion,pitch,false);
         }
     }
 
@@ -246,7 +245,7 @@ public class FireworksModule : MonoBehaviour
         //- 振動の設定
         vibration.SetVibration(60, 1.0f);
         //- 破裂音の再生
-        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Brust, volume, pitch, false);
+        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Brust, pitch, false);
         //- タグが花火のオブジェクトを全て取得
         GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
         // 原点からクラッカーへのベクトル
@@ -301,7 +300,7 @@ public class FireworksModule : MonoBehaviour
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
             //- 爆発音の再生
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, volume, pitch, false);
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, pitch, false);
             //- 無敵フラグを設定
             _isInvinsible = true;
             //- 何回目の爆破かを更新     
@@ -352,7 +351,7 @@ public class FireworksModule : MonoBehaviour
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
             //- 爆発音の再生
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, volume, pitch, false);
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, pitch, false);
             //- 爆発回数を更新
             _blastCount++;
             //- 無敵フラグを設定
@@ -449,7 +448,7 @@ public class FireworksModule : MonoBehaviour
                 _playerPrefab, spawnPosition, Quaternion.identity);
 
             //- 生成音の再生
-            //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Generated, volume, pitch, false);
+            //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Generated, pitch, false);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
             sceneChange.bIsLife = true;
@@ -473,7 +472,7 @@ public class FireworksModule : MonoBehaviour
         Vector3 initialScale = transform.localScale;
 
         //- 消滅音の再生
-        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Extinction, volume, pitch, false);
+        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Extinction, pitch, false);
 
         //- 復活箱を徐々に消滅させる
         while (Time.time < startTime + _boxDisTime) 

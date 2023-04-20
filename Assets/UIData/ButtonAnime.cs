@@ -30,7 +30,8 @@ public class ButtonAnime : MonoBehaviour,
         transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
             .SetEase(Ease.OutSine);
         //- ëIëâπçƒê∂
-        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
+        //if (SEManager.Instance != null)
+            //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
@@ -47,7 +48,8 @@ public class ButtonAnime : MonoBehaviour,
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
                 //- ëIëâπçƒê∂
-                //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
+                //if (SEManager.Instance != null)
+                   // SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
             });
     }
 }

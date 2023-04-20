@@ -20,7 +20,7 @@ public class SelectButton : MonoBehaviour
     private void MoveScene()
     {
         //- クリック音再生
-        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
+        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,false);
         //- シーンを変える前にBGMを消す
         soundManager.DestroyBGMManager();
         SceneManager.LoadScene(NextScene);

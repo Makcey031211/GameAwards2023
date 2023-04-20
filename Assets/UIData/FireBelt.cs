@@ -108,7 +108,7 @@ public class FireBelt : MonoBehaviour
             .DOLocalMoveY(TargetPos - DiffY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
-            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Belt,1.0f,1.0f,false); 
+            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Belt,1.0f,false); 
             }) // ‘Å‚¿ã‚°‰¹Ä¶
             .OnComplete(() =>
             { MoveComplete = true; });
