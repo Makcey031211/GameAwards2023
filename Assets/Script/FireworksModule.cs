@@ -220,15 +220,15 @@ public class FireworksModule : MonoBehaviour
             //- アニメーション用のモデルをアクティブ化
             transform.GetChild(1).gameObject.SetActive(true);
             //- 一定時間後に発火する
-            StartCoroutine(DelayCracker(0.8f));
+            StartCoroutine(DelayCracker(0.7f));
             //- クラッカー溜め音再生
             //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Reservoir, 1.0f, 1.0f, false);
             //- 一定時間後にアニメーション用を非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.9f));
+            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.8f));
             //- 破裂後モデルをアクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.9f));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.8f));
             //- 一定時間後に破裂後モデルを非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.9f + ModelDeleteTime));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
         }
     }
 
