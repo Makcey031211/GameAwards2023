@@ -17,7 +17,7 @@ public class SelectButton : MonoBehaviour
         soundManager = GameObject.Find("BGMManager").GetComponent<SoundManager>();
     }
     
-    private void MoveScene()
+    public void MoveScene()
     {
         //- ƒNƒŠƒbƒN‰¹Ä¶
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,false);
