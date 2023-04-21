@@ -221,7 +221,6 @@ public class FireworksModule : MonoBehaviour
             //- 一定時間後に発火する
             StartCoroutine(DelayCracker(0.7f));
             //- クラッカー溜め音再生
-            //- 破裂音の再生
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Reservoir, 1.0f, false);
             //- 一定時間後にアニメーション用を非アクティブ化
             StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.8f));
