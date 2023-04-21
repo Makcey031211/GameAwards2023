@@ -23,7 +23,7 @@ public class FireFlowerMovement1 : MonoBehaviour
     [SerializeField, Header("ˆÚ“®ŠÔ")]
     private float travelTime = 1.0f;
 
-    [SerializeField, Header("’â~ŠÔ")]
+    [SerializeField, Header("I—¹ŠÔ")]
     private float stopTime = 2.0f;
 
     //- ˆÚ“®’†‚©‚Ç‚¤‚©

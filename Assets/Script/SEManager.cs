@@ -23,6 +23,7 @@ public class SEManager : MonoBehaviour
         //* シーン関連 */
         Click,      // クリック
         Select,     // ボタン選択
+        Clear,      // クリア
         Failure,    // 失敗
     }
 
@@ -51,6 +52,8 @@ public class SEManager : MonoBehaviour
     private AudioClip click;
     [SerializeField, Header("ボタン選択音")]
     private AudioClip select;
+    [SerializeField, Header("クリア音")]
+    private AudioClip clear;
     [SerializeField, Header("失敗音")]
     private AudioClip failure;
     //- 外部から音量を設定
@@ -128,6 +131,7 @@ public class SEManager : MonoBehaviour
     {
         audioClips.Add(SoundEffect.Click, click);
         audioClips.Add(SoundEffect.Select, select);
+        audioClips.Add(SoundEffect.Clear, clear);
         audioClips.Add(SoundEffect.Failure, failure);
     }
 

@@ -41,6 +41,9 @@ public class TMPAnime : MonoBehaviour
     [SerializeField, Header("ループ遅延時間")]
     private float DelayLoop = 0.0f;
 
+    //- クリア音の再生が許可されているか
+    private bool bPermissionClearSE = false;
+
     private Vector3 initialScale;
     private void Awake()
     {
@@ -67,7 +70,11 @@ public class TMPAnime : MonoBehaviour
 
     IEnumerator AnimationCoroutine()
     {
-     
+        //- クリア音再生
+        if (bPermissionClearSE)
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Clear, 1.0f, false);
+        else
+            bPermissionClearSE = true;
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
         while (tmpAnimator.textInfo.characterCount == 0)
         {

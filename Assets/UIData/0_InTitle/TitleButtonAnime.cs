@@ -17,6 +17,8 @@ public class TitleButtonAnime : MonoBehaviour,
     [SerializeField, Header("初期アルファ値")]
     private float AlphaNum = 0.1f;
 
+    //- 選択音の再生が許可されているか
+    private bool bPermissionSelectSE = false;
     private Button button;
     private Vector2 Size;
     private Tween currentTween;
@@ -41,7 +43,10 @@ public class TitleButtonAnime : MonoBehaviour,
             .SetEase(Ease.OutSine)
             .SetLoops(-1, LoopType.Yoyo);
         //- 選択音再生
-        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
+        if (bPermissionSelectSE)
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Select, 1.0f, false);
+        else
+            bPermissionSelectSE = true;
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
@@ -63,8 +68,6 @@ public class TitleButtonAnime : MonoBehaviour,
             {
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
-                //- 選択音再生
-                //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
             });
         currentTween = submit;
     }
