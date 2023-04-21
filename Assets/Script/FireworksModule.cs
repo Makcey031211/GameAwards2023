@@ -220,6 +220,8 @@ public class FireworksModule : MonoBehaviour
             transform.GetChild(1).gameObject.SetActive(true);
             //- 一定時間後に発火する
             StartCoroutine(DelayCracker(0.7f));
+            //- 着火音再生
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Ignition, 1.0f, false);
             //- クラッカー溜め音再生
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Reservoir, 1.0f, false);
             //- 一定時間後にアニメーション用を非アクティブ化
