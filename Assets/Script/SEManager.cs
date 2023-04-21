@@ -16,6 +16,7 @@ public class SEManager : MonoBehaviour
         //* クラッカー関連 */
         Brust,      // 破裂
         Reservoir,  // 溜め
+        Ignition,   // 着火
         //* 復活箱関連 */
         Generated,  // 生成
         Extinction, // 消滅
@@ -38,6 +39,8 @@ public class SEManager : MonoBehaviour
     private AudioClip brust;
     [SerializeField, Header("溜め音")]
     private AudioClip reservoir;
+    [SerializeField, Header("着火音")]
+    private AudioClip ignition;
     [Header("復活箱関連")]
     [SerializeField, Header("生成音")]
     private AudioClip generated;
@@ -103,28 +106,29 @@ public class SEManager : MonoBehaviour
 
     private void FireWorksSE()
     {
-            audioClips.Add(SoundEffect.Explosion, explosion);
-            audioClips.Add(SoundEffect.Spark, spark);
-            audioClips.Add(SoundEffect.Belt, belt);
+        audioClips.Add(SoundEffect.Explosion, explosion);
+        audioClips.Add(SoundEffect.Spark, spark);
+        audioClips.Add(SoundEffect.Belt, belt);
     }
 
     private void CrackerSE()
     {
-            audioClips.Add(SoundEffect.Brust, brust);
-            audioClips.Add(SoundEffect.Reservoir, reservoir);
+        audioClips.Add(SoundEffect.Brust, brust);
+        audioClips.Add(SoundEffect.Reservoir, reservoir);
+        audioClips.Add(SoundEffect.Ignition, ignition);
     }
 
     private void ResurrectionBoxSE()
     {
-            audioClips.Add(SoundEffect.Generated, generated);
-            audioClips.Add(SoundEffect.Extinction, extinction);
+        audioClips.Add(SoundEffect.Generated, generated);
+        audioClips.Add(SoundEffect.Extinction, extinction);
     }
 
     private void SceneSE()
     {
-            audioClips.Add(SoundEffect.Click, click);
-            audioClips.Add(SoundEffect.Select, select);
-            audioClips.Add(SoundEffect.Failure, failure);
+        audioClips.Add(SoundEffect.Click, click);
+        audioClips.Add(SoundEffect.Select, select);
+        audioClips.Add(SoundEffect.Failure, failure);
     }
 
     /// <summary>
