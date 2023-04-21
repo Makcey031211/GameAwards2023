@@ -26,7 +26,7 @@ public class FireworksModuleEditor : Editor {
             _target._blastDis = EditorGUILayout.FloatField("射程", _target.BlastDis);
             _target._modelDeleteTime = EditorGUILayout.FloatField("モデルの残留時間(秒)", _target.ModelDeleteTime);
             _target._isDrawArea = EditorGUILayout.ToggleLeft("範囲表示", _target.IsDrawArea);
-            break;
+                break;
         case FireworksModule.FireworksType.Hard:
         case FireworksModule.FireworksType.MultiBlast:
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
@@ -41,6 +41,14 @@ public class FireworksModuleEditor : Editor {
             _target._animationDelayTime = EditorGUILayout.FloatField("アニメーションの遅延時間(秒)", _target.AnimationDelayTime);
             _target._boxDisTime = EditorGUILayout.FloatField("箱の消滅時間(秒)", _target.BoxDisTime);
             break;
+        }
+        if (GUILayout.Button("データ保存(ゲーム起動時は無効)"))
+        {
+            EditorUtility.SetDirty(_target);
+            // 保存
+            AssetDatabase.SaveAssets();
+            // エディタを最新の状態にする
+            AssetDatabase.Refresh();
         }
     }
 }
