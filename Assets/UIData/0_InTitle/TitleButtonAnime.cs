@@ -3,34 +3,43 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class ButtonAnime : MonoBehaviour,
+
+public class TitleButtonAnime : MonoBehaviour,
     ISelectHandler,
     IDeselectHandler,
     ISubmitHandler
 {
+
     [SerializeField, Header("選択中ボタンの大きさ倍率")]
     private Vector2 SelectSize;
     [SerializeField, Header("挙動完了までの時間")]
     private float MoveTime = 0.1f;
+    [SerializeField, Header("初期アルファ値")]
+    private float AlphaNum = 0.1f;
 
     private Button button;
     private Vector2 Size;
     private Tween currentTween;
-
+    
     void Awake()
     {
         button = GetComponent<Button>();
-        Size =  button.transform.localScale;
+        Size = button.transform.localScale;
+        if(Size == null)
+        {
+            Size = new Vector2(0.0f, 0.0f);
+        }
     }
 
+    // Update is called once per frame
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
-        {   currentTween.Kill();    }
+        { currentTween.Kill(); }
 
-        transform.DOScale(new Vector3(Size.x * SelectSize.x, Size.y * SelectSize.y),MoveTime)
+        button.image.DOFade(AlphaNum, MoveTime)
             .SetEase(Ease.OutSine)
-            .SetLoops(-1,LoopType.Yoyo);
+            .SetLoops(-1, LoopType.Yoyo);
         //- 選択音再生
         //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
     }
@@ -39,6 +48,8 @@ public class ButtonAnime : MonoBehaviour,
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
         { currentTween.Kill(); }
         transform.DOKill();
+        button.image.DOKill();
+        button.image.DOFade(1.0f, 0.0f);
         transform.localScale = Size;
     }
 
