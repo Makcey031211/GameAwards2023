@@ -22,6 +22,9 @@ public class CircleMove : MonoBehaviour
     [SerializeField, Header("向きを更新するかどうか")]
     private bool updateRotation = true;
 
+    //- 現在の時間
+    private float currentTime;
+
     //- 角度
     float angle = 360f;
 
@@ -65,18 +68,8 @@ public class CircleMove : MonoBehaviour
             }
 
             //- 現在の回転角度を更新する
-            currentAngle = (Time.time % PeriodTime) / PeriodTime * angle;
+            currentTime += Time.deltaTime;
+            currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
         }
-    }
-
-    //- 初期位置と回転角度をリセットする
-    public void MoveRestart()
-    {
-        if (initialPosition == Vector3.zero)
-        {
-            initialPosition = transform.position;
-        }
-        transform.position = initialPosition;
-        currentAngle = 0.0f;
     }
 }

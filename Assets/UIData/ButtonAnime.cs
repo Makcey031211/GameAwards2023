@@ -15,7 +15,8 @@ public class ButtonAnime : MonoBehaviour,
     [SerializeField, Header("ゲーム開始時に選択状態になるかどうか")]
     private bool bIsInitSelect = false;
 
-    private bool bPermissionSelectSE; // 選択SEの再生が許可されているか
+    //- 選択音の再生が許可されているか
+    private bool bPermissionSelectSE;
     private Button button;
     private Vector2 Size;
     private Tween currentTween;
@@ -59,8 +60,6 @@ public class ButtonAnime : MonoBehaviour,
             {
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
-                //- 選択音再生
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
             });
         currentTween = submit;
     }
