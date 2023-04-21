@@ -12,7 +12,10 @@ public class ButtonAnime : MonoBehaviour,
     private Vector2 SelectSize;
     [SerializeField, Header("挙動完了までの時間")]
     private float MoveTime = 0.1f;
+    [SerializeField, Header("ゲーム開始時に選択状態になるかどうか")]
+    private bool bIsInitSelect = false;
 
+    private bool bPermissionSelectSE; // 選択SEの再生が許可されているか
     private Button button;
     private Vector2 Size;
     private Tween currentTween;
@@ -21,6 +24,7 @@ public class ButtonAnime : MonoBehaviour,
     {
         button = GetComponent<Button>();
         Size =  button.transform.localScale;
+        bPermissionSelectSE = !bIsInitSelect;
     }
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
@@ -32,7 +36,10 @@ public class ButtonAnime : MonoBehaviour,
             .SetEase(Ease.OutSine)
             .SetLoops(-1,LoopType.Yoyo);
         //- 選択音再生
-        //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,1.0f,false);
+        if (bPermissionSelectSE)
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Select, 1.0f, false);
+        else
+            bPermissionSelectSE = true;
     }
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
@@ -53,7 +60,7 @@ public class ButtonAnime : MonoBehaviour,
                 transform.DOScale(new Vector3(Size.x + 10.0f, Size.y + 10.0f), MoveTime)
                 .SetEase(Ease.OutSine);
                 //- 選択音再生
-                //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, 1.0f, false);
+                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
             });
         currentTween = submit;
     }
