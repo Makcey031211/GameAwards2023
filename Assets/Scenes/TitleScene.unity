@@ -766,12 +766,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 824620975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60b3e87cf2e941d44ac7fab8f111029a, type: 3}
+  m_Script: {fileID: 11500000, guid: 44e9e70fb24b54549bb17a7d40e9117c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animetype: 1
   SelectSize: {x: 0, y: 0}
-  MoveTime: 0.8
-  AlphaNum: 0.2
+  AlphaNum: 0.25
+  MoveTime: 0.5
+  Loop: 1
 --- !u!1001 &1169741263
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1189,6 +1191,7 @@ GameObject:
   - component: {fileID: 1446198807}
   - component: {fileID: 1446198806}
   - component: {fileID: 1446198810}
+  - component: {fileID: 1446198811}
   m_Layer: 5
   m_Name: ButtonEndGame
   m_TagString: Untagged
@@ -1324,6 +1327,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01b018635ab00c14da87701729aca026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1446198811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1446198804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44e9e70fb24b54549bb17a7d40e9117c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animetype: 0
+  SelectSize: {x: 1.1, y: 1.1}
+  AlphaNum: 0
+  MoveTime: 0.5
+  Loop: 1
 --- !u!1 &1628790483
 GameObject:
   m_ObjectHideFlags: 0
