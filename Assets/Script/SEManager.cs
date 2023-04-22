@@ -27,7 +27,7 @@ public class SEManager : MonoBehaviour
         Failure,    // 失敗
     }
 
-    //- インスペクターに表示
+    //---------------------------------------
     [SerializeField, HideInInspector]
     public AudioClip explosion;
     [SerializeField, HideInInspector]
@@ -54,6 +54,7 @@ public class SEManager : MonoBehaviour
     public AudioClip failure;
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float volume;
+    //---------------------------------------
 
     //- SEManagerのインスタンスを保持する変数
     private static SEManager _instance;
@@ -133,7 +134,6 @@ public class SEManager : MonoBehaviour
     /// SEを再生させる関数
     /// </summary>
     /// <param name="soundEffect">音</param>
-    /// <param name="volume">音量</param>
     /// <param name="pitch">再生速度</param>
     /// <param name="loop">持続するかどうか</param>
     public void SetPlaySE(SoundEffect soundEffect, float pitch, bool loop)
