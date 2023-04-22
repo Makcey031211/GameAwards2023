@@ -209,6 +209,7 @@ public class ButtonAnime : MonoBehaviour,
                     {   Debug.Log("[UI]ボタンアニメーションを行っていません");    }
                     EditorGUILayout.EndFoldoutHeaderGroup();
                     break;
+                
             }
             
             //- インスペクターの更新
