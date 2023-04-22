@@ -42,13 +42,8 @@ public class FireworksModuleEditor : Editor {
             _target._boxDisTime = EditorGUILayout.FloatField("箱の消滅時間(秒)", _target.BoxDisTime);
             break;
         }
-        if (GUILayout.Button("データ保存(ゲーム起動時は無効)"))
-        {
-            EditorUtility.SetDirty(_target);
-            // 保存
-            AssetDatabase.SaveAssets();
-            // エディタを最新の状態にする
-            AssetDatabase.Refresh();
-        }
+        //- インスペクターの更新
+        if (GUI.changed)
+        { EditorUtility.SetDirty(target); }
     }
 }
