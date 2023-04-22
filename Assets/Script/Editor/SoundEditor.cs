@@ -47,5 +47,13 @@ public class SoundEditor : Editor
             EditorGUILayout.LabelField("設定項目");
             _se.volume  = EditorGUILayout.Slider("SE音量", _se.volume, 0f, 1f);
         }
+        if (GUILayout.Button("データ保存(ゲーム起動時は無効)"))
+        {
+            EditorUtility.SetDirty(_se);
+            //- 保存
+            AssetDatabase.SaveAssets();
+            //- エディタを最新の状態にする
+            AssetDatabase.Refresh();
+        }
     }
 }
