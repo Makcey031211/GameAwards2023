@@ -28,38 +28,32 @@ public class SEManager : MonoBehaviour
     }
 
     //- インスペクターに表示
-    [Header("花火関連")]
-    [SerializeField, Header("爆発音")]
-    private AudioClip explosion;
-    [SerializeField, Header("火花音")]
-    private AudioClip spark;
-    [SerializeField, Header("打ち上げ音")]
-    private AudioClip belt;
-    [Header("クラッカー関連")]
-    [SerializeField, Header("破裂音")]
-    private AudioClip brust;
-    [SerializeField, Header("溜め音")]
-    private AudioClip reservoir;
-    [SerializeField, Header("着火音")]
-    private AudioClip ignition;
-    [Header("復活箱関連")]
-    [SerializeField, Header("生成音")]
-    private AudioClip generated;
-    [SerializeField, Header("消滅音")]
-    private AudioClip extinction;
-    [Header("シーン関連")]
-    [SerializeField, Header("クリック音")]
-    private AudioClip click;
-    [SerializeField, Header("ボタン選択音")]
-    private AudioClip select;
-    [SerializeField, Header("クリア音")]
-    private AudioClip clear;
-    [SerializeField, Header("失敗音")]
-    private AudioClip failure;
-    //- 外部から音量を設定
-    [Header("設定項目")]
-    [SerializeField, Header("SEの音量")]
-    public float volume = 1.0f;
+    [SerializeField, HideInInspector]
+    public AudioClip explosion;
+    [SerializeField, HideInInspector]
+    public AudioClip spark;
+    [SerializeField, HideInInspector]
+    public AudioClip belt;
+    [SerializeField, HideInInspector]
+    public AudioClip brust;
+    [SerializeField, HideInInspector]
+    public AudioClip reservoir;
+    [SerializeField, HideInInspector]
+    public AudioClip ignition;
+    [SerializeField, HideInInspector]
+    public AudioClip generated;
+    [SerializeField, HideInInspector]
+    public AudioClip extinction;
+    [SerializeField, HideInInspector]
+    public AudioClip click;
+    [SerializeField, HideInInspector]
+    public AudioClip select;
+    [SerializeField, HideInInspector]
+    public AudioClip clear;
+    [SerializeField, HideInInspector]
+    public AudioClip failure;
+    [SerializeField, HideInInspector]
+    [Range(0f,1f)] public float volume;
 
     //- SEManagerのインスタンスを保持する変数
     private static SEManager _instance;
@@ -72,7 +66,7 @@ public class SEManager : MonoBehaviour
 
     //- enumの型と、AudioClipのマッピングを格納する
     private Dictionary<SoundEffect, AudioClip> audioClips;
-
+    
     private void Awake()
     {
         //- 既にインスタンスがある場合は、自身を破棄する
