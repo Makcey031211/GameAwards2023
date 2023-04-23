@@ -43,6 +43,7 @@ public class FireworksModuleEditor : Editor {
             break;
         case FireworksModule.FireworksType.Boss:
             _target._ignitionMax = EditorGUILayout.IntField("爆発に必要な回数", _target.IgnitionMax);
+            _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
             break;
 
         }

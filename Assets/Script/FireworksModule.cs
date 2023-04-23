@@ -107,11 +107,14 @@ public class FireworksModule : MonoBehaviour
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
     public int _ignitionMax = 3;  // 何回目で爆発するか
+    [SerializeField, HideInInspector]
+    public GameObject _movieObject; // 演出を管理しているオブジェクト
     //-- インスペクターから非表示
     private int ignitionCount = 0; // 何回引火したか
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
     //-- 外部からの値取得用
     public int IgnitionMax => _ignitionMax;
+    public GameObject MovieObject => _movieObject;
 
     // Start is called before the first frame update
     void Start()
@@ -151,9 +154,6 @@ public class FireworksModule : MonoBehaviour
             case FireworksType.ResurrectionBox:
                 ResurrectionBoxFire();
                 break;
-            case FireworksType.Boss:
-                BossFireflower();
-                break;
             default:
                 break;
             }
@@ -185,8 +185,17 @@ public class FireworksModule : MonoBehaviour
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
 
-        transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine);
-        transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f);
+        //- アニメーション処理
+        transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
+        transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
+        //- 演出用スクリプトの取得
+        MovieManager movie = MovieObject.GetComponent<MovieManager>();
+        //- 演出フラグ変更
+        movie.SetMovieFlag(true);
+        //- 演出開始
+        DOVirtual.DelayedCall(2.1f, () => movie.StartVillageMovie(), false);
+        //- 破壊処理
+        Destroy(gameObject, 2.2f);
     }
 
     private void NormalFire()
@@ -428,11 +437,7 @@ public class FireworksModule : MonoBehaviour
             }
         }
     }
-
-    private void BossFireflower()
-    {
-    }
-
+    
     private void ResurrectionBoxFire()
     {
         if (!_isOnce) { //- 爆発直後
