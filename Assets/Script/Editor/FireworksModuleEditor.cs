@@ -41,6 +41,10 @@ public class FireworksModuleEditor : Editor {
             _target._animationDelayTime = EditorGUILayout.FloatField("アニメーションの遅延時間(秒)", _target.AnimationDelayTime);
             _target._boxDisTime = EditorGUILayout.FloatField("箱の消滅時間(秒)", _target.BoxDisTime);
             break;
+        case FireworksModule.FireworksType.Boss:
+            _target._ignitionMax = EditorGUILayout.IntField("爆発に必要な回数", _target.IgnitionMax);
+            break;
+
         }
         if (GUILayout.Button("データ保存(ゲーム起動時は無効)"))
         {

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class FireworksModule : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class FireworksModule : MonoBehaviour
         Cracker,
         Hard,
         MultiBlast,
-        ResurrectionBox
+        ResurrectionBox,
+        Boss,
     }
 
     //- 共通の項目
@@ -101,6 +103,16 @@ public class FireworksModule : MonoBehaviour
     public float AnimationDelayTime => _animationDelayTime;
     public float BoxDisTime => _boxDisTime;
 
+    //- ぬし花火用の項目
+    //-- インスペクターに表示
+    [SerializeField, HideInInspector]
+    public int _ignitionMax = 3;  // 何回目で爆発するか
+    //-- インスペクターから非表示
+    private int ignitionCount = 0; // 何回引火したか
+    private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
+    //-- 外部からの値取得用
+    public int IgnitionMax => _ignitionMax;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -139,6 +151,9 @@ public class FireworksModule : MonoBehaviour
             case FireworksType.ResurrectionBox:
                 ResurrectionBoxFire();
                 break;
+            case FireworksType.Boss:
+                BossFireflower();
+                break;
             default:
                 break;
             }
@@ -159,6 +174,19 @@ public class FireworksModule : MonoBehaviour
     public void Ignition()
     {
         _isExploded = true;
+    }
+
+    // ぬし花火用の引火処理
+    public void IgnitionBoss(GameObject obj)
+    {   
+        //- 引火回数を増やす
+        ignitionCount++;
+
+        if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
+        _isExploded = true; //- 爆発フラグ
+
+        transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine);
+        transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f);
     }
 
     private void NormalFire()
@@ -278,12 +306,12 @@ public class FireworksModule : MonoBehaviour
             }
             //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
             var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
-            if (angle != 0 && (angle < BlastAngle / 2))
+            if (/*angle != 0 && */(angle <= BlastAngle / 2))
             {
                 float DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
                 float DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
                 //- 遅延をかけて爆破
-                StartCoroutine(DelayDestroy(obj, DelayTime));
+                StartCoroutine(DelayDestroyCracker(obj, DelayTime));
                 continue;
             }
 
@@ -401,6 +429,10 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
+    private void BossFireflower()
+    {
+    }
+
     private void ResurrectionBoxFire()
     {
         if (!_isOnce) { //- 爆発直後
@@ -410,13 +442,20 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
-    //- 遅れて起爆する関数
-    private IEnumerator DelayDestroy(GameObject obj, float delayTime)
+    //- 遅れて起爆するクラッカーの関数
+    private IEnumerator DelayDestroyCracker(GameObject obj, float delayTime)
     {
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
-        //- 起爆判定を有効にする
-        if (obj) obj.GetComponent<FireworksModule>().Ignition();
+        //- 既に花火玉が存在しなければ処理しない
+        if (!obj) yield break;
+        //- FireworksModuleの取得
+        FireworksModule module = obj.gameObject.GetComponent<FireworksModule>();
+        //- 花火タイプによって処理を分岐
+        if (module.Type == FireworksModule.FireworksType.Boss)
+            obj.GetComponent<FireworksModule>().IgnitionBoss(obj.gameObject);
+        else
+            obj.GetComponent<FireworksModule>().Ignition();
     }
 
     //- オブジェクトのアクティブ判定を変更する関数
