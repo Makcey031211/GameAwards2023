@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class SelectButton : MonoBehaviour
 {
@@ -21,8 +22,9 @@ public class SelectButton : MonoBehaviour
     {
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,false);
+        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.3f);
         //- シーンを変える前にBGMを消す
-        bgmManager.DestroyBGMManager();
-        SceneManager.LoadScene(NextScene);
+        DOVirtual.DelayedCall (0.3f, ()=> bgmManager.DestroyBGMManager()); 
+        DOVirtual.DelayedCall (0.3f, ()=> SceneManager.LoadScene(NextScene));
     }
 }
