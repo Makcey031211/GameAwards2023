@@ -90,6 +90,7 @@ public class PController : MonoBehaviour
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;
+            isOnce = true;
         }
     }
 

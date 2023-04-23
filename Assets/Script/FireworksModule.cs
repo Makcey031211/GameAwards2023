@@ -249,6 +249,8 @@ public class FireworksModule : MonoBehaviour
 
         if (!_isOnce) { // 爆破直後一回のみ
 
+            //- タグの変更(残り花火数のタグ検索を回避するため)
+            this.tag = "Untagged";
             //- 爆発処理フラグを変更
             _isOnce = true;
             //- 引火前のモデルを非アクティブ化
@@ -323,9 +325,6 @@ public class FireworksModule : MonoBehaviour
                 StartCoroutine(DelayDestroyCracker(obj, DelayTime));
                 continue;
             }
-
-            //- タグの変更(残り花火数のタグ検索を回避するため)
-            this.tag = "Untagged";
         }
 
         //- 自身を破壊する
