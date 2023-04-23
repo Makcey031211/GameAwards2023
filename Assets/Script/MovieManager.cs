@@ -62,6 +62,7 @@ public class MovieManager : MonoBehaviour
 
         //- 一定時間後、花火を発生させる
         yield return new WaitForSeconds(DelayFireflowerTime);
+        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, 1.0f, false);
         SetActiveFireflower(0, true);
 
         //- 一定時間後、フェードを登場させる
