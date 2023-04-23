@@ -10,11 +10,11 @@ public class SelectButton : MonoBehaviour
     private SceneObject NextScene;
 
     //- スクリプト用の変数
-    SoundManager soundManager;
+    BGMManager bgmManager;
 
     void Start()
     {
-        soundManager = GameObject.Find("BGMManager").GetComponent<SoundManager>();
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
     
     public void MoveScene()
@@ -22,7 +22,7 @@ public class SelectButton : MonoBehaviour
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,false);
         //- シーンを変える前にBGMを消す
-        soundManager.DestroyBGMManager();
+        bgmManager.DestroyBGMManager();
         SceneManager.LoadScene(NextScene);
     }
 }

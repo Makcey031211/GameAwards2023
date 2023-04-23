@@ -1,14 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SoundManager : MonoBehaviour
+public class BGMManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
-        int numMusicPlayers = FindObjectsOfType<SoundManager>().Length;
+        int numMusicPlayers = FindObjectsOfType<BGMManager>().Length;
         if (numMusicPlayers > 1)
         {
             Destroy(gameObject);
