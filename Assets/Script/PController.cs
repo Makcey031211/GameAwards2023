@@ -7,12 +7,6 @@ public class PController : MonoBehaviour
     [Header("移動の速さ"), SerializeField]
     private float speed = 3;
 
-    //[Header("ジャンプする瞬間の速さ"), SerializeField]
-    //private float jumpSpeed = 7;
-
-    //[Header("スーパージャンプの速さの倍率"), SerializeField]
-    //private float SuperJumpRatio = 2;
-
     [Header("重力加速度"), SerializeField]
     private float gravity = 15;
 
@@ -169,11 +163,27 @@ public class PController : MonoBehaviour
             // スティックが右に倒されたとき
             if (inputMove.x >= 0.1f)
             {
-                transform.rotation = Quaternion.Euler(0,90.0f,0);
+               //イージングしながら次の回転角度[deg]を計算
+               var angleY = Mathf.SmoothDampAngle(
+                   transform.eulerAngles.y,
+                   90.0f,
+                   ref turnVelocity,
+                   0.1f
+               );
+
+                transform.rotation = Quaternion.Euler(0,angleY,0);
             }
             if (inputMove.x <= -0.1f)
             {
-                transform.rotation = Quaternion.Euler(0,270.0f,0);
+                //イージングしながら次の回転角度[deg]を計算
+                var angleY = Mathf.SmoothDampAngle(
+                    transform.eulerAngles.y,
+                    -140.0f,
+                    ref turnVelocity,
+                    0.1f
+                );
+
+                transform.rotation = Quaternion.Euler(0,angleY,0);
             }
         }
     }
