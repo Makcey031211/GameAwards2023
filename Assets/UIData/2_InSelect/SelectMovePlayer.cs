@@ -9,6 +9,8 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
 
     public void OnSelect(BaseEventData eventData)
     {
+        print(name);
+        Debug.Log("‚¹‚ê‚­‚Æ");
         transform.DOMove(eventData.selectedObject.transform.position, MoveTIme);
     }
 }
