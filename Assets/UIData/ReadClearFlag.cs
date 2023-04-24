@@ -16,7 +16,7 @@ public class ReadClearFlag : MonoBehaviour
         if(!first)
         {
             save = FindObjectOfType<SaveManager>();
-            print(name);
+            //print(name);
             //Debug.Log("“Ç‚Ýž‚Ý" + "," + stagenum + "," + save.GetStageClear(stagenum));
             //- ƒNƒŠƒA‚µ‚Ä‚¢‚È‚¢‚©
             if (stagenum > 0 && !save.GetStageClear(stagenum))
