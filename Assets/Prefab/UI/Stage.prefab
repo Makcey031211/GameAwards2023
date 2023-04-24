@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 2183102046265156015}
   - component: {fileID: 4395630256680240193}
   - component: {fileID: 7597079129155972957}
+  - component: {fileID: 3766935799021492772}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -323,13 +324,13 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: 
-          m_MethodName: 
-          m_Mode: 1
+        - m_Target: {fileID: 3766935799021492772}
+          m_TargetAssemblyTypeName: SelectMovePlayer, Assembly-CSharp
+          m_MethodName: OnSelect
+          m_Mode: 0
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: 
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
@@ -349,3 +350,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stagenum: -1
   obj: {fileID: 1782150024539913716}
+--- !u!114 &3766935799021492772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782150024539913716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ad11de4285bfd0458e8ba5df8238d5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveTIme: 0.5
+  player: {fileID: 1941224226708309752, guid: d74a1486e34d7ff4ba98a7b0486fae23, type: 3}
