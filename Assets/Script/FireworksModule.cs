@@ -6,33 +6,33 @@ using DG.Tweening;
 
 public class FireworksModule : MonoBehaviour
 {
-    // ‰Ô‰Î‚Ìí—Ş—p‚Ì—ñ‹“Œ^
+    // èŠ±ç«ã®ç¨®é¡ç”¨ã®åˆ—æŒ™å‹
     public enum FireworksType
     {
         Normal,
         Cracker,
         Hard,
-        MultiBlast,
-        ResurrectionBox,
+        Double,
+        ResurrectionBox
         Boss,
     }
 
-    //- ‹¤’Ê‚Ì€–Ú
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚É•\¦
-    [SerializeField, Header("‰Ô‰Î‚Ìí—Ş")]
+    //- å…±é€šã®é …ç›®
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤º
+    [SerializeField, Header("èŠ±ç«ã®ç¨®é¡")]
     private FireworksType _type = FireworksType.Normal;
-    [SerializeField, Header("‰Î‰Ô—p‚ÌƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Header("ç«èŠ±ç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     private GameObject _particleObject;
     [SerializeField, HideInInspector]
-    public GameObject _collisionObject; // “–‚½‚è”»’è—pƒIƒuƒWƒFƒNƒg   ’ÊíAƒn[ƒhAƒ}ƒ‹ƒ`ƒuƒ‰ƒXƒg
-    [SerializeField, Header("”j—ôŒã‚Ì•\îƒIƒuƒWƒFƒNƒg")]
-    public GameObject _eyeObject; // ”j—ôŒã•\î—pƒIƒuƒWƒFƒNƒg
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚©‚ç”ñ•\¦
-    private VibrationManager vibration; // ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®—p
-    private bool _isExploded; // ”š”­ƒtƒ‰ƒO
-    private bool _isOnce; // ˆê‰ñ‚¾‚¯ƒtƒ‰ƒO
-    private float pitch  = 1.0f; // SE‚ÌÄ¶‘¬“x
-    //-- ŠO•”‚©‚ç‚Ì’læ“¾—p
+    public GameObject _collisionObject; // å½“ãŸã‚Šåˆ¤å®šç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ   é€šå¸¸ã€ãƒãƒ¼ãƒ‰ã€ãƒãƒ«ãƒãƒ–ãƒ©ã‚¹ãƒˆ
+    [SerializeField, Header("ç ´è£‚å¾Œã®è¡¨æƒ…ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
+    public GameObject _eyeObject; // ç ´è£‚å¾Œè¡¨æƒ…ç”¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰éè¡¨ç¤º
+    private VibrationManager vibration; // ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•ç”¨
+    private bool _isExploded; // çˆ†ç™ºãƒ•ãƒ©ã‚°
+    private bool _isOnce; // ä¸€å›ã ã‘ãƒ•ãƒ©ã‚°
+    private float pitch  = 1.0f; // SEã®å†ç”Ÿé€Ÿåº¦
+    //-- å¤–éƒ¨ã‹ã‚‰ã®å€¤å–å¾—ç”¨
     public FireworksType Type => _type;
     public GameObject ParticleObject => _particleObject;
     public bool IsExploded => _isExploded;
@@ -40,23 +40,23 @@ public class FireworksModule : MonoBehaviour
     public GameObject EyeObject => _eyeObject;
 
 
-    //- ƒNƒ‰ƒbƒJ[‚Ì€–Ú
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚É•\¦
+    //- ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã®é …ç›®
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤º
     [SerializeField, HideInInspector]
-    public int _circleComplementNum; // ‰~‚Ì•ªŠ„”
+    public int _circleComplementNum; // å††ã®åˆ†å‰²æ•°
     [SerializeField, HideInInspector]
-    public float _blastAngle; // ”»’è‚Ì”ÍˆÍŠp“x(0`180“x)
+    public float _blastAngle; // åˆ¤å®šã®ç¯„å›²è§’åº¦(0ï½180åº¦)
     [SerializeField, HideInInspector]
-    public float _blastDis; // Ë’ö
+    public float _blastDis; // å°„ç¨‹
     [SerializeField, HideInInspector]
-    public float _modelDeleteTime; // ”j—ôŒãƒ‚ƒfƒ‹‚Ìc—¯ŠÔ
+    public float _modelDeleteTime; // ç ´è£‚å¾Œãƒ¢ãƒ‡ãƒ«ã®æ®‹ç•™æ™‚é–“
     [SerializeField, HideInInspector]
-    public bool _isDrawArea = true; // ”»’è”ÍˆÍ‚Ì•`‰æƒtƒ‰ƒO
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚©‚ç”ñ•\¦
-    private float _destroyTime = 3.0f;    // Š®‘S‚ÉƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éŠÔ
-    private LineRenderer _linerend;       // “–‚½‚è”»’è•\¦—p‚Ìü
-    private ParticleSystem _particleSystem;     // ƒp[ƒeƒBƒNƒ‹ƒVƒXƒeƒ€
-    //-- ŠO•”‚©‚ç‚Ì’læ“¾—p
+    public bool _isDrawArea = true; // åˆ¤å®šç¯„å›²ã®æç”»ãƒ•ãƒ©ã‚°
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰éè¡¨ç¤º
+    private float _destroyTime = 3.0f;    // å®Œå…¨ã«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹æ™‚é–“
+    private LineRenderer _linerend;       // å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºç”¨ã®ç·š
+    private ParticleSystem _particleSystem;     // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã‚·ã‚¹ãƒ†ãƒ 
+    //-- å¤–éƒ¨ã‹ã‚‰ã®å€¤å–å¾—ç”¨
     public int CircleComplementNum => _circleComplementNum;
     public float BlastAngle => _blastAngle;
     public float BlastDis => _blastDis;
@@ -64,72 +64,80 @@ public class FireworksModule : MonoBehaviour
     public bool IsDrawArea => _isDrawArea;
 
 
-    //- ƒn[ƒhAƒ}ƒ‹ƒ`ƒuƒ‰ƒXƒg‚Ì€–Ú
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚É•\¦
+    //- ãƒãƒ¼ãƒ‰ã€äºŒé‡èŠ±ç«ã®é …ç›®
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤º
     [SerializeField, HideInInspector]
-    public float _blastInvSeconds = 3.0f; // ”š”­Œã–³“GŠÔ
+    public float _blastInvSeconds = 3.0f; // çˆ†ç™ºå¾Œç„¡æ•µæ™‚é–“
     [SerializeField, HideInInspector]
-    public Color _invColor; // –³“GŠÔ’†‚ÌF(RGB)
-    [SerializeField, HideInInspector]
-    public int _blastNum = 2;  // ‰½‰ñ–Ú‚Å”š”­‚·‚é‚©
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚©‚ç”ñ•\¦
-    private int _invFrameCount = 0; // –³“GŠÔ—p‚ÌƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^
-    private int _blastCount = 0; // ‰½‰ñ”š”­‚µ‚½‚©
-    private Color _initColor; // ƒ}ƒeƒŠƒAƒ‹‚Ì‰Šú‚ÌF
-    private bool _isInvinsible = false; // ”š”­’†‚©‚Ç‚¤‚©
-    //-- ŠO•”‚©‚ç‚Ì’læ“¾—p
+    public Color _invColor; // ç„¡æ•µæ™‚é–“ä¸­ã®è‰²(RGB)
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰éè¡¨ç¤º
+    private int _invFrameCount = 0; // ç„¡æ•µæ™‚é–“ç”¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ã‚¿
+    private int _blastCount = 0; // ä½•å›çˆ†ç™ºã—ãŸã‹
+    private Color _initColor; // ãƒãƒ†ãƒªã‚¢ãƒ«ã®åˆæœŸã®è‰²
+    private bool _isInvinsible = false; // çˆ†ç™ºä¸­ã‹ã©ã†ã‹
+    //-- å¤–éƒ¨ã‹ã‚‰ã®å€¤å–å¾—ç”¨
     public float BlastInvSeconds => _blastInvSeconds;
     public Color InvColor => _invColor;
+
+
+    //- ãƒãƒ¼ãƒ‰å°‚ç”¨ã®é …ç›®
+    [SerializeField, HideInInspector]
+    public int _blastNum = 2;  // ä½•å›ç›®ã§çˆ†ç™ºã™ã‚‹ã‹
     public int BlastNum => _blastNum;
 
-    //- •œŠˆ” —p‚Ì€–Ú
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚É•\¦
+    //- å¾©æ´»ç®±ç”¨ã®é …ç›®
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤º
     [SerializeField, HideInInspector]
-    public GameObject _playerPrefab; // ¶¬‚·‚éƒIƒuƒWƒFƒNƒg
+    public GameObject _playerPrefab; // ç”Ÿæˆã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     [SerializeField, HideInInspector]
-    public float _delayTime = 0.1f; // ¶¬‚Ü‚Å‚Ì‘Ò‚¿ŠÔ(•b)
+    public float _delayTime = 0.1f; // ç”Ÿæˆã¾ã§ã®å¾…ã¡æ™‚é–“(ç§’)
     [SerializeField, HideInInspector]
-    public float _animationTime = 0.1f; // ƒAƒjƒ[ƒVƒ‡ƒ“ŠÔ(•b)
+    public float _animationTime = 0.1f; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ™‚é–“(ç§’)
     [SerializeField, HideInInspector]
-    public float _animationDelayTime = 0.1f; // ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì’x‰„ŠÔ(•b)
+    public float _animationDelayTime = 0.1f; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®é…å»¶æ™‚é–“(ç§’)
     [SerializeField, HideInInspector]
-    public float _boxDisTime = 0.1f; // ” ‚ÌÁ–ÅŠÔ(•b)
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚©‚ç”ñ•\¦
+    public float _boxDisTime = 0.1f; // ç®±ã®æ¶ˆæ»…æ™‚é–“(ç§’)
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰éè¡¨ç¤º
     SceneChange sceneChange;
-    //-- ŠO•”‚©‚ç‚Ì’læ“¾—p
+    //-- å¤–éƒ¨ã‹ã‚‰ã®å€¤å–å¾—ç”¨
     public GameObject PlayerPrefab => _playerPrefab;
     public float DelayTime => _delayTime;
     public float AnimationTime => _animationTime;
     public float AnimationDelayTime => _animationDelayTime;
     public float BoxDisTime => _boxDisTime;
 
-    //- ‚Ê‚µ‰Ô‰Î—p‚Ì€–Ú
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚É•\¦
+    //- ã¬ã—èŠ±ç«ç”¨ã®é …ç›®
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã«è¡¨ç¤º
     [SerializeField, HideInInspector]
-    public int _ignitionMax = 3;  // ‰½‰ñ–Ú‚Å”š”­‚·‚é‚©
+    public int _ignitionMax = 3;  // ä½•å›ç›®ã§çˆ†ç™ºã™ã‚‹ã‹
     [SerializeField, HideInInspector]
-    public GameObject _movieObject; // ‰‰o‚ğŠÇ—‚µ‚Ä‚¢‚éƒIƒuƒWƒFƒNƒg
-    //-- ƒCƒ“ƒXƒyƒNƒ^[‚©‚ç”ñ•\¦
-    private int ignitionCount = 0; // ‰½‰ñˆø‰Î‚µ‚½‚©
-    private float moveTimeCount = 0; // ‚Ê‚µ‰Ô‰Î—p‚Ì‹““®—p‚Ì•Ï”
-    //-- ŠO•”‚©‚ç‚Ì’læ“¾—p
+    public GameObject _movieObject; // æ¼”å‡ºã‚’ç®¡ç†ã—ã¦ã„ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    //-- ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã‹ã‚‰éè¡¨ç¤º
+    private int ignitionCount = 0; // ä½•å›å¼•ç«ã—ãŸã‹
+    private float moveTimeCount = 0; // ã¬ã—èŠ±ç«ç”¨ã®æŒ™å‹•ç”¨ã®å¤‰æ•°
+    //-- å¤–éƒ¨ã‹ã‚‰ã®å€¤å–å¾—ç”¨
     public int IgnitionMax => _ignitionMax;
     public GameObject MovieObject => _movieObject;
 
     // Start is called before the first frame update
     void Start()
     {
-        //- ‹¤’Ê€–Ú
+        //- å…±é€šé …ç›®
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
         _isExploded = false;
         _isOnce = false;
 
-        //- ƒNƒ‰ƒbƒJ[‚Ì€–Ú
-        _linerend = gameObject.AddComponent<LineRenderer>(); // ü‚Ì’Ç‰Á
-        vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>(); // U“®ƒRƒ“ƒ|[ƒlƒ“ƒg‚Ìæ“¾
-        _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // ƒp[ƒeƒBƒNƒ‹‚Ìæ“¾
+        //- ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã®é …ç›®
+        _linerend = gameObject.AddComponent<LineRenderer>(); // ç·šã®è¿½åŠ 
+        vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>(); // æŒ¯å‹•ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã®å–å¾—
+        _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // ãƒ‘ãƒ¼ãƒ†ã‚£ã‚¯ãƒ«ã®å–å¾—
 
-        //- •œŠˆ” ‚Ì€–Ú
+        //- äºŒé‡èŠ±ç«ã®é …ç›®
+        if (_type == FireworksType.Double ) {
+            _collisionObject.GetComponent<DetonationCollision>().IsDoubleBlast = true;
+        }
+
+        //- å¾©æ´»ç®±ã®é …ç›®
         sceneChange = GameObject.FindWithTag("MainCamera").GetComponent<SceneChange>();
     }
 
@@ -137,7 +145,7 @@ public class FireworksModule : MonoBehaviour
     void Update()
     {
 
-        if (IsExploded) { // ”š”­‚µ‚½Œã
+        if (IsExploded) { // çˆ†ç™ºã—ãŸå¾Œ
             switch (Type) {
             case FireworksType.Normal:
                 NormalFire();
@@ -148,8 +156,8 @@ public class FireworksModule : MonoBehaviour
             case FireworksType.Hard:
                 HardFire();
                 break;
-            case FireworksType.MultiBlast:
-                MultiBlastFire();
+            case FireworksType.Double:
+                DoubleFire();
                 break;
             case FireworksType.ResurrectionBox:
                 ResurrectionBoxFire();
@@ -160,7 +168,7 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
-    // ”š”­‚ÉqƒIƒuƒWƒFƒNƒgŠÜ‚ß•`‰æ‚ğ‚â‚ß‚éˆ—
+    // çˆ†ç™ºæ™‚ã«å­ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå«ã‚æç”»ã‚’ã‚„ã‚ã‚‹å‡¦ç†
     void StopRenderer(GameObject gameObject)
     {
         var renderer = GetComponentsInChildren<Renderer>();
@@ -170,37 +178,37 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
-    // ”š”­ƒtƒ‰ƒO‚ğ—§‚Ä‚éˆ—
+    // çˆ†ç™ºãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹å‡¦ç†
     public void Ignition()
     {
         _isExploded = true;
     }
 
-    // ‚Ê‚µ‰Ô‰Î—p‚Ìˆø‰Îˆ—
+    // ã¬ã—èŠ±ç«ç”¨ã®å¼•ç«å‡¦ç†
     public void IgnitionBoss(GameObject obj)
     {   
-        //- ˆø‰Î‰ñ”‚ğ‘‚â‚·
+        //- å¼•ç«å›æ•°ã‚’å¢—ã‚„ã™
         ignitionCount++;
 
-        if (ignitionCount < _ignitionMax) return; // ˆø‰Î‰ñ”‚ª•K—v‰ñ”‚É–‚½‚È‚¯‚ê‚ÎƒŠƒ^[ƒ“
-        _isExploded = true; //- ”š”­ƒtƒ‰ƒO
+        if (ignitionCount < _ignitionMax) return; // å¼•ç«å›æ•°ãŒå¿…è¦å›æ•°ã«æº€ãŸãªã‘ã‚Œã°ãƒªã‚¿ãƒ¼ãƒ³
+        _isExploded = true; //- çˆ†ç™ºãƒ•ãƒ©ã‚°
 
-        //- ƒAƒjƒ[ƒVƒ‡ƒ“ˆ—
+        //- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³å‡¦ç†
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
-        //- ‰‰o—pƒXƒNƒŠƒvƒg‚Ìæ“¾
+        //- æ¼”å‡ºç”¨ã‚¹ã‚¯ãƒªãƒ—ãƒˆã®å–å¾—
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
-        //- ‰‰oƒtƒ‰ƒO•ÏX
+        //- æ¼”å‡ºãƒ•ãƒ©ã‚°å¤‰æ›´
         movie.SetMovieFlag(true);
-        //- ‰‰oŠJn
+        //- æ¼”å‡ºé–‹å§‹
         DOVirtual.DelayedCall(2.1f, () => movie.StartVillageMovie(), false);
-        //- ”j‰óˆ—
+        //- ç ´å£Šå‡¦ç†
         Destroy(gameObject, 2.2f);
     }
 
     private void NormalFire()
     {
-        if (!_isOnce) { // ”š”­’¼Œãˆê‰ñ‚Ì‚İ
+        if (!_isOnce) { // çˆ†ç™ºç›´å¾Œä¸€å›ã®ã¿
             _isOnce = true;
             ShakeByPerlinNoise shakeByPerlinNoise;
             shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
@@ -208,172 +216,172 @@ public class FireworksModule : MonoBehaviour
             var strength = 0.1f;
             var vibrato = 1.0f;
             shakeByPerlinNoise.StartShake(duration, strength, vibrato);
-            //- w’è‚µ‚½ˆÊ’u‚É¶¬
+            //- æŒ‡å®šã—ãŸä½ç½®ã«ç”Ÿæˆ
             GameObject fire = Instantiate(
-                ParticleObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-                transform.position,           // ¶¬‚³‚ê‚éˆÊ’u
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
+                ParticleObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+                transform.position,           // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
                 );
 
             if (_eyeObject)
             {
-                //- w’è‚µ‚½ˆÊ’u‚É•\î¶¬
+                //- æŒ‡å®šã—ãŸä½ç½®ã«è¡¨æƒ…ç”Ÿæˆ
                 GameObject eye = Instantiate(
-                    _eyeObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-                    transform.position,           // ¶¬‚³‚ê‚éˆÊ’u
-                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
+                    _eyeObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+                    transform.position,           // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
                     );
             }
             
-            //- ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®‚Ìİ’è
+            //- ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•ã®è¨­å®š
             vibration.SetVibration(60, 1.0f);
 
-            //- “–‚½‚è”»’è‚ğ—LŒø‰»‚·‚é
-            // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌCollider‚ğ—LŒø‚É‚·‚é
+            //- å½“ãŸã‚Šåˆ¤å®šã‚’æœ‰åŠ¹åŒ–ã™ã‚‹
+            // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Colliderã‚’æœ‰åŠ¹ã«ã™ã‚‹
             CollisionObject.gameObject.GetComponent<Collider>().enabled = true;
-            // “–‚½‚è”»’è‚ÌŠg‘å—pƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ—LŒø‚É‚·‚é
+            // å½“ãŸã‚Šåˆ¤å®šã®æ‹¡å¤§ç”¨ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’æœ‰åŠ¹ã«ã™ã‚‹
             CollisionObject.gameObject.GetComponent<DetonationCollision>().enabled = true;
 
-            //- ”š”­‚É•`‰æ‚ğ‚â‚ß‚é
+            //- çˆ†ç™ºæ™‚ã«æç”»ã‚’ã‚„ã‚ã‚‹
             StopRenderer(gameObject);
 
-            //- ”š”­‰¹‚ÌÄ¶
+            //- çˆ†ç™ºéŸ³ã®å†ç”Ÿ
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion,pitch,false);
         }
     }
 
     private void CrackerFire()
     {
-        //- ’e‚¯‚éƒ^ƒCƒ~ƒ“ƒO‚É‚È‚é‚Ü‚Å‚ÍAˆÈ‰º‚Ì”š”jˆ—‚ğs‚í‚È‚¢
+        //- å¼¾ã‘ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã«ãªã‚‹ã¾ã§ã¯ã€ä»¥ä¸‹ã®çˆ†ç ´å‡¦ç†ã‚’è¡Œã‚ãªã„
         //if (!_isExploded) return;
 
-        if (!_isOnce) { // ”š”j’¼Œãˆê‰ñ‚Ì‚İ
+        if (!_isOnce) { // çˆ†ç ´ç›´å¾Œä¸€å›ã®ã¿
 
-            //- ƒ^ƒO‚Ì•ÏX(c‚è‰Ô‰Î”‚Ìƒ^ƒOŒŸõ‚ğ‰ñ”ğ‚·‚é‚½‚ß)
+            //- ã‚¿ã‚°ã®å¤‰æ›´(æ®‹ã‚ŠèŠ±ç«æ•°ã®ã‚¿ã‚°æ¤œç´¢ã‚’å›é¿ã™ã‚‹ãŸã‚)
             this.tag = "Untagged";
-            //- ”š”­ˆ—ƒtƒ‰ƒO‚ğ•ÏX
+            //- çˆ†ç™ºå‡¦ç†ãƒ•ãƒ©ã‚°ã‚’å¤‰æ›´
             _isOnce = true;
-            //- ˆø‰Î‘O‚Ìƒ‚ƒfƒ‹‚ğ”ñƒAƒNƒeƒBƒu‰»
+            //- å¼•ç«å‰ã®ãƒ¢ãƒ‡ãƒ«ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
             transform.GetChild(0).gameObject.SetActive(false);
-            //- ƒAƒjƒ[ƒVƒ‡ƒ“—p‚Ìƒ‚ƒfƒ‹‚ğƒAƒNƒeƒBƒu‰»
+            //- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã®ãƒ¢ãƒ‡ãƒ«ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
             transform.GetChild(1).gameObject.SetActive(true);
-            //- ˆê’èŠÔŒã‚É”­‰Î‚·‚é
+            //- ä¸€å®šæ™‚é–“å¾Œã«ç™ºç«ã™ã‚‹
             StartCoroutine(DelayCracker(0.7f));
-            //- ’…‰Î‰¹Ä¶
+            //- ç€ç«éŸ³å†ç”Ÿ
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Ignition, 1.0f, false);
-            //- ƒNƒ‰ƒbƒJ[—­‚ß‰¹Ä¶
+            //- ã‚¯ãƒ©ãƒƒã‚«ãƒ¼æºœã‚éŸ³å†ç”Ÿ
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Reservoir, 1.0f, false);
-            //- ˆê’èŠÔŒã‚ÉƒAƒjƒ[ƒVƒ‡ƒ“—p‚ğ”ñƒAƒNƒeƒBƒu‰»
+            //- ä¸€å®šæ™‚é–“å¾Œã«ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
             StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.8f));
-            //- ”j—ôŒãƒ‚ƒfƒ‹‚ğƒAƒNƒeƒBƒu‰»
+            //- ç ´è£‚å¾Œãƒ¢ãƒ‡ãƒ«ã‚’ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
             StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.8f));
-            //- ˆê’èŠÔŒã‚É”j—ôŒãƒ‚ƒfƒ‹‚ğ”ñƒAƒNƒeƒBƒu‰»
+            //- ä¸€å®šæ™‚é–“å¾Œã«ç ´è£‚å¾Œãƒ¢ãƒ‡ãƒ«ã‚’éã‚¢ã‚¯ãƒ†ã‚£ãƒ–åŒ–
             StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
         }
     }
 
     private IEnumerator DelayCracker(float delayTime)
     {
-        //- delayTime•b‘Ò‹@‚·‚é
+        //- delayTimeç§’å¾…æ©Ÿã™ã‚‹
         yield return new WaitForSeconds(delayTime);
-        //- ƒNƒ‰ƒbƒJ[‚ÌƒGƒtƒFƒNƒg¶¬
+        //- ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
         GameObject fire = Instantiate(
-            _particleObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-            transform.position,           // ¶¬‚³‚ê‚éˆÊ’u
-            Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
+            _particleObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+            transform.position,           // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+            Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
             );
 
-        //- U“®‚Ìİ’è
+        //- æŒ¯å‹•ã®è¨­å®š
         vibration.SetVibration(60, 1.0f);
-        //- ”j—ô‰¹‚ÌÄ¶
+        //- ç ´è£‚éŸ³ã®å†ç”Ÿ
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Brust, pitch, false);
-        //- ƒ^ƒO‚ª‰Ô‰Î‚ÌƒIƒuƒWƒFƒNƒg‚ğ‘S‚Äæ“¾
+        //- ã‚¿ã‚°ãŒèŠ±ç«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å…¨ã¦å–å¾—
         GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
-        // Œ´“_‚©‚çƒNƒ‰ƒbƒJ[‚Ö‚ÌƒxƒNƒgƒ‹
+        // åŸç‚¹ã‹ã‚‰ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
         Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
-        //- ‰Ô‰Î‚ÌƒIƒuƒWƒFƒNƒg‚ğˆê‚Â‚¸‚ÂÀs
+        //- èŠ±ç«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä¸€ã¤ãšã¤å®Ÿè¡Œ
         foreach (var obj in Fireworks)
         {
-            //- Œ´“_‚©‚ç‰Ô‰Î‚Ö‚ÌƒxƒNƒgƒ‹
+            //- åŸç‚¹ã‹ã‚‰èŠ±ç«ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
             Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-            //- ƒNƒ‰ƒbƒJ[‚©‚ç‰Ô‰Î‚Ö‚ÌƒxƒNƒgƒ‹
+            //- ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã‹ã‚‰èŠ±ç«ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«
             Vector3 FireworkDir = direction - origin;
-            //- ‰Ô‰Î‚Æ‚Ì‹——£‚ğæ“¾
+            //- èŠ±ç«ã¨ã®è·é›¢ã‚’å–å¾—
             float dis = Vector3.Distance(origin, direction);
-            //- ‰Ô‰Î‚Æ‚Ì‹——£‚ªË’ö“à‚¶‚á‚È‚©‚Á‚½‚çˆ—‚µ‚È‚¢
+            //- èŠ±ç«ã¨ã®è·é›¢ãŒå°„ç¨‹å†…ã˜ã‚ƒãªã‹ã£ãŸã‚‰å‡¦ç†ã—ãªã„
             if (dis > BlastDis) continue;
 
-            // ©g‚©‚ç‰Ô‰Î‚ÉŒü‚©‚¤ƒŒƒC‚ğì¬
+            // è‡ªèº«ã‹ã‚‰èŠ±ç«ã«å‘ã‹ã†ãƒ¬ã‚¤ã‚’ä½œæˆ
             Ray ray = new Ray(transform.position, FireworkDir);
             {
-                // ƒŒƒC‚ª“–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚Ìî•ñ‚ğ“ü‚ê‚é•Ï”
+                // ãƒ¬ã‚¤ãŒå½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æƒ…å ±ã‚’å…¥ã‚Œã‚‹å¤‰æ•°
                 RaycastHit hit;
-                //- ƒŒƒC‚ğ”ò‚Î‚·
+                //- ãƒ¬ã‚¤ã‚’é£›ã°ã™
                 if (Physics.Raycast(ray, out hit))
                 {
-                    //- ƒXƒe[ƒW‚É“–‚½‚Á‚½ê‡ˆ—‚µ‚È‚¢
+                    //- ã‚¹ãƒ†ãƒ¼ã‚¸ã«å½“ãŸã£ãŸå ´åˆå‡¦ç†ã—ãªã„
                     if (hit.collider.gameObject.tag == "Stage") continue;
                 }
             }
-            //- u‰Ô‰Î‚Ö‚ÌƒxƒNƒgƒ‹v‚ÆuƒNƒ‰ƒbƒJ[‚ÌŒü‚«ƒxƒNƒgƒ‹v‚ÌŠp“x‚ğ‹‚ß‚é
+            //- ã€ŒèŠ±ç«ã¸ã®ãƒ™ã‚¯ãƒˆãƒ«ã€ã¨ã€Œã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã®å‘ããƒ™ã‚¯ãƒˆãƒ«ã€ã®è§’åº¦ã‚’æ±‚ã‚ã‚‹
             var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
             if (/*angle != 0 && */(angle <= BlastAngle / 2))
             {
                 float DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
                 float DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
-                //- ’x‰„‚ğ‚©‚¯‚Ä”š”j
+                //- é…å»¶ã‚’ã‹ã‘ã¦çˆ†ç ´
                 StartCoroutine(DelayDestroyCracker(obj, DelayTime));
                 continue;
             }
         }
 
-        //- ©g‚ğ”j‰ó‚·‚é
+        //- è‡ªèº«ã‚’ç ´å£Šã™ã‚‹
         Destroy(this.gameObject, _destroyTime);
     }
 
     private void HardFire()
     {
-        //- –³“GŠÔ‚Å‚È‚¢‚É”š”j‚ª—LŒø‚É‚È‚Á‚½ê‡Aˆ—‚·‚é
+        //- ç„¡æ•µæ™‚é–“ã§ãªã„æ™‚ã«çˆ†ç ´ãŒæœ‰åŠ¹ã«ãªã£ãŸå ´åˆã€å‡¦ç†ã™ã‚‹
         if (IsExploded && !_isInvinsible) {
-            //- F‚Ì•ÏX
+            //- è‰²ã®å¤‰æ›´
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
-            //- ”š”­‰¹‚ÌÄ¶
+            //- çˆ†ç™ºéŸ³ã®å†ç”Ÿ
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, pitch, false);
-            //- –³“Gƒtƒ‰ƒO‚ğİ’è
+            //- ç„¡æ•µãƒ•ãƒ©ã‚°ã‚’è¨­å®š
             _isInvinsible = true;
-            //- ‰½‰ñ–Ú‚Ì”š”j‚©‚ğXV     
+            //- ä½•å›ç›®ã®çˆ†ç ´ã‹ã‚’æ›´æ–°     
             _blastCount++;
             if (_blastCount >= _blastNum) {
-                //- –³“GŠÔ‚ÌƒŠƒZƒbƒg
+                //- ç„¡æ•µæ™‚é–“ã®ãƒªã‚»ãƒƒãƒˆ
                 _invFrameCount = 0;
-                // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌSphereCollider‚ğ—LŒø‚É‚·‚é
+                // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®SphereColliderã‚’æœ‰åŠ¹ã«ã™ã‚‹
                 this.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
-                // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌSphereCollider‚ğ—LŒø‚É‚·‚é
+                // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®SphereColliderã‚’æœ‰åŠ¹ã«ã™ã‚‹
                 this.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
-                // w’è‚µ‚½ˆÊ’u‚É¶¬
+                // æŒ‡å®šã—ãŸä½ç½®ã«ç”Ÿæˆ
                 GameObject fire = Instantiate(
-                    _particleObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-                    transform.position,           // ¶¬‚³‚ê‚éˆÊ’u
-                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
+                    _particleObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+                    transform.position,           // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
                     );
 
-                //- ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®‚Ìİ’è
+                //- ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•ã®è¨­å®š
                 vibration.SetVibration(60, 1.0f);
 
-                // ”š”­‚É“–‚½‚è”»’è‚ğ–³Œø‰»
+                // çˆ†ç™ºæ™‚ã«å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡åŠ¹åŒ–
                 GetComponent<SphereCollider>().isTrigger = true;
                 GetComponent<MeshRenderer>().enabled = false;
             }
         }
 
         if (_isInvinsible) {
-            //- –³“GŠÔ‚ÌƒJƒEƒ“ƒg
+            //- ç„¡æ•µæ™‚é–“ã®ã‚«ã‚¦ãƒ³ãƒˆ
             _invFrameCount++;
-            //- –³“GŠÔI—¹‚Ìˆ—
+            //- ç„¡æ•µæ™‚é–“çµ‚äº†æ™‚ã®å‡¦ç†
             if (_invFrameCount >= _blastInvSeconds * 60) {
-                //- F‚Ì•ÏX
+                //- è‰²ã®å¤‰æ›´
                 this.gameObject.GetComponent<Renderer>().material.color = _initColor;
-                //- ‚Ü‚¾”š”­‚µ‚Ä‚¢‚È‚¢‰ñ”‚È‚çˆ—
+                //- ã¾ã çˆ†ç™ºã—ã¦ã„ãªã„å›æ•°ãªã‚‰å‡¦ç†
                 if (_blastNum > _blastCount) {
                     _isInvinsible = false;
                     _isExploded = false;
@@ -382,56 +390,56 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
-    private void MultiBlastFire()
+    private void DoubleFire()
     {
-        //- –³“GŠÔ‚Å‚È‚¢‚É”š”j‚ª—LŒø‚É‚È‚Á‚½ê‡Aˆ—‚·‚é
-        if (IsExploded && !_isInvinsible) {
-            //- F‚Ì•ÏX
+        //- ç„¡æ•µæ™‚é–“ã§ãªã„æ™‚ã«çˆ†ç ´ãŒæœ‰åŠ¹ã«ãªã£ãŸå ´åˆã€å‡¦ç†ã™ã‚‹
+        if (!_isInvinsible && _isExploded) {
+            //- è‰²ã®å¤‰æ›´
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
-            //- ”š”­‰¹‚ÌÄ¶
+            //- çˆ†ç™ºéŸ³ã®å†ç”Ÿ
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion, pitch, false);
-            //- ”š”­‰ñ”‚ğXV
+            //- çˆ†ç™ºå›æ•°ã‚’æ›´æ–°
             _blastCount++;
-            //- –³“Gƒtƒ‰ƒO‚ğİ’è
+            //- ç„¡æ•µãƒ•ãƒ©ã‚°ã‚’è¨­å®š
             _isInvinsible = true;
-            //- –³“GŠÔ‚ÌƒŠƒZƒbƒg
+            //- ç„¡æ•µæ™‚é–“ã®ãƒªã‚»ãƒƒãƒˆ
             _invFrameCount = 0;
-            // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌSphereCollider‚ğ—LŒø‚É‚·‚é
+            // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®SphereColliderã‚’æœ‰åŠ¹ã«ã™ã‚‹
             _collisionObject.GetComponent<SphereCollider>().enabled = true;
             _collisionObject.GetComponent<DetonationCollision>().enabled = true;
-            // w’è‚µ‚½ˆÊ’u‚É¶¬
+            // æŒ‡å®šã—ãŸä½ç½®ã«ç”Ÿæˆ
             GameObject fire = Instantiate(
-                _particleObject,                     // ¶¬(ƒRƒs[)‚·‚é‘ÎÛ
-                transform.position,           // ¶¬‚³‚ê‚éˆÊ’u
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // Å‰‚É‚Ç‚ê‚¾‚¯‰ñ“]‚·‚é‚©
+                _particleObject,                     // ç”Ÿæˆ(ã‚³ãƒ”ãƒ¼)ã™ã‚‹å¯¾è±¡
+                transform.position,           // ç”Ÿæˆã•ã‚Œã‚‹ä½ç½®
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // æœ€åˆã«ã©ã‚Œã ã‘å›è»¢ã™ã‚‹ã‹
                 );
 
-            //- ƒRƒ“ƒgƒ[ƒ‰[‚ÌU“®‚Ìİ’è
+            //- ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼ã®æŒ¯å‹•ã®è¨­å®š
             vibration.SetVibration(60, 1.0f);
 
-            // ”š”­‚É“–‚½‚è”»’è‚ğ–³Œø‰»
+            // çˆ†ç™ºæ™‚ã«å½“ãŸã‚Šåˆ¤å®šã‚’ç„¡åŠ¹åŒ–
             GetComponent<SphereCollider>().isTrigger = true;
-            //- ˆê’èˆÈã”š”­‚µ‚½‚çÀs‚·‚éˆ—
+            //- ä¸€å®šä»¥ä¸Šçˆ†ç™ºã—ãŸã‚‰å®Ÿè¡Œã™ã‚‹å‡¦ç†
             if (_blastCount >= _blastNum) {
                 GetComponent<MeshRenderer>().enabled = false;
             }
         }
         if (_isInvinsible) {
-            //- –³“GŠÔ‚ÌƒJƒEƒ“ƒg
+            //- ç„¡æ•µæ™‚é–“ã®ã‚«ã‚¦ãƒ³ãƒˆ
             _invFrameCount++;
-            //- –³“GŠÔI—¹‚Ìˆ—
+            //- ç„¡æ•µæ™‚é–“çµ‚äº†æ™‚ã®å‡¦ç†
             if (_invFrameCount >= _blastInvSeconds * 60) {
-                //- ”š”­’†‚Ì”»’è‚ğİ’è
+                //- çˆ†ç™ºä¸­ã®åˆ¤å®šã‚’è¨­å®š
                 _isInvinsible = false;
-                //- F‚Ì•ÏX
+                //- è‰²ã®å¤‰æ›´
                 this.gameObject.GetComponent<Renderer>().material.color = _initColor;
-                // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌSphereCollider‚ğ–³Œø‚É‚·‚é
+                // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®SphereColliderã‚’ç„¡åŠ¹ã«ã™ã‚‹
                 this.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = false;
-                // “–‚½‚Á‚½ƒIƒuƒWƒFƒNƒg‚ÌSphereCollider‚ğ–³Œø‚É‚·‚é
+                // å½“ãŸã£ãŸã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®SphereColliderã‚’ç„¡åŠ¹ã«ã™ã‚‹
                 this.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = false;
-                // ”š”­‚É“–‚½‚è”»’è‚ğ—LŒø‰»
+                // çˆ†ç™ºæ™‚ã«å½“ãŸã‚Šåˆ¤å®šã‚’æœ‰åŠ¹åŒ–
                 GetComponent<SphereCollider>().isTrigger = false;
-                //- ”š”­”»’è‚ğ‰Šú‰»
+                //- çˆ†ç™ºåˆ¤å®šã‚’åˆæœŸåŒ–
                 _isExploded = false;
             }
         }
@@ -439,66 +447,66 @@ public class FireworksModule : MonoBehaviour
     
     private void ResurrectionBoxFire()
     {
-        if (!_isOnce) { //- ”š”­’¼Œã
+        if (!_isOnce) { //- çˆ†ç™ºç›´å¾Œ
             _isOnce = true;
-            //- SpawnPlayerƒƒ\ƒbƒh‚ğdelayTime•bŒã‚ÉŒÄ‚Ño‚·
+            //- SpawnPlayerãƒ¡ã‚½ãƒƒãƒ‰ã‚’delayTimeç§’å¾Œã«å‘¼ã³å‡ºã™
             StartCoroutine(SpawnPlayer(_delayTime));
         }
     }
 
-    //- ’x‚ê‚Ä‹N”š‚·‚éƒNƒ‰ƒbƒJ[‚ÌŠÖ”
+    //- é…ã‚Œã¦èµ·çˆ†ã™ã‚‹ã‚¯ãƒ©ãƒƒã‚«ãƒ¼ã®é–¢æ•°
     private IEnumerator DelayDestroyCracker(GameObject obj, float delayTime)
     {
-        //- delayTime•b‘Ò‹@‚·‚é
+        //- delayTimeç§’å¾…æ©Ÿã™ã‚‹
         yield return new WaitForSeconds(delayTime);
-        //- Šù‚É‰Ô‰Î‹Ê‚ª‘¶İ‚µ‚È‚¯‚ê‚Îˆ—‚µ‚È‚¢
+        //- æ—¢ã«èŠ±ç«ç‰ãŒå­˜åœ¨ã—ãªã‘ã‚Œã°å‡¦ç†ã—ãªã„
         if (!obj) yield break;
-        //- FireworksModule‚Ìæ“¾
+        //- FireworksModuleã®å–å¾—
         FireworksModule module = obj.gameObject.GetComponent<FireworksModule>();
-        //- ‰Ô‰Îƒ^ƒCƒv‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
+        //- èŠ±ç«ã‚¿ã‚¤ãƒ—ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
         if (module.Type == FireworksModule.FireworksType.Boss)
             obj.GetComponent<FireworksModule>().IgnitionBoss(obj.gameObject);
         else
             obj.GetComponent<FireworksModule>().Ignition();
     }
 
-    //- ƒIƒuƒWƒFƒNƒg‚ÌƒAƒNƒeƒBƒu”»’è‚ğ•ÏX‚·‚éŠÖ”
+    //- ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åˆ¤å®šã‚’å¤‰æ›´ã™ã‚‹é–¢æ•°
     private IEnumerator DelaySetActive(GameObject obj,bool bIsActive ,float delayTime)
     {
-        //- delayTime•b‘Ò‹@‚·‚é
+        //- delayTimeç§’å¾…æ©Ÿã™ã‚‹
         yield return new WaitForSeconds(delayTime);
-        //- ƒAƒNƒeƒBƒu”»’è‚Ì•ÏX
+        //- ã‚¢ã‚¯ãƒ†ã‚£ãƒ–åˆ¤å®šã®å¤‰æ›´
         obj.SetActive(bIsActive);
     }
 
-    //- ƒvƒŒƒCƒ„[‚ğÄ¶¬‚·‚éŠÖ”
+    //- ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å†ç”Ÿæˆã™ã‚‹é–¢æ•°
     private IEnumerator SpawnPlayer(float delayTime)
     {
-        //- delayTime•b‘Ò‹@‚·‚é
+        //- delayTimeç§’å¾…æ©Ÿã™ã‚‹
         yield return new WaitForSeconds(delayTime);
 
-        //- ƒAƒjƒ[ƒVƒ‡ƒ“—p‚Ì•Ï”
+        //- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ç”¨ã®å¤‰æ•°
         float elapsed = 0;
 
-        //- ™X‚É¶¬‚·‚éƒvƒŒƒCƒ„[‚Ì”
+        //- å¾ã€…ã«ç”Ÿæˆã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ•°
         int numPlayers = 1;
 
-        //- ƒvƒŒƒCƒ„[‚ğ™X‚É¶¬‚·‚é
+        //- ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’å¾ã€…ã«ç”Ÿæˆã™ã‚‹
         for (int i = 0; i < numPlayers; i++) 
         {
-            //- ƒvƒŒƒCƒ„[‚ğ¶¬‚·‚é
+            //- ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç”Ÿæˆã™ã‚‹
             Vector3 spawnPosition = new Vector3(
                 transform.position.x, transform.position.y, transform.position.z);
             GameObject player = Instantiate(
                 _playerPrefab, spawnPosition, Quaternion.identity);
 
-            //- ¶¬‰¹‚ÌÄ¶
+            //- ç”ŸæˆéŸ³ã®å†ç”Ÿ
             //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Generated, pitch, false);
 
-            //- SceneChangeƒXƒNƒŠƒvƒg‚ÌƒvƒŒƒCƒ„[¶‘¶ƒtƒ‰ƒO‚ğtrue‚É‚·‚é
+            //- SceneChangeã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”Ÿå­˜ãƒ•ãƒ©ã‚°ã‚’trueã«ã™ã‚‹
             sceneChange.bIsLife = true;
 
-            //- ™X‚É¶¬‚·‚éƒAƒjƒ[ƒVƒ‡ƒ“
+            //- å¾ã€…ã«ç”Ÿæˆã™ã‚‹ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
             while (elapsed < _animationTime) 
             {
                 float t = elapsed / _animationTime;
@@ -508,18 +516,18 @@ public class FireworksModule : MonoBehaviour
                 yield return null;
             }
 
-            //- ƒAƒjƒ[ƒVƒ‡ƒ“‚Ì’x‰„
+            //- ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®é…å»¶
             yield return new WaitForSeconds(_animationDelayTime);
         }
 
-        //- ƒvƒŒƒCƒ„[‚ğ¶¬ŒãA•œŠˆ” ‚ğ™X‚ÉÁ–Å
+        //- ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’ç”Ÿæˆå¾Œã€å¾©æ´»ç®±ã‚’å¾ã€…ã«æ¶ˆæ»…
         float startTime = Time.time;
         Vector3 initialScale = transform.localScale;
 
-        //- Á–Å‰¹‚ÌÄ¶
+        //- æ¶ˆæ»…éŸ³ã®å†ç”Ÿ
         //SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Extinction, pitch, false);
 
-        //- •œŠˆ” ‚ğ™X‚ÉÁ–Å‚³‚¹‚é
+        //- å¾©æ´»ç®±ã‚’å¾ã€…ã«æ¶ˆæ»…ã•ã›ã‚‹
         while (Time.time < startTime + _boxDisTime) 
         {
             float t = (Time.time - startTime) / _boxDisTime;
