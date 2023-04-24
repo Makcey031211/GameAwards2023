@@ -100,38 +100,63 @@ public class ButtonAnime : MonoBehaviour,
     {
         //- アニメーションが残っていたらアニメーションを削除
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
-        { currentTween.Kill(); }
-        //- 項目ごとに処理を行う
-        switch (animetype)
         {
-            //- ポップ挙動
-            case E_ANIMATIONTYPE.PopMove:
-                transform.DOKill();
-                transform.localScale = BaseSize;
-                break;
-            //- フェード挙動
-            case E_ANIMATIONTYPE.Fade:
-                button.image.DOKill();
-                button.image.DOFade(1.0f, 0.0f);
-                break;
-            //- 挙動なし
-            case E_ANIMATIONTYPE.None:
-                break;
+            currentTween.OnComplete(() =>
+            {
+                //- 項目ごとに処理を行う
+                switch (animetype)
+                {
+                    //- ポップ挙動
+                    case E_ANIMATIONTYPE.PopMove:
+                        transform.DOKill();
+                        transform.localScale = BaseSize;
+                        break;
+                    //- フェード挙動
+                    case E_ANIMATIONTYPE.Fade:
+                        button.image.DOKill();
+                        button.image.DOFade(1.0f, 0.0f);
+                        break;
+                    //- 挙動なし
+                    case E_ANIMATIONTYPE.None:
+                        break;
+                }
+            });
+            currentTween.Kill();
         }
-
+        else
+        {
+            //- 項目ごとに処理を行う
+            switch (animetype)
+            {
+                //- ポップ挙動
+                case E_ANIMATIONTYPE.PopMove:
+                    transform.DOKill();
+                    transform.localScale = BaseSize;
+                    break;
+                //- フェード挙動
+                case E_ANIMATIONTYPE.Fade:
+                    button.image.DOKill();
+                    button.image.DOFade(1.0f, 0.0f);
+                    break;
+                //- 挙動なし
+                case E_ANIMATIONTYPE.None:
+                    break;
+            }
+        }
     }
 
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
+        Debug.Log("o");
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
         { currentTween.Kill(); }
         var submit = DOTween.Sequence();
-        submit.Append(transform.DOScale(new Vector3(BaseSize.x, BaseSize.y), MoveTime).SetEase(Ease.OutSine))
-            .OnComplete(() =>
-            {
+        //submit.Append(transform.DOScale(new Vector3(BaseSize.x, BaseSize.y), MoveTime))
+        //    .OnComplete(() =>
+        //    {
                 //- 選択音再生
                 SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
-            });
+            //});
         currentTween = submit;
     }
 
