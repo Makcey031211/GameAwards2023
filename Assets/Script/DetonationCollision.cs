@@ -93,16 +93,16 @@ public class DetonationCollision : MonoBehaviour
             bool StageHit = false;
             if (Physics.Raycast(ray, out hit))
             {
-                // レイが当たったオブジェクトのタグが「Stage」なら、フラグをtrueに変える
-                if (hit.collider.gameObject.tag == "Stage")
-                { StageHit = true; }
+                // レイが当たったオブジェクトのタグが「Stage」ならリターン
+                if (hit.collider.gameObject.tag == "Stage") return;
 
-                // レイがステージと当たっていなかったら
-                if (StageHit == false)
-                {
-                    // 当たったオブジェクトのFireFlowerスクリプト内のisExplodedをtrueに変える
+                //- 当たったオブジェクトのFireworksModuleの取得
+                FireworksModule otherModule = other.gameObject.GetComponent<FireworksModule>();
+                //- 当たったオブジェクトの花火タイプによって処理を分岐
+                if (otherModule.Type == FireworksModule.FireworksType.Boss)
+                    other.gameObject.GetComponent<FireworksModule>().IgnitionBoss(other.gameObject);
+                else
                     other.gameObject.GetComponent<FireworksModule>().Ignition();
-                }
             }
         }
     }

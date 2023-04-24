@@ -90,6 +90,7 @@ public class PController : MonoBehaviour
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;
+            isOnce = true;
         }
     }
 
@@ -177,15 +178,14 @@ public class PController : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.tag == "Stage")
         {
-            float HitBlockMoveX = _transform.position.x - other.gameObject.transform.position.x;
-            float HitBlockMoveY = _transform.position.y - other.gameObject.transform.position.y;
-            var HitMove = new Vector3(HitBlockMoveX * 0.1f, HitBlockMoveY * 0.1f);
+            float HitBlockMoveX = other.gameObject.transform.position.x - _transform.position.x;
+            float HitBlockMoveY = other.gameObject.transform.position.y - _transform.position.y;
+            var HitMove = new Vector3(HitBlockMoveX * 0.001f, HitBlockMoveY * 0.001f);
             characterController.Move(HitMove);
-            Debug.Log("！？");
         }
     }
 }

@@ -9,7 +9,8 @@ public class ButtonSelected : MonoBehaviour
     void Start()
     {
         UISelect = GetComponent<Button>();
-
+        // ボタン選択音がならないようにする
+        GetComponent<ButtonAnime>().bPermissionSelectSE = false;
         // 最初に選択状態にしたいボタンの設定
         UISelect.Select();
     }

@@ -74,6 +74,12 @@ public class SceneChange : MonoBehaviour
             }
         }
 
+        // パーティクルが再生中なら現在時間をリセット
+        if (CurrentParticleTime != TotalParticleTime)
+        {
+            CurrentTime = 0;
+        }
+
         // シーン遷移フラグがtrueなら次のシーンに移動
         if (bIsChange)
         { 
@@ -107,5 +113,10 @@ public class SceneChange : MonoBehaviour
         CurrentParticleTime = currentTime;
         // パーティクルの総時間を代入
         TotalParticleTime = totalTime;
+    }
+
+    public void ResetCurrentTime()
+    {
+        CurrentTime = 0;
     }
 }

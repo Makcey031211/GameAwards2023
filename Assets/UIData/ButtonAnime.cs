@@ -30,9 +30,8 @@ public class ButtonAnime : MonoBehaviour,
     [SerializeField] private float AlphaNum = 0.0f;  //Fade
     [SerializeField] private float MoveTime = 0.1f;  //動作完了時間
     [SerializeField] private bool Loop = false;      //ループするか
-
-    private bool bIsInitSelect = false;
-    private bool bPermissionSelectSE; // 選択SEの再生が許可されているか
+    
+    public bool bPermissionSelectSE = true; // 選択SEの再生が許可されているか
 
     private Button button;
     private Vector2 BaseSize;
@@ -44,8 +43,6 @@ public class ButtonAnime : MonoBehaviour,
         //- タイプがポップであれば初期サイズ保存
         if(animetype == E_ANIMATIONTYPE.PopMove)
         {   BaseSize = button.transform.localScale; }
-        
-        bPermissionSelectSE = !bIsInitSelect;
     }
 
     //- 選択した際の処理
@@ -132,8 +129,6 @@ public class ButtonAnime : MonoBehaviour,
         submit.Append(transform.DOScale(new Vector3(BaseSize.x, BaseSize.y), MoveTime).SetEase(Ease.OutSine))
             .OnComplete(() =>
             {
-                transform.DOScale(new Vector3(BaseSize.x + 10.0f, BaseSize.y + 10.0f), MoveTime)
-                .SetEase(Ease.OutSine);
                 //- 選択音再生
                 SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
             });
@@ -209,6 +204,7 @@ public class ButtonAnime : MonoBehaviour,
                     {   Debug.Log("[UI]ボタンアニメーションを行っていません");    }
                     EditorGUILayout.EndFoldoutHeaderGroup();
                     break;
+                
             }
             
             //- インスペクターの更新
