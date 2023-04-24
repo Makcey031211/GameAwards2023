@@ -7,8 +7,11 @@ public class DetonationCollision : MonoBehaviour
     [Header("当たり判定の広がり具合"), SerializeField]
     private float power = 3;
 
-    [Header("当たり判定の最大値"), SerializeField]
-    private float MaxColSize = 7.5f;
+    [Header("一回目の当たり判定の最大値"), SerializeField]
+    private float MaxFirColSize = 7.5f;
+
+    [Header("二回目の当たり判定の最大値"), SerializeField]
+    private float MaxSecColSize = 7.5f;
 
     [Header("削除までの時間"), SerializeField]
     private float time = 3.0f;
@@ -20,10 +23,11 @@ public class DetonationCollision : MonoBehaviour
     float currentTime;
 
     //- 2回爆発するかどうか(DoubleBlastFireworks.csからアクセスされて変更される変数です)
-    public bool bIsDoubleBlast = false;
+    private bool _isDoubleBlast = false;
+    public bool IsDoubleBlast { get { return _isDoubleBlast; } set { _isDoubleBlast = value; } }
 
     //- 何回目の爆発か
-    int nBlastCount = 0;
+    int nBlastCount = 1;
 
     void Start()
     {
@@ -37,10 +41,9 @@ public class DetonationCollision : MonoBehaviour
         currentTime += Time.deltaTime;
         if (currentTime >= time)
         {
-            nBlastCount++;
             //- 2回以上爆発する花火ではない、または
             //- 2回目の爆発の場合、処理する
-            if (!bIsDoubleBlast || (nBlastCount >= 2))
+            if (!_isDoubleBlast || (nBlastCount >= 2))
             {
                 // 親オブジェクトごと削除
                 Destroy(transform.parent.gameObject);
@@ -54,23 +57,31 @@ public class DetonationCollision : MonoBehaviour
                 //- 自身のスクリプトを無効化
                 this.gameObject.GetComponent<DetonationCollision>().enabled = false;
             }
+            nBlastCount++;
         }
     }
 
     private void FixedUpdate()
     {
         float collSize = power * 0.0004f;
-        if (transform.localScale.x <= MaxColSize)
-        {
-            transform.localScale += new Vector3(collSize, collSize, collSize);
+        //- 2回以上爆発する花火ではない、または
+        //- 1回目の爆発の場合
+        if (!_isDoubleBlast || (nBlastCount < 2)) {
+            if (transform.localScale.x <= MaxFirColSize) {
+                transform.localScale += new Vector3(collSize, collSize, collSize);
+            }
+        }
+        else {
+            if (transform.localScale.x <= MaxSecColSize) {
+                transform.localScale += new Vector3(collSize, collSize, collSize);
+            }
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // 当たったオブジェクトのタグが「花火」 又は 「打った花火」なら
-        if (other.gameObject.tag == "Fireworks" ||
-            other.gameObject.tag == "ShotFireworks")
+        // 当たったオブジェクトのタグが「花火] なら
+        if (other.gameObject.tag == "Fireworks")
         {
             // 自身から花火に向かう方向を計算
             Vector3 direction = other.gameObject.transform.position - transform.position;

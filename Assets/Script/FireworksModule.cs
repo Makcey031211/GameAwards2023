@@ -11,7 +11,7 @@ public class FireworksModule : MonoBehaviour
         Normal,
         Cracker,
         Hard,
-        MultiBlast,
+        Double,
         ResurrectionBox
     }
 
@@ -62,14 +62,12 @@ public class FireworksModule : MonoBehaviour
     public bool IsDrawArea => _isDrawArea;
 
 
-    //- ハード、マルチブラストの項目
+    //- ハード、二重花火の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
     public float _blastInvSeconds = 3.0f; // 爆発後無敵時間
     [SerializeField, HideInInspector]
     public Color _invColor; // 無敵時間中の色(RGB)
-    [SerializeField, HideInInspector]
-    public int _blastNum = 2;  // 何回目で爆発するか
     //-- インスペクターから非表示
     private int _invFrameCount = 0; // 無敵時間用のフレームカウンタ
     private int _blastCount = 0; // 何回爆発したか
@@ -78,6 +76,11 @@ public class FireworksModule : MonoBehaviour
     //-- 外部からの値取得用
     public float BlastInvSeconds => _blastInvSeconds;
     public Color InvColor => _invColor;
+
+
+    //- ハード専用の項目
+    [SerializeField, HideInInspector]
+    public int _blastNum = 2;  // 何回目で爆発するか
     public int BlastNum => _blastNum;
 
     //- 復活箱用の項目
@@ -114,6 +117,11 @@ public class FireworksModule : MonoBehaviour
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>(); // 振動コンポーネントの取得
         _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // パーティクルの取得
 
+        //- 二重花火の項目
+        if (_type == FireworksType.Double ) {
+            _collisionObject.GetComponent<DetonationCollision>().IsDoubleBlast = true;
+        }
+
         //- 復活箱の項目
         sceneChange = GameObject.FindWithTag("MainCamera").GetComponent<SceneChange>();
     }
@@ -133,8 +141,8 @@ public class FireworksModule : MonoBehaviour
             case FireworksType.Hard:
                 HardFire();
                 break;
-            case FireworksType.MultiBlast:
-                MultiBlastFire();
+            case FireworksType.Double:
+                DoubleFire();
                 break;
             case FireworksType.ResurrectionBox:
                 ResurrectionBoxFire();
@@ -346,10 +354,10 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
-    private void MultiBlastFire()
+    private void DoubleFire()
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
-        if (IsExploded && !_isInvinsible) {
+        if (!_isInvinsible && _isExploded) {
             //- 色の変更
             this.gameObject.GetComponent<Renderer>().material.color = _invColor;
             //- 爆発音の再生
