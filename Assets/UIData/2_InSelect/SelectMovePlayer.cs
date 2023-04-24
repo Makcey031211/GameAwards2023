@@ -6,11 +6,12 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
 {
     [SerializeField, Header("ˆÚ“®ŠÔ")]
     private float MoveTIme = 1.0f;
-
+    [SerializeField, Header("ƒvƒŒƒCƒ„[")]
+    private GameObject player;
+    
     public void OnSelect(BaseEventData eventData)
     {
-        print(name);
-        Debug.Log("‚¹‚ê‚­‚Æ");
-        transform.DOMove(eventData.selectedObject.transform.position, MoveTIme);
+        Vector3 pos = eventData.selectedObject.transform.position;
+        player.transform.DOMove(pos, MoveTIme);
     }
 }
