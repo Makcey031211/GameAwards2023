@@ -9,7 +9,7 @@ public class PlayerActive : MonoBehaviour
     [SerializeField, Header("リセットゲージ")]
     private GameObject Reset;
     [SerializeField,Header("プレイヤー花火の帯")]
-    private SmokeAnime smoke;
+    private FireBelt smoke;
 
     private bool Acitve = false;
     private void Awake()
@@ -20,7 +20,7 @@ public class PlayerActive : MonoBehaviour
 
     void Update()
     {
-        if(!Acitve && smoke.GetSmokeMove())
+        if(!Acitve && smoke.GetMoveComplete())
         {
             player.SetActive(true);
             Reset.SetActive(true);
