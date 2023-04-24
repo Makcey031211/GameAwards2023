@@ -6,9 +6,10 @@ using UnityEditor;
 //- ステージクリア状況の保存読み込みを行う
 public class SaveManager : MonoBehaviour
 {
+
     private const int STAGE_NUM = 50;    //総ステージ数
     private string FILE_PATH;            //セーブデータパス
-    private bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
+    private static bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
 
     private void Start()
     {
@@ -20,14 +21,14 @@ public class SaveManager : MonoBehaviour
     /// ステージクリアしたかを設定する
     /// </summary>
     /// <param name="stageNum"></param>
-    public void SetStageClear(int stageNum)
+    public void SetStageClear(int Stage)
     {
-        if(stageNum >= 1 && stageNum <= STAGE_NUM)
+        if(Stage >= 1 && Stage <= STAGE_NUM)
         {
             //- 配列にクリア状況を保存
-            stageflag[stageNum - 1] = true;
+            stageflag[Stage - 1] = true;
             //- 書き込み
-            DataSave();
+            DataSave(Stage);
         }
     }
 
@@ -36,13 +37,13 @@ public class SaveManager : MonoBehaviour
     /// </summary>
     /// <param name="stageNum"></param>
     /// <returns></returns>
-    public bool GetStageClear(int stageNum)
+    public bool GetStageClear(int Stage)
     {
         //- ステージ数が範囲内か
-        if(stageNum >= 1 && stageNum <= STAGE_NUM)
+        if(Stage >= 1 && Stage <= STAGE_NUM)
         {
             //- ステージのクリア状況フラグを返す
-            return stageflag[stageNum - 1];
+            return stageflag[Stage - 1];
         }
         return false;
     }
@@ -79,7 +80,7 @@ public class SaveManager : MonoBehaviour
     /// <summary>
     /// データのセーブを行う
     /// </summary>
-    private void DataSave()
+    private void DataSave(int Stage)
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
         //- テキストを書き込む
@@ -87,7 +88,8 @@ public class SaveManager : MonoBehaviour
         {
             //- ステージ数分更新する
             for(int i = 0; i < STAGE_NUM; i++)
-            {   
+            {
+                //Debug.Log(stageflag[i]);
                 //- ステージフラグを文字列にして書き込む
                 sw.WriteLine(stageflag[i].ToString());
             }
