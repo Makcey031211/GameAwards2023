@@ -13,7 +13,7 @@ public class FireworksModule : MonoBehaviour
         Cracker,
         Hard,
         Double,
-        ResurrectionBox
+        ResurrectionBox,
         Boss,
     }
 
