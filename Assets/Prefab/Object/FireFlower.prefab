@@ -59,10 +59,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1000
-  MaxColSize: 7
+  MaxFirColSize: 6.5
+  MaxSecColSize: 7.5
   time: 0.75
   ColSize: {x: 1, y: 1, z: 1}
-  bIsDoubleBlast: 0
 --- !u!1 &7171924692625481344
 GameObject:
   m_ObjectHideFlags: 0
@@ -195,8 +195,6 @@ MonoBehaviour:
   _type: 0
   _particleObject: {fileID: 8890074931926174080, guid: d770596078eb61141999fb153a3202b5,
     type: 3}
-  _sound: {fileID: 8300000, guid: 58ef21fbecc0eb6448e2c7df6d47c472, type: 3}
-  _seVolume: 0.6
   _collisionObject: {fileID: 448602364086451437}
   _eyeObject: {fileID: 4628905030701641087, guid: a92f8c8859e279c4589d875f975c2ad3,
     type: 3}
@@ -204,7 +202,6 @@ MonoBehaviour:
   _blastAngle: 0
   _blastDis: 0
   _modelDeleteTime: 1
-  _afterModel: {fileID: 0}
   _isDrawArea: 1
   _blastInvSeconds: 3
   _invColor: {r: 0, g: 0, b: 0, a: 0}
@@ -214,8 +211,8 @@ MonoBehaviour:
   _animationTime: 0.1
   _animationDelayTime: 0.1
   _boxDisTime: 0.1
-  _generatedSound: {fileID: 0}
-  _disSound: {fileID: 0}
+  _ignitionMax: 3
+  _movieObject: {fileID: 0}
 --- !u!1001 &8004024749080934695
 PrefabInstance:
   m_ObjectHideFlags: 0
