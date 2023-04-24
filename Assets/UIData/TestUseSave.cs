@@ -9,25 +9,31 @@ public class TestUseSave : MonoBehaviour
     private int StageNum = -1;
     public void Clear()
     {
-        save = new SaveManager();
+        //save = new SaveManager();
         if (StageNum < 1)
         {
             StageNum = 1;
-            save.SetStageClear(1);              //クリアに設定する:引数はステージ番号を指定
-            bool test = save.GetStageClear(1);  //クリア状況を返却する:引数はステージ番号を指定
-            if (!test)
-            {
-                Debug.Log("クリアしていない！");
-            }
+            save.SetStageClear(StageNum);              //クリアに設定する:引数はステージ番号を指定
+            bool test = save.GetStageClear(StageNum);  //クリア状況を返却する:引数はステージ番号を指定
+            Debug.Log(test);
+            if (test)
+            {   Debug.Log("クリアした！");    }
             else
-            {
-                Debug.Log("クリアした！");
-            }
+            {   Debug.Log("クリアしていない！"); }
         }
     }
-        /*　◇ーーーーーー拡張コードーーーーーー◇　*/
+
+    private void Update()
+    {
+        save = GetComponent<SaveManager>();
+        if(save.GetStageClear(StageNum))
+        {
+            Debug.Log(save.GetStageClear(StageNum));
+        }
+    }
+    /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR
-        //- Inspector拡張クラス
+    //- Inspector拡張クラス
     [CustomEditor(typeof(TestUseSave))]
     public class Test : Editor
     {

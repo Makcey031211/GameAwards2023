@@ -129,8 +129,6 @@ public class ButtonAnime : MonoBehaviour,
         submit.Append(transform.DOScale(new Vector3(BaseSize.x, BaseSize.y), MoveTime).SetEase(Ease.OutSine))
             .OnComplete(() =>
             {
-                transform.DOScale(new Vector3(BaseSize.x + 10.0f, BaseSize.y + 10.0f), MoveTime)
-                .SetEase(Ease.OutSine);
                 //- ‘I‘ğ‰¹Ä¶
                 SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
             });

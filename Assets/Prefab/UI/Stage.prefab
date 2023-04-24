@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 6103788666660798552}
   - component: {fileID: 2183102046265156015}
   - component: {fileID: 4395630256680240193}
+  - component: {fileID: 7597079129155972957}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -304,6 +305,7 @@ MonoBehaviour:
   AlphaNum: 0.25
   MoveTime: 0.5
   Loop: 1
+  bPermissionSelectSE: 1
 --- !u!114 &4395630256680240193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,3 +335,17 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &7597079129155972957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782150024539913716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0290702807804f46ac8e19698fe0c12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stagenum: -1
+  obj: {fileID: 1782150024539913716}
