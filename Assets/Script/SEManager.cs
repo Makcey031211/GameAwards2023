@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// </summary>
 public class SEManager : MonoBehaviour
 {
-    //- —ñ‹“Œ^’è‹`
+    //- —ñ‹“Œ^’è‹`(SE)
     public enum SoundEffect
     {
         //* ‰Ô‰ÎŠÖ˜A */
