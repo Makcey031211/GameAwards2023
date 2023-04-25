@@ -233,7 +233,7 @@ public class FireworksModule : MonoBehaviour
             }
             
             //- コントローラーの振動の設定
-            vibration.SetVibration(60, 1.0f);
+            vibration.SetVibration(30, 1.0f);
 
             //- 当たり判定を有効化する
             // 当たったオブジェクトのColliderを有効にする
@@ -291,7 +291,7 @@ public class FireworksModule : MonoBehaviour
             );
 
         //- 振動の設定
-        vibration.SetVibration(60, 1.0f);
+        vibration.SetVibration(30, 1.0f);
         //- 破裂音の再生
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Brust);
         //- タグが花火のオブジェクトを全て取得
@@ -365,7 +365,7 @@ public class FireworksModule : MonoBehaviour
                     );
 
                 //- コントローラーの振動の設定
-                vibration.SetVibration(60, 1.0f);
+                vibration.SetVibration(30, 1.0f);
 
                 // 爆発時に当たり判定を無効化
                 GetComponent<SphereCollider>().isTrigger = true;
@@ -414,7 +414,7 @@ public class FireworksModule : MonoBehaviour
                 );
 
             //- コントローラーの振動の設定
-            vibration.SetVibration(60, 1.0f);
+            vibration.SetVibration(30, 1.0f);
 
             // 爆発時に当たり判定を無効化
             GetComponent<SphereCollider>().isTrigger = true;
