@@ -54,6 +54,10 @@ public class SEManager : MonoBehaviour
     public AudioClip failure;
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float volume;
+    [SerializeField, HideInInspector]
+    [Range(0f, 1f)] public float pitch;
+    [SerializeField, HideInInspector]
+    public bool loop;
     //---------------------------------------
 
     //- SEManagerのインスタンスを保持する変数
@@ -130,13 +134,23 @@ public class SEManager : MonoBehaviour
         audioClips.Add(SoundEffect.Failure, failure);
     }
 
+    public float Pitch
+    {
+        get { return pitch; }
+        set { pitch = value; }
+    }
+
+    public bool Loop
+    {
+        get { return loop; }
+        set { loop = value; }
+    }
+
     /// <summary>
     /// SEを再生させる関数
     /// </summary>
     /// <param name="soundEffect">音</param>
-    /// <param name="pitch">再生速度</param>
-    /// <param name="loop">持続するかどうか</param>
-    public void SetPlaySE(SoundEffect soundEffect, float pitch, bool loop)
+    public void SetPlaySE(SoundEffect soundEffect)
     {
         //- AudioClipが存在していない場合
         if (!audioClips.ContainsKey(soundEffect))
@@ -146,8 +160,8 @@ public class SEManager : MonoBehaviour
         }
 
         //- 引数で渡されたAudioClipを再生する
-        _audioSource.pitch = pitch;
-        _audioSource.loop  = loop;
+        _audioSource.pitch = Pitch;
+        _audioSource.loop  = Loop;
         _audioSource.PlayOneShot(audioClips[soundEffect], volume);
     }
 }

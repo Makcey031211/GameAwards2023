@@ -90,7 +90,7 @@ public class ButtonAnime : MonoBehaviour,
         }
         //- ‘I‘ğ‰¹Ä¶
         if (bPermissionSelectSE)
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Select, 1.0f, false);
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Select);
         else
             bPermissionSelectSE = true;
     }
@@ -155,7 +155,7 @@ public class ButtonAnime : MonoBehaviour,
         //    .OnComplete(() =>
         //    {
                 //- ‘I‘ğ‰¹Ä¶
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click, 1.0f, false);
+                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click);
             //});
         currentTween = submit;
     }
