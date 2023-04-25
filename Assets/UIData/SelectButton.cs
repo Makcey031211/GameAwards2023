@@ -22,9 +22,9 @@ public class SelectButton : MonoBehaviour
     {
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click,1.0f,false);
-        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.3f);
+        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.5f);
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall (0.3f, ()=> bgmManager.DestroyBGMManager()); 
-        DOVirtual.DelayedCall (0.3f, ()=> SceneManager.LoadScene(NextScene));
+        DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager()); 
+        DOVirtual.DelayedCall (0.5f, ()=> SceneManager.LoadScene(NextScene));
     }
 }
