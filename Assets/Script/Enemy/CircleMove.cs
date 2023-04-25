@@ -34,13 +34,9 @@ public class CircleMove : MonoBehaviour
     //- 花火点火スクリプト
     FireworksModule fireworks;
 
-    //- 初期位置
-    private Vector3 initialPosition;
-
     private void Start()
     {
         fireworks = this.gameObject.GetComponent<FireworksModule>();
-        initialPosition = transform.position; // 初期位置を保存する
     }
 
     private void Update()
