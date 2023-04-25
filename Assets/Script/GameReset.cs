@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class GameReset : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class GameReset : MonoBehaviour
     // 敵の数
     int EnemyNum;
 
+    //- リセットが始まったかのフラグ
+    bool bIsStartReset = false;
+
     void Start()
     {
         //- ゲームオブジェクトの検索
@@ -43,28 +47,30 @@ public class GameReset : MonoBehaviour
     
     void FixedUpdate()
     {
+
         // 現在の敵の数を更新
         EnemyNum = countEnemy.GetCurrentCountNum();
 
         //- 敵が残っており、ボタンが押されている間、処理する
         if (bIsPushButton && EnemyNum > 0)
         {
-            //- カウントを進める
-            nPushFrameCount++;
-            //- UIの操作
-            image.fillAmount = ((float)nPushFrameCount) / (RetryTime * 60);
+            nPushFrameCount++; //- カウントを進める
+            image.fillAmount = ((float)nPushFrameCount) / (RetryTime * 60); //- UIのリセットゲージの操作
         }
         else
         {
-            //- 数値の初期化
-            image.fillAmount = 0;
-            nPushFrameCount = 0;
+            nPushFrameCount = 0;  // カウントを戻す
+            image.fillAmount = 0; // UIのリセットゲージを戻す
 
         }
-        //- 長押しでシーン遷移
+        //- 一定時間長押しされたら処理する
         if (nPushFrameCount >= RetryTime * 60)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (bIsStartReset == true) return; //- リセット開始フラグがたっていればリターン
+
+            bIsStartReset = true; //シーン開始フラグをたてる
+            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.3f); // フェード開始
+            DOVirtual.DelayedCall(0.3f, () => SceneManager.LoadScene(SceneManager.GetActiveScene().name)); // シーンのロード(遅延あり)
         }
     }
 
