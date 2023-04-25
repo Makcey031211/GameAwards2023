@@ -72,7 +72,7 @@ public class TMPAnime : MonoBehaviour
     {
         //- ÉNÉäÉAâπçƒê∂
         if (bPermissionClearSE)
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Clear, 1.0f, false);
+            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Clear);
         else
             bPermissionClearSE = true;
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);

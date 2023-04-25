@@ -46,6 +46,8 @@ public class SoundEditor : Editor
 
             EditorGUILayout.LabelField("--- 設定項目 ---");
             _se.volume  = EditorGUILayout.Slider("SE音量", _se.volume, 0f, 1f);
+            _se.pitch   = EditorGUILayout.Slider("SE再生速度", _se.pitch, 0f, 1f);
+            _se.loop    = EditorGUILayout.Toggle("SEループ", _se.loop);
         }
         //- インスペクターの更新
         if (GUI.changed)
