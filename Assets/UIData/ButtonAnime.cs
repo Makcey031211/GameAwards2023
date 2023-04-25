@@ -147,7 +147,6 @@ public class ButtonAnime : MonoBehaviour,
 
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
-        Debug.Log("o");
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
         { currentTween.Kill(); }
         var submit = DOTween.Sequence();
