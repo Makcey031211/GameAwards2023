@@ -398,7 +398,6 @@ GameObject:
   - component: {fileID: 244557915}
   - component: {fileID: 244557914}
   - component: {fileID: 244557911}
-  - component: {fileID: 244557912}
   m_Layer: 5
   m_Name: Sato_4
   m_TagString: Untagged
@@ -436,21 +435,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &244557912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 244557908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0290702807804f46ac8e19698fe0c12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stagenum: 30
-  obj: {fileID: 244557908}
-  Active: 0
 --- !u!222 &244557914
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -566,7 +550,6 @@ GameObject:
   - component: {fileID: 318248194}
   - component: {fileID: 318248200}
   - component: {fileID: 318248199}
-  - component: {fileID: 318248195}
   m_Layer: 5
   m_Name: Sato_5
   m_TagString: Untagged
@@ -595,21 +578,6 @@ RectTransform:
   m_AnchoredPosition: {x: 2.4226074, y: 1.5083008}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &318248195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 318248193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0290702807804f46ac8e19698fe0c12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stagenum: 40
-  obj: {fileID: 318248193}
-  Active: 0
 --- !u!114 &318248199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2854,7 +2822,9 @@ PrefabInstance:
       propertyPath: CurrentStageNum
       value: 40
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 367676284939966612, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
+    - {fileID: 6424881066287326841, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
 --- !u!4 &1514802923 stripped
 Transform:
@@ -2873,7 +2843,6 @@ GameObject:
   - component: {fileID: 1553071841}
   - component: {fileID: 1553071840}
   - component: {fileID: 1553071837}
-  - component: {fileID: 1553071838}
   m_Layer: 5
   m_Name: Sato_3
   m_TagString: Untagged
@@ -2911,21 +2880,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1553071838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1553071834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0290702807804f46ac8e19698fe0c12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stagenum: 20
-  obj: {fileID: 1553071834}
-  Active: 0
 --- !u!222 &1553071840
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4139,7 +4093,9 @@ PrefabInstance:
       propertyPath: CurrentStageNum
       value: 30
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 367676284939966612, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
+    - {fileID: 6424881066287326841, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
 --- !u!4 &2014022968 stripped
 Transform:
@@ -4379,7 +4335,9 @@ PrefabInstance:
       propertyPath: CurrentStageNum
       value: 50
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 367676284939966612, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
+    - {fileID: 6424881066287326841, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7ef9154bc9e41df4abd49866a18c22a4, type: 3}
 --- !u!4 &2060643364 stripped
 Transform:
@@ -4533,7 +4491,6 @@ GameObject:
   - component: {fileID: 2108676844}
   - component: {fileID: 2108676843}
   - component: {fileID: 2108676840}
-  - component: {fileID: 2108676841}
   m_Layer: 5
   m_Name: Sato_2
   m_TagString: Untagged
@@ -4571,21 +4528,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2108676841
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108676837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0290702807804f46ac8e19698fe0c12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stagenum: 10
-  obj: {fileID: 2108676837}
-  Active: 0
 --- !u!222 &2108676843
 CanvasRenderer:
   m_ObjectHideFlags: 0
