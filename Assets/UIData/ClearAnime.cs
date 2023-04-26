@@ -56,6 +56,7 @@ public class ClearAnime : MonoBehaviour
     private void Start()
     {
         inputModule = GameObject.Find("EventSystem").GetComponent<IgnoreMouseInputModule>();
+        inputModule.enabled = false;
         isAnime = true;
         if (UseFade)
         { DoFade(); }
