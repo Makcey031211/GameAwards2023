@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5102865419937643558}
   - component: {fileID: 5102865419937643560}
   - component: {fileID: 5102865419937643559}
+  - component: {fileID: 367676284939966612}
   m_Layer: 0
   m_Name: Clowd (1)
   m_TagString: Untagged
@@ -76,6 +77,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &367676284939966612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5102865419937643557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39615197c1ad18a45b0a408eca4a46fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaNum: 0.2
+  CurrentStageNum: 10
+  BeforStageNum: -1
 --- !u!1 &5102865421137377509
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,6 +103,7 @@ GameObject:
   - component: {fileID: 5102865421137377510}
   - component: {fileID: 5102865421137377512}
   - component: {fileID: 5102865421137377511}
+  - component: {fileID: 6424881066287326841}
   m_Layer: 0
   m_Name: Clowd
   m_TagString: Untagged
@@ -152,6 +169,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6424881066287326841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5102865421137377509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39615197c1ad18a45b0a408eca4a46fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AlphaNum: 0.2
+  CurrentStageNum: 10
+  BeforStageNum: -1
 --- !u!1 &5716608595165067889
 GameObject:
   m_ObjectHideFlags: 0
