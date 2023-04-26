@@ -13,6 +13,7 @@ public class SEManager : MonoBehaviour
         Explosion,  // 爆発
         Spark,      // 火花
         Belt,       // 打ち上げ
+        BossBelt,   // ボス打ち上げ
         //* クラッカー関連 */
         Brust,      // 破裂
         Reservoir,  // 溜め
@@ -34,6 +35,8 @@ public class SEManager : MonoBehaviour
     public AudioClip spark;
     [SerializeField, HideInInspector]
     public AudioClip belt;
+    [SerializeField, HideInInspector]
+    public AudioClip bossbelt;
     [SerializeField, HideInInspector]
     public AudioClip brust;
     [SerializeField, HideInInspector]
@@ -111,6 +114,7 @@ public class SEManager : MonoBehaviour
         audioClips.Add(SoundEffect.Explosion, explosion);
         audioClips.Add(SoundEffect.Spark, spark);
         audioClips.Add(SoundEffect.Belt, belt);
+        audioClips.Add(SoundEffect.BossBelt, bossbelt);
     }
 
     private void CrackerSE()
