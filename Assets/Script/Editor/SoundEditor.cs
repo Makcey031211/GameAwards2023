@@ -28,6 +28,7 @@ public class SoundEditor : Editor
             _se.explosion = EditorGUILayout.ObjectField("爆発音", _se.explosion, typeof(AudioClip), false) as AudioClip;
             _se.spark     = EditorGUILayout.ObjectField("火花音", _se.spark, typeof(AudioClip), false) as AudioClip;
             _se.belt      = EditorGUILayout.ObjectField("打ち上げ音", _se.belt, typeof(AudioClip), false) as AudioClip;
+            _se.bossbelt  = EditorGUILayout.ObjectField("ボス打ち上げ音", _se.bossbelt, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- クラッカー関連 ---");
             _se.brust     = EditorGUILayout.ObjectField("破裂音", _se.brust, typeof(AudioClip), false) as AudioClip;
@@ -45,9 +46,9 @@ public class SoundEditor : Editor
             _se.failure = EditorGUILayout.ObjectField("失敗音", _se.failure, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- 設定項目 ---");
-            _se.volume  = EditorGUILayout.Slider("SE音量", _se.volume, 0f, 1f);
-            _se.pitch   = EditorGUILayout.Slider("SE再生速度", _se.pitch, 0f, 1f);
-            _se.loop    = EditorGUILayout.Toggle("SEループ", _se.loop);
+            _se.volume  = EditorGUILayout.Slider("SE_Volume", _se.volume, 0f, 1f);
+            _se.pitch   = EditorGUILayout.Slider("SE_Pitch", _se.pitch, 0f, 1f);
+            _se.loop    = EditorGUILayout.Toggle("SE_Loop", _se.loop);
         }
         //- インスペクターの更新
         if (GUI.changed)

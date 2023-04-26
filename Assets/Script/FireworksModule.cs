@@ -195,6 +195,8 @@ public class FireworksModule : MonoBehaviour
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
+        DOTween.Sequence().SetDelay(1.5f).OnComplete(() => 
+        { SEManager.Instance.SetPlaySE(SEManager.SoundEffect.BossBelt); });
         //- 演出用スクリプトの取得
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
         //- 演出フラグ変更
