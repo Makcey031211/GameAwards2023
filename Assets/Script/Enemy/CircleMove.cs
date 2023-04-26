@@ -7,6 +7,15 @@ using UnityEngine;
 /// </summary>
 public class CircleMove : MonoBehaviour
 {
+    private enum Direction
+    {
+        Clockwise,         // 半時計周り
+        CounterClockwise,  // 時計周り
+    }
+
+    [SerializeField, Header("回転方向")]
+    private Direction direction = Direction.Clockwise;
+
     [SerializeField, Header("中心点")]
     private Vector3 Center = Vector3.zero;
 
@@ -20,7 +29,7 @@ public class CircleMove : MonoBehaviour
     private float PeriodTime = 2.0f;
 
     [SerializeField, Header("向きを更新するかどうか")]
-    private bool updateRotation = true;
+    private bool updateRotation = false;
 
     //- 現在の時間
     private float currentTime;
@@ -65,7 +74,17 @@ public class CircleMove : MonoBehaviour
 
             //- 現在の回転角度を更新する
             currentTime += Time.deltaTime;
-            currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
+
+            //- 回転方向に応じて処理を分岐
+            switch (direction)
+            {
+                case Direction.Clockwise:
+                    currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
+                    break;
+                case Direction.CounterClockwise:
+                    currentAngle = angle - ((currentTime % PeriodTime) / PeriodTime * angle);
+                    break;
+            }
         }
     }
 }
