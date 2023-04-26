@@ -66,6 +66,12 @@ public class ClearAnime : MonoBehaviour
         { DoPop(); }
     }
 
+    private void Awake()
+    {
+        animeObjNum = 0;
+        Debug.Log(animeObjNum);
+    }
+
     private void Update()
     {
         if ( isAnime && animeObjNum <= 0) {
@@ -80,6 +86,8 @@ public class ClearAnime : MonoBehaviour
     private void PosMove()
     {
         animeObjNum++;
+        Debug.Log(animeObjNum);
+
         RectTransform trans = GetComponent<RectTransform>();
         //- 初期位置を保存
         InitPos = trans.anchoredPosition;
@@ -109,6 +117,7 @@ public class ClearAnime : MonoBehaviour
             .SetDelay(Delay)
             .OnComplete(() => {
                 animeObjNum--;
+                Debug.Log(animeObjNum);
             });
 
     }
@@ -119,6 +128,8 @@ public class ClearAnime : MonoBehaviour
     private void DoFade()
     {
         animeObjNum++;
+        Debug.Log(animeObjNum);
+
         Image image = GetComponent<Image>();
         //- 指定したアルファ値で開始
         image.color = new Color(image.color.r, image.color.g, image.color.b, StartAlpha);
@@ -127,6 +138,7 @@ public class ClearAnime : MonoBehaviour
             .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .OnComplete(() => {
                 animeObjNum--;
+                Debug.Log(animeObjNum);
             });
     }
 
@@ -134,6 +146,8 @@ public class ClearAnime : MonoBehaviour
     private void DoPop()
     {
         animeObjNum++;
+        Debug.Log(animeObjNum);
+
         Image image = GetComponent<Image>();
         Vector2 Initsize = this.gameObject.transform.localScale;
         transform.DOScale(new Vector3(Initsize.x * PopSize.x, Initsize.y * PopSize.y, 0.0f), PopMaxSizeTime)
@@ -146,6 +160,7 @@ public class ClearAnime : MonoBehaviour
                 .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
                 .OnComplete(() => {
                     animeObjNum--;
+                    Debug.Log(animeObjNum);
                 });
             });
     }
