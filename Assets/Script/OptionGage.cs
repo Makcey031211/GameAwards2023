@@ -109,6 +109,7 @@ public class OptionGage : MonoBehaviour
 
     public void OnReset(InputAction.CallbackContext context)
     {
+        Debug.Log("僕りせっとぉぉぉ");
         //- ボタンが押されている間、変数を設定
         if (context.started) { bIsPushRetry = true; }
         if (context.canceled) { bIsPushRetry = false; }
@@ -116,6 +117,8 @@ public class OptionGage : MonoBehaviour
 
     public void OnInGame(InputAction.CallbackContext context)
     {
+        Debug.Log("俺いんげぇええええええむ");
+        Debug.Log("ががが");
         //- ボタンが押されている間、変数を設定
         if (context.started) { bIsPushInGame = true; }
         if (context.canceled) { bIsPushInGame = false; }
