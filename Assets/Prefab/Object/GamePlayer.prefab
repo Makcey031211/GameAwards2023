@@ -59,10 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1000
-  MaxFirColSize: 6.5
+  MaxFirColSize: 7.5
   MaxSecColSize: 7.5
-  time: 0.75
+  time: 1.5
   ColSize: {x: 1, y: 1, z: 1}
+  EaseType: 0
+  MoveDis: 0.8
+  MoveTime: 2
+  DelayTime: 0.7
 --- !u!1 &6778845893802623889
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +320,8 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _ignitionMax: 3
   _movieObject: {fileID: 0}
+  InGR: {fileID: 0}
+  InGS: {fileID: 0}
 --- !u!1 &6778845893938954530
 GameObject:
   m_ObjectHideFlags: 0

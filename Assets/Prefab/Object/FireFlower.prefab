@@ -59,10 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1000
-  MaxFirColSize: 6.5
+  MaxFirColSize: 7.5
   MaxSecColSize: 7.5
-  time: 0.75
+  time: 1.5
   ColSize: {x: 1, y: 1, z: 1}
+  EaseType: 0
+  MoveDis: 0.8
+  MoveTime: 2
+  DelayTime: 0.7
 --- !u!1 &7171924692625481344
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +217,8 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _ignitionMax: 3
   _movieObject: {fileID: 0}
+  InGR: {fileID: 0}
+  InGS: {fileID: 0}
 --- !u!1001 &8004024749080934695
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -248,7 +254,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 590b07fdbe8892c4b9d70b5b63f579fb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.415
+      value: -0.715
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 590b07fdbe8892c4b9d70b5b63f579fb,
         type: 3}
