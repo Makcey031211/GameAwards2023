@@ -326,17 +326,21 @@ public class FireworksModule : MonoBehaviour
         GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
         //- レイの開始点のオブジェクト
         GameObject originObj = this.transform.GetChild(3).gameObject;
+        //- 範囲検索用のベクトル開始地点
+        Vector3 RangeStartPos = this.transform.position;
         //- レイの開始点
-        Vector3 originPos = new Vector3(originObj.transform.position.x, originObj.transform.position.y, originObj.transform.position.z);
+        Vector3 RayStartPos = new Vector3(originObj.transform.position.x, originObj.transform.position.y, originObj.transform.position.z);
         //- 花火のオブジェクトを一つずつ実行
         foreach (var obj in Fireworks)
         {
             //- レイの目標点
             Vector3 targetPos = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
-            //- クラッカーから花火へのベクトル
-            Vector3 FireworkDir = targetPos - originPos;
+            //- クラッカーから花火へのベクトル(範囲用)
+            Vector3 RangeDir = targetPos - transform.position;
+            //- クラッカーから花火へのベクトル(レイ用)
+            Vector3 RayDir = targetPos - RayStartPos;
             //- 花火との距離を取得
-            float dis = Vector3.Distance(originPos, targetPos);
+            float dis = Vector3.Distance(RangeStartPos, targetPos);
             //- 花火との距離が射程内じゃなかったら処理しない
             if (dis > BlastDis) continue;
 
@@ -344,7 +348,7 @@ public class FireworksModule : MonoBehaviour
             float DisDelayRatio;
             float DelayTime;
             //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
-            var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
+            var angle = Vector3.Angle((transform.up).normalized, (RangeDir).normalized);
             if (/*angle != 0 && */(angle <= BlastAngle / 2))
             {
                 DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
@@ -356,7 +360,7 @@ public class FireworksModule : MonoBehaviour
             }
 
             // 自身から花火に向かうレイを作成
-            Ray ray = new Ray(originPos, FireworkDir);
+            Ray ray = new Ray(RayStartPos, RayDir);
             {
                 // レイが当たったオブジェクトの情報を入れる変数
                 RaycastHit hit;
@@ -365,7 +369,7 @@ public class FireworksModule : MonoBehaviour
                 {
                     if (IsDrawArea)
                     {
-                        Debug.DrawRay(originPos, FireworkDir, Color.red, 1.0f);
+                        Debug.DrawRay(RayStartPos, RayDir, Color.red, 1.0f);
                         Debug.DrawRay(hit.point, new Vector3(+1, +1, 0), Color.blue, 1.0f);
                         Debug.DrawRay(hit.point, new Vector3(+1, -1, 0), Color.blue, 1.0f);
                         Debug.DrawRay(hit.point, new Vector3(-1, +1, 0), Color.blue, 1.0f);
