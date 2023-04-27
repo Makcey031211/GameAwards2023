@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class DetonationCollision : MonoBehaviour
 {
@@ -18,6 +19,11 @@ public class DetonationCollision : MonoBehaviour
 
     [Header("当たり判定の初期サイズ"), SerializeField]
     private Vector3 ColSize = new Vector3(1.0f,1.0f,1.0f);
+    
+    public Ease EaseType;
+    public float MoveDis;
+    public float MoveTime;
+    public float DelayTime;
 
     //- 生成からの経過時間
     float currentTime;
@@ -32,6 +38,10 @@ public class DetonationCollision : MonoBehaviour
     void Start()
     {
         currentTime = 0.0f;
+        //- 座標の取得
+        Vector3 pos = transform.position;
+        //- エフェクトの重力にあわせて、中心をずらす
+        transform.DOMoveY(pos.y - MoveDis, MoveTime).SetEase(EaseType).SetDelay(DelayTime);
     }
 
     // Update is called once per frame
