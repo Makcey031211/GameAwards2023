@@ -111,12 +111,18 @@ public class FireworksModule : MonoBehaviour
     public int _ignitionMax = 3;  // 何回目で爆発するか
     [SerializeField, HideInInspector]
     public GameObject _movieObject; // 演出を管理しているオブジェクト
+    [SerializeField, HideInInspector]
+    public GameObject _outsideBarrier; // 外側のバリア
+    [SerializeField, HideInInspector]
+    public GameObject _insideBarrier;  // 内側のバリア
     //-- インスペクターから非表示
     private int ignitionCount = 0; // 何回引火したか
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
     //-- 外部からの値取得用
     public int IgnitionMax => _ignitionMax;
     public GameObject MovieObject => _movieObject;
+    public GameObject OutsideBarrier => _outsideBarrier;
+    public GameObject InsideBarrier =>  _insideBarrier;
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -191,6 +197,20 @@ public class FireworksModule : MonoBehaviour
     {   
         //- 引火回数を増やす
         ignitionCount++;
+        Debug.Log(ignitionCount + "回目の地獄");
+
+        //- 1回目の引火時、外側のバリア破壊
+        if (ignitionCount == 1)
+        {
+            //- バリアオブジェクト破壊
+            Destroy(_outsideBarrier);
+        }
+        //- 2回目の引火時、内側のバリア破壊      
+        if (ignitionCount == 2)
+        {
+            //- バリアオブジェクト破壊
+            Destroy(_insideBarrier);
+        }
 
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
@@ -304,41 +324,58 @@ public class FireworksModule : MonoBehaviour
         SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Brust);
         //- タグが花火のオブジェクトを全て取得
         GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
-        // 原点からクラッカーへのベクトル
-        Vector3 origin = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        //- レイの開始点のオブジェクト
+        GameObject originObj = this.transform.GetChild(3).gameObject;
+        //- レイの開始点
+        Vector3 originPos = new Vector3(originObj.transform.position.x, originObj.transform.position.y, originObj.transform.position.z);
         //- 花火のオブジェクトを一つずつ実行
         foreach (var obj in Fireworks)
         {
-            //- 原点から花火へのベクトル
-            Vector3 direction = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+            //- レイの目標点
+            Vector3 targetPos = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
             //- クラッカーから花火へのベクトル
-            Vector3 FireworkDir = direction - origin;
+            Vector3 FireworkDir = targetPos - originPos;
             //- 花火との距離を取得
-            float dis = Vector3.Distance(origin, direction);
+            float dis = Vector3.Distance(originPos, targetPos);
             //- 花火との距離が射程内じゃなかったら処理しない
             if (dis > BlastDis) continue;
 
+            //- 変数の準備
+            float DisDelayRatio;
+            float DelayTime;
+            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
+            var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
+            if (/*angle != 0 && */(angle <= BlastAngle / 2))
+            {
+                DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
+                DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
+            }
+            else
+            {
+                continue;
+            }
+
             // 自身から花火に向かうレイを作成
-            Ray ray = new Ray(transform.position, FireworkDir);
+            Ray ray = new Ray(originPos, FireworkDir);
             {
                 // レイが当たったオブジェクトの情報を入れる変数
                 RaycastHit hit;
                 //- レイを飛ばす
                 if (Physics.Raycast(ray, out hit))
                 {
+                    if (IsDrawArea)
+                    {
+                        Debug.DrawRay(originPos, FireworkDir, Color.red, 1.0f);
+                        Debug.DrawRay(hit.point, new Vector3(+1, +1, 0), Color.blue, 1.0f);
+                        Debug.DrawRay(hit.point, new Vector3(+1, -1, 0), Color.blue, 1.0f);
+                        Debug.DrawRay(hit.point, new Vector3(-1, +1, 0), Color.blue, 1.0f);
+                        Debug.DrawRay(hit.point, new Vector3(-1, -1, 0), Color.blue, 1.0f);
+                    }
                     //- ステージに当たった場合処理しない
                     if (hit.collider.gameObject.tag == "Stage") continue;
+                    //- 遅延をかけて爆破
+                    StartCoroutine(DelayDestroyCracker(obj, DelayTime));
                 }
-            }
-            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
-            var angle = Vector3.Angle((transform.up).normalized, (FireworkDir).normalized);
-            if (/*angle != 0 && */(angle <= BlastAngle / 2))
-            {
-                float DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
-                float DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
-                //- 遅延をかけて爆破
-                StartCoroutine(DelayDestroyCracker(obj, DelayTime));
-                continue;
             }
         }
 
