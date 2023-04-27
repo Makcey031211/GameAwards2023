@@ -342,6 +342,9 @@ public class FireworksModule : MonoBehaviour
             }
         }
 
+
+        //- レイヤーの変更
+        gameObject.layer = 0;
         //- 自身を破壊する
         Destroy(this.gameObject, _destroyTime);
     }
