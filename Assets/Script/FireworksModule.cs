@@ -279,11 +279,11 @@ public class FireworksModule : MonoBehaviour
             //- クラッカー溜め音再生
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Reservoir);
             //- 一定時間後にアニメーション用を非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.5f));
+            StartCoroutine(DelaySetActive(transform.GetChild(1).gameObject, false, 0.8f));
             //- 破裂後モデルをアクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.5f));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.8f));
             //- 一定時間後に破裂後モデルを非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.5f + ModelDeleteTime));
+            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
         }
     }
 
