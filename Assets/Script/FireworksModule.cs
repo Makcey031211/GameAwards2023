@@ -118,6 +118,9 @@ public class FireworksModule : MonoBehaviour
     public int IgnitionMax => _ignitionMax;
     public GameObject MovieObject => _movieObject;
 
+    public EntryAnime InGR;
+    public EntryAnime InGS;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -191,6 +194,9 @@ public class FireworksModule : MonoBehaviour
 
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
+
+        InGS.OutMove();
+        InGR.OutMove();
 
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
