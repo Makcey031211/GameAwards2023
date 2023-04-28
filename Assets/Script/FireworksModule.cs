@@ -126,7 +126,7 @@ public class FireworksModule : MonoBehaviour
 
     public EntryAnime InGR;
     public EntryAnime InGS;
-
+    public EntryAnime Tips;
     // Start is called before the first frame update
     void Start()
     {
@@ -217,6 +217,7 @@ public class FireworksModule : MonoBehaviour
 
         InGS.OutMove();
         InGR.OutMove();
+        Tips.OutMove();
 
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
