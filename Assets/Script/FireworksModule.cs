@@ -197,7 +197,6 @@ public class FireworksModule : MonoBehaviour
     {   
         //- 引火回数を増やす
         ignitionCount++;
-        Debug.Log(ignitionCount + "回目の地獄");
 
         //- 1回目の引火時、外側のバリア破壊
         if (ignitionCount == 1)
@@ -368,7 +367,7 @@ public class FireworksModule : MonoBehaviour
                 //- レイを飛ばす
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (IsDrawArea)
+                    if (Input.GetKey(KeyCode.Alpha1))
                     {
                         Debug.DrawRay(RayStartPos, RayDir, Color.red, 1.0f);
                         Debug.DrawRay(hit.point, new Vector3(+1, +1, 0), Color.blue, 1.0f);
