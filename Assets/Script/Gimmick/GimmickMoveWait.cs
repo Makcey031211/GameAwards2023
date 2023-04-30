@@ -22,8 +22,8 @@ public class GimmickMoveWait : MonoBehaviour
     [SerializeField, Header("方向")]
     private int direction = 1;
 
-    [SerializeField, Header("中間点到達時の待機時間")]
-    private float waitTime = 1.0f;
+    [SerializeField, Header("始点と終点到達時の待機時間")]
+    private float startEndWaitTime = 1.0f;
 
     private List<Vector3> points = new List<Vector3>();
 
@@ -43,7 +43,7 @@ public class GimmickMoveWait : MonoBehaviour
 
     private void Update()
     {
-        if (isWaiting) // 中間点待機時
+        if (isWaiting)
         {
             waitingTimer -= Time.deltaTime;
             if (waitingTimer <= 0.0f)
@@ -57,7 +57,7 @@ public class GimmickMoveWait : MonoBehaviour
                 }
             }
         }
-        else // 中間点で待機していない時
+        else
         {
             //- 次の位置に移動するための方向ベクトルを計算する
             Vector3 directionVector = (points[currentPoint] - transform.position).normalized;
@@ -71,10 +71,11 @@ public class GimmickMoveWait : MonoBehaviour
             //- 次のポイントに到達したら方向を逆にする
             if (Vector3.Distance(transform.position, points[currentPoint]) < 0.01f)
             {
-                if (currentPoint == endPoint.Count)
+                //- 指し示すポイントが始点または終点の時
+                if (currentPoint == endPoint.Count - 1 || currentPoint == endPoint.Count + halfwayPoint.Count)
                 {
                     isWaiting    = true;
-                    waitingTimer = waitTime;
+                    waitingTimer = startEndWaitTime;
                 }
                 else
                 {
