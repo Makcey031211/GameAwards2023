@@ -69,7 +69,6 @@ public class ClearAnime : MonoBehaviour
     private void Awake()
     {
         animeObjNum = 0;
-        Debug.Log(animeObjNum);
     }
 
     private void Update()
@@ -86,7 +85,6 @@ public class ClearAnime : MonoBehaviour
     private void PosMove()
     {
         animeObjNum++;
-        Debug.Log(animeObjNum);
 
         RectTransform trans = GetComponent<RectTransform>();
         //- 初期位置を保存
@@ -128,7 +126,6 @@ public class ClearAnime : MonoBehaviour
     private void DoFade()
     {
         animeObjNum++;
-        Debug.Log(animeObjNum);
 
         Image image = GetComponent<Image>();
         //- 指定したアルファ値で開始
