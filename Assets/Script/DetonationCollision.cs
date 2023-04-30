@@ -19,11 +19,6 @@ public class DetonationCollision : MonoBehaviour
 
     [Header("当たり判定の初期サイズ"), SerializeField]
     private Vector3 ColSize = new Vector3(1.0f,1.0f,1.0f);
-    
-    public Ease EaseType;
-    public float MoveDis;
-    public float MoveTime;
-    public float DelayTime;
 
     //- 生成からの経過時間
     float currentTime;
@@ -41,7 +36,7 @@ public class DetonationCollision : MonoBehaviour
         //- 座標の取得
         Vector3 pos = transform.position;
         //- エフェクトの重力にあわせて、中心をずらす
-        transform.DOMoveY(pos.y - MoveDis, MoveTime).SetEase(EaseType).SetDelay(DelayTime);
+        transform.DOMoveY(pos.y - 0.8f, 2.0f).SetDelay(0.7f);
     }
 
     // Update is called once per frame
@@ -90,30 +85,91 @@ public class DetonationCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 当たったオブジェクトのタグが「花火] なら
-        if (other.gameObject.tag == "Fireworks")
-        {
-            // 自身から花火に向かう方向を計算
-            Vector3 direction = other.gameObject.transform.position - transform.position;
-            // 自身から花火に向かうレイを作成
-            Ray ray = new Ray(transform.position, direction);
-            // レイが当たったオブジェクトの情報を入れる変数
-            RaycastHit hit;
-            // レイがステージに当たったかフラグ
-            bool StageHit = false;
-            if (Physics.Raycast(ray, out hit))
-            {
-                // レイが当たったオブジェクトのタグが「Stage」ならリターン
-                if (hit.collider.gameObject.tag == "Stage") return;
+        if (other.gameObject.tag != "Fireworks") return;              // 当たったオブジェクトのタグが「花火] 以外ならリターン
+        if (other.GetComponent<FireworksModule>().IsExploded) return; // 花火がすでに爆発済みならリターン
 
-                //- 当たったオブジェクトのFireworksModuleの取得
-                FireworksModule otherModule = other.gameObject.GetComponent<FireworksModule>();
-                //- 当たったオブジェクトの花火タイプによって処理を分岐
-                if (otherModule.Type == FireworksModule.FireworksType.Boss)
-                    other.gameObject.GetComponent<FireworksModule>().IgnitionBoss(other.gameObject);
-                else
-                    other.gameObject.GetComponent<FireworksModule>().Ignition();
+        CheckHitRayStage(other.gameObject);
+    }
+
+    //- 花火玉に当たった時にステージオブジェクトに阻まれてないかどうか調べる関数
+    private void CheckHitRayStage(GameObject obj)
+    {
+        // 自身から花火に向かう方向を計算
+        Vector3 direction = obj.transform.position - transform.position;
+        // 自身と花火の長さを計算
+        float DisLength = direction.magnitude;
+        // 自身から花火に向かうレイを作成
+        Ray ray = new Ray(transform.position, direction);
+        // 当たったオブジェクトを格納するための変数
+        var HitList = new List<RaycastHit>(); 
+
+        // レイが当たったオブジェクトをすべて順番に確認していく
+        foreach (RaycastHit hit in Physics.RaycastAll(ray, DisLength))
+        {
+            //- 最初のオブジェクトなら無条件で格納
+            if (HitList.Count == 0)
+            {
+                HitList.Add(hit);
+                continue;
             }
+            
+            //- 格納フラグ
+            bool bAdd = false;
+            //- 格納変数と当たったオブジェクトの比較
+            for (int i = 0; i < HitList.Count; i++)
+            {
+                //- 格納フラグチェック
+                if (bAdd) break; 
+                //- 距離が格納箇所データの距離より長ければリターン
+                if (HitList[i].distance < hit.distance) continue;
+                //- 仮のデータを一番最後に格納
+                HitList.Add(new RaycastHit());
+                //- 最後から格納場所までデータをずらす
+                for (int j = HitList.Count - 1; j > i; j--)
+                {
+                    //- データを一つ移動
+                    HitList[j] = HitList[j - 1];
+                }
+                //- 格納場所に格納
+                HitList[i] = hit;
+                bAdd = true;
+            }
+
+            //- 格納フラグが立っていなければ、一番距離が長いオブジェクトなので
+            //- 配列の一番最後に格納する
+            if (!bAdd) HitList.Add(hit);
         }
+
+        //- 距離が短いものから調べる
+        for (int i = 0; i < HitList.Count; i++)
+        {
+            RaycastHit hit = HitList[i];
+            float markdis = 0.1f;
+            Debug.DrawRay(transform.position, direction, Color.red, 3.0f);
+            Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+            Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+            Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+            Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
+
+            if (hit.collider.gameObject.tag != "Stage") continue; //- ステージオブジェクト以外なら次へ
+            Debug.Log("ステージ");
+            if (hit.distance > DisLength) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
+            Debug.Log("手前");
+
+            //- 当たった花火玉より手前にステージオブジェクトが存在する
+            return; //- 処理を終了
+        }
+
+        Debug.Log("はなびぃ");
+        //- 当たったオブジェクトのFireworksModuleの取得
+        FireworksModule module = obj.GetComponent<FireworksModule>();
+        //- 当たったオブジェクトの花火タイプによって処理を分岐
+        if (module.Type == FireworksModule.FireworksType.Boss)
+            module.IgnitionBoss(obj);
+        else
+            module.Ignition();
+
+        //- ステージオブジェクトに当たっていない
+        return;
     }
 }
