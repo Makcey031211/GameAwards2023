@@ -39,7 +39,6 @@ public class CrackerQuickSpin : MonoBehaviour
         //- 爆破時、回転スクリプトを無効化
         if (fireworks.IsExploded)
         {
-            Debug.Log("test");
             enabled = false;
         }
 

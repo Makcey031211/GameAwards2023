@@ -144,23 +144,24 @@ public class DetonationCollision : MonoBehaviour
         for (int i = 0; i < HitList.Count; i++)
         {
             RaycastHit hit = HitList[i];
-            float markdis = 0.1f;
-            Debug.DrawRay(transform.position, direction, Color.red, 3.0f);
-            Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
-            Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
-            Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
-            Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
 
+            //- 当たり判定のデバッグ表示
+            if (Input.GetKey(KeyCode.Alpha1))
+            {
+                float markdis = 0.1f;
+                Debug.DrawRay(transform.position, direction, Color.red, 3.0f);
+                Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+                Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+                Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+                Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
+            }
             if (hit.collider.gameObject.tag != "Stage") continue; //- ステージオブジェクト以外なら次へ
-            Debug.Log("ステージ");
             if (hit.distance > DisLength) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
-            Debug.Log("手前");
 
             //- 当たった花火玉より手前にステージオブジェクトが存在する
             return; //- 処理を終了
         }
-
-        Debug.Log("はなびぃ");
+        
         //- 当たったオブジェクトのFireworksModuleの取得
         FireworksModule module = obj.GetComponent<FireworksModule>();
         //- 当たったオブジェクトの花火タイプによって処理を分岐

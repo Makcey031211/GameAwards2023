@@ -361,28 +361,72 @@ public class FireworksModule : MonoBehaviour
 
             // 自身から花火に向かうレイを作成
             Ray ray = new Ray(RayStartPos, RayDir);
+            // 当たったオブジェクトを格納するための変数
+            var HitList = new List<RaycastHit>();
+            // レイが当たったオブジェクトをすべて順番に確認していく
+            foreach (RaycastHit hit in Physics.RaycastAll(ray, dis))
             {
-                // レイが当たったオブジェクトの情報を入れる変数
-                RaycastHit hit;
-                //- レイを飛ばす
-                if (Physics.Raycast(ray, out hit))
+                //- 最初のオブジェクトなら無条件で格納
+                if (HitList.Count == 0)
                 {
-                    if (Input.GetKey(KeyCode.Alpha1))
-                    {
-                        Debug.DrawRay(RayStartPos, RayDir, Color.red, 1.0f);
-                        Debug.DrawRay(hit.point, new Vector3(+1, +1, 0), Color.blue, 1.0f);
-                        Debug.DrawRay(hit.point, new Vector3(+1, -1, 0), Color.blue, 1.0f);
-                        Debug.DrawRay(hit.point, new Vector3(-1, +1, 0), Color.blue, 1.0f);
-                        Debug.DrawRay(hit.point, new Vector3(-1, -1, 0), Color.blue, 1.0f);
-                    }
-                    //- ステージに当たった場合処理しない
-                    if (hit.collider.gameObject.tag == "Stage") continue;
-                    //- 遅延をかけて爆破
-                    StartCoroutine(DelayDestroyCracker(obj, DelayTime));
+                    HitList.Add(hit);
+                    continue;
                 }
-            }
-        }
 
+                //- 格納フラグ
+                bool bAdd = false;
+                //- 格納変数と当たったオブジェクトの比較
+                for (int i = 0; i < HitList.Count; i++)
+                {
+                    //- 格納フラグチェック
+                    if (bAdd) break;
+                    //- 距離が格納箇所データの距離より長ければリターン
+                    if (HitList[i].distance < hit.distance) continue;
+                    //- 仮のデータを一番最後に格納
+                    HitList.Add(new RaycastHit());
+                    //- 最後から格納場所までデータをずらす
+                    for (int j = HitList.Count - 1; j > i; j--)
+                    {
+                        //- データを一つ移動
+                        HitList[j] = HitList[j - 1];
+                    }
+                    //- 格納場所に格納
+                    HitList[i] = hit;
+                    bAdd = true;
+                }
+
+                //- 格納フラグが立っていなければ、一番距離が長いオブジェクトなので
+                //- 配列の一番最後に格納する
+                if (!bAdd) HitList.Add(hit);
+            }
+
+            //- 爆発フラグ
+            bool bBlast = false;
+            //- 距離が短いものから調べる
+            for (int i = 0; i < HitList.Count; i++)
+            {
+                RaycastHit hit = HitList[i];
+
+                //- 当たり判定のデバッグ表示
+                if (Input.GetKey(KeyCode.Alpha1))
+                {
+                    float markdis = 0.1f;
+                    Debug.DrawRay(RayStartPos, RayDir, Color.red, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
+                }
+                if (hit.collider.gameObject.tag != "Stage") continue; //- ステージオブジェクト以外なら次へ
+                if (hit.distance > dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
+
+                //- 当たった花火玉より手前にステージオブジェクトが存在する
+                bBlast = true; //- フラグ変更
+            }
+
+            //- 遅延をかけて爆破
+            if (!bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime));
+        }
 
         //- レイヤーの変更
         gameObject.layer = 0;
