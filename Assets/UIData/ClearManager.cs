@@ -8,15 +8,13 @@ public class ClearManager : MonoBehaviour
     private int stagenum = -1;
     private SaveManager save;
     private bool write = false;
-    private void Start()
-    {
-        save = new SaveManager();
-    }
+    
     void Update()
     {
         //- クリアフラグが立っているか
         if(SceneChange.bIsChange && !write)
         {
+            save = new SaveManager();
             write = true;
             save.SetStageClear(stagenum);
             Debug.Log("書き込み" + "," + stagenum + "," + save.GetStageClear(stagenum));
