@@ -49,6 +49,10 @@ public class TMPAnime : MonoBehaviour
     {
         TMP.color = GetColor(textcolor);
         TMP.DOFade(0f, 0f);
+        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
+        //- 初めのテキストを90度回転させておく
+        for(int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+        { tmpAnimator.DORotateChar(i, Vector3.up * 90, 0); }
     }
    
 
@@ -59,14 +63,10 @@ public class TMPAnime : MonoBehaviour
     }
 
     private void OnDisable()
-    {
-        SceneManager.sceneUnloaded -= OnSceneUnloaded;
-    }
+    {     SceneManager.sceneUnloaded -= OnSceneUnloaded;    }
 
     private void OnSceneUnloaded(Scene scene)
-    {
-        DOTween.KillAll();
-    }
+    {    DOTween.KillAll(); }
 
     IEnumerator AnimationCoroutine()
     {
