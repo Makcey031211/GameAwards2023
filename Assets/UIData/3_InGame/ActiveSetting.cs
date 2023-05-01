@@ -16,32 +16,34 @@ public class ActiveSetting : MonoBehaviour
 {
     /*  列挙体宣言部  */
     //- アクティブにするかしないか
-    enum E_ACTIVE_OPTION
+    private enum E_ACTIVE_OPTION
     {
-        [Header("非アクティブ→アクティブ")]
+        [InspectorName("非アクティブ→アクティブ")]
         NoActiveToActive,
-        [Header("アクティブ→非アクティブ")]
+        [InspectorName("アクティブ→非アクティブ")]
         ActiveToNoActive,
     }
 
     //- アクティブになる順番
-    enum E_STARTUP_SETTING
+    private enum E_STARTUP_SETTING
     {
-        [Header("同時")]
+        [InspectorName("同時")]
         AllAtOnce,
-        [Header("リストの上から")]
+        [InspectorName("リストの上から")]
         FromTop,
-        [Header("リストの下から")]
+        [InspectorName("リストの下から")]
         FromBottom,
     }
     
 
     /*  変数宣言部  */
     [SerializeField,Header("アクティブ管理するオブジェクト")] List<GameObject> ActiveObjs;   //アクティブを管理するオブジェクトリスト
-    [SerializeField] float FirstDirayTime = 0.0f;   //リストの初めのオブジェクトがアクティブになるまでの時間
-    [SerializeField] float NextDirayTime = 0.0f;    //次のリストのオブジェクトがアクティブになるまでの時間
-    [SerializeField] E_STARTUP_SETTING ActiveState = E_STARTUP_SETTING.AllAtOnce;   //アクティブになる順番
-    [SerializeField] E_ACTIVE_OPTION Option = E_ACTIVE_OPTION.NoActiveToActive;
+    
+    [HideInInspector, SerializeField] private float FirstDirayTime = 0.0f;   //リストの初めのオブジェクトがアクティブになるまでの時間
+    [HideInInspector, SerializeField] private float NextDirayTime = 0.0f;    //次のリストのオブジェクトがアクティブになるまでの時間
+    [HideInInspector, SerializeField] private E_STARTUP_SETTING ActiveState = E_STARTUP_SETTING.AllAtOnce;   //アクティブになる順番
+    [HideInInspector, SerializeField] private E_ACTIVE_OPTION Option = E_ACTIVE_OPTION.NoActiveToActive;
+    [HideInInspector, SerializeField] private bool AutoClear = false;
 
     private bool Active = false;        
     private bool ListFirstActive = false;
@@ -65,7 +67,14 @@ public class ActiveSetting : MonoBehaviour
                 break;
         }
     }
-    
+
+    private void Update()
+    {
+        //- クリア時に自動で行う
+        if(AutoClear)
+        {   ClearforActive();   }
+    }
+
     /// <summary>
     /// クリアになったら行う
     /// </summary>
@@ -110,35 +119,31 @@ public class ActiveSetting : MonoBehaviour
     /// </summary>
     public void FromTop()
     {
-        while(!Active)
+        CurrentTime += Time.deltaTime;
+        //- 初めの読み込み遅延時間を経過したか、リストの初めを読み込んだか
+        if (CurrentTime >= FirstDirayTime && !ListFirstActive)
         {
-
-            CurrentTime += 1.0f;
-            //- 初めの読み込み遅延時間を経過したか、リストの初めを読み込んだか
-            if (CurrentTime >= FirstDirayTime && !ListFirstActive)
+            //- 配列はじめを設定
+            ActiveObjs[0].SetActive(SetFlag);
+            //- カウント増加
+            cnt++;
+            //- 時間リセット
+            CurrentTime = 0.0f;
+            //- リストの初めを読み込んだ
+            ListFirstActive = true;
+        }
+        else if (CurrentTime >= NextDirayTime && //遅延時間経過
+                cnt < ActiveObjs.Count &&        //要素数を超えていないか
+                ListFirstActive)                 //読み込み済ではないか
+        {
+            ActiveObjs[cnt].SetActive(SetFlag);
+            cnt++;
+            CurrentTime = 0.0f;
+            //- 全てのオブジェクトが0になったら以降処理しない
+            if (cnt == ActiveObjs.Count)
             {
-                //- 配列はじめを設定
-                ActiveObjs[0].SetActive(SetFlag);
-                //- カウント増加
-                cnt++;
-                //- 時間リセット
-                CurrentTime = 0.0f;
-                //- リストの初めを読み込んだ
-                ListFirstActive = true;
-            }
-            else if (CurrentTime >= NextDirayTime && //遅延時間経過
-                    cnt < ActiveObjs.Count &&        //要素数を超えていないか
-                    ListFirstActive)                 //読み込み済ではないか
-            {
-                ActiveObjs[cnt].SetActive(SetFlag);
-                cnt++;
-                CurrentTime = 0.0f;
-                //- 全てのオブジェクトが0になったら以降処理しない
-                if (cnt == ActiveObjs.Count)
-                {
-                    Active = true;
-                    cnt = 0;
-                }
+                Active = true;
+                cnt = 0;
             }
         }
     }
@@ -148,7 +153,7 @@ public class ActiveSetting : MonoBehaviour
     /// </summary>
     private void FromBottom()
     {
-        CurrentTime += 1.0f;
+        CurrentTime += Time.deltaTime;
         //- 初めの読み込み時間を経過したか、リストの最後を読み込んだか
         if (CurrentTime >= FirstDirayTime && !ListFirstActive)
         {
@@ -189,8 +194,11 @@ public class ActiveSetting : MonoBehaviour
         {
             base.OnInspectorGUI();
             {
+                EditorGUI.BeginChangeCheck();
                 ActiveSetting active = target as ActiveSetting;
                 /*　◇ーーーカスタム表示ーーー◇　*/
+                active.AutoClear =
+                    EditorGUILayout.Toggle("クリア時に自動で処理を行うか", active.AutoClear);
                 active.Option =
                     (ActiveSetting.E_ACTIVE_OPTION)
                     EditorGUILayout.EnumPopup("アクティブ状況の設定", active.Option);
@@ -203,7 +211,7 @@ public class ActiveSetting : MonoBehaviour
                 active.NextDirayTime =
                     EditorGUILayout.FloatField(
                         "次のオブジェクトがアクティブになるまでの遅延時間", active.NextDirayTime);
-
+                EditorGUILayout.EndFoldoutHeaderGroup();
                 //- インスペクターの更新
                 if (GUI.changed)
                 { EditorUtility.SetDirty(target); }
