@@ -1,8 +1,14 @@
+/*
+ ===================
+ 制作：大川
+ ボタンアニメーションを管理するスクリプト
+ ===================
+ */
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using DG.Tweening;
-
 #if UNITY_EDITOR
 //- デプロイ時にEditorスクリプトが入るとエラー。UNITY_EDITORで括る
 using UnityEditor;      
@@ -14,6 +20,7 @@ public class ButtonAnime : MonoBehaviour,
     IDeselectHandler,
     ISubmitHandler
 {
+    /*  列挙体宣言部  */
     //- アニメーション事のパターン
     private enum E_ANIMATIONTYPE
     {
@@ -25,6 +32,7 @@ public class ButtonAnime : MonoBehaviour,
         None
     };
 
+    /*  変数宣言部  */
     [SerializeField] private E_ANIMATIONTYPE animetype = E_ANIMATIONTYPE.PopMove;   //挙動タイプ 
     [SerializeField] private Vector2 SelectSize = new Vector2(1.1f,1.1f);        //ポップ
     [SerializeField] private float AlphaNum = 0.0f;  //Fade
@@ -95,68 +103,42 @@ public class ButtonAnime : MonoBehaviour,
             bPermissionSelectSE = true;
     }
 
-    //- 選択解除時の処理
+    /// <summary>
+    /// 選択が外れた際の処理
+    /// </summary>
+    /// <param name="eventData"></param>
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
-        //- アニメーションが残っていたらアニメーションを削除
-        if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
+        //- 項目ごとに処理を行う
+        switch (animetype)
         {
-            currentTween.OnComplete(() =>
-            {
-                //- 項目ごとに処理を行う
-                switch (animetype)
-                {
-                    //- ポップ挙動
-                    case E_ANIMATIONTYPE.PopMove:
-                        transform.DOKill();
-                        transform.localScale = BaseSize;
-                        break;
-                    //- フェード挙動
-                    case E_ANIMATIONTYPE.Fade:
-                        button.image.DOKill();
-                        button.image.DOFade(1.0f, 0.0f);
-                        break;
-                    //- 挙動なし
-                    case E_ANIMATIONTYPE.None:
-                        break;
-                }
-            });
-            currentTween.Kill();
-        }
-        else
-        {
-            //- 項目ごとに処理を行う
-            switch (animetype)
-            {
-                //- ポップ挙動
-                case E_ANIMATIONTYPE.PopMove:
-                    transform.DOKill();
-                    transform.localScale = BaseSize;
-                    break;
-                //- フェード挙動
-                case E_ANIMATIONTYPE.Fade:
-                    button.image.DOKill();
-                    button.image.DOFade(1.0f, 0.0f);
-                    break;
-                //- 挙動なし
-                case E_ANIMATIONTYPE.None:
-                    break;
-            }
+            //- ポップ挙動
+            case E_ANIMATIONTYPE.PopMove:
+                transform.DOKill();
+                transform.localScale = BaseSize;
+                break;
+            //- フェード挙動
+            case E_ANIMATIONTYPE.Fade:
+                button.image.DOKill();
+                button.image.DOFade(1.0f, 0.0f);
+                break;
+            //- 挙動なし
+            case E_ANIMATIONTYPE.None:
+                break;
         }
     }
 
+    /// <summary>
+    /// ボタンが押された際に行う処理
+    /// </summary>
+    /// <param name="eventData"></param>
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
+        //- アニメーション中のものがあったら削除
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
         { currentTween.Kill(); }
-        var submit = DOTween.Sequence();
-        //submit.Append(transform.DOScale(new Vector3(BaseSize.x, BaseSize.y), MoveTime))
-        //    .OnComplete(() =>
-        //    {
-                //- 選択音再生
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click);
-            //});
-        currentTween = submit;
+        //- 選択音再生
+        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click);
     }
 
 

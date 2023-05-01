@@ -1,0 +1,214 @@
+/*
+ ===================
+ 制作：大川
+ アクティブ状態を管理するスクリプト
+ ===================
+ */
+
+using System.Collections.Generic;
+using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+//- 設定事にオブジェクトのアクティブを管理するクラス
+public class ActiveSetting : MonoBehaviour
+{
+    /*  列挙体宣言部  */
+    //- アクティブにするかしないか
+    enum E_ACTIVE_OPTION
+    {
+        [Header("非アクティブ→アクティブ")]
+        NoActiveToActive,
+        [Header("アクティブ→非アクティブ")]
+        ActiveToNoActive,
+    }
+
+    //- アクティブになる順番
+    enum E_STARTUP_SETTING
+    {
+        [Header("同時")]
+        AllAtOnce,
+        [Header("リストの上から")]
+        FromTop,
+        [Header("リストの下から")]
+        FromBottom,
+    }
+    
+
+    /*  変数宣言部  */
+    [SerializeField,Header("アクティブ管理するオブジェクト")] List<GameObject> ActiveObjs;   //アクティブを管理するオブジェクトリスト
+    [SerializeField] float FirstDirayTime = 0.0f;   //リストの初めのオブジェクトがアクティブになるまでの時間
+    [SerializeField] float NextDirayTime = 0.0f;    //次のリストのオブジェクトがアクティブになるまでの時間
+    [SerializeField] E_STARTUP_SETTING ActiveState = E_STARTUP_SETTING.AllAtOnce;   //アクティブになる順番
+    [SerializeField] E_ACTIVE_OPTION Option = E_ACTIVE_OPTION.NoActiveToActive;
+
+    private bool Active = false;        
+    private bool ListFirstActive = false;
+    private bool SetFlag = false;
+    private float CurrentTime = 0.0f;
+    private int cnt = 0;
+
+    private void Awake()
+    {
+        //- 開始時のアクティブ状態を設定する
+        switch (Option)
+        {
+            case E_ACTIVE_OPTION.NoActiveToActive:
+                //- リストにあるオブジェクトを全て非アクティブにする
+                foreach (GameObject obj in ActiveObjs)
+                { obj.SetActive(false); }
+                SetFlag = true;
+                break;
+            case E_ACTIVE_OPTION.ActiveToNoActive:
+                SetFlag = false;
+                break;
+        }
+    }
+    
+    /// <summary>
+    /// クリアになったら行う
+    /// </summary>
+    public void ClearforActive()
+    {
+        if(SceneChange.bIsChange && !Active)
+        {
+            switch (ActiveState)
+            {
+                //- 同時に
+                case E_STARTUP_SETTING.AllAtOnce:
+                    AllAtOnce();
+                    break;
+                //- リストの上から
+                case E_STARTUP_SETTING.FromTop:
+                    FromTop();
+                    break;
+                //- リストの下から
+                case E_STARTUP_SETTING.FromBottom:
+                    break;
+            }
+        }
+    }
+    
+    /// <summary>
+    /// リストの中身を一斉にアクティブ管理する
+    /// </summary>
+    public void AllAtOnce()
+    {
+        CurrentTime += Time.deltaTime;
+        //- 遅延時間が経過したか
+        if (CurrentTime >= FirstDirayTime)
+        {
+            foreach (GameObject obj in ActiveObjs)
+            { obj.SetActive(SetFlag); }
+            Active = true;
+        }
+    }
+
+    /// <summary>
+    /// リストの昇順にアクティブ管理を行う
+    /// </summary>
+    public void FromTop()
+    {
+        while(!Active)
+        {
+
+            CurrentTime += 1.0f;
+            //- 初めの読み込み遅延時間を経過したか、リストの初めを読み込んだか
+            if (CurrentTime >= FirstDirayTime && !ListFirstActive)
+            {
+                //- 配列はじめを設定
+                ActiveObjs[0].SetActive(SetFlag);
+                //- カウント増加
+                cnt++;
+                //- 時間リセット
+                CurrentTime = 0.0f;
+                //- リストの初めを読み込んだ
+                ListFirstActive = true;
+            }
+            else if (CurrentTime >= NextDirayTime && //遅延時間経過
+                    cnt < ActiveObjs.Count &&        //要素数を超えていないか
+                    ListFirstActive)                 //読み込み済ではないか
+            {
+                ActiveObjs[cnt].SetActive(SetFlag);
+                cnt++;
+                CurrentTime = 0.0f;
+                //- 全てのオブジェクトが0になったら以降処理しない
+                if (cnt == ActiveObjs.Count)
+                {
+                    Active = true;
+                    cnt = 0;
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// リストの降順にアクティブ管理を行う
+    /// </summary>
+    private void FromBottom()
+    {
+        CurrentTime += 1.0f;
+        //- 初めの読み込み時間を経過したか、リストの最後を読み込んだか
+        if (CurrentTime >= FirstDirayTime && !ListFirstActive)
+        {
+            //- 要素数を入れ込む
+            cnt = ActiveObjs.Count;
+            //- リストの末尾から設定する
+            ActiveObjs[cnt].SetActive(SetFlag);
+            //- カウント減少
+            cnt--;
+            //- 現在の時間をreset
+            CurrentTime = 0.0f;
+            //- 初回読み込み終了
+            ListFirstActive = true;
+        }
+        else if (CurrentTime >= NextDirayTime &&  //遅延時間経過
+                 cnt < 0 &&                       //0以下ではないか
+                 ListFirstActive)                 //読み込み済ではないか
+        {
+            ActiveObjs[cnt].SetActive(SetFlag);
+            cnt--;
+            CurrentTime = 0.0f;
+            //- 全てのオブジェクトを完了したら終了する
+            if(cnt == 0)
+            {
+                Active = true;
+                cnt = 0;
+            }
+        }
+    }
+
+    /*　◇ーーーーーー拡張コードーーーーーー◇　*/
+#if UNITY_EDITOR
+    //- Inspector拡張クラス
+    [CustomEditor(typeof(ActiveSetting))]
+    public class ActiveSettingEditor : Editor
+    {
+        public override void OnInspectorGUI()
+        {
+            base.OnInspectorGUI();
+            {
+                ActiveSetting active = target as ActiveSetting;
+                /*　◇ーーーカスタム表示ーーー◇　*/
+                active.Option =
+                    (ActiveSetting.E_ACTIVE_OPTION)
+                    EditorGUILayout.EnumPopup("アクティブ状況の設定", active.Option);
+                active.ActiveState =
+                    (ActiveSetting.E_STARTUP_SETTING)
+                    EditorGUILayout.EnumPopup("アクティブ処理を行う順番", active.ActiveState);
+                active.FirstDirayTime = 
+                    EditorGUILayout.FloatField(
+                        "初めのオブジェクトがアクティブになるまでの遅延時間", active.FirstDirayTime);
+                active.NextDirayTime =
+                    EditorGUILayout.FloatField(
+                        "次のオブジェクトがアクティブになるまでの遅延時間", active.NextDirayTime);
+
+                //- インスペクターの更新
+                if (GUI.changed)
+                { EditorUtility.SetDirty(target); }
+            }
+        }
+    }
+#endif  //UNITY_EDITOR
+}

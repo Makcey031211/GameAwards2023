@@ -114,6 +114,11 @@ public class TMPAnime : MonoBehaviour
             .SetLink(gameObject);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="tmpAnimator"></param>
+    /// <param name="i"></param>
     private void LoopAnime(DOTweenTMPAnimator tmpAnimator, int i)
     {
         //- 指定された文字に対してアニメーションを設定する
@@ -131,6 +136,11 @@ public class TMPAnime : MonoBehaviour
             .SetLink(gameObject);
     }
 
+    /// <summary>
+    /// テキストの色を取得する
+    /// </summary>
+    /// <param name="color"></param>
+    /// <returns></returns>
     private Color GetColor(E_TEXTCOLOR color)
     {
         switch (color)
