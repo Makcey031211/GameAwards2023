@@ -28,6 +28,7 @@ public class SceneChange : MonoBehaviour
     private float TotalParticleTime = 999.0f;   // パーティクルの総時間
     private bool bIsShotSound = false;          // 音が再生されたかどうか
     private ObjectFade fade;              // フェード用のスプライト
+    private ClearManager clear;
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -41,6 +42,7 @@ public class SceneChange : MonoBehaviour
         bIsLife = true;
         countEnemy = this.gameObject.GetComponent<CountEnemy>();
         fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
+        clear = GameObject.Find("ClearManager").GetComponent<ClearManager>();
     }
 
     // Update is called once per frame
@@ -80,10 +82,10 @@ public class SceneChange : MonoBehaviour
             CurrentTime = 0;
         }
 
-        // シーン遷移フラグがtrueなら次のシーンに移動
+        // シーン遷移フラグがtrueならクリア情報を書き込む
         if (bIsChange)
-        { 
-        //    SceneManager.LoadScene(NextScene); 
+        {
+            clear.WriteClear();
         }
 
         // リトライフラグがtrueなら現在のシーンを再読み込み

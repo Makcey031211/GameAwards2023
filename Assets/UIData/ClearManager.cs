@@ -9,7 +9,10 @@ public class ClearManager : MonoBehaviour
     private SaveManager save;
     private bool write = false;
     
-    void Update()
+    /// <summary>
+    /// セーブファイルに書き込みを行えるかチェック
+    /// </summary>
+    public void WriteClear()
     {
         //- クリアフラグが立っているか
         if(SceneChange.bIsChange && !write)
