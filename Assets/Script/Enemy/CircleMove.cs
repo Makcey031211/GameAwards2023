@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// クォータニオンで円運動の軌道を計算
+/// 円運動
 /// </summary>
 public class CircleMove : MonoBehaviour
 {
@@ -58,7 +58,7 @@ public class CircleMove : MonoBehaviour
             var angleAxis = Quaternion.AngleAxis(currentAngle, Axis);
 
             //- 半径に対応するベクトルを作成し、回転軸に沿って回転させる
-            var radiusVec = angleAxis * (Vector3.right * Radius);
+            var radiusVec = angleAxis * (Vector3.up * Radius);
 
             //- 中心点に半径に対応するベクトルを加算して位置を計算する
             var pos = Center + radiusVec;
