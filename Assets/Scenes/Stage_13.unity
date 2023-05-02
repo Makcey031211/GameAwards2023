@@ -238,12 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &36302352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -357,12 +351,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &70685468
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1165,12 +1153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &538856376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1811,12 +1793,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 990868621}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a71c8e19ff17ed48a10ae40cf589cdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: 11
-  travelTime: 2
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: 11
+  _travelTime: 2
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1 &1017172813 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -1841,12 +1835,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &1021648025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2544,12 +2532,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1 &1211200564
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2609,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1213613502}
-  - component: {fileID: 1213613501}
+  - component: {fileID: 1213613503}
   m_Layer: 0
   m_Name: BlockGroup (4)
   m_TagString: Untagged
@@ -2635,21 +2617,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1213613501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1213613500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a71c8e19ff17ed48a10ae40cf589cdc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: -11
-  travelTime: 2
 --- !u!4 &1213613502
 Transform:
   m_ObjectHideFlags: 0
@@ -2668,6 +2635,33 @@ Transform:
   m_Father: {fileID: 1096286011}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
+--- !u!114 &1213613503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213613500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: -11
+  _travelTime: 2
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1 &1233206121 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7601643690255727287, guid: e2167783a6b88594195048d29a1fdc5b,
@@ -2891,12 +2885,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &1396157642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3343,12 +3331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1001 &1525363285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3953,12 +3935,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1 &1617204060 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -3977,12 +3953,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
 --- !u!1 &1666288021
 GameObject:
   m_ObjectHideFlags: 0
@@ -4629,9 +4599,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81d332f5af257174ba190422f280124b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -18, y: -5, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 4
-  PeriodTime: 5
-  updateRotation: 0
