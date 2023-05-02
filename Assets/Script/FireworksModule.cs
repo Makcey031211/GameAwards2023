@@ -495,12 +495,6 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion);
             //- 爆発回数を更新
             _blastCount++;
-            if (_blastCount == 1)
-            {
-                Debug.Log("いつもお世話になっております");
-                this.transform.GetChild(1).gameObject.SetActive(false);
-                this.transform.GetChild(2).gameObject.SetActive(false);
-            }
             //- 無敵フラグを設定
             _isInvinsible = true;
             //- 無敵時間のリセット
@@ -515,8 +509,26 @@ public class FireworksModule : MonoBehaviour
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
-            //- コントローラーの振動の設定
-            vibration.SetVibration(30, 1.0f);
+            if (_blastCount == 1)
+            {
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).gameObject.SetActive(false);
+                Vector3 Scale = fire.transform.localScale;
+                Scale.x = 0.9f;
+                Scale.y = 0.9f;
+                Scale.z = 0.9f;
+                fire.transform.localScale = Scale;
+            }
+            if (_blastCount == 2)
+            {
+                Vector3 Scale = fire.transform.localScale;
+                Scale.x = 1.3f;
+                Scale.y = 1.3f;
+                Scale.z = 1.3f;
+                fire.transform.localScale = Scale;
+            }
+                //- コントローラーの振動の設定
+                vibration.SetVibration(30, 1.0f);
 
             // 爆発時に当たり判定を無効化
             GetComponent<SphereCollider>().isTrigger = true;
