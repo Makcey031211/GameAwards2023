@@ -495,6 +495,12 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Explosion);
             //- 爆発回数を更新
             _blastCount++;
+            if (_blastCount == 1)
+            {
+                Debug.Log("いつもお世話になっております");
+                this.transform.GetChild(1).gameObject.SetActive(false);
+                this.transform.GetChild(2).gameObject.SetActive(false);
+            }
             //- 無敵フラグを設定
             _isInvinsible = true;
             //- 無敵時間のリセット
