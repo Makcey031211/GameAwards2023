@@ -198,13 +198,13 @@ public class ActiveSetting : MonoBehaviour
                 ActiveSetting active = target as ActiveSetting;
                 /*　◇ーーーカスタム表示ーーー◇　*/
                 active.AutoClear =
-                    EditorGUILayout.Toggle("クリア時に自動で処理を行うか", active.AutoClear);
+                    EditorGUILayout.Toggle("クリア時自動で処理", active.AutoClear);
                 active.Option =
                     (ActiveSetting.E_ACTIVE_OPTION)
-                    EditorGUILayout.EnumPopup("アクティブ状況の設定", active.Option);
+                    EditorGUILayout.EnumPopup("アクティブ設定", active.Option);
                 active.ActiveState =
                     (ActiveSetting.E_STARTUP_SETTING)
-                    EditorGUILayout.EnumPopup("アクティブ処理を行う順番", active.ActiveState);
+                    EditorGUILayout.EnumPopup("処理順", active.ActiveState);
                 active.FirstDirayTime = 
                     EditorGUILayout.FloatField(
                         "初めのオブジェクトがアクティブになるまでの遅延時間", active.FirstDirayTime);
