@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -34,7 +32,6 @@ public class EntryAnime : MonoBehaviour
     private float EndMoveTime;
 
     private Vector3 pos;
-    private bool first = false;
 
     
     private void Awake()
@@ -60,11 +57,14 @@ public class EntryAnime : MonoBehaviour
 
     }
 
-    void Start()
+    /// <summary>
+    /// 登場時アニメーション
+    /// </summary>
+    public void StartMove()
     {
         //- 画面内に登場する
         switch (Sdirection)
-        {   
+        {
             case E_OUTDIRECTION.LEFT:
                 transform.DOMoveX(pos.x, MoveTime).SetDelay(DelayTime);
                 break;
@@ -78,14 +78,6 @@ public class EntryAnime : MonoBehaviour
                 transform.DOMoveY(pos.y, MoveTime).SetDelay(DelayTime);
                 break;
         }
-    }
-
-    
-    void Update()
-    {
-        //- クリアフラグが立っている、初めて読み込んだ
-        if(SceneChange.bIsChange && !first)
-        {   OutMove();  }
     }
 
     /// <summary>
@@ -102,7 +94,6 @@ public class EntryAnime : MonoBehaviour
                     //- 移動完了したら削除
                     Destroy(gameObject);
                 });
-                first = true;
                 break;
             case E_OUTDIRECTION.RIGHT:
                 transform.DOMoveX(RIGHT, EndMoveTime).OnComplete(() =>
@@ -110,7 +101,6 @@ public class EntryAnime : MonoBehaviour
                     //- 移動完了したら削除
                     Destroy(gameObject);
                 });
-                first = true;
                 break;
         }
     }
