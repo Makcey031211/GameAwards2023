@@ -153,15 +153,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 27172760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -9.4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1132478029}
   - {fileID: 1533006249}
-  m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_Father: {fileID: 1771916328}
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &27172762
 MonoBehaviour:
@@ -172,12 +172,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 27172760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a71c8e19ff17ed48a10ae40cf589cdc, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: 18
-  travelTime: 5
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: 18
+  _travelTime: 5
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1001 &229595760
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2035,7 +2048,7 @@ PrefabInstance:
     - target: {fileID: 7428010259182961743, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7428010259182961743, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
@@ -3878,8 +3891,9 @@ Transform:
   - {fileID: 862991404}
   - {fileID: 845943569}
   - {fileID: 1120539033}
+  - {fileID: 27172761}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1930318094 stripped
 Transform:

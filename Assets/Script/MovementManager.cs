@@ -10,9 +10,10 @@ public class MovementManager : MonoBehaviour
     //--- 列挙体定義(タイプ)
     public enum E_MovementType
     {
-        ThreewayBehaviour,   // 三方向挙動
-        ThreepointBehaviour, // 三点間挙動
-        CicrleBehaviour,     // 円挙動
+        ThreewayBehaviour,       // 三方向挙動
+        ThreepointBehaviour,     // 三点間挙動
+        ThreepointWaitBehaviour, // 三点間待機挙動
+        CicrleBehaviour,         // 円挙動
     }
 
     //--- 列挙体定義(回転)
@@ -69,8 +70,10 @@ public class MovementManager : MonoBehaviour
     public float _moveSpeed   = 1.0f;   // 移動速度
     [SerializeField, HideInInspector]
     public float _endWaitTime = 1.0f;   // 終点到達時の待機時間
+    [SerializeField, HideInInspector]
+    public float _waitTime = 1.0f;      // 各ポイント到達時の待機時間
     //- インスペクターから非表示
-    private Vector3[] points = new Vector3[3];
+    private Vector3[] points = new Vector3[3]; // 配列の個数分格納
     private int   currentPoint     = 0;     // 現在の位置
     private int   currentDirection = 1;     // 現在の方向
     private float waitingTimer     = 0.0f;  // 待機時間
@@ -81,22 +84,23 @@ public class MovementManager : MonoBehaviour
     public Vector3 EndPoint => _endPoint;
     public float MoveSpeed => _moveSpeed;
     public float EndWaitTime => _endWaitTime;
+    public float WaitTime => _waitTime;
 
     //* 円挙動関連 *//
     //- インスペクターに表示
     [SerializeField, HideInInspector]
     public E_RotaDirection _rotaDirection = E_RotaDirection.Clockwise; // 回転方向
     [SerializeField, HideInInspector]
-    public Vector3 _center = Vector3.zero;  // 中心点
+    public Vector3 _center = Vector3.zero;    // 中心点
     [SerializeField, HideInInspector]
-    public Vector3 _axis = Vector3.forward; // 回転軸
+    public Vector3 _axis   = Vector3.forward; // 回転軸
     [SerializeField, HideInInspector]
-    public float _radius = 1.0f; // 半径の大きさ
+    public float _radius     = 1.0f; // 半径の大きさ
     [SerializeField, HideInInspector]
     public float _periodTime = 2.0f; // 一周回るのにかかる時間(秒)
     [SerializeField, HideInInspector]
     public bool _updateRotation = false; // 向きを更新するかどうか
-    //- インスペクターに非表示
+    //- インスペクターから非表示
     private float currentTime;  // 現在の時間
     private float currentAngle; // 現在の回転角度
     private float angle = 360f; // 一周分の角度
@@ -134,6 +138,9 @@ public class MovementManager : MonoBehaviour
                 break;
             case E_MovementType.ThreepointBehaviour:
                 ThreePointMove();
+                break;
+            case E_MovementType.ThreepointWaitBehaviour:
+                ThreePointWaitMove();
                 break;
             case E_MovementType.CicrleBehaviour:
                 CicrleMove();
@@ -238,8 +245,64 @@ public class MovementManager : MonoBehaviour
                 //- 最後のポイントに到達したら
                 if (currentPoint == points.Length - 1)
                 {
-                    isWaiting = true;
+                    isWaiting    = true;
                     waitingTimer = EndWaitTime;
+                }
+                else
+                {
+                    currentPoint += currentDirection;
+                    if (currentPoint >= points.Length || currentPoint < 0)
+                    {
+                        currentDirection *= -1;
+                        currentPoint += currentDirection;
+                    }
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// 三点間挙動(各ポイント待機)
+    /// </summary>
+    private void ThreePointWaitMove()
+    {
+        //- nullチェック
+        if (fireworks && fireworks.IsExploded) return;
+
+        if (isWaiting)
+        {
+            waitingTimer -= Time.deltaTime;
+            if (waitingTimer <= 0.0f)
+            {
+                isWaiting = false;
+                currentPoint += currentDirection;
+                if (currentPoint >= points.Length || currentPoint < 0)
+                {
+                    currentDirection *= -1;
+                    currentPoint += currentDirection;
+                }
+            }
+        }
+        else
+        {
+            //- 次の位置に移動するための方向ベクトルを計算する
+            Vector3 directionVector = (points[currentPoint] - transform.position).normalized;
+
+            //- 次の位置に移動するための距離を計算する
+            float distanceToMove = MoveSpeed * Time.deltaTime;
+
+            //- 次の位置に移動する
+            transform.position += directionVector * distanceToMove;
+
+            //- 次のポイントに到達したら方向を逆にする
+            if (Vector3.Distance(transform.position, points[currentPoint]) < 0.01f)
+            {
+                //- 始点または中間点または終点に到達したら
+                if (currentPoint == points.Length - 3 || currentPoint == points.Length - 2 
+                    || currentPoint == points.Length - 1)
+                {
+                    isWaiting    = true;
+                    waitingTimer = WaitTime;
                 }
                 else
                 {
