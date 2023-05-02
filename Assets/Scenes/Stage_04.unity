@@ -365,7 +365,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1306299029}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &496809141
+--- !u!114 &496809142
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -374,12 +374,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 496809134}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64fde777a09d8c84dbf4aa1abf612f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 1
-  moveDistance: -8
-  travelTime: 2
+  _type: 0
+  _moveDirection: 1
+  _moveDistance: -8
+  _travelTime: 2
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1001 &526339786
 PrefabInstance:
   m_ObjectHideFlags: 0

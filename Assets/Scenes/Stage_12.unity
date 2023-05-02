@@ -1240,7 +1240,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 724102572}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &804386545
+--- !u!114 &804386540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1249,12 +1249,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 804386538}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64fde777a09d8c84dbf4aa1abf612f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 1
-  moveDistance: -12
-  travelTime: 3
+  _type: 0
+  _moveDirection: 1
+  _moveDistance: -12
+  _travelTime: 2
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1001 &870606103
 PrefabInstance:
   m_ObjectHideFlags: 0

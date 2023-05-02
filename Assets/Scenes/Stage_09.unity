@@ -747,7 +747,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 382658496}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &382658499
+--- !u!114 &382658500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -756,12 +756,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 382658498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64fde777a09d8c84dbf4aa1abf612f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: 3
-  travelTime: 1
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: 3
+  _travelTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!4 &435400434 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -1247,7 +1254,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 649761656}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &649761659
+--- !u!114 &649761660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1256,12 +1263,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 649761658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64fde777a09d8c84dbf4aa1abf612f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: 3
-  travelTime: 1
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: 3
+  _travelTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1001 &813763675
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3441,7 +3455,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1977863293}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1977863296
+--- !u!114 &1977863297
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3450,12 +3464,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1977863295}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64fde777a09d8c84dbf4aa1abf612f4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDirection: 0
-  moveDistance: 3
-  travelTime: 1
+  _type: 0
+  _moveDirection: 0
+  _moveDistance: 3
+  _travelTime: 1
+  _rotaDirection: 0
+  _center: {x: 0, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 1
+  _periodTime: 2
+  _updateRotation: 0
 --- !u!1 &2012092488
 GameObject:
   m_ObjectHideFlags: 0
