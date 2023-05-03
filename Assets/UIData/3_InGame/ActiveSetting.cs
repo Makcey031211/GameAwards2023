@@ -51,7 +51,7 @@ public class ActiveSetting : MonoBehaviour
     private float CurrentTime = 0.0f;
     private int cnt = 0;
 
-    private void Awake()
+    private void Start()
     {
         //- 開始時のアクティブ状態を設定する
         switch (Option)
@@ -70,31 +70,24 @@ public class ActiveSetting : MonoBehaviour
 
     private void Update()
     {
+        if(!AutoClear)
+        {   return; }
         //- クリア時に自動で行う
-        if(AutoClear)
-        {   ClearforActive();   }
-    }
-
-    /// <summary>
-    /// クリアになったら行う
-    /// </summary>
-    public void ClearforActive()
-    {
-        if(SceneChange.bIsChange && !Active)
+        if (SceneChange.bIsChange && !Active)
         {
             switch (ActiveState)
             {
-                //- 同時に
-                case E_STARTUP_SETTING.AllAtOnce:
-                    AllAtOnce();
-                    break;
-                //- リストの上から
-                case E_STARTUP_SETTING.FromTop:
-                    FromTop();
-                    break;
-                //- リストの下から
-                case E_STARTUP_SETTING.FromBottom:
-                    break;
+            //- 同時に
+            case E_STARTUP_SETTING.AllAtOnce:
+                AllAtOnce();
+                break;
+            //- リストの上から
+            case E_STARTUP_SETTING.FromTop:
+                FromTop();
+                break;
+            //- リストの下から
+            case E_STARTUP_SETTING.FromBottom:
+                break;
             }
         }
     }
