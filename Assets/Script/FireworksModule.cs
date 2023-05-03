@@ -614,7 +614,7 @@ public class FireworksModule : MonoBehaviour
                 _playerPrefab, spawnPosition, Quaternion.identity);
 
             //- 生成音の再生
-            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated, pitch, false);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
             sceneChange.bIsLife = true;
@@ -638,7 +638,7 @@ public class FireworksModule : MonoBehaviour
         Vector3 initialScale = transform.localScale;
 
         //- 消滅音の再生
-        //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Extinction, pitch, false);
+        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Extinction);
 
         //- 復活箱を徐々に消滅させる
         while (Time.time < startTime + _boxDisTime) 
