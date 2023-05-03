@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-/// <summary>
-/// SEManager
-/// </summary>
+// 制作：髙橋
+/*
+ * SEを管理するクラス
+ */ 
 public class SEManager : MonoBehaviour
 {
     //- 列挙型定義(SE)
-    public enum SoundEffect
+    public enum E_SoundEffect
     {
         //* 花火関連 */
         Explosion,  // 爆発
@@ -58,7 +59,7 @@ public class SEManager : MonoBehaviour
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float volume;
     [SerializeField, HideInInspector]
-    [Range(0f, 1f)] public float pitch;
+    [Range(0f,1f)] public float pitch;
     [SerializeField, HideInInspector]
     public bool loop;
     //---------------------------------------
@@ -73,7 +74,7 @@ public class SEManager : MonoBehaviour
     private AudioSource _audioSource;
 
     //- enumの型と、AudioClipのマッピングを格納する
-    private Dictionary<SoundEffect, AudioClip> audioClips;
+    private Dictionary<E_SoundEffect, AudioClip> audioClips;
     
     private void Awake()
     {
@@ -96,7 +97,8 @@ public class SEManager : MonoBehaviour
 
     private void Start()
     {
-        audioClips = new Dictionary<SoundEffect, AudioClip>();
+        //- Dictionaryの型を取得する
+        audioClips = new Dictionary<E_SoundEffect, AudioClip>();
 
         //- enumとAudioClipを関連付けさせる為の初期化
         // 花火関連
@@ -111,31 +113,31 @@ public class SEManager : MonoBehaviour
 
     private void FireWorksSE()
     {
-        audioClips.Add(SoundEffect.Explosion, explosion);
-        audioClips.Add(SoundEffect.Spark, spark);
-        audioClips.Add(SoundEffect.Belt, belt);
-        audioClips.Add(SoundEffect.BossBelt, bossbelt);
+        audioClips.Add(E_SoundEffect.Explosion, explosion);
+        audioClips.Add(E_SoundEffect.Spark, spark);
+        audioClips.Add(E_SoundEffect.Belt, belt);
+        audioClips.Add(E_SoundEffect.BossBelt, bossbelt);
     }
 
     private void CrackerSE()
     {
-        audioClips.Add(SoundEffect.Brust, brust);
-        audioClips.Add(SoundEffect.Reservoir, reservoir);
-        audioClips.Add(SoundEffect.Ignition, ignition);
+        audioClips.Add(E_SoundEffect.Brust, brust);
+        audioClips.Add(E_SoundEffect.Reservoir, reservoir);
+        audioClips.Add(E_SoundEffect.Ignition, ignition);
     }
 
     private void ResurrectionBoxSE()
     {
-        audioClips.Add(SoundEffect.Generated, generated);
-        audioClips.Add(SoundEffect.Extinction, extinction);
+        audioClips.Add(E_SoundEffect.Generated, generated);
+        audioClips.Add(E_SoundEffect.Extinction, extinction);
     }
 
     private void SceneSE()
     {
-        audioClips.Add(SoundEffect.Click, click);
-        audioClips.Add(SoundEffect.Select, select);
-        audioClips.Add(SoundEffect.Clear, clear);
-        audioClips.Add(SoundEffect.Failure, failure);
+        audioClips.Add(E_SoundEffect.Click, click);
+        audioClips.Add(E_SoundEffect.Select, select);
+        audioClips.Add(E_SoundEffect.Clear, clear);
+        audioClips.Add(E_SoundEffect.Failure, failure);
     }
 
     public float Pitch
@@ -153,19 +155,19 @@ public class SEManager : MonoBehaviour
     /// <summary>
     /// SEを再生させる関数
     /// </summary>
-    /// <param name="soundEffect">音</param>
-    public void SetPlaySE(SoundEffect soundEffect)
+    /// <param name="E_SoundEffect">音</param>
+    public void SetPlaySE(E_SoundEffect E_SoundEffect)
     {
         //- AudioClipが存在していない場合
-        if (!audioClips.ContainsKey(soundEffect))
+        if (!audioClips.ContainsKey(E_SoundEffect))
         {
-            Debug.LogError(soundEffect.ToString() + "AudioCilp not Sound");
+            Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
             return;
         }
 
         //- 引数で渡されたAudioClipを再生する
         _audioSource.pitch = Pitch;
         _audioSource.loop  = Loop;
-        _audioSource.PlayOneShot(audioClips[soundEffect], volume);
+        _audioSource.PlayOneShot(audioClips[E_SoundEffect], volume);
     }
 }

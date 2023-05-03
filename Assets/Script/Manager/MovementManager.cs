@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// 制作：髙橋
 /*
- * 挙動のマネージャー
+ * オブジェクトの挙動を管理するクラス
  */
 public class MovementManager : MonoBehaviour
 {
