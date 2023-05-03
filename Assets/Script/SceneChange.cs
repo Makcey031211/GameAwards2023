@@ -99,7 +99,7 @@ public class SceneChange : MonoBehaviour
                 //- 変数の設定
                 bIsShotSound = true;
                 //- 失敗音の再生
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Failure);
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Failure);
                 // フェードの設定
                 fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
             }

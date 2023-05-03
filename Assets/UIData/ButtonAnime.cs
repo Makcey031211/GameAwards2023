@@ -98,7 +98,7 @@ public class ButtonAnime : MonoBehaviour,
         }
         //- ‘I‘ğ‰¹Ä¶
         if (bPermissionSelectSE)
-            SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Select);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Select);
         else
             bPermissionSelectSE = true;
     }
@@ -138,7 +138,7 @@ public class ButtonAnime : MonoBehaviour,
         if (currentTween != null && currentTween.IsActive() && !currentTween.IsComplete())
         { currentTween.Kill(); }
         //- ‘I‘ğ‰¹Ä¶
-        SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Click);
+        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
     }
 
 

@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEditor;
 
-/// <summary>
-/// SoundEditor
-/// </summary>
+// 制作：髙橋
+/*
+ * 音の編集クラス
+ */
 [CustomEditor(typeof(SEManager))]
 public class SoundEditor : Editor
 {
