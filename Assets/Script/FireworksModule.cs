@@ -249,7 +249,6 @@ public class FireworksModule : MonoBehaviour
             var duration = 0.2f;
             var strength = 0.1f;
             var vibrato = 1.0f;
-            shakeByPerlinNoise.StartShake(duration, strength, vibrato);
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
