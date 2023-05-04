@@ -28,6 +28,6 @@ public class ChargeColorCracker : MonoBehaviour
         //- チャージ色のフェード処理
         material.DOColor(ChargeColor, FadeTime);
         //- 通常色に戻す
-        material.DOColor(DefaultColor, FadeTime).SetDelay(FadeTime + ChargeTime);
+        //material.DOColor(DefaultColor, FadeTime).SetDelay(FadeTime + ChargeTime);
     }
 }
