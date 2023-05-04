@@ -65,8 +65,12 @@ public class SaveManager : MonoBehaviour
                 //- 読み込んでいる行がnullじゃないかつ行数分ループする
                 while((line = sr.ReadLine()) != null && i < STAGE_NUM)
                 {
-                    bool.TryParse(line, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
+                    string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line);   // 暗号化されたフラグの復号
+                    bool.TryParse(DecryptFlag, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
                     i++;
+
+                    //--- 復号の確認 ---
+                    //Debug.Log("復号化：" + DecryptFlag);
                 }
             }
         }
@@ -90,8 +94,12 @@ public class SaveManager : MonoBehaviour
             for(int i = 0; i < STAGE_NUM; i++)
             {
                 //Debug.Log(stageflag[i]);
-                //- ステージフラグを文字列にして書き込む
-                sw.WriteLine(stageflag[i].ToString());
+                //- ステージフラグを文字列に変更して、暗号化したものを書き込む
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
+
+                //--- 暗号化の確認 ---
+                //Debug.Log("暗号化：" + EncryptFlag);
             }
         }
     }
