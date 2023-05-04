@@ -52,7 +52,7 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public bool _isDrawArea = true; // 判定範囲の描画フラグ
     //-- インスペクターから非表示
-    private float _destroyTime = 3.0f;    // 完全にオブジェクトを消去する時間
+    private float _destroyTime = 0.4f;    // 完全にオブジェクトを消去する時間
     private LineRenderer _linerend;       // 当たり判定表示用の線
     private ParticleSystem _particleSystem;     // パーティクルシステム
     //-- 外部からの値取得用
@@ -255,16 +255,6 @@ public class FireworksModule : MonoBehaviour
                 transform.position,           // 生成される位置
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
-
-            if (_eyeObject)
-            {
-                //- 指定した位置に表情生成
-                GameObject eye = Instantiate(
-                    _eyeObject,                     // 生成(コピー)する対象
-                    transform.position,           // 生成される位置
-                    Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                    );
-            }
             
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
@@ -309,7 +299,7 @@ public class FireworksModule : MonoBehaviour
             //- 破裂後モデルをアクティブ化
             StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.8f));
             //- 一定時間後に破裂後モデルを非アクティブ化
-            StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
+            //StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
         }
     }
 
@@ -626,7 +616,7 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
-            sceneChange.bIsLife = true;
+            //sceneChange.bIsLife = true;
 
             //- 徐々に生成するアニメーション
             while (elapsed < _animationTime) 
