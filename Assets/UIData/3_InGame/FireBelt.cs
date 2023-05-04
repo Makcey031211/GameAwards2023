@@ -37,25 +37,26 @@ public class FireBelt : MonoBehaviour
     private float DeleteTIme;
     [SerializeField, Header("フェード時間")]
     private float FadeTIme;
+    [SerializeField, Header("自動で動作")]
+    private bool Auto = false;
 
     private Image img;
     private Slider sli;
     private bool MoveComplete = false;
 
-    void Start()
+    private void Update()
     {
-        img = GetComponent<Image>();
-        sli = GetComponent<Slider>();
-        
-        //- 移動別処理
-        MoveLocation();
+        if(!MoveComplete && Auto)
+        {   MoveLocation(); }
     }
 
     /// <summary>
     /// 指定位置に移動する
     /// </summary>
-    private void MoveLocation()
+    public void MoveLocation()
     {
+        img = GetComponent<Image>();
+        sli = GetComponent<Slider>();
         //- Y座標を保存しておく
         float pos = img.transform.localPosition.y;
         float TargetPos;
