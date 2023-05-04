@@ -15,7 +15,7 @@ public class ParticleCollision : MonoBehaviour
             {
                 IsOnce = true;
                 //- ‰Î‰Ô‰¹‚ÌÄ¶
-                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
+                //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
             }
         }
     }
