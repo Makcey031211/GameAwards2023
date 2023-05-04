@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 1000
-  MaxFirColSize: 6.5
+  MaxFirColSize: 6
   MaxSecColSize: 10
   time: 0.75
   ColSize: {x: 1, y: 1, z: 1}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 3
-  _particleObject: {fileID: 8890074931926174080, guid: d770596078eb61141999fb153a3202b5,
+  _particleObject: {fileID: 8890074931926174080, guid: d4bb52610ecb2e045ab93ffc927d5218,
     type: 3}
   _collisionObject: {fileID: 448602364086451437}
   _eyeObject: {fileID: 4628905030701641087, guid: a92f8c8859e279c4589d875f975c2ad3,
@@ -205,6 +205,8 @@ MonoBehaviour:
   _blastDis: 0
   _modelDeleteTime: 1
   _isDrawArea: 1
+  _multiBlast: {fileID: 8890074931926174080, guid: 762bd5ffa1c55184d8c6055d7a9f0052,
+    type: 3}
   _blastInvSeconds: 3
   _invColor: {r: 0, g: 0, b: 0, a: 0}
   _blastNum: 2

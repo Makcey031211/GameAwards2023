@@ -37,7 +37,8 @@ public class FireworksModuleEditor : Editor {
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
             _target._blastInvSeconds = EditorGUILayout.FloatField("爆破後無敵時間(秒)", _target.BlastInvSeconds);
             _target._invColor = EditorGUILayout.ColorField("無敵時間中の色(RGB)", _target.InvColor);
-            break;
+            _target._multiBlast = (GameObject)EditorGUILayout.ObjectField("二重花火の二回目のエフェクト", _target.MultiBlast, typeof(GameObject), true);
+                break;
         case FireworksModule.FireworksType.ResurrectionBox:
             _target._playerPrefab = (GameObject)EditorGUILayout.ObjectField("生成するオブジェクト", _target.PlayerPrefab, typeof(GameObject), true);
             _target._delayTime = EditorGUILayout.FloatField("生成までの待ち時間(秒)", _target.DelayTime);

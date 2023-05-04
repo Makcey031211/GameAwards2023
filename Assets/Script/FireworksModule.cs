@@ -62,6 +62,13 @@ public class FireworksModule : MonoBehaviour
     public float ModelDeleteTime => _modelDeleteTime;
     public bool IsDrawArea => _isDrawArea;
 
+    //- 二重花火の項目
+    //-- インスペクターに表示
+    [SerializeField, HideInInspector]
+    public GameObject _multiBlast; // ２回目のエフェクト
+    //-- 外部からの値取得用
+    public GameObject MultiBlast => _multiBlast;
+
 
     //- ハード、二重花火の項目
     //-- インスペクターに表示
@@ -489,38 +496,45 @@ public class FireworksModule : MonoBehaviour
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
         if (!_isInvinsible && _isExploded) {
-            //- 色の変更
-            this.gameObject.GetComponent<Renderer>().material.color = _invColor;
+
+            
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
             //- 爆発回数を更新
             _blastCount++;
-            //- 無敵フラグを設定
-            _isInvinsible = true;
             //- 無敵時間のリセット
             _invFrameCount = 0;
-            // 当たったオブジェクトのSphereColliderを有効にする
+            //- 爆発中のフラグを設定
+            _isInvinsible = true;
+            // 爆発時の当たり判定を無効化
             _collisionObject.GetComponent<SphereCollider>().enabled = true;
             _collisionObject.GetComponent<DetonationCollision>().enabled = true;
-            // 指定した位置に生成
-            GameObject fire = Instantiate(
-                _particleObject,                     // 生成(コピー)する対象
-                transform.position,           // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                );
 
             if (_blastCount == 1)
             {
+                //- １回目の花火を生成
+                GameObject fire = Instantiate(
+                    _particleObject,                    
+                    transform.position,          
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                //- 不要になったオブジェクトを消去
                 this.transform.GetChild(1).gameObject.SetActive(false);
                 this.transform.GetChild(2).gameObject.SetActive(false);
+                //- 花火のサイズ変更
                 Vector3 Scale = fire.transform.localScale;
-                Scale.x = 0.9f;
-                Scale.y = 0.9f;
-                Scale.z = 0.9f;
+                Scale.x = 0.8f;
+                Scale.y = 0.8f;
+                Scale.z = 0.8f;
                 fire.transform.localScale = Scale;
             }
             if (_blastCount == 2)
             {
+                //- ２回目の花火を生成
+                GameObject fire = Instantiate(
+                    _multiBlast,
+                    transform.position,
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                //- 花火のサイズ変更
                 Vector3 Scale = fire.transform.localScale;
                 Scale.x = 1.3f;
                 Scale.y = 1.3f;
@@ -542,15 +556,11 @@ public class FireworksModule : MonoBehaviour
             _invFrameCount++;
             //- 無敵時間終了時の処理
             if (_invFrameCount >= _blastInvSeconds * 60) {
-                //- 爆発中の判定を設定
+                //- 爆発中のフラグを設定
                 _isInvinsible = false;
-                //- 色の変更
-                this.gameObject.GetComponent<Renderer>().material.color = _initColor;
-                // 当たったオブジェクトのSphereColliderを無効にする
+                // 爆発時の当たり判定を無効化
                 this.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = false;
-                // 当たったオブジェクトのSphereColliderを無効にする
                 this.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = false;
-                // 爆発時に当たり判定を有効化
                 GetComponent<SphereCollider>().isTrigger = false;
                 //- 爆発判定を初期化
                 _isExploded = false;
