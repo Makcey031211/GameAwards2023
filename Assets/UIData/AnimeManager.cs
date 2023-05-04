@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -19,34 +20,52 @@ public class AnimeManager : MonoBehaviour
     /*　変数宣言部　*/
     [SerializeField] private EntryAnime DrawSelect;
     [SerializeField] private EntryAnime DrawReset;
+    [SerializeField] private FireBelt PlayerFireBelt;
     [SerializeField] private EntryAnime DrawTips;
-    //[SerializeField] private GameObject DrawCutIn;
-    private bool MoveCompleat = false;
+    [SerializeField] private CutIn DrawCutIn;
 
+    private static bool InMoveCompleat = false;
+    private static bool OutMoveCompleat = false;
+    
     private void Start()
     {
+        InMoveCompleat = false;
+        OutMoveCompleat = false;
         //- ボスTipsがない場合
-        if (!DrawTips)
+        if (!DrawCutIn)
         {
             DrawSelect.StartMove();
             DrawReset.StartMove();
+            PlayerFireBelt.MoveLocation();
         }
         else
-        {
-            //DrawCutIn
-            DrawTips.StartMove();
-            DrawSelect.StartMove();
-            DrawReset.StartMove();
-        }
+        {   DrawCutIn.MoveCutIn();  }
     }
 
     void Update()
     {
-        //- クリアした、撤退挙動をしていない
-        if(SceneChange.bIsChange && !MoveCompleat)
+        if( DrawSelect == null || 
+            DrawReset  == null || 
+            DrawTips == null)
+        {   return; }
+        //- 登場
+        if (CutIn.MoveCompleat && !InMoveCompleat)
         {
-            //- ボスTipsがない場合
-            if (!DrawTips)
+            DrawTips.StartMove();
+            DrawSelect.StartMove();
+            DrawReset.StartMove();
+            DOTween.Sequence().AppendInterval(0.5f).OnComplete(()=> {
+                PlayerFireBelt.MoveLocation();
+            });
+            InMoveCompleat = true;
+        }
+
+        //- クリアした、撤退挙動をしていない
+        if (SceneChange.bIsChange && !OutMoveCompleat)
+        {
+            OutMoveCompleat = true;
+            //- ボスカットインがあるか
+            if (!DrawCutIn)
             {
                 DrawSelect.OutMove();
                 DrawReset.OutMove();
@@ -57,7 +76,6 @@ public class AnimeManager : MonoBehaviour
                 DrawSelect.OutMove();
                 DrawReset.OutMove();
             }
-            MoveCompleat = true;
         }
     }
 }

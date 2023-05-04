@@ -1228,6 +1228,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f94529a276a67e43a40bb7347da7325, type: 3}
+--- !u!114 &800424476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3138721397268327722, guid: 3f94529a276a67e43a40bb7347da7325,
+    type: 3}
+  m_PrefabInstance: {fileID: 800424475}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8ac4449d2624947950864bd0a831ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &804386538 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: d168ed330550dee44a06096a423e6e13,
@@ -1261,6 +1273,7 @@ MonoBehaviour:
   _endPoint: {x: 0, y: 0, z: 0}
   _moveSpeed: 1
   _endWaitTime: 1
+  _waitTime: 1
   _rotaDirection: 0
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
@@ -3738,6 +3751,11 @@ PrefabInstance:
       propertyPath: DrawSelect
       value: 
       objectReference: {fileID: 212241636}
+    - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
+        type: 3}
+      propertyPath: PlayerFireBelt
+      value: 
+      objectReference: {fileID: 800424476}
     - target: {fileID: 7428010259182961742, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: m_Name
