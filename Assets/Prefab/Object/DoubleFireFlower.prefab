@@ -61,7 +61,6 @@ MonoBehaviour:
   power: 1000
   MaxFirColSize: 6
   MaxSecColSize: 10
-  time: 0.75
   ColSize: {x: 1, y: 1, z: 1}
 --- !u!1 &7171924692625481344
 GameObject:
@@ -207,8 +206,10 @@ MonoBehaviour:
   _isDrawArea: 1
   _multiBlast: {fileID: 8890074931926174080, guid: 762bd5ffa1c55184d8c6055d7a9f0052,
     type: 3}
-  _blastInvSeconds: 3
-  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _secondAfterTime: 1.8
+  _blastAfterTime: 0
+  _firstInvTime: 1
+  _invTimeCount: 0
   _blastNum: 2
   _playerPrefab: {fileID: 0}
   _delayTime: 0.1
@@ -218,7 +219,9 @@ MonoBehaviour:
   _ignitionMax: 3
   _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
+  _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
+  _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}

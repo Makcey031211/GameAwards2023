@@ -61,7 +61,6 @@ MonoBehaviour:
   power: 1000
   MaxFirColSize: 7.5
   MaxSecColSize: 7.5
-  time: 0.75
   ColSize: {x: 1, y: 1, z: 1}
 --- !u!1 &6778845893802623889
 GameObject:
@@ -279,6 +278,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1adec4b5-e426-4ff1-bf01-5139fb7d6869
     m_ActionName: Player/Reset[/XInputControllerWindows/start,/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c7cbd3b-e997-4ff8-b554-1491c181a45f
+    m_ActionName: Player/InGame[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -306,8 +309,11 @@ MonoBehaviour:
   _blastDis: 0
   _modelDeleteTime: 1
   _isDrawArea: 1
-  _blastInvSeconds: 3
-  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _multiBlast: {fileID: 0}
+  _secondAfterTime: 0
+  _blastAfterTime: 1.8
+  _firstInvTime: 3
+  _invTimeCount: 0
   _blastNum: 2
   _playerPrefab: {fileID: 0}
   _delayTime: 0.1
@@ -316,6 +322,13 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _ignitionMax: 3
   _movieObject: {fileID: 0}
+  _outsideBarrier: {fileID: 0}
+  _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _insideBarrier: {fileID: 0}
+  _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  InGR: {fileID: 0}
+  InGS: {fileID: 0}
+  Tips: {fileID: 0}
 --- !u!1 &6778845893938954530
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +474,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bd6ad0a9a7fdc4abd0d878d45e50d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RetryTime: 1
+  OptionTime: 1
+  FadeTime: 1
+  SelectScene:
+    m_SceneName: 
 --- !u!114 &6778845895047833772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +600,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1adec4b5-e426-4ff1-bf01-5139fb7d6869
     m_ActionName: Player/Reset[/XInputControllerWindows/start,/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c7cbd3b-e997-4ff8-b554-1491c181a45f
+    m_ActionName: Player/InGame[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

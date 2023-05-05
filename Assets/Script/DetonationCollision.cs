@@ -14,14 +14,8 @@ public class DetonationCollision : MonoBehaviour
     [Header("二回目の当たり判定の最大値"), SerializeField]
     private float MaxSecColSize = 7.5f;
 
-    [Header("削除までの時間"), SerializeField]
-    private float time = 3.0f;
-
     [Header("当たり判定の初期サイズ"), SerializeField]
     private Vector3 ColSize = new Vector3(1.0f,1.0f,1.0f);
-
-    //- 生成からの経過時間
-    float currentTime;
 
     //- 2回爆発するかどうか(DoubleBlastFireworks.csからアクセスされて変更される変数です)
     private bool _isDoubleBlast = false;
@@ -30,40 +24,39 @@ public class DetonationCollision : MonoBehaviour
     //- 何回目の爆発か
     int nBlastCount = 1;
 
+    Tween TweenMove;
+
     void Start()
     {
-        currentTime = 0.0f;
         //- 座標の取得
         Vector3 pos = transform.position;
         //- エフェクトの重力にあわせて、中心をずらす
-        transform.DOMoveY(pos.y - 0.8f, 2.0f).SetDelay(0.7f);
+        TweenMove = transform.DOMoveY(pos.y - 0.8f, 2.0f).SetDelay(0.7f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //----- 削除までの時間カウント
-        currentTime += Time.deltaTime;
-        if (currentTime >= time)
+    
+    public void EndDetonation()
+    {   
+        //- 2回以上爆発する花火ではない、または       
+        //- 2回目の爆発の場合、処理する
+        if (!_isDoubleBlast || (nBlastCount >= 2))
         {
-            //- 2回以上爆発する花火ではない、または
-            //- 2回目の爆発の場合、処理する
-            if (!_isDoubleBlast || (nBlastCount >= 2))
-            {
-                // 親オブジェクトごと削除
-                Destroy(transform.parent.gameObject);
-            }
-            else
-            {
-                //- 当たり判定サイズを元に戻す
-                transform.localScale = ColSize;
-                //- 時間のリセット
-                currentTime = 0.0f;
-                //- 自身のスクリプトを無効化
-                this.gameObject.GetComponent<DetonationCollision>().enabled = false;
-            }
-            nBlastCount++;
+            // 親オブジェクトごと削除
+            Destroy(transform.parent.gameObject);
         }
+        else
+        {
+            //- 座標の取得
+            Vector3 pos = transform.position;
+            //- 当たり判定の重力移動を強制的に最終地点まで移動
+            TweenMove.Complete();
+            //- 当たり判定の中心を戻す
+            TweenMove = transform.DOMoveY(pos.y + 0.8f, 0.0f).SetDelay(0.0f);
+            //- 当たり判定サイズを元に戻す
+            transform.localScale = ColSize;
+            //- 自身のスクリプトを無効化
+            this.gameObject.GetComponent<DetonationCollision>().enabled = false;
+        }
+        nBlastCount++;
     }
 
     private void FixedUpdate()
