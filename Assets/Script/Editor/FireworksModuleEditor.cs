@@ -50,8 +50,10 @@ public class FireworksModuleEditor : Editor {
             _target._ignitionMax = EditorGUILayout.IntField("爆発に必要な回数", _target.IgnitionMax);
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
             _target._outsideBarrier = (GameObject)EditorGUILayout.ObjectField("外側のバリア", _target.OutsideBarrier, typeof(GameObject), true);
+            _target._outsideBarrierColor = EditorGUILayout.ColorField("外側のバリアの色", _target.OutsideBarrierColor);
             _target._insideBarrier =  (GameObject)EditorGUILayout.ObjectField("内側のバリア", _target.InsideBarrier,  typeof(GameObject), true);
-                break;
+            _target._insideBarrierColor = EditorGUILayout.ColorField("内側のバリアの色", _target.InsideBarrierColor);
+            break;
 
         }
         //- インスペクターの更新

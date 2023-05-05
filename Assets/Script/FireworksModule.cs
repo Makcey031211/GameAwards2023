@@ -121,7 +121,11 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public GameObject _outsideBarrier; // 外側のバリア
     [SerializeField, HideInInspector]
+    public Color _outsideBarrierColor; // 外側のバリアの色
+    [SerializeField, HideInInspector]
     public GameObject _insideBarrier;  // 内側のバリア
+    [SerializeField, HideInInspector]
+    public Color _insideBarrierColor;  // 内側のバリアの色
     //-- インスペクターから非表示
     private int ignitionCount = 0; // 何回引火したか
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
@@ -129,7 +133,9 @@ public class FireworksModule : MonoBehaviour
     public int IgnitionMax => _ignitionMax;
     public GameObject MovieObject => _movieObject;
     public GameObject OutsideBarrier => _outsideBarrier;
+    public Color OutsideBarrierColor => _outsideBarrierColor;
     public GameObject InsideBarrier =>  _insideBarrier;
+    public Color InsideBarrierColor =>  _insideBarrierColor;
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -154,6 +160,12 @@ public class FireworksModule : MonoBehaviour
 
         //- 復活箱の項目
         sceneChange = GameObject.FindWithTag("MainCamera").GetComponent<SceneChange>();
+
+        if(_type == FireworksType.Boss)
+        {
+            _outsideBarrier.GetComponent<Renderer>().material.color = _outsideBarrierColor;
+            _insideBarrier.GetComponent<Renderer>().material.color = _insideBarrierColor;
+        }
     }
 
     // Update is called once per frame

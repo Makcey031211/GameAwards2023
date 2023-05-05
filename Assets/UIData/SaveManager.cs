@@ -58,7 +58,7 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(FILE_PATH))
         {
             //- テキストを読み込む
-            using (StreamReader sr = new StreamReader(FILE_PATH,Encoding.UTF8)) //using:自動的にクローズする
+            using (StreamReader sr = new StreamReader(FILE_PATH,Encoding.ASCII)) //using:自動的にクローズする
             {
                 string line;    //1行分の文字列を読み込む
                 int i = 0;      
@@ -88,7 +88,7 @@ public class SaveManager : MonoBehaviour
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ数分更新する
             for(int i = 0; i < STAGE_NUM; i++)
@@ -119,13 +119,14 @@ public class SaveManager : MonoBehaviour
             Directory.CreateDirectory(directoryPath);
         }
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ分初期化する
             for(int i = 0; i < STAGE_NUM; i++)
             {
-                sw.WriteLine(false);
                 stageflag[i] = false;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
             }
         }
     }
@@ -137,13 +138,14 @@ public class SaveManager : MonoBehaviour
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ分初期化する
             for (int i = 0; i < STAGE_NUM; i++)
             {
-                sw.WriteLine(false);
                 stageflag[i] = false;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
             }
         }
     }
