@@ -113,10 +113,7 @@ public class ClearAnime : MonoBehaviour
             .SetEase(Ease.OutSine)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .SetDelay(Delay)
-            .OnComplete(() => {
-                animeObjNum--;
-                Debug.Log(animeObjNum);
-            });
+            .OnComplete(() => { animeObjNum--;} );
 
     }
 
