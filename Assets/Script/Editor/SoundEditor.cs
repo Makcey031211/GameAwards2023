@@ -46,6 +46,10 @@ public class SoundEditor : Editor
             _se.clear   = EditorGUILayout.ObjectField("クリア音", _se.clear, typeof(AudioClip), false) as AudioClip;
             _se.failure = EditorGUILayout.ObjectField("失敗音", _se.failure, typeof(AudioClip), false) as AudioClip;
 
+            EditorGUILayout.LabelField("--- カットイン関連 ---");
+            _se.nushiapp  = EditorGUILayout.ObjectField("ヌシ出現音", _se.nushiapp, typeof(AudioClip), false) as AudioClip;
+            _se.letterapp = EditorGUILayout.ObjectField("文字出現音", _se.letterapp, typeof(AudioClip), false) as AudioClip;
+
             EditorGUILayout.LabelField("--- 設定項目 ---");
             _se.volume  = EditorGUILayout.Slider("SE_Volume", _se.volume, 0f, 1f);
             _se.pitch   = EditorGUILayout.Slider("SE_Pitch", _se.pitch, 0f, 1f);
