@@ -32,7 +32,7 @@ public class EntryAnime : MonoBehaviour
     private float EndMoveTime;
 
     private Vector3 pos;
-
+    private bool Compleate = false;
     
     private void Awake()
     {
@@ -85,23 +85,19 @@ public class EntryAnime : MonoBehaviour
     /// </summary>
     public void OutMove()
     {
-        //- w’è•ûŒü‚É“P‘Ş
-        switch (direction)
+        if(!Compleate)
         {
+            //- w’è•ûŒü‚É“P‘Ş
+            switch (direction)
+            {
             case E_OUTDIRECTION.LEFT:
-                transform.DOMoveX(LEFT, EndMoveTime).OnComplete(() =>
-                {
-                    //- ˆÚ“®Š®—¹‚µ‚½‚çíœ
-                    Destroy(gameObject);
-                });
+                    transform.DOMoveX(LEFT, EndMoveTime);
                 break;
             case E_OUTDIRECTION.RIGHT:
-                transform.DOMoveX(RIGHT, EndMoveTime).OnComplete(() =>
-                {
-                    //- ˆÚ“®Š®—¹‚µ‚½‚çíœ
-                    Destroy(gameObject);
-                });
+                    transform.DOMoveX(RIGHT, EndMoveTime);
                 break;
+            }
+            Compleate = true;
         }
     }
 }

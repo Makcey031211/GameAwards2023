@@ -47,7 +47,9 @@ public class FireBelt : MonoBehaviour
     private void Update()
     {
         if(!MoveComplete && Auto)
-        {   MoveLocation(); }
+        {
+            MoveLocation();
+        }
     }
 
     /// <summary>
@@ -60,7 +62,7 @@ public class FireBelt : MonoBehaviour
         //- YÀ•W‚ğ•Û‘¶‚µ‚Ä‚¨‚­
         float pos = img.transform.localPosition.y;
         float TargetPos;
-
+        MoveComplete = true;
         //- ˆÚ“®í—Ş•Êˆ—
         switch (movelocation)
         {
@@ -109,10 +111,7 @@ public class FireBelt : MonoBehaviour
             .DOLocalMoveY(TargetPos - DiffY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
-            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Belt); 
-            }) // ‘Å‚¿ã‚°‰¹Ä¶
-            .OnComplete(() =>
-            { MoveComplete = true; });
+            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Belt);}); // ‘Å‚¿ã‚°‰¹Ä¶
         //- ™X‚É‰æ‘œ‚ªÁ‚¦‚é
         img.DOFillAmount(0, DeleteTIme)
             .SetEase(Ease.InOutQuad)
