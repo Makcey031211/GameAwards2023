@@ -18,20 +18,20 @@ public class CutIn : MonoBehaviour
     private void Awake()
     {
         MoveCompleat = false;
-        //- ‰Šú’l•Û‘¶
+        //- åˆæœŸå€¤ä¿å­˜
         InitValues = new Dictionary<string, Dictionary<string, Vector3>>
-        {{ "ƒ{ƒX", new Dictionary<string, Vector3>
-             {{ "‘å‚«‚³", BossImg.transform.localScale },
-             { "ˆÊ’u", BossImg.transform.localPosition }}
+        {{ "ãƒœã‚¹", new Dictionary<string, Vector3>
+             {{ "å¤§ãã•", BossImg.transform.localScale },
+             { "ä½ç½®", BossImg.transform.localPosition }}
         }};
-        InitValues.Add("ƒoƒŠƒA¬",new Dictionary<string, Vector3> {
-            { "‘å‚«‚³", SmallCrystal.transform.localScale },
-            { "ˆÊ’u", SmallCrystal.transform.localPosition }});
-        InitValues.Add("ƒoƒŠƒA‘å", new Dictionary<string, Vector3> {
-            { "‘å‚«‚³", BiglCrystal.transform.localScale },
-            { "ˆÊ’u", BiglCrystal.transform.localPosition }});
+        InitValues.Add("ãƒãƒªã‚¢å°",new Dictionary<string, Vector3> {
+            { "å¤§ãã•", SmallCrystal.transform.localScale },
+            { "ä½ç½®", SmallCrystal.transform.localPosition }});
+        InitValues.Add("ãƒãƒªã‚¢å¤§", new Dictionary<string, Vector3> {
+            { "å¤§ãã•", BiglCrystal.transform.localScale },
+            { "ä½ç½®", BiglCrystal.transform.localPosition }});
 
-        //- ƒTƒCƒY‚ÆˆÊ’u‚ğƒAƒjƒ[ƒVƒ‡ƒ“ŠJn‚Ì’l‚Éİ’è
+        //- ã‚µã‚¤ã‚ºã¨ä½ç½®ã‚’ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é–‹å§‹æ™‚ã®å€¤ã«è¨­å®š
         BossImg.rectTransform.localScale = Vector3.zero;
         BossImg.rectTransform.localPosition = Vector3.zero;
         SmallCrystal.rectTransform.localScale = Vector3.zero;
@@ -46,23 +46,23 @@ public class CutIn : MonoBehaviour
     {
         
         var DoCutIn = DOTween.Sequence();
-        //- ‰‚ß‚ÌƒeƒLƒXƒg‚ğ90“x‰ñ“]‚³‚¹‚Ä‚¨‚­
+        //- åˆã‚ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’90åº¦å›è»¢ã•ã›ã¦ãŠã
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(tmp);
         for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
         { tmpAnimator.DORotateChar(i, Vector3.up * 90, 0); }
-        //- ƒ{ƒX‰æ‘œ‚ÌƒTƒCƒY‚ª0‚©‚çŒ³İ’uƒTƒCƒY‚É
+        //- ãƒœã‚¹ç”»åƒã®ã‚µã‚¤ã‚ºãŒ0ã‹ã‚‰å…ƒè¨­ç½®ã‚µã‚¤ã‚ºã«
         DoCutIn
             .AppendInterval(0.5f)
-            .Append(BossImg.transform.DOScale(InitValues["ƒ{ƒX"]["‘å‚«‚³"], 0.1f))
+            .Append(BossImg.transform.DOScale(InitValues["ãƒœã‚¹"]["å¤§ãã•"], 0.1f))
             //.OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Nushiapp); })
-            .Append(SmallCrystal.transform.DOScale(InitValues["ƒoƒŠƒA¬"]["‘å‚«‚³"], 0.1f))
-            .Append(BiglCrystal.transform.DOScale(InitValues["ƒoƒŠƒA‘å"]["‘å‚«‚³"], 0.1f))
+            .Append(SmallCrystal.transform.DOScale(InitValues["ãƒãƒªã‚¢å°"]["å¤§ãã•"], 0.1f))
+            .Append(BiglCrystal.transform.DOScale(InitValues["ãƒãƒªã‚¢å¤§"]["å¤§ãã•"], 0.1f))
             .Append(SmallCrystal.transform.DORotate(Vector3.zero, 0.3f))
             .Append(BiglCrystal.transform.DORotate(Vector3.zero, 0.3f))
             .AppendInterval(0.25f)
-            .Append(BossImg.transform.DOMove(InitValues["ƒ{ƒX"]["ˆÊ’u"], 0.5f).SetRelative(true))
-            .Join(SmallCrystal.transform.DOMove(InitValues["ƒoƒŠƒA¬"]["ˆÊ’u"], 0.5f).SetRelative(true))
-            .Join(BiglCrystal.transform.DOMove(InitValues["ƒoƒŠƒA‘å"]["ˆÊ’u"], 0.5f).SetRelative(true))
+            .Append(BossImg.transform.DOMove(InitValues["ãƒœã‚¹"]["ä½ç½®"], 0.5f).SetRelative(true))
+            .Join(SmallCrystal.transform.DOMove(InitValues["ãƒãƒªã‚¢å°"]["ä½ç½®"], 0.5f).SetRelative(true))
+            .Join(BiglCrystal.transform.DOMove(InitValues["ãƒãƒªã‚¢å¤§"]["ä½ç½®"], 0.5f).SetRelative(true))
             .OnComplete(()=> {
                 //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp);
                 DOTween.Sequence()
