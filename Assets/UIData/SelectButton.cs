@@ -12,10 +12,12 @@ public class SelectButton : MonoBehaviour
 
     //- スクリプト用の変数
     BGMManager bgmManager;
+    SaveManager saveManager;
 
     void Start()
     {
-        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        saveManager = GameObject.Find("SaveManager").GetComponent<SaveManager>();
     }
     
     public void MoveScene()
@@ -26,5 +28,11 @@ public class SelectButton : MonoBehaviour
         //- シーンを変える前にBGMを消す
         DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager()); 
         DOVirtual.DelayedCall (0.5f, ()=> SceneManager.LoadScene(NextScene));
+    }
+
+    public void StartNewGame()
+    {
+        //- セーブデータをリセット
+        saveManager.ResetSaveData();
     }
 }
