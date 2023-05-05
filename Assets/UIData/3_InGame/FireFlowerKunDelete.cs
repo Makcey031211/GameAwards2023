@@ -12,7 +12,7 @@ public class FireFlowerKunDelete : MonoBehaviour
     }
     void Update()
     {
-        if(Belt.GetMoveComplete())
+        if(Belt.GetDeleteFlag())
         {
             //- ©•ª©g‚ğíœ‚·‚é
             Destroy(gameObject);

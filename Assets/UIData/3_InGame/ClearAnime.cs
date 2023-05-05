@@ -46,9 +46,7 @@ public class ClearAnime : MonoBehaviour
     //private float PopInitSizeTime = 1.0f;
 
     static int animeObjNum = 0;
-
     static bool isAnime = false;
-
     private bool isOnce = false;
 
     IgnoreMouseInputModule inputModule;

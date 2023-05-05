@@ -43,13 +43,12 @@ public class FireBelt : MonoBehaviour
     private Image img;
     private Slider sli;
     private bool MoveComplete = false;
+    private bool DeleteFlag = false;
 
     private void Update()
     {
         if(!MoveComplete && Auto)
-        {
-            MoveLocation();
-        }
+        {   MoveLocation(); }
     }
 
     /// <summary>
@@ -111,7 +110,8 @@ public class FireBelt : MonoBehaviour
             .DOLocalMoveY(TargetPos - DiffY, MoveTime)
             .SetEase(Ease.OutCubic)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
-            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Belt);}); // ë≈Çøè„Ç∞âπçƒê∂
+            .OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Belt); }) // ë≈Çøè„Ç∞âπçƒê∂
+            .OnComplete(() => { DeleteFlag = true; });
         //- èôÅXÇ…âÊëúÇ™è¡Ç¶ÇÈ
         img.DOFillAmount(0, DeleteTIme)
             .SetEase(Ease.InOutQuad)
@@ -123,7 +123,8 @@ public class FireBelt : MonoBehaviour
     }
 
     public bool GetMoveComplete()
-    {
-        return MoveComplete;
-    }
+    {   return MoveComplete;    }
+
+    public bool GetDeleteFlag()
+    {   return DeleteFlag;   }
 }
