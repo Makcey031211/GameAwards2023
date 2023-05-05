@@ -2377,6 +2377,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 4100931504084794293}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1768506275 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1435455739503144856, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4100931504084794293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98e4e5a75106d314b9c284cd6fa5945b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1785102805
 GameObject:
   m_ObjectHideFlags: 0
@@ -2740,18 +2752,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1829579460}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1834138756 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3138721397268327722, guid: 3f94529a276a67e43a40bb7347da7325,
-    type: 3}
-  m_PrefabInstance: {fileID: 6026420783536642362}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc8ac4449d2624947950864bd0a831ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1880445009 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8527142692286071454, guid: 1fc94a6bdbe105b41a299463e820d900,
@@ -3996,7 +3996,7 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerFireBelt
       value: 
-      objectReference: {fileID: 1834138756}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
 --- !u!1001 &5608698268702107702
@@ -4218,7 +4218,12 @@ PrefabInstance:
         type: 3}
       propertyPath: PlayerFireBelt
       value: 
-      objectReference: {fileID: 1834138756}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
+        type: 3}
+      propertyPath: DrawDescription
+      value: 
+      objectReference: {fileID: 1768506275}
     - target: {fileID: 7428010259182961742, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: m_Name

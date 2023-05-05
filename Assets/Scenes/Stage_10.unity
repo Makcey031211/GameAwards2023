@@ -1323,18 +1323,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419740576}
   m_CullTransparentMesh: 1
---- !u!114 &444569060 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3138721397268327722, guid: 3f94529a276a67e43a40bb7347da7325,
-    type: 3}
-  m_PrefabInstance: {fileID: 595183038}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc8ac4449d2624947950864bd0a831ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &495140567
 GameObject:
   m_ObjectHideFlags: 0
@@ -3939,7 +3927,17 @@ PrefabInstance:
       propertyPath: NextScene.m_SceneName
       value: Stage_11
       objectReference: {fileID: 0}
+    - target: {fileID: 3051055470339269542, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3051055470339269543, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3226660888892081525, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -5081,9 +5079,14 @@ PrefabInstance:
       objectReference: {fileID: 1913422511}
     - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
+      propertyPath: DrawBossCutIn
+      value: 
+      objectReference: {fileID: 2346536086730377768}
+    - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
+        type: 3}
       propertyPath: PlayerFireBelt
       value: 
-      objectReference: {fileID: 444569060}
+      objectReference: {fileID: 0}
     - target: {fileID: 7428010259182961742, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: m_Name

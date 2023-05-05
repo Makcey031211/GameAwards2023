@@ -15,59 +15,53 @@ using UnityEditor;
 //- UIアニメーション作動を管理するクラス
 public class AnimeManager : MonoBehaviour
 {
-    /*　列挙体宣言部　*/
-    
     /*　変数宣言部　*/
     [SerializeField] private EntryAnime DrawSelect;
     [SerializeField] private EntryAnime DrawReset;
-    [SerializeField] private FireBelt PlayerFireBelt;
     [SerializeField] private EntryAnime DrawTips;
-    [SerializeField] private CutIn DrawCutIn;
+    [SerializeField] private TargetDescription DrawDescription;
+    [SerializeField] private CutIn DrawBossCutIn;
 
-    private bool NoCutIn = false;
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
     
     private void Start()
     {
-        //- ボスTipsがない場合
-        if (!DrawCutIn)
-        {
-            DrawSelect.StartMove();
-            DrawReset.StartMove();
-            PlayerFireBelt.MoveLocation();
-            NoCutIn = true;
-        }
-        //- カットインがあるとき
+        //- 目標開始演出がある
+        if (DrawDescription)
+        {   DrawDescription.MoveDescription();  }
+        //- ボスカットインがある
         else
-        {   DrawCutIn.MoveCutIn();  }
+        {   DrawBossCutIn.MoveCutIn();  }
     }
 
     void Update()
     {
-        //- カットイン有時の登場
-        if (!NoCutIn && CutIn.MoveCompleat && !InMoveCompleat)
+        //- 開始演出がある場合の処理
+        if(TargetDescription.MoveCompleat && !InMoveCompleat)
+        {
+            DrawSelect.StartMove();
+            DrawReset.StartMove();
+            InMoveCompleat = true;
+        }
+        else if(CutIn.MoveCompleat && !InMoveCompleat)
         {
             DrawTips.StartMove();
             DrawSelect.StartMove();
             DrawReset.StartMove();
-            DOTween.Sequence()
-                .AppendInterval(0.5f)
-                .OnComplete(()=> {  PlayerFireBelt.MoveLocation();    });
+            DOTween.Sequence().AppendInterval(0.5f);
             InMoveCompleat = true;
         }
 
         //- クリアした、撤退挙動をしていない
         if (SceneChange.bIsChange && !OutMoveCompleat)
         {
-         
-            //- ボスカットインがあるか
-            if (!DrawCutIn)
+            if (DrawDescription)
             {
                 DrawSelect.OutMove();
                 DrawReset.OutMove();
             }
-            else
+            else if(DrawBossCutIn)
             {
                 DrawTips.OutMove();
                 DrawSelect.OutMove();

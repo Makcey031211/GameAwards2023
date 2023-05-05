@@ -65,7 +65,7 @@ public class CutIn : MonoBehaviour
             .OnComplete(()=> {
                 DOTween.Sequence()
                     .Append(TextBack.DOFillAmount(1.0f, 0.25f));
-                for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+                for (int i = 0; i < tmpAnimator.textInfo.characterCount; i++)
                 {
                     DOTween.Sequence()
                         .Append(tmpAnimator.DORotateChar(i, Vector3.zero, 0.55f));
