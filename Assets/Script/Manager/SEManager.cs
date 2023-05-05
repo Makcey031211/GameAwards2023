@@ -27,6 +27,9 @@ public class SEManager : MonoBehaviour
         Select,     // ボタン選択
         Clear,      // クリア
         Failure,    // 失敗
+        //* カットイン関連 */
+        Nushiapp,   // ヌシ出現
+        Letterapp,  // 文字出現
     }
 
     //---------------------------------------
@@ -56,6 +59,10 @@ public class SEManager : MonoBehaviour
     public AudioClip clear;
     [SerializeField, HideInInspector]
     public AudioClip failure;
+    [SerializeField, HideInInspector]
+    public AudioClip nushiapp;
+    [SerializeField, HideInInspector]
+    public AudioClip letterapp;
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float volume;
     [SerializeField, HideInInspector]
@@ -109,6 +116,8 @@ public class SEManager : MonoBehaviour
         ResurrectionBoxSE();
         // シーン関連
         SceneSE();
+        // カットイン関連
+        CutInSE();
     }
 
     private void FireWorksSE()
@@ -138,6 +147,12 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.Select, select);
         audioClips.Add(E_SoundEffect.Clear, clear);
         audioClips.Add(E_SoundEffect.Failure, failure);
+    }
+
+    private void CutInSE()
+    {
+        audioClips.Add(E_SoundEffect.Nushiapp, nushiapp);
+        audioClips.Add(E_SoundEffect.Letterapp, letterapp);
     }
 
     public float Pitch

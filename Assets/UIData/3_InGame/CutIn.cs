@@ -54,6 +54,7 @@ public class CutIn : MonoBehaviour
         DoCutIn
             .AppendInterval(0.5f)
             .Append(BossImg.transform.DOScale(InitValues["ボス"]["大きさ"], 0.1f))
+            //.OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Nushiapp); })
             .Append(SmallCrystal.transform.DOScale(InitValues["バリア小"]["大きさ"], 0.1f))
             .Append(BiglCrystal.transform.DOScale(InitValues["バリア大"]["大きさ"], 0.1f))
             .Append(SmallCrystal.transform.DORotate(Vector3.zero, 0.3f))
@@ -63,8 +64,9 @@ public class CutIn : MonoBehaviour
             .Join(SmallCrystal.transform.DOMove(InitValues["バリア小"]["位置"], 0.5f).SetRelative(true))
             .Join(BiglCrystal.transform.DOMove(InitValues["バリア大"]["位置"], 0.5f).SetRelative(true))
             .OnComplete(()=> {
+                //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp);
                 DOTween.Sequence()
-                    .Append(TextBack.DOFillAmount(1.0f, 0.25f));
+                .Append(TextBack.DOFillAmount(1.0f, 0.25f));
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
                 {
                     DOTween.Sequence()
