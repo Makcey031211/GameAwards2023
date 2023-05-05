@@ -24,46 +24,43 @@ public class AnimeManager : MonoBehaviour
     [SerializeField] private EntryAnime DrawTips;
     [SerializeField] private CutIn DrawCutIn;
 
-    private static bool InMoveCompleat = false;
-    private static bool OutMoveCompleat = false;
+    private bool NoCutIn = false;
+    private bool InMoveCompleat = false;
+    private bool OutMoveCompleat = false;
     
     private void Start()
     {
-        InMoveCompleat = false;
-        OutMoveCompleat = false;
         //- ボスTipsがない場合
         if (!DrawCutIn)
         {
             DrawSelect.StartMove();
             DrawReset.StartMove();
             PlayerFireBelt.MoveLocation();
+            NoCutIn = true;
         }
+        //- カットインがあるとき
         else
         {   DrawCutIn.MoveCutIn();  }
     }
 
     void Update()
     {
-        if( DrawSelect == null || 
-            DrawReset  == null || 
-            DrawTips == null)
-        {   return; }
-        //- 登場
-        if (CutIn.MoveCompleat && !InMoveCompleat)
+        //- カットイン有時の登場
+        if (!NoCutIn && CutIn.MoveCompleat && !InMoveCompleat)
         {
             DrawTips.StartMove();
             DrawSelect.StartMove();
             DrawReset.StartMove();
-            DOTween.Sequence().AppendInterval(0.5f).OnComplete(()=> {
-                PlayerFireBelt.MoveLocation();
-            });
+            DOTween.Sequence()
+                .AppendInterval(0.5f)
+                .OnComplete(()=> {  PlayerFireBelt.MoveLocation();    });
             InMoveCompleat = true;
         }
 
         //- クリアした、撤退挙動をしていない
         if (SceneChange.bIsChange && !OutMoveCompleat)
         {
-            OutMoveCompleat = true;
+         
             //- ボスカットインがあるか
             if (!DrawCutIn)
             {
@@ -76,6 +73,7 @@ public class AnimeManager : MonoBehaviour
                 DrawSelect.OutMove();
                 DrawReset.OutMove();
             }
+            OutMoveCompleat = true;
         }
     }
 }

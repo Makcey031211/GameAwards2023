@@ -1754,6 +1754,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f94529a276a67e43a40bb7347da7325, type: 3}
+--- !u!1 &595316644 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3051055468757874994, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1296345888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &693421593
 GameObject:
   m_ObjectHideFlags: 0
@@ -3716,6 +3722,11 @@ PrefabInstance:
       propertyPath: NextScene.m_SceneName
       value: 1_Village
       objectReference: {fileID: 0}
+    - target: {fileID: 3051055468757874997, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3051055469318799163, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_Name
@@ -3875,6 +3886,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839831239419616263, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976963427638803353, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: ActiveObjs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976963427638803353, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: ActiveObjs.Array.data[1]
+      value: 
+      objectReference: {fileID: 595316644}
+    - target: {fileID: 6386481631443206740, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_text
+      value: "\u91CC\u3078\u623B\u308B"
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3051055470339269209, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
