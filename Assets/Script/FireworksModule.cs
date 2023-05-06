@@ -14,6 +14,7 @@ public class FireworksModule : MonoBehaviour
         Hard,
         Double,
         ResurrectionBox,
+        ResurrectionPlayer,
         Boss,
     }
 
@@ -27,6 +28,7 @@ public class FireworksModule : MonoBehaviour
     public GameObject _collisionObject; // 当たり判定用オブジェクト   通常、ハード、マルチブラスト
     [SerializeField, Header("破裂後の表情オブジェクト")]
     public GameObject _eyeObject; // 破裂後表情用オブジェクト
+    
     //-- インスペクターから非表示
     private VibrationManager vibration; // コントローラーの振動用
     private bool _isExploded; // 爆発フラグ
@@ -37,6 +39,7 @@ public class FireworksModule : MonoBehaviour
     public bool IsExploded => _isExploded;
     public GameObject CollisionObject => _collisionObject;
     public GameObject EyeObject => _eyeObject;
+    
 
     //- クラッカーの項目
     //-- インスペクターに表示
@@ -101,6 +104,7 @@ public class FireworksModule : MonoBehaviour
     public int _blastNum = 2;  // 何回目で爆発するか
     public int BlastNum => _blastNum;
 
+
     //- 復活箱用の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -121,6 +125,18 @@ public class FireworksModule : MonoBehaviour
     public float AnimationTime => _animationTime;
     public float AnimationDelayTime => _animationDelayTime;
     public float BoxDisTime => _boxDisTime;
+
+
+    //- 復活花火の項目
+    //-- インスペクターに表示
+    [SerializeField, HideInInspector]
+    public float _invTime; // 無敵時間
+    //-- インスペクターから非表示
+    private float _currentTime = 0.0f;
+    private bool _isInv = true; // 無敵時間
+    //-- 外部からの値取得用
+    public float InvTime => _invTime;
+
 
     //- ぬし花火用の項目
     //-- インスペクターに表示
@@ -184,6 +200,7 @@ public class FireworksModule : MonoBehaviour
         //- 復活箱の項目
         sceneChange = GameObject.FindWithTag("MainCamera").GetComponent<SceneChange>();
 
+        //- バリアの項目
         if(_type == FireworksType.Boss)
         {
             _outsideBarrier.GetComponent<Renderer>().material.color = _outsideBarrierColor;
@@ -194,6 +211,12 @@ public class FireworksModule : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (_isInv && _type == FireworksType.ResurrectionPlayer)
+        {
+            _currentTime += Time.deltaTime;
+            if (_currentTime >= _invTime)
+            { _isInv = false; }
+        }
 
         if (IsExploded) { // 爆発した後
             switch (Type) {
@@ -211,6 +234,10 @@ public class FireworksModule : MonoBehaviour
                 break;
             case FireworksType.ResurrectionBox:
                 ResurrectionBoxFire();
+                break;
+            case FireworksType.ResurrectionPlayer:
+                ResurrectionPlayerFire(); 
+                //NormalFire(); 
                 break;
             default:
                 break;
@@ -232,6 +259,11 @@ public class FireworksModule : MonoBehaviour
     public void Ignition()
     {
         _isExploded = true;
+    }
+
+    public bool GetIsInv()
+    {
+        return _isInv;
     }
 
     // ぬし花火用の引火処理
@@ -312,6 +344,42 @@ public class FireworksModule : MonoBehaviour
         if (_afterTimeCount >= _blastAfterTime)
         {
             DetonationCol.EndDetonation(); //- 当たり判定の消滅
+        }
+    }
+
+    private void ResurrectionPlayerFire()
+    {
+        if (!_isOnce)
+        { // 爆発直後一回のみ
+            _isOnce = true;
+            ShakeByPerlinNoise shakeByPerlinNoise;
+            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
+            var duration = 0.2f;
+            var strength = 0.1f;
+            var vibrato = 1.0f;
+            //- 指定した位置に生成
+            GameObject fire = Instantiate(
+                ParticleObject,                     // 生成(コピー)する対象
+                transform.position,           // 生成される位置
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                );
+
+            //- コントローラーの振動の設定
+            vibration.SetVibration(30, 1.0f);
+
+            //- 当たり判定を有効化する
+            // 当たったオブジェクトのColliderを有効にする
+            CollisionObject.gameObject.GetComponent<Collider>().enabled = true;
+            // 当たり判定の拡大用コンポーネントを有効にする
+            CollisionObject.gameObject.GetComponent<DetonationCollision>().enabled = true;
+
+            //- 爆発時に描画をやめる
+            StopRenderer(gameObject);
+
+            //- 爆発音の再生
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+
+            Destroy(gameObject, 0.5f);
         }
     }
 

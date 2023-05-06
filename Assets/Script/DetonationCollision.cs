@@ -160,8 +160,11 @@ public class DetonationCollision : MonoBehaviour
         //- 当たったオブジェクトの花火タイプによって処理を分岐
         if (module.Type == FireworksModule.FireworksType.Boss)
             module.IgnitionBoss(obj);
-        else
+        else if(module.Type != FireworksModule.FireworksType.ResurrectionPlayer)
             module.Ignition();
+        else if (module.Type == FireworksModule.FireworksType.ResurrectionPlayer)
+            if(module.GetIsInv() == false)
+            { module.Ignition(); }
 
         //- ステージオブジェクトに当たっていない
         return;

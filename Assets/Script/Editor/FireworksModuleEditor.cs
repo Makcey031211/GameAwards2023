@@ -47,6 +47,10 @@ public class FireworksModuleEditor : Editor {
             _target._animationDelayTime = EditorGUILayout.FloatField("アニメーションの遅延時間(秒)", _target.AnimationDelayTime);
             _target._boxDisTime = EditorGUILayout.FloatField("箱の消滅時間(秒)", _target.BoxDisTime);
             break;
+        case FireworksModule.FireworksType.ResurrectionPlayer:
+            _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
+            _target._invTime = EditorGUILayout.FloatField("無敵時間(秒)", _target.InvTime);
+            break;
         case FireworksModule.FireworksType.Boss:
             _target._ignitionMax = EditorGUILayout.IntField("爆発に必要な回数", _target.IgnitionMax);
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
