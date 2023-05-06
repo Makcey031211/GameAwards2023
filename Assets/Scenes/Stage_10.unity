@@ -6897,7 +6897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0c7c58ea170af4ba18c7a26f0b16a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 5
+  _type: 6
   _particleObject: {fileID: 8890074931926174080, guid: d770596078eb61141999fb153a3202b5,
     type: 3}
   _collisionObject: {fileID: 0}
@@ -6908,14 +6908,17 @@ MonoBehaviour:
   _modelDeleteTime: 0
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
-  _blastInvSeconds: 3
-  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _secondAfterTime: 0
+  _blastAfterTime: 0
+  _firstInvTime: 3
+  _invTimeCount: 0
   _blastNum: 2
   _playerPrefab: {fileID: 0}
   _delayTime: 0.1
   _animationTime: 0.1
   _animationDelayTime: 0.1
   _boxDisTime: 0.1
+  _invTime: 0
   _ignitionMax: 3
   _movieObject: {fileID: 1399415027}
   _outsideBarrier: {fileID: 1312956779}
