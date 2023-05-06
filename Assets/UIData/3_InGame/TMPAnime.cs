@@ -101,7 +101,7 @@ public class TMPAnime : MonoBehaviour
             .Join(tmpAnimator.DOFadeChar(i, 1, FadeTime))
             .AppendInterval(DelayColor)
             .Append(tmpAnimator.DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
-            .SetDelay(0.07f * i)
+            .SetDelay(0.05f * i)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)    
             .SetLink(gameObject);
     }
@@ -117,10 +117,10 @@ public class TMPAnime : MonoBehaviour
         Vector3 currCharOffset = tmpAnimator.GetCharOffset(i);
         DOTween.Sequence()
             .Append(tmpAnimator.DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
-            .Join(tmpAnimator.DOFadeChar(i, 1, FadeTime))
+            .Append(tmpAnimator.DOFadeChar(i, 1, FadeTime))
             .AppendInterval(DelayColor)
             .Append(tmpAnimator.DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
-            .SetDelay(0.07f * i)
+            .SetDelay(0.05f * i)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .SetLink(gameObject);
 
