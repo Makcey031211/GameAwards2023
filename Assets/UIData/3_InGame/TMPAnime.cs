@@ -47,12 +47,8 @@ public class TMPAnime : MonoBehaviour
     private Vector3 initialScale;
     private void Awake()
     {
-        TMP.color = GetColor(textcolor);
         TMP.DOFade(0f, 0f);
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
-        //- 初めのテキストを90度回転させておく
-        for(int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
-        { tmpAnimator.DORotateChar(i, Vector3.up * 90, 0); }
     }
    
 
@@ -100,16 +96,12 @@ public class TMPAnime : MonoBehaviour
         //- 指定された文字に対してアニメーションを設定する
         Vector3 currCharOffset = tmpAnimator.GetCharOffset(i);
         DOTween.Sequence()
-            .Append(tmpAnimator //元位置に回転させる
-                .DORotateChar(i, Vector3.zero, RotateTime))
-            .Append(tmpAnimator //移動
-                .DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
-            .Join(tmpAnimator   //文字をフェードさせる
-                .DOFadeChar(i, 1, FadeTime))
-            .AppendInterval(DelayColor)  //遅延
-            .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
-                .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
-            .SetDelay(0.07f * i) //遅延
+            .Append(tmpAnimator.DORotateChar(i, Vector3.zero, RotateTime))
+            .Append(tmpAnimator.DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
+            .Join(tmpAnimator.DOFadeChar(i, 1, FadeTime))
+            .AppendInterval(DelayColor)
+            .Append(tmpAnimator.DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
+            .SetDelay(0.07f * i)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)    
             .SetLink(gameObject);
     }
@@ -124,16 +116,14 @@ public class TMPAnime : MonoBehaviour
         //- 指定された文字に対してアニメーションを設定する
         Vector3 currCharOffset = tmpAnimator.GetCharOffset(i);
         DOTween.Sequence()
-            .Append(tmpAnimator //移動
-                .DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
-            .Join(tmpAnimator   //文字をフェードさせる
-                .DOFadeChar(i, 1, FadeTime))
-            .AppendInterval(DelayColor)  //遅延
-            .Append(tmpAnimator     //指定されたカラーを乗せるのを2回繰り返す
-                .DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
-            .SetDelay(0.07f * i) //遅延
+            .Append(tmpAnimator.DOOffsetChar(i, currCharOffset + new Vector3(0, WaveTop, 0), WaveTime).SetEase(Ease.OutFlash, EaseTime))
+            .Join(tmpAnimator.DOFadeChar(i, 1, FadeTime))
+            .AppendInterval(DelayColor)
+            .Append(tmpAnimator.DOColorChar(i, GetColor(textAnicolor), 0.2f).SetLoops(2, LoopType.Yoyo))
+            .SetDelay(0.07f * i)
             .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .SetLink(gameObject);
+
     }
 
     /// <summary>
@@ -145,28 +135,17 @@ public class TMPAnime : MonoBehaviour
     {
         switch (color)
         {
-            case E_TEXTCOLOR.Clear:
-                return new Color(1f, 1f, 1f, 0f);
-            case E_TEXTCOLOR.Black:
-                return Color.black;
-            case E_TEXTCOLOR.Blue:
-                return Color.blue;
-            case E_TEXTCOLOR.Cyan:
-                return Color.cyan;
-            case E_TEXTCOLOR.Gray:
-                return Color.gray;
-            case E_TEXTCOLOR.Green:
-                return Color.green;
-            case E_TEXTCOLOR.Magenta:
-                return Color.magenta;
-            case E_TEXTCOLOR.Red:
-                return Color.red;
-            case E_TEXTCOLOR.White:
-                return Color.white;
-            case E_TEXTCOLOR.Yellow:
-                return Color.yellow;
-            default:
-                return Color.black;
+            case E_TEXTCOLOR.Clear:     return new Color(1f, 1f, 1f, 0f);
+            case E_TEXTCOLOR.Black:     return Color.black;
+            case E_TEXTCOLOR.Blue:      return Color.blue;
+            case E_TEXTCOLOR.Cyan:      return Color.cyan;
+            case E_TEXTCOLOR.Gray:      return Color.gray;
+            case E_TEXTCOLOR.Green:     return Color.green;
+            case E_TEXTCOLOR.Magenta:   return Color.magenta;
+            case E_TEXTCOLOR.Red:       return Color.red;
+            case E_TEXTCOLOR.White:     return Color.white;
+            case E_TEXTCOLOR.Yellow:    return Color.yellow;
+            default:                    return Color.black;
         }
     }
 

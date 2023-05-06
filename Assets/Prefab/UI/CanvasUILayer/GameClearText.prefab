@@ -28,7 +28,7 @@ RectTransform:
   m_GameObject: {fileID: 4842857985035011030}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6.7366, y: 6.7366, z: 6.7366}
+  m_LocalScale: {x: 4.8461185, y: 4.8461185, z: 4.8461185}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1, y: 11}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 157.7545, y: 41.89868}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842857985035011018
 CanvasRenderer:
@@ -67,9 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'StageClear
-
-'
+  m_text: "\u76EE\u6A19\u9054\u6210"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24be5b6cd9bd1a54d9f1a2fa8b7565a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 8a697a74e8042df4098c168315e10bca, type: 2}
@@ -78,15 +76,15 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278239999
+  m_fontColor: {r: 1, g: 0.7600819, b: 0, a: 1}
   m_enableVertexGradient: 0
-  m_colorMode: 3
+  m_colorMode: 0
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
-    topRight: {r: 1, g: 1, b: 1, a: 1}
-    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
-    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 1, g: 0.71297747, b: 0.2584905, a: 1}
+    topRight: {r: 1, g: 0.71297747, b: 0.2584905, a: 1}
+    bottomLeft: {r: 1, g: 0.71297747, b: 0.2584905, a: 1}
+    bottomRight: {r: 1, g: 0.71297747, b: 0.2584905, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
@@ -96,17 +94,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 36.9
+  m_fontSizeBase: 0
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 8
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
-  m_characterSpacing: -8
+  m_characterSpacing: 10
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -132,7 +130,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -46.458138, w: 0}
+  m_margin: {x: 0, y: 0, z: -1.0835342, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -151,11 +149,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TMP: {fileID: 4842857985035011019}
-  textcolor: 9
+  textcolor: 1
   textAnicolor: 8
   RotateTime: 0.2
   WaveTop: 9
   WaveTime: 0.18
   FadeTime: 0.5
-  DelayColor: 0.01
+  DelayColor: 0.2
   DelayLoop: 2.5
