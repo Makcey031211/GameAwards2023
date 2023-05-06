@@ -39,7 +39,7 @@ public class TargetDescription : MonoBehaviour
 
         var In = DOTween.Sequence();
 
-        In.AppendInterval(1.0f) //開始待機時間
+        In.AppendInterval(0.3f) //開始待機時間
           .Append(TextBack.DOFillAmount(1.0f, 0.25f))   //背景出現
           .OnComplete(() => {
                 //- テキスト表示
