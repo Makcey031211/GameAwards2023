@@ -61,11 +61,7 @@ MonoBehaviour:
   power: 1000
   MaxFirColSize: 7.5
   MaxSecColSize: 7.5
-  time: 1.5
   ColSize: {x: 1, y: 1, z: 1}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 1280
 --- !u!1 &6778845893802623889
 GameObject:
   m_ObjectHideFlags: 0
@@ -193,8 +189,11 @@ MonoBehaviour:
   _blastDis: 0
   _modelDeleteTime: 1
   _isDrawArea: 1
-  _blastInvSeconds: 3
-  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _multiBlast: {fileID: 0}
+  _secondAfterTime: 0
+  _blastAfterTime: 1.8
+  _firstInvTime: 3
+  _invTimeCount: 0
   _blastNum: 2
   _playerPrefab: {fileID: 0}
   _delayTime: 0.1
@@ -204,7 +203,9 @@ MonoBehaviour:
   _ignitionMax: 3
   _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
+  _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
+  _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}

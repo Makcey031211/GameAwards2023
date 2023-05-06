@@ -38,7 +38,6 @@ public class FireworksModule : MonoBehaviour
     public GameObject CollisionObject => _collisionObject;
     public GameObject EyeObject => _eyeObject;
 
-
     //- クラッカーの項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -66,24 +65,35 @@ public class FireworksModule : MonoBehaviour
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
     public GameObject _multiBlast; // ２回目のエフェクト
+    [SerializeField, HideInInspector]
+    public float _secondAfterTime; // ２回目後の当たり判定の存続時間
+    //-- インスペクターから非表示
+    private float _MaxInvTime; // 無敵時間用のタイムカウンタ
     //-- 外部からの値取得用
+    public float SecondAfterTime => _secondAfterTime;
     public GameObject MultiBlast => _multiBlast;
 
+    //- ハード、通常花火の項目
+    [SerializeField, HideInInspector]
+    public float _blastAfterTime; // 当たり判定の存続時間
+    //-- インスペクターに非表示
+    private float _afterTimeCount = 0; // 当たり判定のタイムカウンタ
+    //-- インスペクターに表示
+    public float BlastAfterTime => _blastAfterTime;
 
     //- ハード、二重花火の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
-    public float _blastInvSeconds = 3.0f; // 爆発後無敵時間
+    public float _firstInvTime = 3.0f; // 爆発後無敵時間
     [SerializeField, HideInInspector]
-    public Color _invColor; // 無敵時間中の色(RGB)
     //-- インスペクターから非表示
-    private int _invFrameCount = 0; // 無敵時間用のフレームカウンタ
+    private float _invTimeCount = 0; // 無敵時間用のタイムカウンタ
     private int _blastCount = 0; // 何回爆発したか
     private Color _initColor; // マテリアルの初期の色
     private bool _isInvinsible = false; // 爆発中かどうか
+    private DetonationCollision DetonationCol; // 爆発中かどうか
     //-- 外部からの値取得用
-    public float BlastInvSeconds => _blastInvSeconds;
-    public Color InvColor => _invColor;
+    public float FirstInvTime => _firstInvTime;
 
 
     //- ハード専用の項目
@@ -152,10 +162,23 @@ public class FireworksModule : MonoBehaviour
         _linerend = gameObject.AddComponent<LineRenderer>(); // 線の追加
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>(); // 振動コンポーネントの取得
         _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // パーティクルの取得
+        //- ハードの項目
+        if (_type == FireworksType.Normal)
+        {
+            DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
+        }
 
+        //- ハードの項目
+        if (_type == FireworksType.Hard)
+        {
+            DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
+        }
+        
         //- 二重花火の項目
-        if (_type == FireworksType.Double ) {
-            _collisionObject.GetComponent<DetonationCollision>().IsDoubleBlast = true;
+        if (_type == FireworksType.Double )
+        {
+            DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
+            DetonationCol.IsDoubleBlast = true;
         }
 
         //- 復活箱の項目
@@ -275,13 +298,20 @@ public class FireworksModule : MonoBehaviour
             // 当たったオブジェクトのColliderを有効にする
             CollisionObject.gameObject.GetComponent<Collider>().enabled = true;
             // 当たり判定の拡大用コンポーネントを有効にする
-            CollisionObject.gameObject.GetComponent<DetonationCollision>().enabled = true;
+            DetonationCol.enabled = true;
 
             //- 爆発時に描画をやめる
             StopRenderer(gameObject);
 
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+        }
+
+        _afterTimeCount += Time.deltaTime;
+        //- 当たり判定を消す処理
+        if (_afterTimeCount >= _blastAfterTime)
+        {
+            DetonationCol.EndDetonation(); //- 当たり判定の消滅
         }
     }
 
@@ -446,8 +476,6 @@ public class FireworksModule : MonoBehaviour
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
         if (IsExploded && !_isInvinsible) {
-            //- 色の変更
-            this.gameObject.GetComponent<Renderer>().material.color = _invColor;
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
             //- 無敵フラグを設定
@@ -456,11 +484,12 @@ public class FireworksModule : MonoBehaviour
             _blastCount++;
             if (_blastCount >= _blastNum) {
                 //- 無敵時間のリセット
-                _invFrameCount = 0;
+                _invTimeCount = 0;
                 // 当たったオブジェクトのSphereColliderを有効にする
                 this.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = true;
                 // 当たったオブジェクトのSphereColliderを有効にする
-                this.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = true;
+                DetonationCol.enabled = true;
+                DetonationCol.EndDetonation(); //- 当たり判定のサイズを戻す
                 // 指定した位置に生成
                 GameObject fire = Instantiate(
                     _particleObject,                     // 生成(コピー)する対象
@@ -478,16 +507,29 @@ public class FireworksModule : MonoBehaviour
         }
 
         if (_isInvinsible) {
-            //- 無敵時間のカウント
-            _invFrameCount++;
-            //- 無敵時間終了時の処理
-            if (_invFrameCount >= _blastInvSeconds * 60) {
-                //- 色の変更
-                this.gameObject.GetComponent<Renderer>().material.color = _initColor;
-                //- まだ爆発していない回数なら処理
-                if (_blastNum > _blastCount) {
+            //- まだ爆発してない
+            if (_blastNum > _blastCount)
+            {
+                //- 無敵時間のカウント
+                _invTimeCount += Time.deltaTime;
+                //- 無敵時間終了時の処理
+                if (_invTimeCount >= _firstInvTime)
+                {
                     _isInvinsible = false;
                     _isExploded = false;
+                    DetonationCol.EndDetonation(); //- 当たり判定のサイズを戻す
+                    _invTimeCount = 0;
+                }
+            }
+            else //- 爆発後
+            {
+                
+                _afterTimeCount += Time.deltaTime;
+                //- 当たり判定を消す処理
+                if (_afterTimeCount >= _blastAfterTime)
+                {
+                    DetonationCol.EndDetonation(); //- 当たり判定の消滅
+                    _invTimeCount = 0;
                 }
             }
         }
@@ -497,22 +539,22 @@ public class FireworksModule : MonoBehaviour
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
         if (!_isInvinsible && _isExploded) {
-
-            
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
             //- 爆発回数を更新
             _blastCount++;
             //- 無敵時間のリセット
-            _invFrameCount = 0;
+            _invTimeCount = 0;
             //- 爆発中のフラグを設定
             _isInvinsible = true;
             // 爆発時の当たり判定を無効化
             _collisionObject.GetComponent<SphereCollider>().enabled = true;
-            _collisionObject.GetComponent<DetonationCollision>().enabled = true;
+            DetonationCol.enabled = true;
 
             if (_blastCount == 1)
             {
+                //- 無敵時間の設定
+                _MaxInvTime = _firstInvTime;
                 //- １回目の花火を生成
                 GameObject fire = Instantiate(
                     _particleObject,                    
@@ -530,6 +572,10 @@ public class FireworksModule : MonoBehaviour
             }
             if (_blastCount == 2)
             {
+                //- 無敵時間の設定
+                _MaxInvTime = _secondAfterTime;
+                //- 不要になったオブジェクトを消去
+                this.transform.GetChild(3).gameObject.SetActive(false);
                 //- ２回目の花火を生成
                 GameObject fire = Instantiate(
                     _multiBlast,
@@ -542,29 +588,28 @@ public class FireworksModule : MonoBehaviour
                 Scale.z = 1.3f;
                 fire.transform.localScale = Scale;
             }
-                //- コントローラーの振動の設定
-                vibration.SetVibration(30, 1.0f);
+             //- コントローラーの振動の設定
+             vibration.SetVibration(30, 1.0f);
 
             // 爆発時に当たり判定を無効化
             GetComponent<SphereCollider>().isTrigger = true;
-            //- 一定以上爆発したら実行する処理
-            if (_blastCount >= _blastNum) {
-                GetComponent<MeshRenderer>().enabled = false;
-            }
         }
         if (_isInvinsible) {
+            
             //- 無敵時間のカウント
-            _invFrameCount++;
+            _invTimeCount += Time.deltaTime;
             //- 無敵時間終了時の処理
-            if (_invFrameCount >= _blastInvSeconds * 60) {
+            if (_invTimeCount >= _MaxInvTime) {
                 //- 爆発中のフラグを設定
                 _isInvinsible = false;
                 // 爆発時の当たり判定を無効化
                 this.transform.GetChild(0).gameObject.GetComponent<SphereCollider>().enabled = false;
-                this.transform.GetChild(0).gameObject.GetComponent<DetonationCollision>().enabled = false;
                 GetComponent<SphereCollider>().isTrigger = false;
+                DetonationCol.EndDetonation(); //- 当たり判定のサイズを戻す
+                DetonationCol.enabled = false;
                 //- 爆発判定を初期化
                 _isExploded = false;
+                    _invTimeCount = 0;
             }
         }
     }

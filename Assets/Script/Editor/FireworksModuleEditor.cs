@@ -19,6 +19,7 @@ public class FireworksModuleEditor : Editor {
         switch (_target.Type) {
         case FireworksModule.FireworksType.Normal:
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
+            _target._blastAfterTime = EditorGUILayout.FloatField("”š”­“–‚½‚è”»’è‚Ì‘¶İŠÔ(•b)", _target.BlastAfterTime);
             break;
         case FireworksModule.FireworksType.Cracker:
             _target._circleComplementNum = EditorGUILayout.IntField("‰~‚Ì•ªŠ„”", _target.CircleComplementNum);
@@ -29,16 +30,16 @@ public class FireworksModuleEditor : Editor {
             break;
         case FireworksModule.FireworksType.Hard:
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
-            _target._blastInvSeconds = EditorGUILayout.FloatField("”š”jŒã–³“GŠÔ(•b)", _target.BlastInvSeconds);
-            _target._invColor = EditorGUILayout.ColorField("–³“GŠÔ’†‚ÌF(RGB)", _target.InvColor);
+            _target._firstInvTime = EditorGUILayout.FloatField("ˆê‰ñ–Ú‚Ì”í’eŒã–³“GŠÔ(•b)", _target.FirstInvTime);
+            _target._blastAfterTime = EditorGUILayout.FloatField("”š”­“–‚½‚è”»’è‚Ì‘¶İŠÔ(•b)", _target.BlastAfterTime);
             _target._blastNum = EditorGUILayout.IntField("”š”j‰ñ”", _target.BlastNum);
             break;
         case FireworksModule.FireworksType.Double:
             _target._collisionObject = (GameObject)EditorGUILayout.ObjectField("Collision Object", _target.CollisionObject, typeof(GameObject), true);
-            _target._blastInvSeconds = EditorGUILayout.FloatField("”š”jŒã–³“GŠÔ(•b)", _target.BlastInvSeconds);
-            _target._invColor = EditorGUILayout.ColorField("–³“GŠÔ’†‚ÌF(RGB)", _target.InvColor);
+            _target._firstInvTime = EditorGUILayout.FloatField("ˆê‰ñ–Ú‚Ì”í’eŒã–³“GŠÔ(•b)", _target.FirstInvTime);
+            _target._secondAfterTime = EditorGUILayout.FloatField("2‰ñ–Ú‚Ì“–‚½‚è”»’è‚Ì‘¶İŠÔ(•b)", _target.SecondAfterTime);
             _target._multiBlast = (GameObject)EditorGUILayout.ObjectField("“ñd‰Ô‰Î‚Ì“ñ‰ñ–Ú‚ÌƒGƒtƒFƒNƒg", _target.MultiBlast, typeof(GameObject), true);
-                break;
+            break;
         case FireworksModule.FireworksType.ResurrectionBox:
             _target._playerPrefab = (GameObject)EditorGUILayout.ObjectField("¶¬‚·‚éƒIƒuƒWƒFƒNƒg", _target.PlayerPrefab, typeof(GameObject), true);
             _target._delayTime = EditorGUILayout.FloatField("¶¬‚Ü‚Å‚Ì‘Ò‚¿ŠÔ(•b)", _target.DelayTime);
