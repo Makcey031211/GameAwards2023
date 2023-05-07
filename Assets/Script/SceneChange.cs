@@ -29,6 +29,7 @@ public class SceneChange : MonoBehaviour
     private bool bIsShotSound = false;          // 音が再生されたかどうか
     private ObjectFade fade;              // フェード用のスプライト
     private ClearManager clear;
+    private bool bIsStop = false; //- 処理を一時停止するかどうか
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -50,9 +51,10 @@ public class SceneChange : MonoBehaviour
     {
         // 現在の敵の数を更新
         EnemyNum = countEnemy.GetCurrentCountNum();
+        if (bIsStop) CurrentTime = 0;
 
-        // パーティクルの再生が終わる + 敵を全滅させたら
-        if(CurrentParticleTime == TotalParticleTime && EnemyNum <= 0)
+        // パーティクルの再生が終わる + 敵を全滅させたら + 処理フラグがtrue
+        if(CurrentParticleTime == TotalParticleTime && EnemyNum <= 0 && !bIsStop)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -63,8 +65,8 @@ public class SceneChange : MonoBehaviour
             }
         }
 
-        // パーティクルの再生が終わる + 敵が残っている
-        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife)
+        // パーティクルの再生が終わる + 敵が残っている + 処理フラグがtrue
+        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife && !bIsStop)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -120,5 +122,10 @@ public class SceneChange : MonoBehaviour
     public void ResetCurrentTime()
     {
         CurrentTime = 0;
+    }
+
+    public void SetStopFlag(bool flag)
+    {
+        bIsStop = flag;
     }
 }
