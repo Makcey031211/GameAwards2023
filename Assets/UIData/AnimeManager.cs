@@ -21,7 +21,9 @@ public class AnimeManager : MonoBehaviour
     [SerializeField] private EntryAnime DrawTips;
     [SerializeField] private TargetDescription DrawDescription;
     [SerializeField] private CutIn DrawBossCutIn;
+    [SerializeField] private BoardMove board;
 
+    private bool BoardMoveVompleat = false;
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
     
@@ -37,22 +39,27 @@ public class AnimeManager : MonoBehaviour
 
     void Update()
     {
-        //- 開始演出がある場合の処理
-        if(TargetDescription.MoveCompleat && !InMoveCompleat)
+        //- ギミック説明のアニメ動作
+        if(TargetDescription.MoveCompleat && !BoardMoveVompleat)
         {
             DrawSelect.StartMove();
             DrawReset.StartMove();
-            InMoveCompleat = true;
+            if(board)
+            { board.StartMove(); }
+            BoardMoveVompleat = true;
         }
         else if(CutIn.MoveCompleat && !InMoveCompleat)
         {
             DrawTips.StartMove();
             DrawSelect.StartMove();
             DrawReset.StartMove();
-            DOTween.Sequence().AppendInterval(0.5f);
+            if (board)
+            { board.StartMove(); }
+            //DOTween.Sequence().AppendInterval(0.5f);
             InMoveCompleat = true;
         }
 
+        
         //- クリアした、撤退挙動をしていない
         if (SceneChange.bIsChange && !OutMoveCompleat)
         {

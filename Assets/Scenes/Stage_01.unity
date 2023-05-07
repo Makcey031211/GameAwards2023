@@ -1277,6 +1277,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1122293791897248353}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &812898642 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9042830203311809674, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4100931504084794293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2e429d6b00bce45a51c7486b589f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &827875904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3997,7 +4009,23 @@ PrefabInstance:
       propertyPath: PlayerFireBelt
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5457308678002456677, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457308678002456677, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5457308678002456677, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6038710722002512370, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
 --- !u!1001 &5608698268702107702
 PrefabInstance:
@@ -4204,6 +4232,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
+        type: 3}
+      propertyPath: board
+      value: 
+      objectReference: {fileID: 812898642}
     - target: {fileID: 7428010259182961736, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: DrawReset

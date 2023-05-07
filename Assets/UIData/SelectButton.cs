@@ -9,6 +9,8 @@ public class SelectButton : MonoBehaviour
 {
     [SerializeField, Header("シーン遷移先")]
     private SceneObject NextScene;
+    [SerializeField, Header("看板")]
+    private BoardMove board;
 
     //- スクリプト用の変数
     BGMManager bgmManager;
@@ -26,5 +28,13 @@ public class SelectButton : MonoBehaviour
         //- シーンを変える前にBGMを消す
         DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager()); 
         DOVirtual.DelayedCall (0.5f, ()=> SceneManager.LoadScene(NextScene));
+    }
+
+    public void EndGimmick()
+    {
+        //- クリック音再生
+        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
+        //- ギミックの撤退を行う
+        board.OutMove();
     }
 }
