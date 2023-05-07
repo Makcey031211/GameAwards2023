@@ -292,6 +292,7 @@ public class FireworksModule : MonoBehaviour
         InGR.OutMove();
         Tips.OutMove();
 
+        GameObject.Find("Main Camera").GetComponent<SceneChange>().SetStopFlag(true);
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
