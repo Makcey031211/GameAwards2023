@@ -35,7 +35,7 @@ public class BoardMove : MonoBehaviour
     private const float RIGHT = 3500.0f;
     private const float TOP = 1200.0f;
     private const float DOWN = -1200.0f;
-
+    
     [SerializeField] private Image image;
     [SerializeField] private VideoPlayer movie;
     [SerializeField] private TextMeshProUGUI tmp;
@@ -92,7 +92,7 @@ public class BoardMove : MonoBehaviour
                 Destroy(gameObject);
             });
         //- プレイヤーを操作可能に変更
-        //pCnt.SetWaitFlag(false);
+        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
     }
 
 }
