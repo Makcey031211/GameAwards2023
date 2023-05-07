@@ -45,11 +45,11 @@ public class TargetDescription : MonoBehaviour
                 //- テキスト表示
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; i++)
                 {DOTween.Sequence().Append(tmpAnimator.DORotateChar(i, Vector3.zero, 0.55f));}
-                DOTween.To(() => tmp.characterSpacing, value => tmp.characterSpacing = value, 2.0f, 3.0f).SetEase(Ease.OutQuart);
+                DOTween.To(() => tmp.characterSpacing, value => tmp.characterSpacing = value, 2.0f, 3.0f).SetEase(Ease.OutQuart);//拡大
               In.Kill();
 
                 var Out = DOTween.Sequence();
-                Out.AppendInterval(1.0f)    //撤収待機時間
+                Out.AppendInterval(1.25f)    //撤収待機時間
                    .Append(TextBack.DOFade(0.0f, 0.2f)) //フェード
                    .Join(tmp.DOFade(0.0f, 0.2f))        //〃
                    .OnComplete(()=> { MoveCompleat = true; });
