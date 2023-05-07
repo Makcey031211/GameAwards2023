@@ -51,10 +51,12 @@ public class TargetDescription : MonoBehaviour
                 var Out = DOTween.Sequence();
                 Out.AppendInterval(1.0f)    //撤収待機時間
                    .Append(TextBack.DOFade(0.0f, 0.2f)) //フェード
-                   .Join(tmp.DOFade(0.0f, 0.2f));       //〃
-            });
+                   .Join(tmp.DOFade(0.0f, 0.2f))        //〃
+                   .OnComplete(()=> { MoveCompleat = true; });
+
+          });
         
-        MoveCompleat = true;
+        
     }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/

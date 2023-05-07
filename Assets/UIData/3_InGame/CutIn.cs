@@ -81,8 +81,9 @@ public class CutIn : MonoBehaviour
                     .Join(SmallCrystal.DOFade(0.0f, 0.2f))
                     .Join(BiglCrystal.DOFade(0.0f, 0.2f))
                     .Join(tmp.DOFade(0.0f, 0.2f))
-                    .Join(TextBack.DOFade(0.0f, 0.2f));
-                MoveCompleat = true;
+                    .Join(TextBack.DOFade(0.0f, 0.2f))
+                    .OnComplete(() => {   MoveCompleat = true; });
+
             });
 
     }
