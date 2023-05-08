@@ -24,7 +24,16 @@ public class SelectButton : MonoBehaviour
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
         GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.5f);
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager()); 
+        DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager());
         DOVirtual.DelayedCall (0.5f, ()=> SceneManager.LoadScene(NextScene));
+    }
+    public void ZoomScene()
+    {
+        //- クリック音再生
+        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
+        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.5f);
+        //- シーンを変える前にBGMを消す
+        DOVirtual.DelayedCall(0.5f, () => bgmManager.DestroyBGMManager());
+        DOVirtual.DelayedCall(0.5f, () => SceneManager.LoadScene(NextScene));
     }
 }
