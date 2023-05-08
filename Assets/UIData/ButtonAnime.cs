@@ -73,7 +73,6 @@ public class ButtonAnime : MonoBehaviour,
     /// <param name="eventData"></param>
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
-        
         //- ‘I‘ğ‰¹Ä¶
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
     }
