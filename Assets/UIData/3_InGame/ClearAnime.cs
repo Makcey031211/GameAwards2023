@@ -130,7 +130,6 @@ public class ClearAnime : MonoBehaviour
             .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .OnComplete(() => {
                 animeObjNum--;
-                Debug.Log(animeObjNum);
             });
     }
 

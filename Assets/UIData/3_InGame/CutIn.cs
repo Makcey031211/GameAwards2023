@@ -12,7 +12,7 @@ public class CutIn : MonoBehaviour
     [SerializeField] private Image TextBack;
     [SerializeField] private TextMeshProUGUI tmp;
 
-    public static bool MoveCompleat = false;
+    private bool MoveCompleat = false;
     private Dictionary<string,Dictionary<string, Vector3>> InitValues;
 
     private void Awake()
@@ -42,9 +42,12 @@ public class CutIn : MonoBehaviour
         BiglCrystal.rectTransform.localPosition = Vector3.zero;
         
     }
+
+    /// <summary>
+    /// カットイン挙動を行う
+    /// </summary>
     public void MoveCutIn()
     {
-        
         var DoCutIn = DOTween.Sequence();
         //- 初めのテキストを90度回転させておく
         DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(tmp);
@@ -88,9 +91,10 @@ public class CutIn : MonoBehaviour
 
     }
 
-
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// 動作が完了したかのフラグを返却
+    /// </summary>
+    /// <returns> 動作完了フラグ </returns>
+    public bool GetMoveComplete()
+    { return MoveCompleat; }
 }
