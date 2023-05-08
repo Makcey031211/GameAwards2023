@@ -458,7 +458,7 @@ public class FireworksModule : MonoBehaviour
             var angle = Vector3.Angle((transform.up).normalized, (RangeDir).normalized);
             if (/*angle != 0 && */(angle <= BlastAngle / 2))
             {
-                DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 1.8f;
+                DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 2.8f;
                 DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
             }
             else
