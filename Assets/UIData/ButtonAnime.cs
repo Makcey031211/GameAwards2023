@@ -73,10 +73,15 @@ public class ButtonAnime : MonoBehaviour,
     /// <param name="eventData"></param>
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
+        
         //- 選択音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
     }
 
+    public void PushButtonAnime()
+    {
+        image.DOColor(new Color(1.0f,0.5f,0.5f), 0.25f);
+    }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR
