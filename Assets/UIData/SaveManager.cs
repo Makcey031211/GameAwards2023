@@ -1,3 +1,10 @@
+/*
+ ===================
+ 制作：大川
+ セーブデータ関連の管理を行うスクリプト
+ ===================
+ */
+
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -79,6 +86,20 @@ public class SaveManager : MonoBehaviour
             //- ファイルが存在しなければ生成する
             CreateSaveData();
         }
+    }
+
+    /// <summary>
+    /// セーブデータの有無を返却する
+    /// </summary>
+    /// <returns> セーブデータの有無フラグ </returns>
+    public bool CheckSaveData()
+    {
+        FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
+        //- パスの位置にファイルが存在するか
+        if (File.Exists(FILE_PATH))
+        {   return true;    }
+
+        return false;
     }
 
     /// <summary>
