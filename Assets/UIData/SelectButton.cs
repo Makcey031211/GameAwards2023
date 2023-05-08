@@ -26,11 +26,12 @@ public class SelectButton : MonoBehaviour
     {
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.5f);
+
+        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 2.5f);
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall (0.5f, ()=> bgmManager.DestroyBGMManager()); 
-        DOVirtual.DelayedCall (0.5f, ()=> SceneManager.LoadScene(NextScene));
+        DOVirtual.DelayedCall (2.5f, ()=> bgmManager.DestroyBGMManager()); 
+        DOVirtual.DelayedCall (2.4f, ()=> SceneManager.LoadScene(NextScene));
     }
 
     public void EndGimmick()
