@@ -16,6 +16,7 @@ public class FireworksModule : MonoBehaviour
         ResurrectionBox,
         ResurrectionPlayer,
         Boss,
+        Yanagi,
     }
 
     //- 共通の項目
@@ -198,7 +199,7 @@ public class FireworksModule : MonoBehaviour
         }
 
         //- 復活箱の項目
-        sceneChange = GameObject.FindWithTag("MainCamera").GetComponent<SceneChange>();
+        sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
 
         //- バリアの項目
         if(_type == FireworksType.Boss)
@@ -237,9 +238,11 @@ public class FireworksModule : MonoBehaviour
                 break;
             case FireworksType.ResurrectionPlayer:
                 ResurrectionPlayerFire(); 
-                //NormalFire(); 
                 break;
-            default:
+                case FireworksType.Yanagi:
+                    YanagiFire();
+                    break;
+                default:
                 break;
             }
         }
@@ -365,6 +368,9 @@ public class FireworksModule : MonoBehaviour
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
+            //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
+            sceneChange.bIsLife = false;
+
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
@@ -411,6 +417,34 @@ public class FireworksModule : MonoBehaviour
             StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, true, 0.8f));
             //- 一定時間後に破裂後モデルを非アクティブ化
             //StartCoroutine(DelaySetActive(transform.GetChild(2).gameObject, false, 0.8f + ModelDeleteTime));
+        }
+    }
+
+    private void YanagiFire()
+    {
+        if (!_isOnce)
+        { // 爆発直後一回のみ
+            _isOnce = true;
+            ShakeByPerlinNoise shakeByPerlinNoise;
+            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
+            var duration = 0.2f;
+            var strength = 0.1f;
+            var vibrato = 1.0f;
+            //- 指定した位置に生成
+            GameObject fire = Instantiate(
+                ParticleObject,                     // 生成(コピー)する対象
+                transform.position,           // 生成される位置
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                );
+
+            //- コントローラーの振動の設定
+            vibration.SetVibration(30, 1.0f);
+
+            //- 爆発音の再生
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+
+            //- 爆発後に削除
+            Destroy(gameObject);
         }
     }
 
@@ -687,6 +721,8 @@ public class FireworksModule : MonoBehaviour
     {
         if (!_isOnce) { //- 爆発直後
             _isOnce = true;
+            //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
+            sceneChange.bIsLife = true;
             //- SpawnPlayerメソッドをdelayTime秒後に呼び出す
             StartCoroutine(SpawnPlayer(_delayTime));
         }
@@ -740,9 +776,6 @@ public class FireworksModule : MonoBehaviour
 
             //- 生成音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
-
-            //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
-            //sceneChange.bIsLife = true;
 
             //- 徐々に生成するアニメーション
             while (elapsed < _animationTime) 
