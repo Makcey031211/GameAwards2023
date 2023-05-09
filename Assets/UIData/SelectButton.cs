@@ -11,7 +11,9 @@ public class SelectButton : MonoBehaviour
     private SceneObject NextScene;
     [SerializeField, Header("看板")]
     private BoardMove board;
-    
+    [SerializeField, Header("フェード秒数")]
+    private float FadeTime;
+
 
     //- スクリプト用の変数
     BGMManager bgmManager;
@@ -28,11 +30,11 @@ public class SelectButton : MonoBehaviour
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
 
-        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 2.5f);
+        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime);
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall (2.5f, ()=> bgmManager.DestroyBGMManager()); 
-        DOVirtual.DelayedCall (2.4f, ()=> SceneManager.LoadScene(NextScene));
+        DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()); 
+        DOVirtual.DelayedCall (FadeTime, ()=> SceneManager.LoadScene(NextScene));
     }
 
     public void MoveSelectScene()
