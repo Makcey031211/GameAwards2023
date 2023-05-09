@@ -69,6 +69,7 @@ public class BoardMove : MonoBehaviour
     {
         //- 左から真ん中
         DOTween.Sequence()
+            .AppendInterval(1.5f)
             .Append(image.transform.DOMove(InitValues["看板"]["位置"], 0.5f))
             .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.5f))
             .Join(tmp.transform.DOMove(InitValues["文字"]["位置"], 0.5f))
