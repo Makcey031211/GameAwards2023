@@ -33,7 +33,6 @@ public class StoryFlip : MonoBehaviour
         for (int i = flips.Length - 1; i >= 0; i--) {
             flips[i].transform.parent = gameObject.transform;
         }
-        Debug.Log(flips.Length);
     }
 
     // Update is called once per frame
@@ -42,7 +41,6 @@ public class StoryFlip : MonoBehaviour
         if (NowFlipNum < flips.Length - 1 && !isFlip) {
             isFlip = true;
             flips[NowFlipNum].GetComponent<RectTransform>().DOMoveX(transform.position.x - 18.0f, 2.0f).SetEase(Ease.InOutCubic).OnComplete(() => { isFlip = false; });
-            Debug.Log(NowFlipNum);
             NowFlipNum++;
         }
         else if (!isFlip) {
