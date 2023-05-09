@@ -19,15 +19,14 @@ public class BackScene : MonoBehaviour
 
     //- スクリプト用の変数
     BGMManager bgmManager;
+    //- イメージのコンポーネント
+    Image imageInGame;
 
     //- ボタンが押されているかどうか
     bool bIsPushBack = false;
 
     //- ボタンが押された時間
     float bPushTimeBack = 0;
-
-    //- イメージのコンポーネント
-    Image imageInGame;
 
     //- シーン移動が始まったかどうかのフラグ
     bool bIsStartInGame = false;
@@ -48,30 +47,33 @@ public class BackScene : MonoBehaviour
         if (bIsStartInGame) bIsMoveScene = true;
 
         //＝＝＝＝＝　戻るボタン　＝＝＝＝＝
-        //- 「シーン移動ボタンが押されてる」「シーン移動が始まっていない」
-        //- 上記をすべて満たせば処理する
+        //- 「シーン移動ボタンが押されてる」かつ「シーン移動が始まっていない」時
         if (bIsPushBack && !bIsMoveScene)
         {
-            bPushTimeBack += Time.deltaTime;                    //- プッシュ時間の更新
-            imageInGame.fillAmount = bPushTimeBack / OptionTime; //- ゲージの更新
+            bPushTimeBack += Time.deltaTime;                     // プッシュ時間の更新
+            imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
         }
         else if (!bIsMoveScene)
         {
-            bPushTimeBack = 0;        //- プッシュ時間のリセット
-            imageInGame.fillAmount = 0; //- ゲージのリセット
+            bPushTimeBack = 0;          // プッシュ時間のリセット
+            imageInGame.fillAmount = 0; // ゲージのリセット
         }
         //- 一定時間長押しされたら処理する
         if (bPushTimeBack >= OptionTime)
         {
-            if (bIsStartInGame == true) return; //- リセット開始フラグがたっていればリターン
-            bIsStartInGame = true; //シーン開始フラグをたてる
+            if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
+            bIsStartInGame = true; // シーン開始フラグをたてる
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
             GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
-            DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager()); // シーンを変える前にBGMを消す
+            DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
         }
     }
 
+    /// <summary>
+    /// コントローラーを取得する関数
+    /// </summary>
+    /// <param name="context"></param>
     public void OnInBack(InputAction.CallbackContext context)
     {
         //- ボタンが押されている間、変数を設定
