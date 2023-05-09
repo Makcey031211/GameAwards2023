@@ -94,9 +94,9 @@ GameObject:
   - component: {fileID: 1447980412367063825}
   - component: {fileID: 192255757770048117}
   - component: {fileID: -1204275263894035691}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RevivalB
-  m_TagString: Fireworks
+  m_TagString: ResurrectionBox
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,8 +154,10 @@ MonoBehaviour:
   _modelDeleteTime: 0
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
-  _blastInvSeconds: 3
-  _invColor: {r: 0, g: 0, b: 0, a: 0}
+  _secondAfterTime: 0
+  _blastAfterTime: 0
+  _firstInvTime: 3
+  _invTimeCount: 0
   _blastNum: 2
   _playerPrefab: {fileID: 9021506314538267249, guid: 89b16741b64b9a64b8408a9747d1eb9c,
     type: 3}
@@ -163,6 +165,7 @@ MonoBehaviour:
   _animationTime: 0.5
   _animationDelayTime: 0.5
   _boxDisTime: 0.3
+  _invTime: 0
   _ignitionMax: 3
   _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
