@@ -59,7 +59,14 @@ public class FireworksModuleEditor : Editor {
             _target._insideBarrier =  (GameObject)EditorGUILayout.ObjectField("内側のバリア", _target.InsideBarrier,  typeof(GameObject), true);
             _target._insideBarrierColor = EditorGUILayout.ColorField("内側のバリアの色", _target.InsideBarrierColor);
             break;
-
+        case FireworksModule.FireworksType.Yanagi:
+            _target._yanagiobj   = (GameObject)EditorGUILayout.ObjectField("柳花火用のオブジェクト", _target.YanagiObj, typeof(GameObject),true);
+            _target._yanagiColor = EditorGUILayout.ColorField("柳花火の色", _target.YanagiColor);
+            _target._reafobj1    = (GameObject)EditorGUILayout.ObjectField("葉っぱ用のオブジェクト1", _target.ReafObj1, typeof(GameObject), true);
+            _target._reafColor1  = EditorGUILayout.ColorField("葉っぱの色1", _target.ReafColor1);
+            _target._reafobj2    = (GameObject)EditorGUILayout.ObjectField("葉っぱ用のオブジェクト2", _target.ReafObj2, typeof(GameObject), true);
+            _target._reafColor2  = EditorGUILayout.ColorField("葉っぱの色2", _target.ReafColor2);
+            break;
         }
         //- インスペクターの更新
         if (GUI.changed)

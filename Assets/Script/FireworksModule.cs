@@ -164,6 +164,27 @@ public class FireworksModule : MonoBehaviour
     public GameObject InsideBarrier =>  _insideBarrier;
     public Color InsideBarrierColor =>  _insideBarrierColor;
 
+    //- 柳花火の項目
+    //- インスペクターに表示
+    [SerializeField, HideInInspector]
+    public GameObject _yanagiobj; // 柳花火用のオブジェクト
+    [SerializeField, HideInInspector]
+    public Color _yanagiColor;    // 柳花火の色
+    [SerializeField, HideInInspector]
+    public GameObject _reafobj1;  // 葉っぱ用のオブジェクト1
+    [SerializeField, HideInInspector]
+    public Color _reafColor1;     // 葉っぱの色1
+    [SerializeField, HideInInspector]
+    public GameObject _reafobj2;  // 葉っぱ用のオブジェクト2
+    [SerializeField, HideInInspector]
+    public Color _reafColor2;     // 葉っぱの色2
+    public GameObject YanagiObj => _yanagiobj;
+    public Color YanagiColor => _yanagiColor;
+    public GameObject ReafObj1 => _reafobj1;
+    public Color ReafColor1 => _reafColor1;
+    public GameObject ReafObj2 => _reafobj2;
+    public Color ReafColor2 => _reafColor2;
+
     public EntryAnime InGR;
     public EntryAnime InGS;
     public EntryAnime Tips;
@@ -196,6 +217,14 @@ public class FireworksModule : MonoBehaviour
         {
             DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
             DetonationCol.IsDoubleBlast = true;
+        }
+
+        //- 柳花火の項目
+        if (_type == FireworksType.Yanagi)
+        {
+            _yanagiobj.GetComponent<Renderer>().material.color = _yanagiColor;
+            _reafobj1.GetComponent<Renderer>().material.color  = _reafColor1;
+            _reafobj2.GetComponent<Renderer>().material.color  = _reafColor2;
         }
 
         //- 復活箱の項目
@@ -315,11 +344,11 @@ public class FireworksModule : MonoBehaviour
     {
         if (!_isOnce) { // 爆発直後一回のみ
             _isOnce = true;
-            ShakeByPerlinNoise shakeByPerlinNoise;
-            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
-            var duration = 0.2f;
-            var strength = 0.1f;
-            var vibrato = 1.0f;
+            //ShakeByPerlinNoise shakeByPerlinNoise;
+            //shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
+            //var duration = 0.2f;
+            //var strength = 0.1f;
+            //var vibrato = 1.0f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
@@ -356,11 +385,6 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce)
         { // 爆発直後一回のみ
             _isOnce = true;
-            ShakeByPerlinNoise shakeByPerlinNoise;
-            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
-            var duration = 0.2f;
-            var strength = 0.1f;
-            var vibrato = 1.0f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
@@ -425,11 +449,6 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce)
         { // 爆発直後一回のみ
             _isOnce = true;
-            ShakeByPerlinNoise shakeByPerlinNoise;
-            shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
-            var duration = 0.2f;
-            var strength = 0.1f;
-            var vibrato = 1.0f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
