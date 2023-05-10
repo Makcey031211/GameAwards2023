@@ -409,7 +409,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -597,7 +602,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -767,7 +777,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1518985283}
-  - {fileID: 399783211}
+  - {fileID: 1426436146}
   - {fileID: 858923073}
   m_Father: {fileID: 765840147}
   m_RootOrder: 5
@@ -807,7 +817,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -1338,12 +1353,17 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
-      value: 
+      value: Stage_10
       objectReference: {fileID: 0}
     - target: {fileID: 6921706143065219047, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -2252,7 +2272,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -2570,7 +2595,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -3413,7 +3443,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -3930,6 +3965,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1426436145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426436146}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426436146
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426436145}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 399783211}
+  m_Father: {fileID: 168276987}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1441589243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5243661292148523015, guid: 39a726810efa9d24cbfa70ced3eb84b8,
@@ -4233,7 +4300,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 168276987}
+    m_TransformParent: {fileID: 1426436146}
     m_Modifications:
     - target: {fileID: 4958108311801821030, guid: ad94c2d645fe7304fb99845e26a67892,
         type: 3}
@@ -4258,7 +4325,7 @@ PrefabInstance:
     - target: {fileID: 4958108311801821031, guid: ad94c2d645fe7304fb99845e26a67892,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4958108311801821031, guid: ad94c2d645fe7304fb99845e26a67892,
         type: 3}
@@ -4417,7 +4484,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -4616,7 +4688,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
@@ -5156,6 +5233,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: FadeTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: 1_Village
       objectReference: {fileID: 0}
@@ -5354,7 +5441,12 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.5
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: DelayTime
+      value: 0.82
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
