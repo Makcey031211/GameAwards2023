@@ -75,7 +75,7 @@ public class EntryAnime : MonoBehaviour
                 transform.DOMoveY(pos.y, MoveTime).SetDelay(DelayTime);
                 break;
             case E_OUTDIRECTION.DOWN:
-                transform.DOMoveY(pos.y, MoveTime);//.SetDelay(DelayTime)
+                transform.DOMoveY(pos.y, MoveTime).SetDelay(DelayTime);
                 break;
         }
     }
