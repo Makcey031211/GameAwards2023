@@ -218,6 +218,13 @@ MonoBehaviour:
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 1104985408}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _lowestSpeed: 0
+  _highestSpeed: 0
+  _accelerationTime: 0
+  _decelerationTime: 0
+  _accelerationEase: 0
+  _decelerationEase: 0
+  movedir: {x: 0, y: 0}
   _yanagiobj: {fileID: 0}
   _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
   _reafobj1: {fileID: 0}
@@ -2497,6 +2504,11 @@ PrefabInstance:
       propertyPath: _obj
       value: 
       objectReference: {fileID: 270963811}
+    - target: {fileID: 5669377238387471574, guid: 739894e4257d31a408a09c35e02edd1b,
+        type: 3}
+      propertyPath: _type
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5669377238387471574, guid: 739894e4257d31a408a09c35e02edd1b,
         type: 3}
       propertyPath: _reafobj1

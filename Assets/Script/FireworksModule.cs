@@ -216,6 +216,7 @@ public class FireworksModule : MonoBehaviour
     public GameObject _reafobj2;  // 葉っぱ用のオブジェクト2
     [SerializeField, HideInInspector]
     public Color _reafColor2;     // 葉っぱの色2
+    //- 外部からの値取得用
     public GameObject YanagiObj => _yanagiobj;
     public Color YanagiColor => _yanagiColor;
     public GameObject ReafObj1 => _reafobj1;
