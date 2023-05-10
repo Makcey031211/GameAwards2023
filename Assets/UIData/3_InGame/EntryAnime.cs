@@ -18,7 +18,7 @@ public class EntryAnime : MonoBehaviour
     private const float LEFT = -300.0f;
     private const float RIGHT = 2500.0f;
     private const float TOP = 1200.0f;
-    private const float DOWN = -1200.0f;
+    private const float DOWN = -200.0f;
 
     [SerializeField, Header("ìoèÍéûÇÃï˚å¸")]
     private E_OUTDIRECTION Sdirection = E_OUTDIRECTION.UP;
@@ -66,16 +66,24 @@ public class EntryAnime : MonoBehaviour
         switch (Sdirection)
         {
             case E_OUTDIRECTION.LEFT:
-                transform.DOMoveX(pos.x, MoveTime).SetDelay(DelayTime);
+                DOTween.Sequence()
+                     .AppendInterval(DelayTime)
+                     .Append(transform.DOMoveX(pos.x, MoveTime));
                 break;
             case E_OUTDIRECTION.RIGHT:
-                transform.DOMoveX(pos.x, MoveTime).SetDelay(DelayTime);
+                DOTween.Sequence()
+                     .AppendInterval(DelayTime)
+                     .Append(transform.DOMoveX(pos.x, MoveTime));
                 break;
             case E_OUTDIRECTION.UP:
-                transform.DOMoveY(pos.y, MoveTime).SetDelay(DelayTime);
+                DOTween.Sequence()
+                     .AppendInterval(DelayTime)
+                     .Append(transform.DOMoveY(pos.y, MoveTime));
                 break;
             case E_OUTDIRECTION.DOWN:
-                transform.DOMoveY(pos.y, MoveTime).SetDelay(DelayTime);
+                DOTween.Sequence()
+                     .AppendInterval(DelayTime)
+                     .Append(transform.DOMoveY(pos.y, MoveTime));
                 break;
         }
     }
