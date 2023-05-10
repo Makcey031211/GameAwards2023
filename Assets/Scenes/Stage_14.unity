@@ -129,7 +129,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1975099514}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &119580726
+--- !u!4 &119580732 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 1975099514}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &119580738
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -138,31 +144,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 119580724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 1
-  _center: {x: -33, y: -0.5, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &119580732 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 1975099514}
-  m_PrefabAsset: {fileID: 0}
+  direction: 1
+  Center: {x: -36, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 5.5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1001 &172798352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,7 +229,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 853693732}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &248633986
+--- !u!4 &248633992 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 853693732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &248633998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -247,31 +244,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 248633984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 0
-  _center: {x: -15, y: -0.5, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &248633992 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 853693732}
-  m_PrefabAsset: {fileID: 0}
+  direction: 0
+  Center: {x: -12, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 5.5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1 &286072761
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,9 +510,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  Center: {x: -33, y: 0.5, z: 0}
+  Center: {x: -36, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: -0.5
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &487872248 stripped
@@ -728,6 +711,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireFlower (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
       propertyPath: m_RootOrder
@@ -887,6 +875,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireFlower (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
       propertyPath: m_RootOrder
@@ -977,6 +970,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireFlower (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
       propertyPath: m_RootOrder
@@ -1066,6 +1064,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireFlower
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
@@ -1400,7 +1403,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1098751378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1033442754
+--- !u!4 &1033442760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 1098751378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1033442766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1409,31 +1418,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1033442752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 0
-  _center: {x: -9, y: -0.5, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &1033442760 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 1098751378}
-  m_PrefabAsset: {fileID: 0}
+  direction: 0
+  Center: {x: -12, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 4.5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1001 &1098751378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1803,7 +1797,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 920170780}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1256221542
+--- !u!4 &1256221548 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 920170780}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1256221554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1812,31 +1812,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1256221540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 0
-  _center: {x: -12, y: 0, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &1256221548 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 920170780}
-  m_PrefabAsset: {fileID: 0}
+  direction: 0
+  Center: {x: -12, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1 &1268678993 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -1858,7 +1843,8 @@ MonoBehaviour:
   direction: 1
   Center: {x: -36, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: 0
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &1268679007 stripped
@@ -2478,7 +2464,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1799662805}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1450856137
+--- !u!4 &1450856143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 1799662805}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1450856149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2487,31 +2479,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1450856135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 1
-  _center: {x: -39, y: -0.5, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &1450856143 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 1799662805}
-  m_PrefabAsset: {fileID: 0}
+  direction: 1
+  Center: {x: -36, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 4.5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1 &1453213211 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9002151232431956493, guid: 739894e4257d31a408a09c35e02edd1b,
@@ -2700,7 +2677,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 776335169}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1511216428
+--- !u!4 &1511216434 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 776335169}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1511216440
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2709,31 +2692,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1511216426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
+  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 3
-  _moveDirection: 0
-  _moveDistance: 5
-  _travelTime: 1
-  _startPoint: {x: 0, y: 0, z: 0}
-  _halfwayPoint: {x: 0, y: 0, z: 0}
-  _endPoint: {x: 0, y: 0, z: 0}
-  _moveSpeed: 1
-  _endWaitTime: 1
-  _waitTime: 1
-  _rotaDirection: 1
-  _center: {x: -36, y: 0, z: 0}
-  _axis: {x: 0, y: 0, z: 1}
-  _radius: 7
-  _periodTime: 10
-  _updateRotation: 0
---- !u!4 &1511216434 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 776335169}
-  m_PrefabAsset: {fileID: 0}
+  direction: 1
+  Center: {x: -36, y: 0, z: 0}
+  Axis: {x: 0, y: 0, z: 1}
+  Radius: 10
+  StartTime: 5
+  PeriodTime: 10
+  updateRotation: 0
 --- !u!1 &1516228240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2850,9 +2818,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  Center: {x: -9, y: 0.5, z: 0}
+  Center: {x: -12, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: 0.5
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &1569520626 stripped
@@ -3077,6 +3046,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireFlower (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
@@ -3344,9 +3318,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 1
-  Center: {x: -39, y: 0.5, z: 0}
+  Center: {x: -36, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: 0.5
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &1951944193 stripped
@@ -3372,6 +3347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FireFlower (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
@@ -3464,9 +3444,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  Center: {x: -15, y: 0.5, z: 0}
+  Center: {x: -12, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: -0.5
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &2020173774 stripped
@@ -3496,7 +3477,8 @@ MonoBehaviour:
   direction: 0
   Center: {x: -12, y: 0, z: 0}
   Axis: {x: 0, y: 0, z: 1}
-  Radius: 7
+  Radius: 10
+  StartTime: 0
   PeriodTime: 10
   updateRotation: 0
 --- !u!4 &2127960765 stripped
@@ -3615,7 +3597,7 @@ PrefabInstance:
     - target: {fileID: 3096688233104010334, guid: 739894e4257d31a408a09c35e02edd1b,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.71
+      value: -28.94
       objectReference: {fileID: 0}
     - target: {fileID: 3096688233104010334, guid: 739894e4257d31a408a09c35e02edd1b,
         type: 3}

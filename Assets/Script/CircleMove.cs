@@ -25,6 +25,9 @@ public class CircleMove : MonoBehaviour
     [SerializeField, Header("半径の大きさ")]
     private float Radius = 1.0f;
 
+    [SerializeField, Header("開始時にずらす時間(秒)")]
+    private float StartTime = 0.0f;
+
     [SerializeField, Header("一周回るのにかかる時間(秒)")]
     private float PeriodTime = 2.0f;
 
@@ -46,12 +49,25 @@ public class CircleMove : MonoBehaviour
     private void Start()
     {
         fireworks = this.gameObject.GetComponent<FireworksModule>();
+        //- 開始時に時間をずらす
+        currentTime += StartTime;
     }
 
     private void Update()
     {
         if (!fireworks.IsExploded)
         {
+            //- 回転方向に応じて処理を分岐
+            switch (direction)
+            {
+                case Direction.Clockwise:
+                    currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
+                    break;
+                case Direction.CounterClockwise:
+                    currentAngle = angle - ((currentTime % PeriodTime) / PeriodTime * angle);
+                    break;
+            }
+
             var trans = transform;
 
             //- 回転のクォータニオン作成
@@ -74,17 +90,6 @@ public class CircleMove : MonoBehaviour
 
             //- 現在の回転角度を更新する
             currentTime += Time.deltaTime;
-
-            //- 回転方向に応じて処理を分岐
-            switch (direction)
-            {
-                case Direction.Clockwise:
-                    currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
-                    break;
-                case Direction.CounterClockwise:
-                    currentAngle = angle - ((currentTime % PeriodTime) / PeriodTime * angle);
-                    break;
-            }
         }
     }
 }
