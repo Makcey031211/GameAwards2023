@@ -202,6 +202,12 @@ MonoBehaviour:
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
   _secondAfterTime: 0
+  _barrierObj: {fileID: 0}
+  _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _parentFireObj: {fileID: 0}
+  _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
+  _childFireObj: {fileID: 0}
+  _childFireColor: {r: 0, g: 0, b: 0, a: 0}
   _blastAfterTime: 0
   _firstInvTime: 3
   _invTimeCount: 0
@@ -2393,6 +2399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: NextScene.m_SceneName
       value: 2_Sato2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706990070701393346, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_text
+      value: "<size=70%>\u5F10\u306E\u91CC\u3000\u7B2C\u62FE\u5E55\n<size=120%>\u958B\u5E55"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
