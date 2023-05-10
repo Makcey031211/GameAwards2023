@@ -526,19 +526,19 @@ public class FireworksModule : MonoBehaviour
             //- 生成位置をずらす
             pos.y += 1.2f;
 
-            //- 指定した位置に生成
-            GameObject fire = Instantiate(
-                ParticleObject,                     // 生成(コピー)する対象
-                pos,           // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                );
+            for (int i = 0; i < 120; i++)
+            {
+                //- 指定した位置に生成
+                DOVirtual.DelayedCall(i * 0.1f, () => Instantiate(ParticleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f)));
+            }
+
 
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
-
+            
             //- タグの変更(残り花火数のタグ検索を回避するため)
             this.tag = "Untagged";
 
