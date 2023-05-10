@@ -23,6 +23,9 @@ public class ClearAnime : MonoBehaviour
     private float EndAlpha = 0.0f;
     [SerializeField, Header("フェード完了までの時間:float")]
     private float FadeTime = 0.0f;
+    [SerializeField, Header("ディレイ:float")]
+    private float FadeDelay = 0.0f;
+
 
     [HeaderAttribute("---移動設定--")]
     [SerializeField, Header("移動処理を実行する:チェックで実行")]
@@ -126,7 +129,7 @@ public class ClearAnime : MonoBehaviour
         //- 指定したアルファ値で開始
         image.color = new Color(image.color.r, image.color.g, image.color.b, StartAlpha);
         //- フェードを行う
-        image.DOFade(EndAlpha, FadeTime)
+        image.DOFade(EndAlpha, FadeTime).SetDelay(FadeDelay)
             .SetLink(image.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
             .OnComplete(() => {
                 animeObjNum--;
