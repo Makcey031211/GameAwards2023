@@ -45,6 +45,7 @@ public class SoundEditor : Editor
             _se.select  = EditorGUILayout.ObjectField("ボタン選択音", _se.select, typeof(AudioClip), false) as AudioClip;
             _se.clear   = EditorGUILayout.ObjectField("クリア音", _se.clear, typeof(AudioClip), false) as AudioClip;
             _se.failure = EditorGUILayout.ObjectField("失敗音", _se.failure, typeof(AudioClip), false) as AudioClip;
+            _se.slide   = EditorGUILayout.ObjectField("スライド音",_se.slide, typeof(AudioClip),false) as AudioClip;
 
             EditorGUILayout.LabelField("--- カットイン関連 ---");
             _se.nushiapp  = EditorGUILayout.ObjectField("ヌシ出現音", _se.nushiapp, typeof(AudioClip), false) as AudioClip;

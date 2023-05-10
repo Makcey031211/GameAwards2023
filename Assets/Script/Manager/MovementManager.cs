@@ -37,6 +37,8 @@ public class MovementManager : MonoBehaviour
     //- インスペクターに表示
     [SerializeField, Header("挙動の種類")]
     public E_MovementType _type = E_MovementType.ThreewayBehaviour;
+    [SerializeField, Header("挙動停止")]
+    private bool StopMove = false;
     //- インスペクターから非表示
     FireworksModule fireworks;
     public E_MovementType Type => _type;
@@ -155,7 +157,7 @@ public class MovementManager : MonoBehaviour
     private void ThreewayMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- 経過時間を計算する
         timeElapsed += Time.deltaTime;
@@ -213,7 +215,7 @@ public class MovementManager : MonoBehaviour
     private void ThreePointMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         if (isWaiting)
         {
@@ -268,7 +270,7 @@ public class MovementManager : MonoBehaviour
     private void ThreePointWaitMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         if (isWaiting)
         {
@@ -324,7 +326,7 @@ public class MovementManager : MonoBehaviour
     private void CicrleMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         var trans = transform;
 
