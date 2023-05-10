@@ -80,12 +80,31 @@ public class FireworksModule : MonoBehaviour
     public GameObject _multiBlast; // ２回目のエフェクト
     [SerializeField, HideInInspector]
     public float _secondAfterTime; // ２回目後の当たり判定の存続時間
+    [SerializeField, HideInInspector]
+    public GameObject _barrierObj; // 二重花火のバリア
+    [SerializeField, HideInInspector]
+    public Color _barrierColor;    // バリアの色
+    [SerializeField, HideInInspector]
+    public GameObject _parentFireObj;  // 親花火玉用のオブジェクト
+    [SerializeField, HideInInspector]
+    public Color _parentFireColor;     // 親花火玉の色
+    [SerializeField, HideInInspector]
+    public GameObject _childFireObj;   // 子花火玉用のオブジェクト
+    [SerializeField, HideInInspector]
+    public Color _childFireColor;      // 子花火玉の色
+
     //-- インスペクターから非表示
     private float _MaxInvTime; // 無敵時間用のタイムカウンタ
     //-- 外部からの値取得用
     public float SecondAfterTime => _secondAfterTime;
     public GameObject MultiBlast => _multiBlast;
-
+    //- 色関連 - 
+    public GameObject BarrierObj => _barrierObj;
+    public Color BarrierColor => _barrierColor;
+    public GameObject ParentFireObj => _parentFireObj;
+    public Color ParentFireColor => _parentFireColor;
+    public GameObject ChildFireObj => _childFireObj;
+    public Color ChildFireColor => _childFireColor;
 
     //- ハード、通常花火の項目
     [SerializeField, HideInInspector]
@@ -260,6 +279,9 @@ public class FireworksModule : MonoBehaviour
         {
             DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
             DetonationCol.IsDoubleBlast = true;
+            _barrierObj.GetComponent<Renderer>().material.color    = _barrierColor;
+            _parentFireObj.GetComponent<Renderer>().material.color = _parentFireColor;
+            _childFireObj.GetComponent<Renderer>().material.color  = _childFireColor;
         }
 
         //- 柳花火の項目

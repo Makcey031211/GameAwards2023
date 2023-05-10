@@ -39,6 +39,13 @@ public class FireworksModuleEditor : Editor {
             _target._firstInvTime = EditorGUILayout.FloatField("一回目の被弾後無敵時間(秒)", _target.FirstInvTime);
             _target._secondAfterTime = EditorGUILayout.FloatField("2回目の当たり判定の存在時間(秒)", _target.SecondAfterTime);
             _target._multiBlast = (GameObject)EditorGUILayout.ObjectField("二重花火の二回目のエフェクト", _target.MultiBlast, typeof(GameObject), true);
+            EditorGUILayout.LabelField("--- 色関連 ---");
+            _target._barrierObj      = (GameObject)EditorGUILayout.ObjectField("二重花火用のバリア", _target.BarrierObj, typeof(GameObject),true);
+            _target._barrierColor    = EditorGUILayout.ColorField("二重花火のバリアの色", _target.BarrierColor);
+            _target._parentFireObj   = (GameObject)EditorGUILayout.ObjectField("親花火玉用のオブジェクト", _target.ParentFireObj, typeof(GameObject), true);
+            _target._parentFireColor = EditorGUILayout.ColorField("親花火玉の色", _target.ParentFireColor);
+            _target._childFireObj    = (GameObject)EditorGUILayout.ObjectField("子花火玉用のオブジェクト", _target.ChildFireObj, typeof(GameObject), true);
+            _target._childFireColor  = EditorGUILayout.ColorField("子花火玉の色", _target.ChildFireColor);
             break;
         case FireworksModule.FireworksType.ResurrectionBox:
             _target._playerPrefab = (GameObject)EditorGUILayout.ObjectField("生成するオブジェクト", _target.PlayerPrefab, typeof(GameObject), true);
