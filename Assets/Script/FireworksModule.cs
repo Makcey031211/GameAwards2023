@@ -371,7 +371,9 @@ public class FireworksModule : MonoBehaviour
         InGR.OutMove();
         Tips.OutMove();
 
-        GameObject.Find("Main Camera").GetComponent<SceneChange>().SetStopFlag(true);
+        SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+        scenechange.SetStopClearFlag(true);
+        scenechange.SetStopMissFlag(true);
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
@@ -509,6 +511,10 @@ public class FireworksModule : MonoBehaviour
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
 
+            //- 失敗判定にならないように設定、花火が消えきったら失敗判定を復活
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.SetStopMissFlag(true);
+            DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
             //- 爆発後に削除
             Destroy(gameObject);
         }

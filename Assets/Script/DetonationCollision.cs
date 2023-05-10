@@ -24,14 +24,10 @@ public class DetonationCollision : MonoBehaviour
     //- 何回目の爆発か
     int nBlastCount = 1;
 
-    Tween TweenMove;
-
     void Start()
     {
         //- 座標の取得
         Vector3 pos = transform.position;
-        //- エフェクトの重力にあわせて、中心をずらす
-        TweenMove = transform.DOMoveY(pos.y - 0.8f, 2.0f).SetDelay(0.7f);
     }
     
     public void EndDetonation()
@@ -45,12 +41,6 @@ public class DetonationCollision : MonoBehaviour
         }
         else
         {
-            //- 座標の取得
-            Vector3 pos = transform.position;
-            //- 当たり判定の重力移動を強制的に最終地点まで移動
-            TweenMove.Complete();
-            //- 当たり判定の中心を戻す
-            TweenMove = transform.DOMoveY(pos.y + 0.8f, 0.0f).SetDelay(0.0f);
             //- 当たり判定サイズを元に戻す
             transform.localScale = ColSize;
             //- 自身のスクリプトを無効化

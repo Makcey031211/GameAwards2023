@@ -29,7 +29,8 @@ public class SceneChange : MonoBehaviour
     private bool bIsShotSound = false;          // 音が再生されたかどうか
     private ObjectFade fade;              // フェード用のスプライト
     private ClearManager clear;
-    private bool bIsStop = false; //- 処理を一時停止するかどうか
+    private bool bIsStopClear = false; //- 成功処理を一時停止するかどうか
+    private bool bIsStopMiss =  false; //- 失敗処理を一時停止するかどうか
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -51,10 +52,10 @@ public class SceneChange : MonoBehaviour
     {
         // 現在の敵の数を更新
         EnemyNum = countEnemy.GetCurrentCountNum();
-        if (bIsStop) CurrentTime = 0;
+        if (bIsStopClear && bIsStopMiss) CurrentTime = 0;
 
         // パーティクルの再生が終わる + 敵を全滅させたら + 処理フラグがtrue
-        if(CurrentParticleTime == TotalParticleTime && EnemyNum <= 0 && !bIsStop)
+        if(EnemyNum <= 0 && !bIsStopClear)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -66,7 +67,7 @@ public class SceneChange : MonoBehaviour
         }
 
         // パーティクルの再生が終わる + 敵が残っている + 処理フラグがtrue
-        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife && !bIsStop)
+        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife && !bIsStopMiss)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -124,8 +125,13 @@ public class SceneChange : MonoBehaviour
         CurrentTime = 0;
     }
 
-    public void SetStopFlag(bool flag)
+    public void SetStopClearFlag(bool flag)
     {
-        bIsStop = flag;
+        bIsStopClear = flag;
+    }
+
+    public void SetStopMissFlag(bool flag)
+    {
+        bIsStopMiss = flag;
     }
 }
