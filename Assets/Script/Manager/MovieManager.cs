@@ -91,7 +91,9 @@ public class MovieManager : MonoBehaviour
         fade.SetFade(TweenColorFade.FadeState.Out, FadeTime);
         yield return new WaitForSeconds(FadeTime);
 
-        GameObject.Find("Main Camera").GetComponent<SceneChange>().SetStopFlag(false);
+        SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+        scenechange.SetStopClearFlag(false);
+        scenechange.SetStopMissFlag(false);
         bPlayMovie = false; //- 演出フラグ変更
     }
 
