@@ -521,18 +521,8 @@ public class FireworksModule : MonoBehaviour
         { // 爆発直後一回のみ
             _isOnce = true;
 
-            //- エフェクト生成のために、座標を取得
-            Vector3 pos = transform.position;
-            //- 生成位置をずらす
-            pos.y += 1.2f;
-
-            for (int i = 0; i < 120; i++)
-            {
-                //- 指定した位置に生成
-                DOVirtual.DelayedCall(i * 0.1f, () => Instantiate(ParticleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f)));
-            }
-
-
+            StartCoroutine(MakeYanagiEffect(0.1f,120));
+            
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
@@ -549,6 +539,22 @@ public class FireworksModule : MonoBehaviour
             //- 爆発後に削除
             DOVirtual.DelayedCall(13.0f, () => Destroy(gameObject));
             
+        }
+    }
+
+    private IEnumerator MakeYanagiEffect(float delayTime, int maxEffect)
+    {
+        //- エフェクトを生成
+        for (int i = 0; i < maxEffect; i++)
+        {
+            //- delayTime秒待機する
+            yield return new WaitForSeconds(delayTime);
+            //- エフェクト生成のために、座標を取得
+            Vector3 pos = transform.position;
+            //- 生成位置をずらす
+            pos.y += 1.2f;
+            //- 指定した位置に生成
+            GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
     }
 
