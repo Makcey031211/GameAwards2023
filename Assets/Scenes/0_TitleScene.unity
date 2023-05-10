@@ -1128,7 +1128,6 @@ GameObject:
   - component: {fileID: 824620979}
   - component: {fileID: 824620978}
   - component: {fileID: 824620977}
-  - component: {fileID: 824620981}
   - component: {fileID: 824620980}
   - component: {fileID: 824620983}
   - component: {fileID: 824620982}
@@ -1206,18 +1205,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 824620981}
-        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 824620983}
         m_TargetAssemblyTypeName: ButtonStartNewGame, Assembly-CSharp
         m_MethodName: StartNewGame
@@ -1280,23 +1267,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &824620981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 824620975}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3318c950e31ac824d923921b2e05b83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextScene:
-    m_SceneName: Story
-  board: {fileID: 0}
-  DelayTime: 0
-  FadeTime: 0.5
 --- !u!114 &824620982
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1325,6 +1295,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bcc2d36f7fb3b04486dbe35c326a7a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NextScene:
+    m_SceneName: Story
+  DelayTime: 0
+  FadeTime: 0.5
 --- !u!1 &1008687145
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,7 @@ public class SEManager : MonoBehaviour
         Select,     // ボタン選択
         Clear,      // クリア
         Failure,    // 失敗
+        Slide,      // スライド
         //* カットイン関連 */
         Nushiapp,   // ヌシ出現
         Letterapp,  // 文字出現
@@ -59,6 +60,8 @@ public class SEManager : MonoBehaviour
     public AudioClip clear;
     [SerializeField, HideInInspector]
     public AudioClip failure;
+    [SerializeField, HideInInspector]
+    public AudioClip slide;
     [SerializeField, HideInInspector]
     public AudioClip nushiapp;
     [SerializeField, HideInInspector]
@@ -147,6 +150,7 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.Select, select);
         audioClips.Add(E_SoundEffect.Clear, clear);
         audioClips.Add(E_SoundEffect.Failure, failure);
+        audioClips.Add(E_SoundEffect.Slide, slide);
     }
 
     private void CutInSE()
