@@ -85,7 +85,7 @@ public class PController : MonoBehaviour
         if (!isOnce)
         {
             //- 爆発処理
-            fireworks.Ignition();
+            fireworks.Ignition(transform.position);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;

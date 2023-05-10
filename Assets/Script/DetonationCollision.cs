@@ -161,10 +161,10 @@ public class DetonationCollision : MonoBehaviour
         if (module.Type == FireworksModule.FireworksType.Boss)
             module.IgnitionBoss(obj);
         else if(module.Type != FireworksModule.FireworksType.ResurrectionPlayer)
-            module.Ignition();
+            module.Ignition(transform.position);
         else if (module.Type == FireworksModule.FireworksType.ResurrectionPlayer)
             if(module.GetIsInv() == false)
-            { module.Ignition(); }
+            { module.Ignition(transform.position); }
 
         //- ステージオブジェクトに当たっていない
         return;

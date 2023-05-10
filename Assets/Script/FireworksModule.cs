@@ -16,9 +16,17 @@ public class FireworksModule : MonoBehaviour
         ResurrectionBox,
         ResurrectionPlayer,
         Boss,
+        Dragonfly,
         Yanagi,
     }
 
+    //- 引火したもとのオブジェクトの情報
+    public class CHitInfo
+    {
+        public Vector3 objpoint;
+    }
+    CHitInfo HitInfo;
+   
     //- 共通の項目
     //-- インスペクターに表示
     [SerializeField, Header("花火の種類")]
@@ -65,6 +73,7 @@ public class FireworksModule : MonoBehaviour
     public float ModelDeleteTime => _modelDeleteTime;
     public bool IsDrawArea => _isDrawArea;
 
+
     //- 二重花火の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -77,6 +86,7 @@ public class FireworksModule : MonoBehaviour
     public float SecondAfterTime => _secondAfterTime;
     public GameObject MultiBlast => _multiBlast;
 
+
     //- ハード、通常花火の項目
     [SerializeField, HideInInspector]
     public float _blastAfterTime; // 当たり判定の存続時間
@@ -84,6 +94,7 @@ public class FireworksModule : MonoBehaviour
     private float _afterTimeCount = 0; // 当たり判定のタイムカウンタ
     //-- インスペクターに表示
     public float BlastAfterTime => _blastAfterTime;
+
 
     //- ハード、二重花火の項目
     //-- インスペクターに表示
@@ -163,7 +174,34 @@ public class FireworksModule : MonoBehaviour
     public Color OutsideBarrierColor => _outsideBarrierColor;
     public GameObject InsideBarrier =>  _insideBarrier;
     public Color InsideBarrierColor =>  _insideBarrierColor;
-
+    
+    //- トンボ花火用の項目
+    //-- インスペクターに表示
+    [SerializeField, HideInInspector] //- 最低速度
+    public float _lowestSpeed;  
+    [SerializeField, HideInInspector] //- 最高速度
+    public float _highestSpeed;
+    [SerializeField, HideInInspector] //- 加速時間
+    public float _accelerationTime;
+    [SerializeField, HideInInspector] //- 減速時間
+    public float _decelerationTime;
+    [SerializeField, HideInInspector] //- 加速時の補完タイプ
+    public Easing.EaseType _accelerationEase;
+    [SerializeField, HideInInspector] //- 加速時の補完タイプ
+    public Easing.EaseType _decelerationEase;
+    //-- インスペクターに非表示
+    private bool bIsInit = false; //- 最初だけ処理を実行するための判定フラグ
+    [SerializeField, HideInInspector] //- 減速時間
+    public Vector2 movedir;              //- トンボ花火が移動する方向
+    float CountTime = 0; //- 時間のカウンタ
+    //-- 外部からの値取得用
+    public float LowestSpeed => _lowestSpeed;
+    public float HighestSpeed => _highestSpeed;
+    public float AccelerationTime => _accelerationTime;
+    public float DecelerationTime => _decelerationTime;
+    public Easing.EaseType AccelerationEase => _accelerationEase;
+    public Easing.EaseType DecelerationEase => _decelerationEase; 
+    
     //- 柳花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -195,11 +233,15 @@ public class FireworksModule : MonoBehaviour
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>();
         _isExploded = false;
         _isOnce = false;
+        HitInfo = new CHitInfo();
 
         //- クラッカーの項目
         _linerend = gameObject.AddComponent<LineRenderer>(); // 線の追加
         vibration = GameObject.Find("VibrationManager").GetComponent<VibrationManager>(); // 振動コンポーネントの取得
-        _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // パーティクルの取得
+        if (_type == FireworksType.Cracker)
+        {
+            _particleSystem = ParticleObject.transform.GetChild(0).GetComponent<ParticleSystem>(); // パーティクルの取得
+        }
         //- ハードの項目
         if (_type == FireworksType.Normal)
         {
@@ -268,10 +310,13 @@ public class FireworksModule : MonoBehaviour
             case FireworksType.ResurrectionPlayer:
                 ResurrectionPlayerFire(); 
                 break;
-                case FireworksType.Yanagi:
-                    YanagiFire();
-                    break;
-                default:
+            case FireworksType.Dragonfly:
+                DragonflyFire();
+                break;
+            case FireworksType.Yanagi:
+                YanagiFire();
+                break;
+            default:
                 break;
             }
         }
@@ -288,9 +333,10 @@ public class FireworksModule : MonoBehaviour
     }
 
     // 爆発フラグを立てる処理
-    public void Ignition()
+    public void Ignition(Vector3 _objpoint)
     {
         _isExploded = true;
+        HitInfo.objpoint = _objpoint; //- 当たった元のオブジェクトの座標を格納
     }
 
     public bool GetIsInv()
@@ -747,6 +793,58 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
+    private void DragonflyFire()
+    {
+        //- 最初に一度だけ行う処理
+        if (!bIsInit)
+        {
+            //- 引火したオブジェクトの座標
+            Vector2 IgnPoint = HitInfo.objpoint;
+            //- トンボ花火の座標
+            Vector2 myPoint = transform.position;
+            //- 移動方向ベクトルを生成
+            movedir = myPoint - IgnPoint;
+            //- 移動方向ベクトルの正規化
+            movedir.Normalize();
+            //- フラグの変更
+            bIsInit = true;
+        }
+
+        //- 変数用意
+        Vector2 movespeed = new Vector2(0,0);
+        //- 時間経過
+        CountTime += Time.deltaTime;
+        if (CountTime < _accelerationTime)
+        {
+            //- 移動量の変更
+            movespeed.x = movedir.x * Easing.EasingFunc(_accelerationEase, _lowestSpeed, _highestSpeed, _accelerationTime, CountTime);
+            movespeed.y = movedir.y * Easing.EasingFunc(_accelerationEase, _lowestSpeed, _highestSpeed, _accelerationTime, CountTime);
+        }
+        else if (CountTime < _accelerationTime + _decelerationTime)
+        {
+            //- 移動量の変更
+            movespeed.x = movedir.x * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime - _accelerationTime);
+            movespeed.y = movedir.y * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime - _accelerationTime);
+        }
+        else
+        {
+            //Destroy(gameObject);
+        }
+
+        //- トンボ花火の座標を取得
+        Vector3 pos = transform.position;
+        //- トンボ花火を移動させる
+        pos.x += movespeed.x;
+        pos.y += movespeed.y;
+        //- トンボ花火の座標を適用
+        transform.position = pos;
+
+        //- トンボ花火の回転を取得
+        Vector3 rot = transform.localEulerAngles;
+        rot.z -= movespeed.magnitude * 40;
+        transform.localEulerAngles = rot;
+    }
+
     //- 遅れて起爆するクラッカーの関数
     private IEnumerator DelayDestroyCracker(GameObject obj, float delayTime)
     {
@@ -760,7 +858,7 @@ public class FireworksModule : MonoBehaviour
         if (module.Type == FireworksModule.FireworksType.Boss)
             obj.GetComponent<FireworksModule>().IgnitionBoss(obj.gameObject);
         else
-            obj.GetComponent<FireworksModule>().Ignition();
+            obj.GetComponent<FireworksModule>().Ignition(transform.position);
     }
 
     //- オブジェクトのアクティブ判定を変更する関数

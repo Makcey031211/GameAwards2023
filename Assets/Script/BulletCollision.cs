@@ -10,10 +10,11 @@ public class BulletCollision : MonoBehaviour
         if (collision.gameObject.tag == "Fireworks" ||
             collision.gameObject.tag == "ShotFireworks")
         {
+            Debug.Log("BulletCollision:Hit");
             // 当たったオブジェクトのFireworksModuleスクリプトを有効にする
             collision.gameObject.GetComponent<FireworksModule>().enabled = true;
             // 当たったオブジェクトのFireworksModuleスクリプト内のisExplodedをtrueに変える
-            collision.gameObject.GetComponent<FireworksModule>().Ignition();
+            collision.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);
         }
     }
 }

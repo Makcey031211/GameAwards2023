@@ -39,7 +39,7 @@ public class CrushObject : MonoBehaviour
         {
             // TODO:2つ以上同時に衝突していた場合の処理
             //- 爆発処理
-            fireworks.Ignition();
+            fireworks.Ignition(transform.position);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;
