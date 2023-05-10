@@ -41,12 +41,12 @@ public class AnimeManager : MonoBehaviour
                         { "ボス演出", false },
                     };
        //- オブジェクトが存在したらフラグ変更
-        if (DrawSelect)         { ControlFlag["セレクト"] = true; }
-        if (DrawReset)          { ControlFlag["リセット"] = true; }
-        if (DrawTips)           { ControlFlag["チップス"] = true; }
-        if (DrawOpening)        { ControlFlag["通常開幕"] = true; }
-        if (DrawGimmickBoard)   { ControlFlag["ギミック看板"] = true; }
-        if (DrawBossCutIn)      { ControlFlag["ボス演出"] = true; }
+        if (DrawSelect)         { ControlFlag["セレクト"] = true;}
+        if (DrawReset)          { ControlFlag["リセット"] = true;}
+        if (DrawTips)           { ControlFlag["チップス"] = true;}
+        if (DrawOpening)        { ControlFlag["通常開幕"] = true;}
+        if (DrawGimmickBoard)   { ControlFlag["ギミック看板"] = true;}
+        if (DrawBossCutIn)      { ControlFlag["ボス演出"] = true;}
     }
 
     private void Start()
@@ -62,8 +62,8 @@ public class AnimeManager : MonoBehaviour
         //- 通常演出がある、通常演出が終了している、以下の分岐を実行していない
         if(ControlFlag["通常開幕"] && DrawOpening.GetMoveComplete() && !BoardMoveCompleat) 
         {
-            if (ControlFlag["セレクト"]) { DrawSelect.StartMove(); }
-            if (ControlFlag["リセット"]) { DrawReset.StartMove(); }
+            if (ControlFlag["セレクト"]) { DrawSelect.StartMove();}
+            if (ControlFlag["リセット"]) { DrawReset.StartMove();}
             if (ControlFlag["ギミック看板"]) { DrawGimmickBoard.StartMove(); }
             BoardMoveCompleat = true;
         }
