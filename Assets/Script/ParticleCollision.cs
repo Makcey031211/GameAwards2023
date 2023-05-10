@@ -17,13 +17,13 @@ public class ParticleCollision : MonoBehaviour
             // 当たり判定の拡大用コンポーネントを有効にする
             other.gameObject.transform.GetChild(0).GetComponent<DetonationCollision>().enabled = true;
             // 当たったオブジェクトの爆発フラグを立てる
-            other.gameObject.GetComponent<FireworksModule>().Ignition();
+            other.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);
         }
         // 当たったオブジェクトのタグが「ResurrectionBox」なら
         if (other.gameObject.tag == "ResurrectionBox")
         {
             // 当たったオブジェクトの爆発フラグを立てる 
-            other.gameObject.GetComponent<FireworksModule>().Ignition();
+            other.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);
         }
     }
 }
