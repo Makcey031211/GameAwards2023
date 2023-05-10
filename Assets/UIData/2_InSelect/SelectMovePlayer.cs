@@ -19,9 +19,8 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
     public void InStageMove()
     {
         DOTween.Sequence()
-            .Append(player.transform.DOMoveY(5.0f, 0.2f).SetRelative(true))
-            .Join(player.transform.DOScale(new Vector3(2.0f,2.0f), 0.2f))
-            .Append(player.transform.DOMoveY(StagePos.y, 0.2f))
-            .Join(player.transform.DOScale(new Vector3(0.0f, 0.0f), 0.2f));
+            .Append(player.transform.DOMoveY(-2.0f, 0.5f).SetRelative(true))
+            .AppendInterval(0.25f)
+            .Append(player.transform.DOMoveY(20.0f, 1.5f).SetRecyclable(true));
     }
 }

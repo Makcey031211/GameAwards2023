@@ -291,7 +291,8 @@ MonoBehaviour:
   NextScene:
     m_SceneName: Stage_01
   board: {fileID: 0}
-  SelectPlayer: {fileID: 0}
+  DelayTime: 0.82
+  FadeTime: 0.3
 --- !u!114 &2183102046265156015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,10 +326,10 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 3766935799021492772}
-          m_TargetAssemblyTypeName: SelectMovePlayer, Assembly-CSharp
-          m_MethodName: OnSelect
-          m_Mode: 0
+        - m_Target: {fileID: 6103788666660798552}
+          m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
+          m_MethodName: MoveSelectScene
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
