@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -1204275263894035691}
   m_Layer: 10
   m_Name: RevivalB
-  m_TagString: ResurrectionBox
+  m_TagString: Fireworks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -155,6 +155,12 @@ MonoBehaviour:
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
   _secondAfterTime: 0
+  _barrierObj: {fileID: 0}
+  _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _parentFireObj: {fileID: 0}
+  _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
+  _childFireObj: {fileID: 0}
+  _childFireColor: {r: 0, g: 0, b: 0, a: 0}
   _blastAfterTime: 0
   _firstInvTime: 3
   _invTimeCount: 0
@@ -172,6 +178,19 @@ MonoBehaviour:
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _lowestSpeed: 0
+  _highestSpeed: 0
+  _accelerationTime: 0
+  _decelerationTime: 0
+  _accelerationEase: 0
+  _decelerationEase: 0
+  movedir: {x: 0, y: 0}
+  _yanagiobj: {fileID: 0}
+  _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
+  _reafobj1: {fileID: 0}
+  _reafColor1: {r: 0, g: 0, b: 0, a: 0}
+  _reafobj2: {fileID: 0}
+  _reafColor2: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
