@@ -135,7 +135,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1975099514}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &119580738
+--- !u!114 &119580739
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -144,16 +144,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 119580724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 5.5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 5.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1001 &172798352
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -235,7 +246,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 853693732}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &248633998
+--- !u!114 &248633999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -244,16 +255,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 248633984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 5.5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 5.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &286072761
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,7 +519,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 628722657}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &487872242
+--- !u!4 &487872248 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 628722657}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &487872249
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -506,22 +534,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 487872234}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: -0.5
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &487872248 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 628722657}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: -0.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &516358791
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,7 +1442,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1098751378}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1033442766
+--- !u!114 &1033442767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1418,16 +1451,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1033442752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 4.5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 4.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1001 &1098751378
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1803,7 +1847,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 920170780}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1256221554
+--- !u!114 &1256221555
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1812,23 +1856,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 1256221540}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &1268678993 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
     type: 3}
   m_PrefabInstance: {fileID: 656979873}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1268679001
+--- !u!4 &1268679007 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 656979873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1268679008
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1837,22 +1898,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268678993}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 0
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &1268679007 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 656979873}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 0
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1001 &1308157732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2470,7 +2536,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1799662805}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1450856149
+--- !u!114 &1450856150
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2479,16 +2545,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1450856135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 4.5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 4.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &1453213211 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9002151232431956493, guid: 739894e4257d31a408a09c35e02edd1b,
@@ -2683,7 +2760,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 776335169}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1511216440
+--- !u!114 &1511216441
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2692,16 +2769,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1511216426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 5
-  PeriodTime: 10
-  updateRotation: 0
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &1516228240
 GameObject:
   m_ObjectHideFlags: 0
@@ -2805,7 +2893,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2128366091}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1569520620
+--- !u!4 &1569520626 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 2128366091}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1569520627
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2814,22 +2908,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1569520619}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 0.5
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &1569520626 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 2128366091}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 0.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &1676944278
 GameObject:
   m_ObjectHideFlags: 0
@@ -3310,7 +3409,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 730910777}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1951944187
+--- !u!4 &1951944193 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 730910777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1951944194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3319,22 +3424,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1951944179}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 1
-  Center: {x: -36, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 0.5
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &1951944193 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 730910777}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 1
+  _center: {x: -36, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 0.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1001 &1975099514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3436,7 +3546,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1702172199}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2020173768
+--- !u!4 &2020173774 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 1702172199}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2020173775
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3445,29 +3561,40 @@ MonoBehaviour:
   m_GameObject: {fileID: 2020173767}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: -0.5
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &2020173774 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 1702172199}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: -0.5
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1 &2127960758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7171924692625481344, guid: e24e579c56d6cdd49b6d6abdae073b04,
     type: 3}
   m_PrefabInstance: {fileID: 296696447}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2127960759
+--- !u!4 &2127960765 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
+    type: 3}
+  m_PrefabInstance: {fileID: 296696447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2127960766
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3476,22 +3603,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 2127960758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fffefe5b4c5dac4bbb3237c2ad0a576, type: 3}
+  m_Script: {fileID: 11500000, guid: 9797f7254affdc149b87feeb88b79ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
-  Center: {x: -12, y: 0, z: 0}
-  Axis: {x: 0, y: 0, z: 1}
-  Radius: 10
-  StartTime: 0
-  PeriodTime: 10
-  updateRotation: 0
---- !u!4 &2127960765 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
-    type: 3}
-  m_PrefabInstance: {fileID: 296696447}
-  m_PrefabAsset: {fileID: 0}
+  _type: 4
+  StopMove: 0
+  _moveDirection: 0
+  _moveDistance: 5
+  _travelTime: 1
+  _startPoint: {x: 0, y: 0, z: 0}
+  _halfwayPoint: {x: 0, y: 0, z: 0}
+  _endPoint: {x: 0, y: 0, z: 0}
+  _moveSpeed: 1
+  _endWaitTime: 1
+  _waitTime: 1
+  _rotaDirection: 0
+  _center: {x: -12, y: 0, z: 0}
+  _axis: {x: 0, y: 0, z: 1}
+  _radius: 10
+  _startTime: 0
+  _periodTime: 10
+  _updateRotation: 0
 --- !u!1001 &2128366091
 PrefabInstance:
   m_ObjectHideFlags: 0
