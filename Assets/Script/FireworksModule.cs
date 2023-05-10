@@ -520,10 +520,16 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce)
         { // 爆発直後一回のみ
             _isOnce = true;
+
+            //- エフェクト生成のために、座標を取得
+            Vector3 pos = transform.position;
+            //- 生成位置をずらす
+            pos.y += 1.2f;
+
             //- 指定した位置に生成
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
-                transform.position,           // 生成される位置
+                pos,           // 生成される位置
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
@@ -533,12 +539,16 @@ public class FireworksModule : MonoBehaviour
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
 
+            //- タグの変更(残り花火数のタグ検索を回避するため)
+            this.tag = "Untagged";
+
             //- 失敗判定にならないように設定、花火が消えきったら失敗判定を復活
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.SetStopMissFlag(true);
             DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
             //- 爆発後に削除
-            Destroy(gameObject);
+            DOVirtual.DelayedCall(13.0f, () => Destroy(gameObject));
+            
         }
     }
 
