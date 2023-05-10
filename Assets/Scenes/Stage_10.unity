@@ -3710,7 +3710,12 @@ PrefabInstance:
     - target: {fileID: 3051055468436595919, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: FadeTime
-      value: 4
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051055468436595919, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: FadeDelay
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 3051055468757874985, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -7001,6 +7006,12 @@ MonoBehaviour:
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
   _secondAfterTime: 0
+  _barrierObj: {fileID: 0}
+  _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _parentFireObj: {fileID: 0}
+  _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
+  _childFireObj: {fileID: 0}
+  _childFireColor: {r: 0, g: 0, b: 0, a: 0}
   _blastAfterTime: 0
   _firstInvTime: 3
   _invTimeCount: 0
