@@ -103,6 +103,8 @@ public class OptionGage : MonoBehaviour
             imageRetry.fillAmount = 0; //- 反対のゲージのリセット
             bIsStartInGame = true; //シーン開始フラグをたてる
             GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
+            BGMManager bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+            DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(SelectScene)); // シーンのロード(遅延あり)
         }
     }
