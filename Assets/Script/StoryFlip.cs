@@ -19,12 +19,16 @@ public class StoryFlip : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] flips;     // ストーリーのイラスト
+    [SerializeField, Header("フェード秒数")]
+    private float FadeTime;
 
     private GameObject enterButton; // 里セレクト画面へ遷移するボタン表示のUI
     private Image fade;             // フェード用
+    private BGMManager bgmManager;  // BGM用     
 
     private int NowFlipNum = 0;     // 現在のイラストの番号
     private bool isFlip = false;    // イラストが動いてるかどうか
+    private bool bPermissionClickSE = true; // クリックSEの再生が許可されているか
 
 
     // Start is called before the first frame update
@@ -37,6 +41,8 @@ public class StoryFlip : MonoBehaviour
         // フェード
         fade = GameObject.Find("FadeImage").GetComponent<Image>();
         fade.DOFade(0.0f, 1.0f);        // シーン開始時にフェードインする
+        // 音
+        bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
 
         // ----- ストーリー周りの初期設定処理
         gameObject.transform.DetachChildren(); // 最初に親子関係を解除する
@@ -70,6 +76,8 @@ public class StoryFlip : MonoBehaviour
     {
         if (NowFlipNum >= flips.Length - 1 && !isFlip)
         { // 最後のイラストに移り変わった時
+            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
+            DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
             fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("1_Village"); });
         }
     }
@@ -84,6 +92,7 @@ public class StoryFlip : MonoBehaviour
         if (NowFlipNum < flips.Length - 1 && !isFlip)
         { // イラストが最後ではなく、移動中ではないとき
             isFlip = true;
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Slide);
             for (int i = 0; i < flips.Length; i++) {
                 RectTransform trans = flips[i].GetComponent<RectTransform>();
                 trans.DOMoveX(trans.position.x - 15.0f, 1.5f).SetEase(Ease.InOutCubic).OnComplete(() => { isFlip = false; });
@@ -102,6 +111,7 @@ public class StoryFlip : MonoBehaviour
         if (NowFlipNum > 0 && !isFlip)
         { // イラストが最初ではなく、移動中ではないとき
             isFlip = true;
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Slide);
             for (int i = 0; i < flips.Length; i++) {
                 RectTransform trans = flips[i].GetComponent<RectTransform>();
                 trans.DOMoveX(trans.position.x + 15.0f, 1.5f).SetEase(Ease.InOutCubic).OnComplete(() => { isFlip = false; });
