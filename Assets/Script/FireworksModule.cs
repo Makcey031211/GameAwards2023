@@ -1030,14 +1030,30 @@ public class FireworksModule : MonoBehaviour
         //- 猶予時間内に引火したら実行する処理
         if (HitInfo.hitcount >= 2)
         {
+            //- フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.SetStopClearFlag(true);
+            scenechange.SetStopMissFlag(true);
+            //- アニメーション処理
+            transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
+            transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
+            DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
+            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
+            //- 演出用スクリプトの取得
+            MovieManager movie = MovieObject.GetComponent<MovieManager>();
+            //- 演出フラグ変更
+            movie.SetMovieFlag(true);
+            //- 演出開始
+            DOVirtual.DelayedCall(2.1f, () => movie.StartVillageMovie(), false);
+            //- 破壊処理
+            Destroy(gameObject, 2.2f);
+
             //- 念の為、時間をリセット
             TimeCount = 0;
             //- 演出開始フラグを切り替え
             bStartMovie = true;
-            Debug.Log("ボス2回引火");
             return;
         }
-        Debug.Log("ボス1回引火");
 
         //- 時間経過
         TimeCount += Time.deltaTime;
