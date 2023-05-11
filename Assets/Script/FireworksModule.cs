@@ -832,7 +832,7 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce) { //- 爆発直後
             _isOnce = true;
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
-            sceneChange.bIsLife = true;
+            //sceneChange.bIsLife = true;
             //- SpawnPlayerメソッドをdelayTime秒後に呼び出す
             StartCoroutine(SpawnPlayer(_delayTime));
         }
