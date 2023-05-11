@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+  StopMove: 0
   _moveDirection: 1
   _moveDistance: -8
   _travelTime: 2
@@ -317,6 +318,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &526339786
@@ -470,6 +472,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 951482905520260595, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_text
+      value: "\u4FB5\u5165\u4E0D\u53EF\u30C6\u30FC\u30D7\n<size=50%>\u7269\u4F53\u306F\u901A\u3055\u305A\u706B\u82B1\u306E\u307F\u901A\u3059\u30AE\u30DF\u30C3\u30AF"
+      objectReference: {fileID: 0}
+    - target: {fileID: 951482905520260595, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 951482905520260595, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133008072562821114, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DelayTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3051055468757874985, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -595,11 +617,27 @@ PrefabInstance:
       propertyPath: NextScene.m_SceneName
       value: Stage_05
       objectReference: {fileID: 0}
+    - target: {fileID: 5290776292445447595, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DelayTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5706990070701393346, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_text
       value: "<size=70%>\u58F1\u306E\u91CC\u3000\u7B2C\u8086\u5E55\n<size=120%>\u958B\u5E55"
       objectReference: {fileID: 0}
+    - target: {fileID: 6470677711125593187, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 2547e2a4fab5c1741baf50878e52a485,
+        type: 3}
+    - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DrawGimmickBoard
+      value: 
+      objectReference: {fileID: 719669078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
 --- !u!1 &692751080 stripped
@@ -756,6 +794,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -1003.6
       objectReference: {fileID: 0}
+    - target: {fileID: 2915787380287731601, guid: 3f94529a276a67e43a40bb7347da7325,
+        type: 3}
+      propertyPath: bIsDelayWait
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5577418488477715311, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -893,6 +936,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f94529a276a67e43a40bb7347da7325, type: 3}
+--- !u!114 &719669078 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9042830203311809674, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 692751079}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed2e429d6b00bce45a51c7486b589f0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &749501086
 PrefabInstance:
   m_ObjectHideFlags: 0

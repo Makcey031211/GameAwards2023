@@ -31,7 +31,7 @@ public class SelectButton : MonoBehaviour
     {
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-
+        BoardMove.SetFirstDraw(false);
         DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
