@@ -64,7 +64,8 @@ public class AnimeManager : MonoBehaviour
         {
             if (ControlFlag["セレクト"]) { DrawSelect.StartMove();}
             if (ControlFlag["リセット"]) { DrawReset.StartMove();}
-            if (ControlFlag["ギミック看板"]) { DrawGimmickBoard.StartMove(); }
+            if (ControlFlag["ギミック看板"] && !BoardMove.GetFirstDraw()) { DrawGimmickBoard.StartMove(); }
+            else { GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false); }
             BoardMoveCompleat = true;
         }
         //- ボス演出がある、通常演出が終了している、以下の分岐を実行していない
@@ -73,7 +74,8 @@ public class AnimeManager : MonoBehaviour
             if (ControlFlag["チップス"]) { DrawTips.StartMove(); }
             if (ControlFlag["セレクト"]) { DrawSelect.StartMove(); }
             if (ControlFlag["リセット"]) { DrawReset.StartMove(); }
-            if (ControlFlag["ギミック看板"]) { DrawGimmickBoard.StartMove(); }
+            if (ControlFlag["ギミック看板"] && !BoardMove.GetFirstDraw()) { DrawGimmickBoard.StartMove(); }
+            else { GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false); }
             InMoveCompleat = true;
         }
         
