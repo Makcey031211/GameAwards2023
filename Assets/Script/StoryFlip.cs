@@ -60,10 +60,14 @@ public class StoryFlip : MonoBehaviour
 
     private void Update()
     {
-        // ----- シーン遷移ボタンイラストの有効化
+        // ----- シーン遷移ボタンイラストの有効・無効切り替え
         if (NowFlipNum >= flips.Length - 1 && !isFlip && !enterButton.activeInHierarchy)
         { // 最後のイラストに移り変わった上で、イラストが有効になっていないとき
             enterButton.SetActive(true);
+        }
+        else if (NowFlipNum < flips.Length - 1)
+        { // 最後のイラスト以外のとき
+            enterButton.SetActive(false);
         }
     }
 
