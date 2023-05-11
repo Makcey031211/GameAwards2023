@@ -83,6 +83,12 @@ public class FireworksModuleEditor : Editor {
             _target._reafobj2    = (GameObject)EditorGUILayout.ObjectField("葉っぱ用のオブジェクト2", _target.ReafObj2, typeof(GameObject), true);
             _target._reafColor2  = EditorGUILayout.ColorField("葉っぱの色2", _target.ReafColor2);
             break;
+        case FireworksModule.FireworksType.Boss2:
+            _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
+            _target._synchroTime = EditorGUILayout.FloatField("同時被弾の猶予時間(秒)", _target.SynchroTime);
+            _target._boss2barrierObj = (GameObject)EditorGUILayout.ObjectField("バリアオブジェクト", _target.Boss2BarrierObj, typeof(GameObject), true);
+            _target._boss2barrierColor = EditorGUILayout.ColorField("バリアの色", _target.Boss2BarrierColor);
+            break;
         }
         //- インスペクターの更新
         if (GUI.changed)

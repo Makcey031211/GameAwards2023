@@ -18,15 +18,17 @@ public class FireworksModule : MonoBehaviour
         Boss,
         Dragonfly,
         Yanagi,
+        Boss2,
     }
 
     //- 引火したもとのオブジェクトの情報
     public class CHitInfo
     {
         public Vector3 objpoint;
+        public float hitcount = 0;
     }
     CHitInfo HitInfo;
-   
+
     //- 共通の項目
     //-- インスペクターに表示
     [SerializeField, Header("花火の種類")]
@@ -37,7 +39,7 @@ public class FireworksModule : MonoBehaviour
     public GameObject _collisionObject; // 当たり判定用オブジェクト   通常、ハード、マルチブラスト
     [SerializeField, Header("破裂後の表情オブジェクト")]
     public GameObject _eyeObject; // 破裂後表情用オブジェクト
-    
+
     //-- インスペクターから非表示
     private VibrationManager vibration; // コントローラーの振動用
     private bool _isExploded; // 爆発フラグ
@@ -48,7 +50,7 @@ public class FireworksModule : MonoBehaviour
     public bool IsExploded => _isExploded;
     public GameObject CollisionObject => _collisionObject;
     public GameObject EyeObject => _eyeObject;
-    
+
 
     //- クラッカーの項目
     //-- インスペクターに表示
@@ -174,8 +176,6 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public int _ignitionMax = 3;  // 何回目で爆発するか
     [SerializeField, HideInInspector]
-    public GameObject _movieObject; // 演出を管理しているオブジェクト
-    [SerializeField, HideInInspector]
     public GameObject _outsideBarrier; // 外側のバリア
     [SerializeField, HideInInspector]
     public Color _outsideBarrierColor; // 外側のバリアの色
@@ -188,16 +188,15 @@ public class FireworksModule : MonoBehaviour
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
     //-- 外部からの値取得用
     public int IgnitionMax => _ignitionMax;
-    public GameObject MovieObject => _movieObject;
     public GameObject OutsideBarrier => _outsideBarrier;
     public Color OutsideBarrierColor => _outsideBarrierColor;
-    public GameObject InsideBarrier =>  _insideBarrier;
-    public Color InsideBarrierColor =>  _insideBarrierColor;
-    
+    public GameObject InsideBarrier => _insideBarrier;
+    public Color InsideBarrierColor => _insideBarrierColor;
+
     //- トンボ花火用の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector] //- 最低速度
-    public float _lowestSpeed;  
+    public float _lowestSpeed;
     [SerializeField, HideInInspector] //- 最高速度
     public float _highestSpeed;
     [SerializeField, HideInInspector] //- 加速時間
@@ -219,8 +218,8 @@ public class FireworksModule : MonoBehaviour
     public float AccelerationTime => _accelerationTime;
     public float DecelerationTime => _decelerationTime;
     public Easing.EaseType AccelerationEase => _accelerationEase;
-    public Easing.EaseType DecelerationEase => _decelerationEase; 
-    
+    public Easing.EaseType DecelerationEase => _decelerationEase;
+
     //- 柳花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -242,6 +241,31 @@ public class FireworksModule : MonoBehaviour
     public Color ReafColor1 => _reafColor1;
     public GameObject ReafObj2 => _reafobj2;
     public Color ReafColor2 => _reafColor2;
+
+
+
+    //- ぬし花火用関連の共通項目
+    [SerializeField, HideInInspector]
+    public GameObject _movieObject; // 演出を管理しているオブジェクト
+    //- 外部からの値取得用
+    public GameObject MovieObject => _movieObject;
+
+
+    //- 2面ぬし花火の項目
+    //- インスペクターに表示
+    [SerializeField, HideInInspector]
+    public float _synchroTime; // 猶予時間
+    [SerializeField, HideInInspector]
+    public GameObject _boss2barrierObj; // バリアオブジェクト
+    [SerializeField, HideInInspector]
+    public Color _boss2barrierColor; // バリアカラー
+    //-- インスペクターに非表示
+    private float TimeCount; //- タイムカウンタ
+    private bool bStartMovie; //- 演出が始まったかどうか
+    //- 外部からの値取得用
+    public float SynchroTime => _synchroTime;
+    public GameObject Boss2BarrierObj => _boss2barrierObj;
+    public Color Boss2BarrierColor => _boss2barrierColor;
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -273,33 +297,39 @@ public class FireworksModule : MonoBehaviour
         {
             DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
         }
-        
+
         //- 二重花火の項目
-        if (_type == FireworksType.Double )
+        if (_type == FireworksType.Double)
         {
             DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
             DetonationCol.IsDoubleBlast = true;
-            _barrierObj.GetComponent<Renderer>().material.color    = _barrierColor;
+            _barrierObj.GetComponent<Renderer>().material.color = _barrierColor;
             _parentFireObj.GetComponent<Renderer>().material.color = _parentFireColor;
-            _childFireObj.GetComponent<Renderer>().material.color  = _childFireColor;
+            _childFireObj.GetComponent<Renderer>().material.color = _childFireColor;
         }
 
         //- 柳花火の項目
         if (_type == FireworksType.Yanagi)
         {
             _yanagiobj.GetComponent<Renderer>().material.color = _yanagiColor;
-            _reafobj1.GetComponent<Renderer>().material.color  = _reafColor1;
-            _reafobj2.GetComponent<Renderer>().material.color  = _reafColor2;
+            _reafobj1.GetComponent<Renderer>().material.color = _reafColor1;
+            _reafobj2.GetComponent<Renderer>().material.color = _reafColor2;
         }
 
         //- 復活箱の項目
         sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
 
         //- バリアの項目
-        if(_type == FireworksType.Boss)
+        if (_type == FireworksType.Boss)
         {
             _outsideBarrier.GetComponent<Renderer>().material.color = _outsideBarrierColor;
             _insideBarrier.GetComponent<Renderer>().material.color = _insideBarrierColor;
+        }
+
+        //- 2面ぬし花火の項目
+        if (_type == FireworksType.Boss2)
+        {
+           _boss2barrierObj.GetComponent<Renderer>().material.color = _boss2barrierColor;
         }
     }
 
@@ -313,34 +343,39 @@ public class FireworksModule : MonoBehaviour
             { _isInv = false; }
         }
 
-        if (IsExploded) { // 爆発した後
-            switch (Type) {
-            case FireworksType.Normal:
-                NormalFire();
-                break;
-            case FireworksType.Cracker:
-                CrackerFire();
-                break;
-            case FireworksType.Hard:
-                HardFire();
-                break;
-            case FireworksType.Double:
-                DoubleFire();
-                break;
-            case FireworksType.ResurrectionBox:
-                ResurrectionBoxFire();
-                break;
-            case FireworksType.ResurrectionPlayer:
-                ResurrectionPlayerFire(); 
-                break;
-            case FireworksType.Dragonfly:
-                DragonflyFire();
-                break;
-            case FireworksType.Yanagi:
-                YanagiFire();
-                break;
-            default:
-                break;
+        if (IsExploded)
+        { // 爆発した後
+            switch (Type)
+            {
+                case FireworksType.Normal:
+                    NormalFire();
+                    break;
+                case FireworksType.Cracker:
+                    CrackerFire();
+                    break;
+                case FireworksType.Hard:
+                    HardFire();
+                    break;
+                case FireworksType.Double:
+                    DoubleFire();
+                    break;
+                case FireworksType.ResurrectionBox:
+                    ResurrectionBoxFire();
+                    break;
+                case FireworksType.ResurrectionPlayer:
+                    ResurrectionPlayerFire();
+                    break;
+                case FireworksType.Dragonfly:
+                    DragonflyFire();
+                    break;
+                case FireworksType.Yanagi:
+                    YanagiFire();
+                    break;
+                case FireworksType.Boss2:
+                    Boss2Fire();
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -350,7 +385,8 @@ public class FireworksModule : MonoBehaviour
     {
         var renderer = GetComponentsInChildren<Renderer>();
 
-        for (int i = 0; i < renderer.Length; i++) {
+        for (int i = 0; i < renderer.Length; i++)
+        {
             renderer[i].enabled = false;
         }
     }
@@ -360,6 +396,7 @@ public class FireworksModule : MonoBehaviour
     {
         _isExploded = true;
         HitInfo.objpoint = _objpoint; //- 当たった元のオブジェクトの座標を格納
+        HitInfo.hitcount++; //- 当たった回数を更新
     }
 
     public bool GetIsInv()
@@ -369,7 +406,7 @@ public class FireworksModule : MonoBehaviour
 
     // ぬし花火用の引火処理
     public void IgnitionBoss(GameObject obj)
-    {   
+    {
         //- 引火回数を増やす
         ignitionCount++;
 
@@ -399,7 +436,7 @@ public class FireworksModule : MonoBehaviour
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
-        DOTween.Sequence().SetDelay(1.5f).OnComplete(() => 
+        DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
         { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
         //- 演出用スクリプトの取得
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
@@ -413,7 +450,8 @@ public class FireworksModule : MonoBehaviour
 
     private void NormalFire()
     {
-        if (!_isOnce) { // 爆発直後一回のみ
+        if (!_isOnce)
+        { // 爆発直後一回のみ
             _isOnce = true;
             //ShakeByPerlinNoise shakeByPerlinNoise;
             //shakeByPerlinNoise = GameObject.FindWithTag("MainCamera").GetComponent<ShakeByPerlinNoise>();
@@ -426,7 +464,7 @@ public class FireworksModule : MonoBehaviour
                 transform.position,           // 生成される位置
                 Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
-            
+
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
@@ -490,7 +528,8 @@ public class FireworksModule : MonoBehaviour
         //- 弾けるタイミングになるまでは、以下の爆破処理を行わない
         //if (!_isExploded) return;
 
-        if (!_isOnce) { // 爆破直後一回のみ
+        if (!_isOnce)
+        { // 爆破直後一回のみ
 
             //- タグの変更(残り花火数のタグ検索を回避するため)
             this.tag = "Untagged";
@@ -521,14 +560,14 @@ public class FireworksModule : MonoBehaviour
         { // 爆発直後一回のみ
             _isOnce = true;
 
-            StartCoroutine(MakeYanagiEffect(0.1f,120));
-            
+            StartCoroutine(MakeYanagiEffect(0.1f, 120));
+
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
-            
+
             //- タグの変更(残り花火数のタグ検索を回避するため)
             this.tag = "Untagged";
 
@@ -538,7 +577,7 @@ public class FireworksModule : MonoBehaviour
             DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
             //- 爆発後に削除
             DOVirtual.DelayedCall(13.0f, () => Destroy(gameObject));
-            
+
         }
     }
 
@@ -688,14 +727,16 @@ public class FireworksModule : MonoBehaviour
     private void HardFire()
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
-        if (IsExploded && !_isInvinsible) {
+        if (IsExploded && !_isInvinsible)
+        {
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
             //- 無敵フラグを設定
             _isInvinsible = true;
             //- 何回目の爆破かを更新     
             _blastCount++;
-            if (_blastCount >= _blastNum) {
+            if (_blastCount >= _blastNum)
+            {
                 //- 無敵時間のリセット
                 _invTimeCount = 0;
                 // 当たったオブジェクトのSphereColliderを有効にする
@@ -719,7 +760,8 @@ public class FireworksModule : MonoBehaviour
             }
         }
 
-        if (_isInvinsible) {
+        if (_isInvinsible)
+        {
             //- まだ爆発してない
             if (_blastNum > _blastCount)
             {
@@ -736,7 +778,7 @@ public class FireworksModule : MonoBehaviour
             }
             else //- 爆発後
             {
-                
+
                 _afterTimeCount += Time.deltaTime;
                 //- 当たり判定を消す処理
                 if (_afterTimeCount >= _blastAfterTime)
@@ -751,7 +793,8 @@ public class FireworksModule : MonoBehaviour
     private void DoubleFire()
     {
         //- 無敵時間でない時に爆破が有効になった場合、処理する
-        if (!_isInvinsible && _isExploded) {
+        if (!_isInvinsible && _isExploded)
+        {
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
             //- 爆発回数を更新
@@ -770,8 +813,8 @@ public class FireworksModule : MonoBehaviour
                 _MaxInvTime = _firstInvTime;
                 //- １回目の花火を生成
                 GameObject fire = Instantiate(
-                    _particleObject,                    
-                    transform.position,          
+                    _particleObject,
+                    transform.position,
                     Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 //- 不要になったオブジェクトを消去
                 this.transform.GetChild(1).gameObject.SetActive(false);
@@ -801,18 +844,20 @@ public class FireworksModule : MonoBehaviour
                 Scale.z = 1.3f;
                 fire.transform.localScale = Scale;
             }
-             //- コントローラーの振動の設定
-             vibration.SetVibration(30, 1.0f);
+            //- コントローラーの振動の設定
+            vibration.SetVibration(30, 1.0f);
 
             // 爆発時に当たり判定を無効化
             GetComponent<SphereCollider>().isTrigger = true;
         }
-        if (_isInvinsible) {
-            
+        if (_isInvinsible)
+        {
+
             //- 無敵時間のカウント
             _invTimeCount += Time.deltaTime;
             //- 無敵時間終了時の処理
-            if (_invTimeCount >= _MaxInvTime) {
+            if (_invTimeCount >= _MaxInvTime)
+            {
                 //- 爆発中のフラグを設定
                 _isInvinsible = false;
                 // 爆発時の当たり判定を無効化
@@ -822,14 +867,15 @@ public class FireworksModule : MonoBehaviour
                 DetonationCol.enabled = false;
                 //- 爆発判定を初期化
                 _isExploded = false;
-                    _invTimeCount = 0;
+                _invTimeCount = 0;
             }
         }
     }
-    
+
     private void ResurrectionBoxFire()
     {
-        if (!_isOnce) { //- 爆発直後
+        if (!_isOnce)
+        { //- 爆発直後
             _isOnce = true;
             //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
             //sceneChange.bIsLife = true;
@@ -856,7 +902,7 @@ public class FireworksModule : MonoBehaviour
         }
 
         //- 変数用意
-        Vector2 movespeed = new Vector2(0,0);
+        Vector2 movespeed = new Vector2(0, 0);
         //- 時間経過
         CountTime += Time.deltaTime;
         if (CountTime < _accelerationTime)
@@ -907,7 +953,7 @@ public class FireworksModule : MonoBehaviour
     }
 
     //- オブジェクトのアクティブ判定を変更する関数
-    private IEnumerator DelaySetActive(GameObject obj,bool bIsActive ,float delayTime)
+    private IEnumerator DelaySetActive(GameObject obj, bool bIsActive, float delayTime)
     {
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
@@ -928,7 +974,7 @@ public class FireworksModule : MonoBehaviour
         int numPlayers = 1;
 
         //- プレイヤーを徐々に生成する
-        for (int i = 0; i < numPlayers; i++) 
+        for (int i = 0; i < numPlayers; i++)
         {
             //- プレイヤーを生成する
             Vector3 spawnPosition = new Vector3(
@@ -940,10 +986,10 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
 
             //- 徐々に生成するアニメーション
-            while (elapsed < _animationTime) 
+            while (elapsed < _animationTime)
             {
                 float t = elapsed / _animationTime;
-                player.transform.localScale = 
+                player.transform.localScale =
                     Vector3.Lerp(Vector3.zero, Vector3.one, t);
                 elapsed += Time.deltaTime;
                 yield return null;
@@ -961,12 +1007,67 @@ public class FireworksModule : MonoBehaviour
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Extinction);
 
         //- 復活箱を徐々に消滅させる
-        while (Time.time < startTime + _boxDisTime) 
+        while (Time.time < startTime + _boxDisTime)
         {
             float t = (Time.time - startTime) / _boxDisTime;
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
             yield return null;
         }
         Destroy(gameObject);
+    }
+
+    private void Boss2Fire()
+    {
+        if (bStartMovie) return; //- 演出が始まっているならリターン
+
+        //- 最初に一度だけ行う処理
+        if (!bIsInit)
+        {
+            //- バリアを非可視化
+            transform.GetChild(1).gameObject.SetActive(false);
+        }
+
+        //- 猶予時間内に引火したら実行する処理
+        if (HitInfo.hitcount >= 2)
+        {
+            //- フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.SetStopClearFlag(true);
+            scenechange.SetStopMissFlag(true);
+            //- アニメーション処理
+            transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
+            transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
+            DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
+            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
+            //- 演出用スクリプトの取得
+            MovieManager movie = MovieObject.GetComponent<MovieManager>();
+            //- 演出フラグ変更
+            movie.SetMovieFlag(true);
+            //- 演出開始
+            DOVirtual.DelayedCall(2.1f, () => movie.StartVillageMovie(), false);
+            //- 破壊処理
+            Destroy(gameObject, 2.2f);
+
+            //- 念の為、時間をリセット
+            TimeCount = 0;
+            //- 演出開始フラグを切り替え
+            bStartMovie = true;
+            return;
+        }
+
+        //- 時間経過
+        TimeCount += Time.deltaTime;
+
+        if (TimeCount < _synchroTime) return; //- 同時引火猶予内ならリターン
+
+
+        //- 情報をリセットする
+        _isExploded = false;
+        bIsInit = false;
+        TimeCount = 0;
+        HitInfo.hitcount = 0;
+
+        //- バリア可視化
+        transform.GetChild(1).gameObject.SetActive(true);
     }
 }
