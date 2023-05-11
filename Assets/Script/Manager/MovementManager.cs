@@ -15,6 +15,7 @@ public class MovementManager : MonoBehaviour
         ThreepointBehaviour,     // 三点間挙動
         ThreepointWaitBehaviour, // 三点間待機挙動
         CicrleBehaviour,         // 円挙動
+        SmoothCircularBehaviour, // 滑らかな円挙動
     }
 
     //--- 列挙体定義(回転)
@@ -37,6 +38,8 @@ public class MovementManager : MonoBehaviour
     //- インスペクターに表示
     [SerializeField, Header("挙動の種類")]
     public E_MovementType _type = E_MovementType.ThreewayBehaviour;
+    [SerializeField, Header("挙動停止")]
+    private bool StopMove = false;
     //- インスペクターから非表示
     FireworksModule fireworks;
     public E_MovementType Type => _type;
@@ -98,6 +101,8 @@ public class MovementManager : MonoBehaviour
     [SerializeField, HideInInspector]
     public float _radius     = 1.0f; // 半径の大きさ
     [SerializeField, HideInInspector]
+    public float _startTime  = 1.0f; // 開始時にずらす時間(秒)
+    [SerializeField, HideInInspector]
     public float _periodTime = 2.0f; // 一周回るのにかかる時間(秒)
     [SerializeField, HideInInspector]
     public bool _updateRotation = false; // 向きを更新するかどうか
@@ -110,6 +115,7 @@ public class MovementManager : MonoBehaviour
     public Vector3 Center => _center;
     public Vector3 Axis => _axis;
     public float Radius => _radius;
+    public float StartTime => _startTime;
     public float PeriodTime => _periodTime;
     public bool UpdateRotation => _updateRotation;
 
@@ -118,6 +124,7 @@ public class MovementManager : MonoBehaviour
     {
         //* 共通項目 *//
         fireworks = this.gameObject.GetComponent<FireworksModule>();
+        currentTime += StartTime; // 開始時に時間をずらす
 
         //* 三方向挙動項目 *//
         startPosition = transform.position;
@@ -146,6 +153,9 @@ public class MovementManager : MonoBehaviour
             case E_MovementType.CicrleBehaviour:
                 CicrleMove();
                 break;
+            case E_MovementType.SmoothCircularBehaviour:
+                SmoothCircularMove();
+                break;
         }
     }
 
@@ -155,7 +165,7 @@ public class MovementManager : MonoBehaviour
     private void ThreewayMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- 経過時間を計算する
         timeElapsed += Time.deltaTime;
@@ -213,7 +223,7 @@ public class MovementManager : MonoBehaviour
     private void ThreePointMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         if (isWaiting)
         {
@@ -268,7 +278,7 @@ public class MovementManager : MonoBehaviour
     private void ThreePointWaitMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         if (isWaiting)
         {
@@ -324,7 +334,7 @@ public class MovementManager : MonoBehaviour
     private void CicrleMove()
     {
         //- nullチェック
-        if (fireworks && fireworks.IsExploded) return;
+        if (StopMove && fireworks && fireworks.IsExploded) return;
 
         var trans = transform;
 
@@ -359,5 +369,45 @@ public class MovementManager : MonoBehaviour
                 currentAngle = angle - ((currentTime % PeriodTime) / PeriodTime * angle);
                 break;
         }
+    }
+
+    private void SmoothCircularMove()
+    {
+        //- nullチェック
+        if (StopMove && fireworks && fireworks.IsExploded) return;
+
+        //- 回転方向に応じて処理を分岐
+        switch (RotaDirection)
+        {
+            case E_RotaDirection.Clockwise:
+                currentAngle = (currentTime % PeriodTime) / PeriodTime * angle;
+                break;
+            case E_RotaDirection.CounterClockwise:
+                currentAngle = angle - ((currentTime % PeriodTime) / PeriodTime * angle);
+                break;
+        }
+
+        var trans = transform;
+
+        //- 回転のクォータニオン作成
+        var angleAxis = Quaternion.AngleAxis(currentAngle, Axis);
+
+        //- 半径に対応するベクトルを作成し、回転軸に沿って回転させる
+        var radiusVec = angleAxis * (Vector3.down * Radius);
+
+        //- 中心点に半径に対応するベクトルを加算して位置を計算する
+        var pos = Center + radiusVec;
+
+        //- 位置を更新する
+        trans.position = pos;
+
+        //- 向きを更新する
+        if (UpdateRotation)
+        {
+            trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);
+        }
+
+        //- 現在の回転角度を更新する
+        currentTime += Time.deltaTime;
     }
 }

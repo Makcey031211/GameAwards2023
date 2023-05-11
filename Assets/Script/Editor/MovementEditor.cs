@@ -49,6 +49,15 @@ public class MovementEditor : Editor
                 _move._periodTime     = EditorGUILayout.FloatField("一周回るのにかかる時間(秒)", _move.PeriodTime);
                 _move._updateRotation = EditorGUILayout.Toggle("向きを更新するかしないか",_move._updateRotation);
                 break;
+            case MovementManager.E_MovementType.SmoothCircularBehaviour:
+                _move._rotaDirection  = (MovementManager.E_RotaDirection)EditorGUILayout.EnumPopup("回転方向", _move.RotaDirection);
+                _move._center         = EditorGUILayout.Vector3Field("中心点", _move.Center);
+                _move._axis           = EditorGUILayout.Vector3Field("回転軸", _move.Axis);
+                _move._radius         = EditorGUILayout.FloatField("半径の大きさ", _move.Radius);
+                _move._startTime      = EditorGUILayout.FloatField("開始時にずらす時間(秒)", _move.StartTime);
+                _move._periodTime     = EditorGUILayout.FloatField("一周回るのにかかる時間(秒)", _move.PeriodTime);
+                _move._updateRotation = EditorGUILayout.Toggle("向きを更新するかしないか", _move._updateRotation);
+                break;
         }
         //- インスペクターの更新
         if (GUI.changed)

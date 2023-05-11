@@ -36,7 +36,6 @@ public class BoardMove : MonoBehaviour
     private const float TOP = 1200.0f;
     private const float DOWN = -1200.0f;
     
-    [SerializeField] private Image image;
     [SerializeField] private VideoPlayer movie;
     [SerializeField] private TextMeshProUGUI tmp;
     private Dictionary<string, Dictionary<string, Vector3>> InitValues;
@@ -51,11 +50,9 @@ public class BoardMove : MonoBehaviour
         MoveComplete = false;
         //- 初期値登録
         InitValues = new Dictionary<string, Dictionary<string, Vector3>>
-        {{"看板",new Dictionary<string, Vector3>{{"位置",image.transform.position},}}};
-        InitValues.Add("動画", new Dictionary<string, Vector3> { { "位置", movie.transform.position } });
+        {{"動画",new Dictionary<string, Vector3>{{"位置",movie.transform.position},}}};
         InitValues.Add("文字", new Dictionary<string, Vector3> { { "位置", tmp.transform.position } });
         //- 初期位置更新
-        image.transform.localPosition = new Vector3(LEFT, image.transform.localPosition.y);
         movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
         tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
         //- 動画停止
@@ -69,8 +66,8 @@ public class BoardMove : MonoBehaviour
     {
         //- 左から真ん中
         DOTween.Sequence()
-            .Append(image.transform.DOMove(InitValues["看板"]["位置"], 0.5f))
-            .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.5f))
+            .AppendInterval(1.0f)
+            .Append(movie.transform.DOMove(InitValues["動画"]["位置"], 0.5f))
             .Join(tmp.transform.DOMove(InitValues["文字"]["位置"], 0.5f))
             .OnPlay(() => { movie.Play(); })
             .AppendInterval(5.0f)
@@ -83,8 +80,7 @@ public class BoardMove : MonoBehaviour
     public void OutMove()
     {
         DOTween.Sequence()
-            .Append(image.transform.DOMoveX(RIGHT, 0.3f))
-            .Join(movie.transform.DOMoveX(RIGHT, 0.3f))
+            .Append(movie.transform.DOMoveX(RIGHT, 0.3f))
             .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
             .OnComplete(() =>
             {

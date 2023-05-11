@@ -11,6 +11,8 @@ public class SelectButton : MonoBehaviour
     private SceneObject NextScene;
     [SerializeField, Header("看板")]
     private BoardMove board;
+    [SerializeField, Header("遅延時間(秒)")]
+    private float DelayTime;
     [SerializeField, Header("フェード秒数")]
     private float FadeTime;
 
@@ -30,11 +32,11 @@ public class SelectButton : MonoBehaviour
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
 
-        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime);
+        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()); 
-        DOVirtual.DelayedCall (FadeTime, ()=> SceneManager.LoadScene(NextScene));
+        DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()).SetDelay(DelayTime); 
+        DOVirtual.DelayedCall (FadeTime, ()=> SceneManager.LoadScene(NextScene)).SetDelay(DelayTime);
     }
 
     public void MoveSelectScene()
@@ -42,11 +44,11 @@ public class SelectButton : MonoBehaviour
         SelectPlayer = GetComponent<SelectMovePlayer>();
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-        GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, 0.5f);
+        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
         SelectPlayer.InStageMove();
         //- シーンを変える前にBGMを消す
-        DOVirtual.DelayedCall(0.5f, () => bgmManager.DestroyBGMManager());
-        DOVirtual.DelayedCall(0.5f, () => SceneManager.LoadScene(NextScene));
+        DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager()).SetDelay(DelayTime);
+        DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(NextScene)).SetDelay(DelayTime);
     }
 
     public void EndGimmick()

@@ -2371,12 +2371,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1709647994 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3051055468540406191, guid: c9308a3c00b89dd489af48490e5303f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 4100931504084794293}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1785102805
 GameObject:
   m_ObjectHideFlags: 0
@@ -3484,7 +3478,7 @@ PrefabInstance:
         type: 3}
       propertyPath: ActiveObjs.Array.data[4]
       value: 
-      objectReference: {fileID: 1414850881}
+      objectReference: {fileID: 0}
     - target: {fileID: 8527142692286071451, guid: 1fc94a6bdbe105b41a299463e820d900,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3632,6 +3626,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2133008072562821114, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DelayTime
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577022307602934770, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2763797444320818806, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -4001,12 +4005,12 @@ PrefabInstance:
     - target: {fileID: 5290776292445447595, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: MoveTime
-      value: 0.7
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 5290776292445447595, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: DelayTime
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5290776292445447595, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -4053,6 +4057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_enableAutoSizing
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7063148566109148289, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -4147,7 +4156,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Reset
       value: 
-      objectReference: {fileID: 1709647994}
+      objectReference: {fileID: 0}
     - target: {fileID: 6026420782421676312, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
       propertyPath: m_Name

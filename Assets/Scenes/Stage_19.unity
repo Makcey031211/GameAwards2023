@@ -2052,7 +2052,7 @@ PrefabInstance:
         type: 3}
       propertyPath: DrawDescription
       value: 
-      objectReference: {fileID: 1832609133}
+      objectReference: {fileID: 0}
     - target: {fileID: 7428010259182961742, guid: be13f66c3dbafc544880f524a438bb30,
         type: 3}
       propertyPath: m_Name
@@ -3164,6 +3164,21 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[0]
       value: 
       objectReference: {fileID: 150561406}
+    - target: {fileID: 3161383378802035797, guid: 6bebec867d927014a8414a862ed22439,
+        type: 3}
+      propertyPath: ClearDelayTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161383378802035797, guid: 6bebec867d927014a8414a862ed22439,
+        type: 3}
+      propertyPath: RetryDelayTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161383378802035797, guid: 6bebec867d927014a8414a862ed22439,
+        type: 3}
+      propertyPath: SoundDelayTime
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3161383378802035801, guid: 6bebec867d927014a8414a862ed22439,
         type: 3}
       propertyPath: m_RootOrder
@@ -3723,6 +3738,11 @@ PrefabInstance:
       propertyPath: NextScene.m_SceneName
       value: 2_Sato2
       objectReference: {fileID: 0}
+    - target: {fileID: 5706990070701393346, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_text
+      value: "<size=70%>\u5F10\u306E\u91CC\u3000\u7B2C\u7396\u5E55\n<size=120%>\u958B\u5E55"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
 --- !u!1 &1832609129 stripped
@@ -3759,18 +3779,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64e68889e8d3759449d4f90c8a0f1e34, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1832609133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1435455739503144856, guid: c9308a3c00b89dd489af48490e5303f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 1832609128}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98e4e5a75106d314b9c284cd6fa5945b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1917625829
