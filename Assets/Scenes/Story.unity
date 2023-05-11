@@ -313,7 +313,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1557254379}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1517,8 +1517,8 @@ RectTransform:
   - {fileID: 1404849005}
   - {fileID: 627351692}
   - {fileID: 548371648}
-  - {fileID: 271384021}
   - {fileID: 1251658307}
+  - {fileID: 271384021}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1585,6 +1585,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ffa061fc-9906-49e1-82b9-7d5ada9110c7
     m_ActionName: UI/Prev[/XInputControllerWindows/dpad/left,/XInputControllerWindows/leftStick/left,/Keyboard/leftArrow,/Keyboard/a]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1557254375}
+        m_TargetAssemblyTypeName: StoryFlip, Assembly-CSharp
+        m_MethodName: OnEnter
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 896aabb9-d77d-4751-ae95-1e732ec56a36
+    m_ActionName: UI/Enter[/XInputControllerWindows/buttonSouth,/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
