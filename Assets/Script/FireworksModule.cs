@@ -552,7 +552,7 @@ public class FireworksModule : MonoBehaviour
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
-            pos.y += 1.2f;
+            pos.y += 1.6f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
