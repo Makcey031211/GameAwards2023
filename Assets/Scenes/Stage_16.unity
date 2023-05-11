@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 18
   _travelTime: 4
@@ -189,6 +190,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &203653594
@@ -305,7 +307,7 @@ PrefabInstance:
     - target: {fileID: 7171924692625481346, guid: d168ed330550dee44a06096a423e6e13,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 7171924692625481346, guid: d168ed330550dee44a06096a423e6e13,
         type: 3}
@@ -3480,6 +3482,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 20
   _travelTime: 3
@@ -3493,6 +3496,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1599400443
