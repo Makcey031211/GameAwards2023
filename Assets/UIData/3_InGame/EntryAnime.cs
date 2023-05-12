@@ -62,6 +62,8 @@ public class EntryAnime : MonoBehaviour
     /// </summary>
     public void StartMove()
     {
+        if(BoardMove.GetFirstDraw())
+        {   DelayTime = 0.0f;   }
         //- âÊñ ì‡Ç…ìoèÍÇ∑ÇÈ
         switch (Sdirection)
         {
