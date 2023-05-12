@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4294972697848811472}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,6 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _invTime: 1.7
   _ignitionMax: 3
-  _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
@@ -275,6 +274,10 @@ MonoBehaviour:
   _reafColor1: {r: 0, g: 0, b: 0, a: 0}
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
+  _movieObject: {fileID: 0}
+  _synchroTime: 0
+  _boss2barrierObj: {fileID: 0}
+  _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
@@ -516,17 +519,17 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b7da89dd3793bc14fbc39ab8b457da53,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1507767883509144192, guid: b7da89dd3793bc14fbc39ab8b457da53,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5064098994611934989, guid: b7da89dd3793bc14fbc39ab8b457da53,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7da89dd3793bc14fbc39ab8b457da53, type: 3}
@@ -565,7 +568,7 @@ PrefabInstance:
     - target: {fileID: -9140418063927685822, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
@@ -645,17 +648,17 @@ PrefabInstance:
     - target: {fileID: -8485746131218568070, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: -7011664603846440997, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: -2786191892163279427, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
@@ -665,12 +668,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1507767883509144192, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 6053179226023022972, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
@@ -680,7 +683,7 @@ PrefabInstance:
     - target: {fileID: 6998599260759962775, guid: d009a64df9844af46b3c5b6a205dea9a,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d009a64df9844af46b3c5b6a205dea9a, type: 3}
