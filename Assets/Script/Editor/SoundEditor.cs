@@ -10,8 +10,8 @@ public class SoundEditor : Editor
 {
     private SEManager _se;
 
-    //- 初期状態ではインスペクターで展開されていない状態
-    private bool seFoldOut = false;
+    //- 初期状態ではインスペクターで展開されている状態
+    private bool seFoldOut = true;
 
     public override void OnInspectorGUI()
     {
