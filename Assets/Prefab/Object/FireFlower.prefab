@@ -192,18 +192,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 0
-  _particleObject: {fileID: 8890074931926174080, guid: d770596078eb61141999fb153a3202b5,
+  _particleObject: {fileID: 8890074931926174080, guid: 32c0fb4353f02e84293180015a929bbb,
     type: 3}
   _collisionObject: {fileID: 448602364086451437}
   _eyeObject: {fileID: 4628905030701641087, guid: a92f8c8859e279c4589d875f975c2ad3,
     type: 3}
-  _blastAfterTime: 1.8
   _circleComplementNum: 10
   _blastAngle: 0
   _blastDis: 0
   _modelDeleteTime: 1
   _isDrawArea: 1
   _multiBlast: {fileID: 0}
+  _secondAfterTime: 0
+  _barrierObj: {fileID: 0}
+  _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _parentFireObj: {fileID: 0}
+  _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
+  _childFireObj: {fileID: 0}
+  _childFireColor: {r: 0, g: 0, b: 0, a: 0}
+  _blastAfterTime: 1.8
   _firstInvTime: 3
   _invTimeCount: 0
   _blastNum: 2
@@ -212,12 +219,26 @@ MonoBehaviour:
   _animationTime: 0.1
   _animationDelayTime: 0.1
   _boxDisTime: 0.1
+  _invTime: 0
   _ignitionMax: 3
   _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _lowestSpeed: 0
+  _highestSpeed: 0
+  _accelerationTime: 0
+  _decelerationTime: 0
+  _accelerationEase: 0
+  _decelerationEase: 0
+  movedir: {x: 0, y: 0}
+  _yanagiobj: {fileID: 0}
+  _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
+  _reafobj1: {fileID: 0}
+  _reafColor1: {r: 0, g: 0, b: 0, a: 0}
+  _reafobj2: {fileID: 0}
+  _reafColor2: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
