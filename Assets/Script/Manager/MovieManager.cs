@@ -25,6 +25,9 @@ public class MovieManager : MonoBehaviour
     [SerializeField, Header("ぬし花火の動きの補完")]
     private Ease easy;
 
+    [SerializeField, Header("ロードするステージ番号")]
+    private int LoadStageNum;
+
     private SceneChange sceneChange; // コントローラーの振動用
     private bool bPlayMovie = false; // 演出中かどうか
     private ObjectFade fade; // フェード用のスプライト
@@ -54,6 +57,7 @@ public class MovieManager : MonoBehaviour
     {
         StartCoroutine(MovieSequence());
     }
+
     private IEnumerator MovieSequence()
     {
         bPlayMovie = true; //- 演出フラグ変更
@@ -101,7 +105,7 @@ public class MovieManager : MonoBehaviour
     private void LoadMovieScene()
     {
         StageDrawObj.SetActive(false); //- ステージオブジェクトの描画をやめる
-        SceneManager.LoadScene("MovieVillage", LoadSceneMode.Additive); //- 演出用シーンを追加ロード   
+        SceneManager.LoadScene("MovieVillage" + LoadStageNum.ToString(), LoadSceneMode.Additive); //- 演出用シーンを追加ロード   
     }
 
     //- 演出シーンロード後、オブジェクトを入手するための初期化関数
@@ -129,6 +133,6 @@ public class MovieManager : MonoBehaviour
     private void UnloadMovieScene()
     {
         StageDrawObj.SetActive(true); //- ステージオブジェクトの描画を再開
-        SceneManager.UnloadScene("MovieVillage"); //- 演出用シーンのアンロード
+        SceneManager.UnloadScene("MovieVillage" + LoadStageNum.ToString()); //- 演出用シーンのアンロード
     }
 }
