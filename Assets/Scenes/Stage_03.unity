@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -161,6 +162,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &41418640
@@ -548,6 +550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -561,6 +564,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &128507063
@@ -678,6 +682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -691,6 +696,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &246093421 stripped
@@ -718,6 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -731,6 +738,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &248950067
@@ -826,6 +834,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -839,6 +848,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &281849022
@@ -1143,6 +1153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -1156,6 +1167,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &396274838
@@ -1252,6 +1264,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -1265,6 +1278,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &506679874
@@ -1696,6 +1710,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -1709,6 +1724,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &745846481
@@ -1925,6 +1941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -1938,6 +1955,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &769118736
@@ -2334,6 +2352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -2347,6 +2366,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &858757988
@@ -2415,6 +2435,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: brust
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: bossbelt
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: ignition
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: generated
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: reservoir
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5338207312320351806, guid: 564bd6311954e1f45a41580b826e3ee6,
+        type: 3}
+      propertyPath: extinction
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 564bd6311954e1f45a41580b826e3ee6, type: 3}
@@ -2512,6 +2562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -2525,6 +2576,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &927760621
@@ -3029,6 +3081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -3042,6 +3095,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1092062198
@@ -3651,6 +3705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -3664,6 +3719,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1454048348
@@ -4113,6 +4169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4126,6 +4183,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1548873909 stripped
@@ -4153,6 +4211,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4166,6 +4225,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1577382984
@@ -4283,6 +4343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4296,6 +4357,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1717976383 stripped
@@ -4323,6 +4385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4336,6 +4399,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1746225081
@@ -4453,6 +4517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4466,6 +4531,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1792270468
@@ -4568,6 +4634,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4581,6 +4648,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1828673483 stripped
@@ -4608,6 +4676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4621,6 +4690,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1859689515 stripped
@@ -4648,6 +4718,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4661,6 +4732,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &1861200124 stripped
@@ -4688,6 +4760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4701,6 +4774,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1001 &1863941737
@@ -4908,6 +4982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4921,6 +4996,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &2113111691 stripped
@@ -4948,6 +5024,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 1
+  StopMove: 0
   _moveDirection: 0
   _moveDistance: 5
   _travelTime: 1
@@ -4961,6 +5038,7 @@ MonoBehaviour:
   _center: {x: 0, y: 0, z: 0}
   _axis: {x: 0, y: 0, z: 1}
   _radius: 1
+  _startTime: 1
   _periodTime: 2
   _updateRotation: 0
 --- !u!1 &2137774528
