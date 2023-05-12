@@ -223,6 +223,8 @@ public class FireworksModule : MonoBehaviour
     //- 柳花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
+    public float _modelResidueTime; // 柳花火の残留秒数
+    [SerializeField, HideInInspector]
     public GameObject _yanagiobj; // 柳花火用のオブジェクト
     [SerializeField, HideInInspector]
     public Color _yanagiColor;    // 柳花火の色
@@ -235,6 +237,7 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public Color _reafColor2;     // 葉っぱの色2
     //- 外部からの値取得用
+    public float ModelResidueTime => _modelResidueTime;
     public GameObject YanagiObj => _yanagiobj;
     public Color YanagiColor => _yanagiColor;
     public GameObject ReafObj1 => _reafobj1;
@@ -576,8 +579,7 @@ public class FireworksModule : MonoBehaviour
             scenechange.SetStopMissFlag(true);
             DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
             //- 爆発後に削除
-            DOVirtual.DelayedCall(13.0f, () => Destroy(gameObject));
-
+            DOVirtual.DelayedCall(_modelResidueTime, () => transform.GetChild(0).gameObject.SetActive(false));
         }
     }
 
