@@ -1032,8 +1032,8 @@ public class FireworksModule : MonoBehaviour
         {
             //- フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            //scenechange.SetStopClearFlag(true);
-            scenechange.SetStopMissFlag(true);
+            scenechange.SetStopClearFlag(true);
+            //scenechange.SetStopMissFlag(true);
             //- アニメーション処理
             transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
             transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);

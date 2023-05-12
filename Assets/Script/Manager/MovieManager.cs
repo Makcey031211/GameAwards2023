@@ -32,18 +32,27 @@ public class MovieManager : MonoBehaviour
     private bool bPlayMovie = false; // 演出中かどうか
     private ObjectFade fade; // フェード用のスプライト
     private GameObject movieObj; // 演出シーン内のオブジェクト
+    private bool bPlayRequest; //- 演出開始申請 
+    private CountEnemy countEnemy;
 
     void Start()
     {
+        //- カメラの取得
+        GameObject camera = GameObject.Find("Main Camera");
         //- メインカメラからシーン変更スクリプト取得
-        sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+        sceneChange = camera.GetComponent<SceneChange>();
         //- フェード用スクリプトの取得
         fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
+        //- 花火玉をカウントする処理
+        countEnemy = camera.GetComponent<CountEnemy>();
     }
     
     void Update()
     {
-        if (bPlayMovie) sceneChange.ResetCurrentTime(); //- 演出時、クリア演出が出ないようにする
+        // 現在の敵の数を更新
+        int EnemyNum = countEnemy.GetCurrentCountNum();
+        if (bPlayMovie && EnemyNum == 0) sceneChange.ResetCurrentTime(); //- 演出時、クリア演出が出ないようにする
+        if (bPlayRequest) CheckCount(); //- 演出開始申請があれば呼び出される処理
     }
 
     //- 演出フラグを変更する関数
@@ -55,6 +64,17 @@ public class MovieManager : MonoBehaviour
     //- 演出処理を開始する関数
     public void StartVillageMovie()
     {
+        bPlayRequest = true;
+    }
+
+    private void CheckCount()
+    {
+        // 現在の敵の数を更新
+        int EnemyNum = countEnemy.GetCurrentCountNum();
+
+        if (EnemyNum != 0) return; //- 花火玉が残っていればリターン
+        
+        bPlayRequest = false;
         StartCoroutine(MovieSequence());
     }
 
