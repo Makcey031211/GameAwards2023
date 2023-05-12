@@ -6,9 +6,22 @@ using DG.Tweening;
 
 public class CutIn : MonoBehaviour
 {
+    private enum E_BOSS_CUTIN
+    {
+        [Header("第一ヌシ")]
+        StageNo10_Boss,
+        [Header("第二ヌシ")]
+        StageNo20_Boss,
+        [Header("第三ヌシ")]
+        StageNo30_Boss,
+        [Header("第四ヌシ")]
+        StageNo40_Boss,
+    }
+
+    [SerializeField] private E_BOSS_CUTIN Boss = E_BOSS_CUTIN.StageNo10_Boss;
     [SerializeField] private Image BossImg;
     [SerializeField] private Image SmallCrystal;
-    [SerializeField] private Image BiglCrystal;
+    [SerializeField] private Image BigCrystal;
     [SerializeField] private Image TextBack;
     [SerializeField] private TextMeshProUGUI tmp;
 
@@ -24,29 +37,58 @@ public class CutIn : MonoBehaviour
              {{ "大きさ", BossImg.transform.localScale },
              { "位置", BossImg.transform.localPosition }}
         }};
-        InitValues.Add("バリア小",new Dictionary<string, Vector3> {
+        if (SmallCrystal)
+        {
+            InitValues.Add("バリア小", new Dictionary<string, Vector3> {
             { "大きさ", SmallCrystal.transform.localScale },
             { "位置", SmallCrystal.transform.localPosition }});
-        InitValues.Add("バリア大", new Dictionary<string, Vector3> {
-            { "大きさ", BiglCrystal.transform.localScale },
-            { "位置", BiglCrystal.transform.localPosition }});
+        }
+        if (BigCrystal)
+        {
+            InitValues.Add("バリア大", new Dictionary<string, Vector3> {
+            { "大きさ", BigCrystal.transform.localScale },
+            { "位置", BigCrystal.transform.localPosition }});
+        }
 
         //- サイズと位置をアニメーション開始時の値に設定
         BossImg.rectTransform.localScale = Vector3.zero;
         BossImg.rectTransform.localPosition = Vector3.zero;
-        SmallCrystal.rectTransform.localScale = Vector3.zero;
-        SmallCrystal.rectTransform.localPosition = Vector3.zero;
-        SmallCrystal.rectTransform.localRotation = Quaternion.Euler(0, 0, 90.0f);
-        BiglCrystal.rectTransform.localScale = Vector3.zero;
-        BiglCrystal.rectTransform.localRotation = Quaternion.Euler(0, 0, 90.0f);
-        BiglCrystal.rectTransform.localPosition = Vector3.zero;
-        
+        if (SmallCrystal)
+        {
+            SmallCrystal.rectTransform.localScale = Vector3.zero;
+            SmallCrystal.rectTransform.localPosition = Vector3.zero;
+            SmallCrystal.rectTransform.localRotation = Quaternion.Euler(0, 0, 90.0f);
+        }
+        if (BigCrystal)
+        {
+            BigCrystal.rectTransform.localScale = Vector3.zero;
+            BigCrystal.rectTransform.localRotation = Quaternion.Euler(0, 0, 90.0f);
+            BigCrystal.rectTransform.localPosition = Vector3.zero;
+        }
     }
 
     /// <summary>
     /// カットイン挙動を行う
     /// </summary>
     public void MoveCutIn()
+    {
+        switch (Boss)
+        {
+            case E_BOSS_CUTIN.StageNo10_Boss:
+                BossNo10();
+                break;
+            case E_BOSS_CUTIN.StageNo20_Boss:
+                BossNo20();
+                break;
+            case E_BOSS_CUTIN.StageNo30_Boss:
+                break;
+            case E_BOSS_CUTIN.StageNo40_Boss:
+                break;
+        }
+
+    }
+
+    private void BossNo10()
     {
         var DoCutIn = DOTween.Sequence();
         //- 初めのテキストを90度回転させておく
@@ -59,14 +101,15 @@ public class CutIn : MonoBehaviour
             .Append(BossImg.transform.DOScale(InitValues["ボス"]["大きさ"], 0.1f))
             //.OnPlay(() => { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Nushiapp); })
             .Append(SmallCrystal.transform.DOScale(InitValues["バリア小"]["大きさ"], 0.1f))
-            .Append(BiglCrystal.transform.DOScale(InitValues["バリア大"]["大きさ"], 0.1f))
+            .Append(BigCrystal.transform.DOScale(InitValues["バリア大"]["大きさ"], 0.1f))
             .Append(SmallCrystal.transform.DORotate(Vector3.zero, 0.3f))
-            .Append(BiglCrystal.transform.DORotate(Vector3.zero, 0.3f))
+            .Append(BigCrystal.transform.DORotate(Vector3.zero, 0.3f))
             .AppendInterval(0.25f)
             .Append(BossImg.transform.DOMove(InitValues["ボス"]["位置"], 0.5f).SetRelative(true))
             .Join(SmallCrystal.transform.DOMove(InitValues["バリア小"]["位置"], 0.5f).SetRelative(true))
-            .Join(BiglCrystal.transform.DOMove(InitValues["バリア大"]["位置"], 0.5f).SetRelative(true))
-            .OnComplete(()=> {
+            .Join(BigCrystal.transform.DOMove(InitValues["バリア大"]["位置"], 0.5f).SetRelative(true))
+            .OnComplete(() =>
+            {
                 //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp);
                 DOTween.Sequence()
                 .Append(TextBack.DOFillAmount(1.0f, 0.25f));
@@ -82,13 +125,51 @@ public class CutIn : MonoBehaviour
                     .AppendInterval(1.5f)
                     .Append(BossImg.DOFade(0.0f, 0.2f))
                     .Join(SmallCrystal.DOFade(0.0f, 0.2f))
-                    .Join(BiglCrystal.DOFade(0.0f, 0.2f))
+                    .Join(BigCrystal.DOFade(0.0f, 0.2f))
                     .Join(tmp.DOFade(0.0f, 0.2f))
                     .Join(TextBack.DOFade(0.0f, 0.2f))
-                    .OnComplete(() => {   MoveCompleat = true; });
+                    .OnComplete(() => { MoveCompleat = true; });
 
             });
+    }
 
+    private void BossNo20()
+    {
+        var DoCutIn = DOTween.Sequence();
+        //- 初めのテキストを90度回転させておく
+        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(tmp);
+        for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+        { tmpAnimator.DORotateChar(i, Vector3.up * 90, 0); }
+        //- ボス画像のサイズが0から元設置サイズに
+        DoCutIn
+            .AppendInterval(0.5f)
+            .Append(BossImg.transform.DOScale(InitValues["ボス"]["大きさ"], 0.1f))
+            .Append(BigCrystal.transform.DOScale(InitValues["バリア大"]["大きさ"], 0.1f))
+            .Append(BigCrystal.transform.DORotate(Vector3.zero, 0.3f))
+            .AppendInterval(0.25f)
+            .Append(BossImg.transform.DOMove(InitValues["ボス"]["位置"], 0.5f).SetRelative(true))
+            .Join(BigCrystal.transform.DOMove(InitValues["バリア大"]["位置"], 0.5f).SetRelative(true))
+            .OnComplete(() =>
+            {
+                DOTween.Sequence()
+                .Append(TextBack.DOFillAmount(1.0f, 0.25f));
+                for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+                {
+                    DOTween.Sequence()
+                        .Append(tmpAnimator.DORotateChar(i, Vector3.zero, 0.55f));
+                }
+                DoCutIn.Kill();
+
+                var DoOut = DOTween.Sequence();
+                DoOut
+                    .AppendInterval(1.5f)
+                    .Append(BossImg.DOFade(0.0f, 0.2f))
+                    .Join(BigCrystal.DOFade(0.0f, 0.2f))
+                    .Join(tmp.DOFade(0.0f, 0.2f))
+                    .Join(TextBack.DOFade(0.0f, 0.2f))
+                    .OnComplete(() => { MoveCompleat = true; });
+
+            });
     }
 
     /// <summary>
