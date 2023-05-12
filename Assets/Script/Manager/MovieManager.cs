@@ -25,22 +25,34 @@ public class MovieManager : MonoBehaviour
     [SerializeField, Header("ぬし花火の動きの補完")]
     private Ease easy;
 
+    [SerializeField, Header("ロードするステージ番号")]
+    private int LoadStageNum;
+
     private SceneChange sceneChange; // コントローラーの振動用
     private bool bPlayMovie = false; // 演出中かどうか
     private ObjectFade fade; // フェード用のスプライト
     private GameObject movieObj; // 演出シーン内のオブジェクト
+    private bool bPlayRequest; //- 演出開始申請 
+    private CountEnemy countEnemy;
 
     void Start()
     {
+        //- カメラの取得
+        GameObject camera = GameObject.Find("Main Camera");
         //- メインカメラからシーン変更スクリプト取得
-        sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+        sceneChange = camera.GetComponent<SceneChange>();
         //- フェード用スクリプトの取得
         fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
+        //- 花火玉をカウントする処理
+        countEnemy = camera.GetComponent<CountEnemy>();
     }
     
     void Update()
     {
-        if (bPlayMovie) sceneChange.ResetCurrentTime(); //- 演出時、クリア演出が出ないようにする
+        // 現在の敵の数を更新
+        int EnemyNum = countEnemy.GetCurrentCountNum();
+        if (bPlayMovie && EnemyNum == 0) sceneChange.ResetCurrentTime(); //- 演出時、クリア演出が出ないようにする
+        if (bPlayRequest) CheckCount(); //- 演出開始申請があれば呼び出される処理
     }
 
     //- 演出フラグを変更する関数
@@ -52,8 +64,20 @@ public class MovieManager : MonoBehaviour
     //- 演出処理を開始する関数
     public void StartVillageMovie()
     {
+        bPlayRequest = true;
+    }
+
+    private void CheckCount()
+    {
+        // 現在の敵の数を更新
+        int EnemyNum = countEnemy.GetCurrentCountNum();
+
+        if (EnemyNum != 0) return; //- 花火玉が残っていればリターン
+        
+        bPlayRequest = false;
         StartCoroutine(MovieSequence());
     }
+
     private IEnumerator MovieSequence()
     {
         bPlayMovie = true; //- 演出フラグ変更
@@ -101,7 +125,7 @@ public class MovieManager : MonoBehaviour
     private void LoadMovieScene()
     {
         StageDrawObj.SetActive(false); //- ステージオブジェクトの描画をやめる
-        SceneManager.LoadScene("MovieVillage", LoadSceneMode.Additive); //- 演出用シーンを追加ロード   
+        SceneManager.LoadScene("MovieVillage" + LoadStageNum.ToString(), LoadSceneMode.Additive); //- 演出用シーンを追加ロード   
     }
 
     //- 演出シーンロード後、オブジェクトを入手するための初期化関数
@@ -129,6 +153,6 @@ public class MovieManager : MonoBehaviour
     private void UnloadMovieScene()
     {
         StageDrawObj.SetActive(true); //- ステージオブジェクトの描画を再開
-        SceneManager.UnloadScene("MovieVillage"); //- 演出用シーンのアンロード
+        SceneManager.UnloadScene("MovieVillage" + LoadStageNum.ToString()); //- 演出用シーンのアンロード
     }
 }
