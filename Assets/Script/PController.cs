@@ -131,7 +131,7 @@ public class PController : MonoBehaviour
         isGroundedPrev = isGrounded;
 
 
-        if(isOnce)
+        if(isOnce || fireworks.IsExploded)
         { inputMove = Vector2.zero; }
 
         // 操作入力と鉛直方向速度から、現在速度を計算
