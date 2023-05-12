@@ -171,6 +171,22 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    public void AllClearSaveData()
+    {
+        FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
+        //- テキストを書き込む
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
+        {
+            //- ステージ分初期化する
+            for (int i = 0; i < STAGE_NUM; i++)
+            {
+                stageflag[i] = true;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
+            }
+        }
+    }
+
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR
     //- Inspector拡張クラス
@@ -189,6 +205,12 @@ public class SaveManager : MonoBehaviour
                 save.ResetSaveData();
                 Debug.Log("[UI]DataReset");
                 
+            }
+            if(GUILayout.Button("全クリア"))
+            {
+                save = new SaveManager();
+                save.AllClearSaveData();
+                Debug.Log("[UI]AllClear");
             }
         }
     }
