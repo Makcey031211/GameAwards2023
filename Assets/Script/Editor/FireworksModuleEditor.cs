@@ -75,6 +75,7 @@ public class FireworksModuleEditor : Editor {
             _target._decelerationEase = (Easing.EaseType)EditorGUILayout.EnumPopup("減速時の補完タイプ", _target.DecelerationEase);
             break;
         case FireworksModule.FireworksType.Yanagi:
+            _target._modelResidueTime = EditorGUILayout.FloatField("モデル残留時間", _target.ModelResidueTime);
             EditorGUILayout.LabelField("--- 色関連 ---");
             _target._yanagiobj   = (GameObject)EditorGUILayout.ObjectField("柳花火用のオブジェクト", _target.YanagiObj, typeof(GameObject),true);
             _target._yanagiColor = EditorGUILayout.ColorField("柳花火の色", _target.YanagiColor);
