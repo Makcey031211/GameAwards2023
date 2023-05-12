@@ -93,14 +93,9 @@ public class BoardMove : MonoBehaviour
     }
 
     public static bool GetFirstDraw()
-    {
-        Debug.Log("Get" + MoveComplete);
-        return MoveComplete; }
+    {   return MoveComplete;    }
 
     public static void SetFirstDraw(bool flag)
-    {
-        MoveComplete = flag;
-        Debug.Log("Set" + MoveComplete);
-    }
+    {   MoveComplete = flag;    }
 }
 
