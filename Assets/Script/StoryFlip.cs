@@ -37,7 +37,7 @@ public class StoryFlip : MonoBehaviour
         // ----- オブジェクト・コンポーネントの取得、初期設定
         // シーン遷移ボタン用
         enterButton = GameObject.Find("EnterButton");
-        enterButton.SetActive(false);
+        //enterButton.SetActive(false);
         // フェード
         fade = GameObject.Find("FadeImage").GetComponent<Image>();
         fade.DOFade(0.0f, 1.0f);        // シーン開始時にフェードインする
@@ -61,13 +61,13 @@ public class StoryFlip : MonoBehaviour
     private void Update()
     {
         // ----- シーン遷移ボタンイラストの有効・無効切り替え
-        if (NowFlipNum >= flips.Length - 1 && !isFlip && !enterButton.activeInHierarchy)
+        if (NowFlipNum >= flips.Length - 1 && !isFlip)
         { // 最後のイラストに移り変わった上で、イラストが有効になっていないとき
-            enterButton.SetActive(true);
+            //enterButton.SetActive(true);
         }
         else if (NowFlipNum < flips.Length - 1)
         { // 最後のイラスト以外のとき
-            enterButton.SetActive(false);
+            //enterButton.SetActive(false);
         }
     }
 
