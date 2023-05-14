@@ -31,7 +31,12 @@ public class SelectButton : MonoBehaviour
     {
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-        BoardMove.SetFirstDraw(false);
+
+        //- 演出の描画フラグをリセット
+        CutIn.ResetMoveComplete();
+        BoardMove.ResetMoveComplete();
+        OpeningAnime.ResetMoveComplete();
+        
         DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
@@ -41,6 +46,11 @@ public class SelectButton : MonoBehaviour
 
     public void MoveSelectScene()
     {
+        //- 演出の描画フラグをリセット
+        CutIn.ResetMoveComplete();
+        BoardMove.ResetMoveComplete();
+        OpeningAnime.ResetMoveComplete();
+
         SelectPlayer = GetComponent<SelectMovePlayer>();
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
