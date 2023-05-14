@@ -21,6 +21,7 @@ public class SelectButton : MonoBehaviour
     BGMManager bgmManager;
     private ButtonAnime button;
     private SelectMovePlayer SelectPlayer;
+    private bool Load = false;
     void Start()
     {
         button = GetComponent<ButtonAnime>();
@@ -29,14 +30,17 @@ public class SelectButton : MonoBehaviour
     
     public void MoveScene()
     {
+        if(Load)
+        { return; }
+
+        Load = true;
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-
         //- 演出の描画フラグをリセット
-        CutIn.ResetMoveComplete();
-        BoardMove.ResetMoveComplete();
-        OpeningAnime.ResetMoveComplete();
-        
+        if (CutIn.MoveCompleat) { CutIn.ResetMoveComplete(); }
+        if (BoardMove.MoveComplete) { BoardMove.ResetMoveComplete(); }
+        if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
+
         DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
@@ -46,10 +50,16 @@ public class SelectButton : MonoBehaviour
 
     public void MoveSelectScene()
     {
+
+        if (Load)
+        { return; }
+
+        Load = true;
+
         //- 演出の描画フラグをリセット
-        CutIn.ResetMoveComplete();
-        BoardMove.ResetMoveComplete();
-        OpeningAnime.ResetMoveComplete();
+        if (CutIn.MoveCompleat) { CutIn.ResetMoveComplete(); }
+        if (BoardMove.MoveComplete) { BoardMove.ResetMoveComplete(); }
+        if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
 
         SelectPlayer = GetComponent<SelectMovePlayer>();
         //- クリック音再生
