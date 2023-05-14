@@ -69,9 +69,7 @@ public class FireworksModuleEditor : Editor {
         case FireworksModule.FireworksType.Dragonfly:
             _target._lowestSpeed =  EditorGUILayout.FloatField("最低速度", _target.LowestSpeed);
             _target._highestSpeed = EditorGUILayout.FloatField("最高速度", _target.HighestSpeed);
-            _target._accelerationTime = EditorGUILayout.FloatField("加速時間", _target.AccelerationTime);
             _target._decelerationTime = EditorGUILayout.FloatField("減速時間", _target.DecelerationTime);
-            _target._accelerationEase = (Easing.EaseType)EditorGUILayout.EnumPopup("加速時の補完タイプ", _target.AccelerationEase);
             _target._decelerationEase = (Easing.EaseType)EditorGUILayout.EnumPopup("減速時の補完タイプ", _target.DecelerationEase);
             break;
         case FireworksModule.FireworksType.Yanagi:
