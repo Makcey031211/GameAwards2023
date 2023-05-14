@@ -27,7 +27,9 @@ public class FireworksModule : MonoBehaviour
         public Vector3 objpoint;
         public float hitcount = 0;
     }
-    CHitInfo HitInfo;
+    //- インスペクター側から非表示にする
+    [SerializeField, Header("花火の種類")]
+    public CHitInfo HitInfo;
 
     //- 共通の項目
     //-- インスペクターに表示
@@ -907,17 +909,11 @@ public class FireworksModule : MonoBehaviour
         Vector2 movespeed = new Vector2(0, 0);
         //- 時間経過
         CountTime += Time.deltaTime;
-        if (CountTime < _accelerationTime)
+        if (CountTime < _decelerationTime)
         {
             //- 移動量の変更
-            movespeed.x = movedir.x * Easing.EasingFunc(_accelerationEase, _lowestSpeed, _highestSpeed, _accelerationTime, CountTime);
-            movespeed.y = movedir.y * Easing.EasingFunc(_accelerationEase, _lowestSpeed, _highestSpeed, _accelerationTime, CountTime);
-        }
-        else if (CountTime < _accelerationTime + _decelerationTime)
-        {
-            //- 移動量の変更
-            movespeed.x = movedir.x * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime - _accelerationTime);
-            movespeed.y = movedir.y * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime - _accelerationTime);
+            movespeed.x = movedir.x * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime);
+            movespeed.y = movedir.y * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime);
         }
         else
         {
@@ -936,6 +932,8 @@ public class FireworksModule : MonoBehaviour
         Vector3 rot = transform.localEulerAngles;
         rot.z -= movespeed.magnitude * 40;
         transform.localEulerAngles = rot;
+
+        Debug.DrawRay(transform.position, movespeed * 100, Color.red);
     }
 
     //- 遅れて起爆するクラッカーの関数
@@ -947,6 +945,12 @@ public class FireworksModule : MonoBehaviour
         if (!obj) yield break;
         //- FireworksModuleの取得
         FireworksModule module = obj.gameObject.GetComponent<FireworksModule>();
+
+        //- 起爆済みのトンボ花火だった場合、破壊フラグを変更
+        if (module.Type == FireworksModule.FireworksType.Dragonfly && module.IsExploded == true) {
+            obj.GetComponent<IgnitionCollision>().IsDestroy = true;
+        }
+
         //- 花火タイプによって処理を分岐
         if (module.Type == FireworksModule.FireworksType.Boss)
             obj.GetComponent<FireworksModule>().IgnitionBoss(obj.gameObject);

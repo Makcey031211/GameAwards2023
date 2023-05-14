@@ -69,7 +69,6 @@ public class DetonationCollision : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "Fireworks") return;              // 当たったオブジェクトのタグが「花火] 以外ならリターン
-        if (other.GetComponent<FireworksModule>().IsExploded) return; // 花火がすでに爆発済みならリターン
 
         CheckHitRayStage(other.gameObject);
     }
