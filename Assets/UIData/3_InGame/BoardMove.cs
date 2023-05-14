@@ -85,8 +85,12 @@ public class BoardMove : MonoBehaviour
             .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
             .OnComplete(() =>
             {
+                movie.Stop();
                 MoveComplete = true;
-                Destroy(gameObject);
+                //- èâä˙à íuçXêV
+                img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
+                movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
+                tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
             });
     }
 
