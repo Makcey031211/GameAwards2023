@@ -88,14 +88,12 @@ public class BoardMove : MonoBehaviour
                 MoveComplete = true;
                 Destroy(gameObject);
             });
-        //- プレイヤーを操作可能に変更
-        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
     }
 
-    public static bool GetFirstDraw()
-    {   return MoveComplete;    }
-
-    public static void SetFirstDraw(bool flag)
-    {   MoveComplete = flag;    }
+    /// <summary>
+    ///  描画フラグをリセットする
+    /// </summary>
+    public static void ResetMoveComplete()
+    {   MoveComplete = false;    }
 }
 

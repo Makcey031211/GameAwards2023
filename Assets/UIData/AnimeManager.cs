@@ -18,15 +18,14 @@ public class AnimeManager : MonoBehaviour
     /*　変数宣言部　*/
     [SerializeField] private EntryAnime DrawSelect;
     [SerializeField] private EntryAnime DrawReset;
-    [SerializeField] private EntryAnime DrawTips;
     [SerializeField] private OpeningAnime DrawOpening;
     [SerializeField] private CutIn DrawBossCutIn;
     [SerializeField] private BoardMove DrawGimmickBoard;
 
     private Dictionary<string, bool> ControlFlag;
-    private bool BoardMoveCompleat = false;
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
+    private bool Load = false;
 
     private void Awake()
     {
@@ -35,7 +34,6 @@ public class AnimeManager : MonoBehaviour
                     {
                         { "セレクト", false },
                         { "リセット", false },
-                        { "チップス", false },
                         { "通常開幕", false },
                         { "ギミック看板", false },
                         { "ボス演出", false },
@@ -43,7 +41,6 @@ public class AnimeManager : MonoBehaviour
        //- オブジェクトが存在したらフラグ変更
         if (DrawSelect)         { ControlFlag["セレクト"] = true;}
         if (DrawReset)          { ControlFlag["リセット"] = true;}
-        if (DrawTips)           { ControlFlag["チップス"] = true;}
         if (DrawOpening)        { ControlFlag["通常開幕"] = true;}
         if (DrawGimmickBoard)   { ControlFlag["ギミック看板"] = true;}
         if (DrawBossCutIn)      { ControlFlag["ボス演出"] = true;}
@@ -51,41 +48,79 @@ public class AnimeManager : MonoBehaviour
 
     private void Start()
     {
-        if (ControlFlag["通常開幕"])
-        { DrawOpening.MoveDescription();  }
-        else if(ControlFlag["ボス演出"])
-        {   DrawBossCutIn.MoveCutIn();  }
+        //- ギミック演出がある、初めて描画するか
+        if(ControlFlag["ギミック看板"] && !BoardMove.MoveComplete)
+        { DrawGimmickBoard.StartMove(); }
+        //- 通常開幕がある、初めて描画するか
+        else if (ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
+        { DrawOpening.StartMove();  }
     }
 
     void Update()
     {
-        //- 通常演出がある、通常演出が終了している、以下の分岐を実行していない
-        if(ControlFlag["通常開幕"] && DrawOpening.GetMoveComplete() && !BoardMoveCompleat) 
+        if(CutIn.MoveCompleat && !InMoveCompleat)
+        { InGameDrawObjs(); InMoveCompleat = true; }
+
+
+        //- ボス演出が存在する
+        if (ControlFlag["ボス演出"] && !InMoveCompleat)
         {
-            if (ControlFlag["セレクト"]) { DrawSelect.StartMove();}
-            if (ControlFlag["リセット"]) { DrawReset.StartMove();}
-            if (ControlFlag["ギミック看板"] && !BoardMove.GetFirstDraw()) { DrawGimmickBoard.StartMove(); }
-            else { GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false); }
-            BoardMoveCompleat = true;
+            //- ギミック看板の処理が完了していたら処理
+            if (BoardMove.MoveComplete)
+            {
+                //- ボス演出を行っていないなら処理
+                if (!CutIn.MoveCompleat && !Load)
+                {
+                    DrawBossCutIn.MoveCutIn();
+                    Load = true;
+                }
+                //- ボス演出を行っていたらボタンアシストを表示する
+                else if(CutIn.MoveCompleat && Load)
+                { InGameDrawObjs(); }
+            }
         }
-        //- ボス演出がある、通常演出が終了している、以下の分岐を実行していない
-        else if (ControlFlag["ボス演出"] && DrawBossCutIn.GetMoveComplete() && !InMoveCompleat)
+        //- 通常開幕を表示していない
+        else if(ControlFlag["ギミック看板"] && !InMoveCompleat)
         {
-            if (ControlFlag["チップス"]) { DrawTips.StartMove(); }
-            if (ControlFlag["セレクト"]) { DrawSelect.StartMove(); }
-            if (ControlFlag["リセット"]) { DrawReset.StartMove(); }
-            if (ControlFlag["ギミック看板"] && !BoardMove.GetFirstDraw()) { DrawGimmickBoard.StartMove(); }
-            else { GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false); }
-            InMoveCompleat = true;
+            //- ギミック処理を行ったら処理
+            if (BoardMove.MoveComplete && !OpeningAnime.MoveCompleat)
+            { DrawOpening.StartMove(); }
+            //- 通常開幕が終了したらボタンアシストを表示
+            if(OpeningAnime.MoveCompleat)
+            { InGameDrawObjs(); }
         }
+        //- ボス演出もギミック看板もない場合
+        else if(!ControlFlag["ボス演出"] && !ControlFlag["ギミック看板"] &&!InMoveCompleat)
+        {
+            //- 通常開幕を行う
+            if(ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
+            { DrawOpening.StartMove(); }
+            //- ボタンアシストを表示
+            else if(OpeningAnime.MoveCompleat)
+            { InGameDrawObjs(); }
+        }
+        
+        
         
         //- クリアした、撤退挙動をしていない
         if (SceneChange.bIsChange && !OutMoveCompleat)
         {
-            if (ControlFlag["チップス"]) { DrawTips.OutMove(); }
             if (ControlFlag["セレクト"]) { DrawSelect.OutMove(); }
             if (ControlFlag["リセット"]) { DrawReset.OutMove(); }
             OutMoveCompleat = true;
         }
     }
+
+    /// <summary>
+    /// ボタンアシストを表示する
+    /// </summary>
+    private void InGameDrawObjs()
+    {
+        if (ControlFlag["セレクト"]) { DrawSelect.StartMove(); }
+        if (ControlFlag["リセット"]) { DrawReset.StartMove(); }
+        //- プレイヤーを動作可能にする
+        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+        InMoveCompleat = true;
+    }
 }
+
