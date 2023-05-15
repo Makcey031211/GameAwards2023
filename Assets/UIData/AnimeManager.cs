@@ -8,6 +8,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using DG.Tweening;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -19,9 +20,12 @@ public class AnimeManager : MonoBehaviour
     /*　変数宣言部　*/
     [SerializeField] private EntryAnime DrawSelect;
     [SerializeField] private EntryAnime DrawReset;
+    [SerializeField] private EntryAnime DrawTips;
     [SerializeField] private OpeningAnime DrawOpening;
     [SerializeField] private CutIn DrawBossCutIn;
     [SerializeField] private BoardMove DrawGimmickBoard;
+
+    [SerializeField] private float OptionTime = 0.0f;
 
     private Dictionary<string, bool> ControlFlag;
     private bool InMoveCompleat = false;
@@ -31,6 +35,8 @@ public class AnimeManager : MonoBehaviour
     private bool TipsOutLoad = false;
     private InputAction tipsAction;
     private PController player;
+    private Image imageTips;
+    private float PushButton = 0.0f;
     private void Awake()
     {
         //- アニメ管理するオブジェクトフラグ初期化
@@ -38,6 +44,7 @@ public class AnimeManager : MonoBehaviour
                     {
                         { "セレクト", false },
                         { "リセット", false },
+                        { "ギミック表示",false },
                         { "通常開幕", false },
                         { "ギミック看板", false },
                         { "ボス演出", false },
@@ -45,21 +52,31 @@ public class AnimeManager : MonoBehaviour
         //- オブジェクトが存在したらフラグ変更
         if (DrawSelect) { ControlFlag["セレクト"] = true; }
         if (DrawReset) { ControlFlag["リセット"] = true; }
+        if (DrawTips) { ControlFlag["ギミック表示"] = true; }
         if (DrawOpening) { ControlFlag["通常開幕"] = true; }
         if (DrawGimmickBoard) { ControlFlag["ギミック看板"] = true; }
         if (DrawBossCutIn) { ControlFlag["ボス演出"] = true; }
 
         player = GameObject.Find("Player").GetComponent<PController>();
+        if (ControlFlag["ギミック表示"])
+        {   imageTips = GameObject.Find("DrawTipsGage").GetComponent<Image>();  }
     }
 
     private void Start()
     {
         //- ギミック演出がある、初めて描画するか
         if (ControlFlag["ギミック看板"] && !BoardMove.MoveComplete)
-        { DrawGimmickBoard.StartMove(); }
+        {
+            DrawGimmickBoard.StartMove();
+        }
         //- 通常開幕がある、初めて描画するか
         else if (ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
         { DrawOpening.StartMove(); }
+        if(CutIn.MoveCompleat || OpeningAnime.MoveCompleat)
+        {
+            //- プレイヤーを動作可能にする
+            GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+        }
     }
 
     void Update()
@@ -133,10 +150,19 @@ public class AnimeManager : MonoBehaviour
         }
         //- 再撤退
         //Tipsがある、自爆していない、通常開幕かボス演出を行っている
-        if(ControlFlag["ギミック看板"] && !PlayerBoom && DrawGimmickBoard.GetOutMove() && !TipsOutLoad)
+        if(ControlFlag["ギミック看板"] && !PlayerBoom && !TipsOutLoad )
         {
-
-            if(DrawGimmickBoard.GetInMoveComplet())
+            if (DrawGimmickBoard.GetInMoveComplet() && DrawGimmickBoard.GetOutMove())
+            {
+                PushButton += Time.deltaTime;
+                imageTips.fillAmount = PushButton / OptionTime;
+            }
+            else if(!DrawGimmickBoard.GetOutMove())
+            {
+                PushButton = 0.0f;
+                imageTips.fillAmount = 0.0f;
+            }
+            if(PushButton >= OptionTime)
             {
                 TipsOutLoad = true;
                 DrawGimmickBoard.OutMove();
@@ -154,6 +180,7 @@ public class AnimeManager : MonoBehaviour
         {
             if (ControlFlag["セレクト"]) { DrawSelect.OutMove(); }
             if (ControlFlag["リセット"]) { DrawReset.OutMove(); }
+            if (ControlFlag["ギミック表示"]) { DrawTips.OutMove(); }
             OutMoveCompleat = true;
         }
     }
@@ -165,8 +192,7 @@ public class AnimeManager : MonoBehaviour
     {
         if (ControlFlag["セレクト"]) { DrawSelect.StartMove(); }
         if (ControlFlag["リセット"]) { DrawReset.StartMove(); }
-        //- プレイヤーを動作可能にする
-        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+        if (ControlFlag["ギミック表示"]) { DrawTips.StartMove(); }
         InMoveCompleat = true;
     }
 }

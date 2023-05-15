@@ -199,6 +199,13 @@ public class PController : MonoBehaviour
     }
 
     /// <summary>
+    /// プレイヤーが待機状態か返却する
+    /// </summary>
+    /// <returns>bool:待機状態</returns>
+    public bool GetWaitFlag()
+    { return bIsWait; }
+
+    /// <summary>
     /// 自爆済か取得する
     /// </summary>
     /// <returns> bool:自爆 </returns>
