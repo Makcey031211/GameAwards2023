@@ -431,9 +431,13 @@ public class FireworksModule : MonoBehaviour
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
 
-        InGS.OutMove();
-        InGR.OutMove();
-        Tips.OutMove();
+
+        GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+        GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+        GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+        //InGS.OutMove();
+        //InGR.OutMove();
+        //Tips.OutMove();
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
         scenechange.SetStopClearFlag(true);
@@ -1041,6 +1045,10 @@ public class FireworksModule : MonoBehaviour
         //- 猶予時間内に引火したら実行する処理
         if (HitInfo.hitcount >= 2)
         {
+            GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+
             //- フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.SetStopClearFlag(true);

@@ -62,9 +62,9 @@ public class BoardMove : MonoBehaviour
         InitValues.Add("文字", new Dictionary<string, Vector3> { { "位置", tmp.transform.position } });
         InitValues.Add("背景", new Dictionary<string, Vector3> { { "位置", img.transform.position } });
         //- 初期位置更新
-        img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
-        movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
-        tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
+        img.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, img.transform.localPosition.y);
+        movie.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, movie.transform.localPosition.y);
+        tmp.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, tmp.transform.localPosition.y);
         //- 動画停止
         movie.Pause();
     }
@@ -90,7 +90,7 @@ public class BoardMove : MonoBehaviour
             var InAnime = DOTween.Sequence();
             InAnime.AppendInterval(IntervalTime)
             .Append(img.transform.DOMove(InitValues["背景"]["位置"], 0.5f))
-            .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.5f))
+            .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.525f))
             .Join(tmp.transform.DOMove(InitValues["文字"]["位置"], 0.5f))
             .OnComplete(() => {
                 InComplete = true;
@@ -115,7 +115,7 @@ public class BoardMove : MonoBehaviour
             Inloaded = false;
             fReOutMove = true;
             InComplete = false;
-            movie.Pause();
+            movie.Stop();
 
             var OutAnime = DOTween.Sequence();
                 OutAnime.Append(movie.transform.DOMoveX(RIGHT, 0.3f))
@@ -182,9 +182,9 @@ public class BoardMove : MonoBehaviour
     {
         //- Tips再撤退フラグをオンにする
         if (context.started && !SceneChange.bIsChange)
-        {
-            Debug.Log("a");
-            fReOutMove = true;}
+        {   fReOutMove = true;  }
+        if(context.canceled && !SceneChange.bIsChange)
+        {   fReOutMove = false; }
         
     }
 
