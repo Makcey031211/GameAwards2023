@@ -903,6 +903,9 @@ public class FireworksModule : MonoBehaviour
             movedir.Normalize();
             //- フラグの変更
             bIsInit = true;
+            //- 失敗判定フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.SetStopMissFlag(true); //- 失敗判定を一時停止
         }
 
         //- 変数用意
@@ -917,7 +920,11 @@ public class FireworksModule : MonoBehaviour
         }
         else
         {
-            //Destroy(gameObject);
+            //- 失敗判定フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.SetStopMissFlag(false); //- 失敗判定を再開
+            //- 自身を破壊
+            Destroy(gameObject);
         }
 
         //- トンボ花火の座標を取得
@@ -932,8 +939,6 @@ public class FireworksModule : MonoBehaviour
         Vector3 rot = transform.localEulerAngles;
         rot.z -= movespeed.magnitude * 40;
         transform.localEulerAngles = rot;
-
-        Debug.DrawRay(transform.position, movespeed * 100, Color.red);
     }
 
     //- 遅れて起爆するクラッカーの関数
