@@ -197,5 +197,11 @@ public class PController : MonoBehaviour
         //- ‘Ò‹@ƒtƒ‰ƒOØ‚è‘Ö‚¦
         bIsWait = Flag;
     }
+
+    /// <summary>
+    /// ©”šÏ‚©æ“¾‚·‚é
+    /// </summary>
+    /// <returns> bool:©”š </returns>
+    public bool GetIsOnce() { return isOnce; }
 }
 
