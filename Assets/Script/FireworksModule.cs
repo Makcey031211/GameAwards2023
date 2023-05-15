@@ -440,8 +440,8 @@ public class FireworksModule : MonoBehaviour
         //Tips.OutMove();
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-        scenechange.SetStopClearFlag(true);
-        scenechange.SetStopMissFlag(true);
+        scenechange.RequestStopClear(true);
+        scenechange.RequestStopMiss(true);
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
@@ -582,8 +582,8 @@ public class FireworksModule : MonoBehaviour
 
             //- 失敗判定にならないように設定、花火が消えきったら失敗判定を復活
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopMissFlag(true);
-            DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
+            scenechange.RequestStopMiss(true);
+            DOVirtual.DelayedCall(15.0f, () => scenechange.RequestStopMiss(false));
             //- 爆発後に削除
             DOVirtual.DelayedCall(_modelResidueTime, () => transform.GetChild(0).gameObject.SetActive(false));
         }
@@ -909,7 +909,7 @@ public class FireworksModule : MonoBehaviour
             bIsInit = true;
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopMissFlag(true); //- 失敗判定を一時停止
+            scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
         }
 
         //- 変数用意
@@ -926,7 +926,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopMissFlag(false); //- 失敗判定を再開
+            scenechange.RequestStopMiss(false); //- 失敗判定を再開
             //- 自身を破壊
             Destroy(gameObject);
         }
@@ -1051,8 +1051,7 @@ public class FireworksModule : MonoBehaviour
 
             //- フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopClearFlag(true);
-            //scenechange.SetStopMissFlag(true);
+            scenechange.RequestStopClear(true);
             //- アニメーション処理
             transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
             transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);

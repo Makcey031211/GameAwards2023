@@ -105,6 +105,8 @@ public class DragonflyRayCheck : MonoBehaviour
             IsHitPlayerBlock = false;
             //- ‹L‰¯‚µ‚Ä‚½ˆÚ“®•ûŒü‚ð•œŠˆ‚³‚¹‚é
             module.movedir = SaveMoveDir;
+            //- •ûŒü‚ÌƒŠƒZƒbƒg
+            HitDirPlayerBlock = -1;
         }
     }
     void OnTriggerEnter(Collider collider)
@@ -170,9 +172,9 @@ public class DragonflyRayCheck : MonoBehaviour
         //- ‰E•ûŒü & ƒgƒ“ƒ{‰Ô‰Î‚ª‰E‚ÉˆÚ“®’†‚È‚çŽÀs
         if (dirnum == 1 && module.movedir.x > 0)
         {
-            //- c•ûŒü‚ÌˆÚ“®‚ðÁ‚·
-            module.movedir.y = 0;
-            //- ‰¡•ûŒü‚ÌˆÚ“®‘¬“x‚ðL‚Î‚·
+            //- ‰¡•ûŒü‚ÌˆÚ“®‚ðÁ‚·
+            module.movedir.x = 0;
+            //- c•ûŒü‚ÌˆÚ“®‘¬“x‚ðL‚Î‚·
             if (module.movedir.y >  0) module.movedir.y = 1;
             if (module.movedir.y <= 0) module.movedir.y = -1;
             //- ÚG•ûŒü‚Ì•Û‘¶
@@ -192,9 +194,9 @@ public class DragonflyRayCheck : MonoBehaviour
         //- ¶•ûŒü & ƒgƒ“ƒ{‰Ô‰Î‚ª¶‚ÉˆÚ“®’†‚È‚çŽÀs
         if (dirnum == 3 && module.movedir.x < 0)
         {
-            //- c•ûŒü‚ÌˆÚ“®‚ðÁ‚·
-            module.movedir.y = 0;
-            //- ‰¡•ûŒü‚ÌˆÚ“®‘¬“x‚ðL‚Î‚·
+            //- ‰¡•ûŒü‚ÌˆÚ“®‚ðÁ‚·
+            module.movedir.x = 0;
+            //- c•ûŒü‚ÌˆÚ“®‘¬“x‚ðL‚Î‚·
             if (module.movedir.y >  0) module.movedir.y = 1;
             if (module.movedir.y <= 0) module.movedir.y = -1;
             //- ÚG•ûŒü‚Ì•Û‘¶
