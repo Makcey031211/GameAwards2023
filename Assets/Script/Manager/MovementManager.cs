@@ -410,4 +410,9 @@ public class MovementManager : MonoBehaviour
         //- Œ»İ‚Ì‰ñ“]Šp“x‚ğXV‚·‚é
         currentTime += Time.deltaTime;
     }
+
+    public void SetStopFrag(bool moveFlag)
+    {
+        StopMove = moveFlag;
+    }
 }

@@ -41,7 +41,9 @@ public class BoardMove : MonoBehaviour
     [SerializeField] private TextMeshProUGUI tmp;
     [SerializeField] private float DeleyTime = 0.0f;
     private Dictionary<string, Dictionary<string, Vector3>> InitValues;
+    private bool Drawing = false;
     public static bool MoveComplete = false;
+
     //private PController pCnt;
     private void Awake()
     {
@@ -63,15 +65,19 @@ public class BoardMove : MonoBehaviour
     /// </summary>
     public void StartMove()
     {
-        //- ¶‚©‚ç^‚ñ’†
-        DOTween.Sequence()
-            .AppendInterval(1.0f)
-            .Append(img.transform.DOMove(InitValues["”wŒi"]["ˆÊ’u"], 0.5f))
-            .Join(movie.transform.DOMove(InitValues["“®‰æ"]["ˆÊ’u"], 0.5f))
-            .Join(tmp.transform.DOMove(InitValues["•¶Žš"]["ˆÊ’u"], 0.5f))
-            .OnPlay(() => { movie.Play(); })
-            .AppendInterval(DeleyTime)
-            .OnComplete(() => { OutMove(); });
+        if(!Drawing)
+        {
+            Drawing = true;
+            //- ¶‚©‚ç^‚ñ’†
+            DOTween.Sequence()
+                .AppendInterval(1.0f)
+                .Append(img.transform.DOMove(InitValues["”wŒi"]["ˆÊ’u"], 0.5f))
+                .Join(movie.transform.DOMove(InitValues["“®‰æ"]["ˆÊ’u"], 0.5f))
+                .Join(tmp.transform.DOMove(InitValues["•¶Žš"]["ˆÊ’u"], 0.5f))
+                .OnPlay(() => { movie.Play(); })
+                .AppendInterval(DeleyTime)
+                .OnComplete(() => { OutMove(); });
+        }
     }
 
     /// <summary>
@@ -91,6 +97,7 @@ public class BoardMove : MonoBehaviour
                 img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
                 movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
                 tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
+                Drawing = false;
             });
     }
 

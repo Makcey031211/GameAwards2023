@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7161690513175085057}
   - component: {fileID: 2156135512242230295}
   - component: {fileID: 7397865706095209846}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: Collision
   m_TagString: ExplodeCollision
   m_Icon: {fileID: 0}
@@ -221,7 +221,6 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _invTime: 0
   _ignitionMax: 3
-  _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
@@ -233,12 +232,17 @@ MonoBehaviour:
   _accelerationEase: 0
   _decelerationEase: 0
   movedir: {x: 0, y: 0}
+  _modelResidueTime: 0
   _yanagiobj: {fileID: 0}
   _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
   _reafobj1: {fileID: 0}
   _reafColor1: {r: 0, g: 0, b: 0, a: 0}
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
+  _movieObject: {fileID: 0}
+  _synchroTime: 0
+  _boss2barrierObj: {fileID: 0}
+  _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}

@@ -7,6 +7,7 @@
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using DG.Tweening;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -26,7 +27,8 @@ public class AnimeManager : MonoBehaviour
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
     private bool Load = false;
-
+    private bool TipsLoad = false;
+    private InputAction tipsAction;
     private void Awake()
     {
         //- アニメ管理するオブジェクトフラグ初期化
@@ -38,29 +40,30 @@ public class AnimeManager : MonoBehaviour
                         { "ギミック看板", false },
                         { "ボス演出", false },
                     };
-       //- オブジェクトが存在したらフラグ変更
-        if (DrawSelect)         { ControlFlag["セレクト"] = true;}
-        if (DrawReset)          { ControlFlag["リセット"] = true;}
-        if (DrawOpening)        { ControlFlag["通常開幕"] = true;}
-        if (DrawGimmickBoard)   { ControlFlag["ギミック看板"] = true;}
-        if (DrawBossCutIn)      { ControlFlag["ボス演出"] = true;}
+        //- オブジェクトが存在したらフラグ変更
+        if (DrawSelect) { ControlFlag["セレクト"] = true; }
+        if (DrawReset) { ControlFlag["リセット"] = true; }
+        if (DrawOpening) { ControlFlag["通常開幕"] = true; }
+        if (DrawGimmickBoard) { ControlFlag["ギミック看板"] = true; }
+        if (DrawBossCutIn) { ControlFlag["ボス演出"] = true; }
     }
 
     private void Start()
     {
         //- ギミック演出がある、初めて描画するか
-        if(ControlFlag["ギミック看板"] && !BoardMove.MoveComplete)
+        if (ControlFlag["ギミック看板"] && !BoardMove.MoveComplete)
         { DrawGimmickBoard.StartMove(); }
         //- 通常開幕がある、初めて描画するか
         else if (ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
-        { DrawOpening.StartMove();  }
+        { DrawOpening.StartMove(); }
     }
 
     void Update()
     {
-        if(CutIn.MoveCompleat && !InMoveCompleat)
+        /*　　開始演出の判定　　*/
+        //- ボス演出が終わっている、ボタンアシストを表示していない
+        if (CutIn.MoveCompleat && !InMoveCompleat)
         { InGameDrawObjs(); InMoveCompleat = true; }
-
 
         //- ボス演出が存在する
         if (ControlFlag["ボス演出"] && !InMoveCompleat)
@@ -75,33 +78,40 @@ public class AnimeManager : MonoBehaviour
                     Load = true;
                 }
                 //- ボス演出を行っていたらボタンアシストを表示する
-                else if(CutIn.MoveCompleat && Load)
+                else if (CutIn.MoveCompleat && Load)
                 { InGameDrawObjs(); }
             }
         }
         //- 通常開幕を表示していない
-        else if(ControlFlag["ギミック看板"] && !InMoveCompleat)
+        else if (ControlFlag["ギミック看板"] && !InMoveCompleat)
         {
             //- ギミック処理を行ったら処理
             if (BoardMove.MoveComplete && !OpeningAnime.MoveCompleat)
             { DrawOpening.StartMove(); }
             //- 通常開幕が終了したらボタンアシストを表示
-            if(OpeningAnime.MoveCompleat)
+            if (OpeningAnime.MoveCompleat)
             { InGameDrawObjs(); }
         }
         //- ボス演出もギミック看板もない場合
-        else if(!ControlFlag["ボス演出"] && !ControlFlag["ギミック看板"] &&!InMoveCompleat)
+        else if (!ControlFlag["ボス演出"] && !ControlFlag["ギミック看板"] && !InMoveCompleat)
         {
             //- 通常開幕を行う
-            if(ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
+            if (ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
             { DrawOpening.StartMove(); }
             //- ボタンアシストを表示
-            else if(OpeningAnime.MoveCompleat)
+            else if (OpeningAnime.MoveCompleat)
             { InGameDrawObjs(); }
         }
-        
-        
-        
+
+        /*　　Tips途中描画の判定　　*/
+        //Debug.Log(TipsLoad);
+        //- ボタン入力でギミックの登場処理をする
+        //if()
+        //{ DrawGimmickBoard.StartMove(); }
+        //※現在は自動で撤退処理を行っている
+        //撤退関数は　DrawGimmickBoard.OutMove();
+
+        /*　　撤退挙動の判定　　*/
         //- クリアした、撤退挙動をしていない
         if (SceneChange.bIsChange && !OutMoveCompleat)
         {
@@ -122,5 +132,12 @@ public class AnimeManager : MonoBehaviour
         GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
         InMoveCompleat = true;
     }
+
+    //public void OnTips(InputAction.CallbackContext context)
+    //{
+    //    //- ？
+    //    if (context.started) { TipsLoad = true; }
+    //    if (context.canceled) { TipsLoad = false; }
+    //}
 }
 
