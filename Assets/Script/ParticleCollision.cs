@@ -19,6 +19,9 @@ public class ParticleCollision : MonoBehaviour
                 other.gameObject.transform.GetChild(0).GetComponent<Collider>().enabled = true;
                 // 当たり判定の拡大用コンポーネントを有効にする
                 other.gameObject.transform.GetChild(0).GetComponent<DetonationCollision>().enabled = true;
+                //- 移動スクリプトがあれば処理
+                if (other.gameObject.GetComponent<MovementManager>())
+                    other.gameObject.GetComponent<MovementManager>().SetStopFrag(true);
             }
             // 当たったオブジェクトの爆発フラグを立てる
             other.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);

@@ -155,6 +155,14 @@ public class DetonationCollision : MonoBehaviour
             if(module.GetIsInv() == false)
             { module.Ignition(transform.position); }
 
+        // 当たり判定用のオブジェクトがあったら処理
+        if (obj.transform.GetChild(0).name == "Collision")
+        {
+            //- 移動スクリプトがあれば処理
+            if (obj.GetComponent<MovementManager>())
+                obj.GetComponent<MovementManager>().SetStopFrag(true);
+        }
+
         //- ステージオブジェクトに当たっていない
         return;
     }
