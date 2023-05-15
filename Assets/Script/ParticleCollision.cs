@@ -8,15 +8,26 @@ public class ParticleCollision : MonoBehaviour
 
     private void OnParticleCollision(GameObject other)
     {
-        // 当たったオブジェクトのタグが「ステージ」なら
-        if (other.gameObject.tag == "Stage")
+        // 当たったオブジェクトのタグが「Fireworks」なら
+        if (other.gameObject.tag == "Fireworks")
         {
-            if (!IsOnce)
+            // 当たり判定用のオブジェクトがあったら
+            if (other.gameObject.transform.GetChild(0).name == "Collision")
             {
-                IsOnce = true;
-                //- 火花音の再生
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Spark, 1.0f, false);
+                //- 当たり判定を有効化する
+                // 当たったオブジェクトのColliderを有効にする
+                other.gameObject.transform.GetChild(0).GetComponent<Collider>().enabled = true;
+                // 当たり判定の拡大用コンポーネントを有効にする
+                other.gameObject.transform.GetChild(0).GetComponent<DetonationCollision>().enabled = true;
             }
+            // 当たったオブジェクトの爆発フラグを立てる
+            other.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);
+        }
+        // 当たったオブジェクトのタグが「ResurrectionBox」なら
+        if (other.gameObject.tag == "ResurrectionBox")
+        {
+            // 当たったオブジェクトの爆発フラグを立てる 
+            other.gameObject.GetComponent<FireworksModule>().Ignition(transform.position);
         }
     }
 }

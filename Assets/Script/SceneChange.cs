@@ -28,6 +28,9 @@ public class SceneChange : MonoBehaviour
     private float TotalParticleTime = 999.0f;   // パーティクルの総時間
     private bool bIsShotSound = false;          // 音が再生されたかどうか
     private ObjectFade fade;              // フェード用のスプライト
+    private ClearManager clear;
+    private bool bIsStopClear = false; //- 成功処理を一時停止するかどうか
+    private bool bIsStopMiss =  false; //- 失敗処理を一時停止するかどうか
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -41,6 +44,7 @@ public class SceneChange : MonoBehaviour
         bIsLife = true;
         countEnemy = this.gameObject.GetComponent<CountEnemy>();
         fade = GameObject.Find("FadeImage").GetComponent<ObjectFade>();
+        clear = GameObject.Find("ClearManager").GetComponent<ClearManager>();
     }
 
     // Update is called once per frame
@@ -48,9 +52,10 @@ public class SceneChange : MonoBehaviour
     {
         // 現在の敵の数を更新
         EnemyNum = countEnemy.GetCurrentCountNum();
+        if (bIsStopClear && bIsStopMiss) CurrentTime = 0;
 
-        // パーティクルの再生が終わる + 敵を全滅させたら
-        if(CurrentParticleTime == TotalParticleTime && EnemyNum <= 0)
+        // パーティクルの再生が終わる + 敵を全滅させたら + 処理フラグがtrue
+        if(EnemyNum <= 0 && !bIsStopClear)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -61,8 +66,8 @@ public class SceneChange : MonoBehaviour
             }
         }
 
-        // パーティクルの再生が終わる + 敵が残っている
-        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife)
+        // パーティクルの再生が終わる + 敵が残っている + 処理フラグがtrue
+        if (CurrentParticleTime == TotalParticleTime && EnemyNum > 0 && !bIsLife && !bIsStopMiss)
         {
             // 現在の時間を更新
             CurrentTime += Time.deltaTime;
@@ -80,10 +85,10 @@ public class SceneChange : MonoBehaviour
             CurrentTime = 0;
         }
 
-        // シーン遷移フラグがtrueなら次のシーンに移動
+        // シーン遷移フラグがtrueならクリア情報を書き込む
         if (bIsChange)
-        { 
-        //    SceneManager.LoadScene(NextScene); 
+        {
+            clear.WriteClear();
         }
 
         // リトライフラグがtrueなら現在のシーンを再読み込み
@@ -97,7 +102,7 @@ public class SceneChange : MonoBehaviour
                 //- 変数の設定
                 bIsShotSound = true;
                 //- 失敗音の再生
-                SEManager.Instance.SetPlaySE(SEManager.SoundEffect.Failure, 1.0f, false);
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Failure);
                 // フェードの設定
                 fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
             }
@@ -118,5 +123,15 @@ public class SceneChange : MonoBehaviour
     public void ResetCurrentTime()
     {
         CurrentTime = 0;
+    }
+
+    public void SetStopClearFlag(bool flag)
+    {
+        bIsStopClear = flag;
+    }
+
+    public void SetStopMissFlag(bool flag)
+    {
+        bIsStopMiss = flag;
     }
 }

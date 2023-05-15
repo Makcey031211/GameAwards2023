@@ -68,8 +68,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1 - 1
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 24be5b6cd9bd1a54d9f1a2fa8b7565a2, type: 2}
+  m_sharedMaterial: {fileID: -1786823440304937066, guid: 24be5b6cd9bd1a54d9f1a2fa8b7565a2,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -265,7 +266,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6103788666660798552}
         m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
+        m_MethodName: MoveSelectScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -289,6 +290,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextScene:
     m_SceneName: Stage_01
+  board: {fileID: 0}
+  DelayTime: 0.82
+  FadeTime: 0.3
 --- !u!114 &2183102046265156015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -301,11 +305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e9e70fb24b54549bb17a7d40e9117c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animetype: 0
-  SelectSize: {x: 1.1, y: 1.1}
-  AlphaNum: 0.25
-  MoveTime: 0.5
-  Loop: 1
+  image: {fileID: 0}
+  tmp: {fileID: 0}
+  OverTextColor: {r: 0, g: 0, b: 0, a: 0}
   bPermissionSelectSE: 1
 --- !u!114 &4395630256680240193
 MonoBehaviour:
@@ -350,6 +352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stagenum: -1
   obj: {fileID: 1782150024539913716}
+  Active: 0
 --- !u!114 &3766935799021492772
 MonoBehaviour:
   m_ObjectHideFlags: 0

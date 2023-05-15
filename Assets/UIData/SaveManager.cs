@@ -1,3 +1,10 @@
+/*
+ ===================
+ 制作：大川
+ セーブデータ関連の管理を行うスクリプト
+ ===================
+ */
+
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -58,15 +65,19 @@ public class SaveManager : MonoBehaviour
         if (File.Exists(FILE_PATH))
         {
             //- テキストを読み込む
-            using (StreamReader sr = new StreamReader(FILE_PATH,Encoding.UTF8)) //using:自動的にクローズする
+            using (StreamReader sr = new StreamReader(FILE_PATH,Encoding.ASCII)) //using:自動的にクローズする
             {
                 string line;    //1行分の文字列を読み込む
                 int i = 0;      
                 //- 読み込んでいる行がnullじゃないかつ行数分ループする
                 while((line = sr.ReadLine()) != null && i < STAGE_NUM)
                 {
-                    bool.TryParse(line, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
+                    string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line);   // 暗号化されたフラグの復号
+                    bool.TryParse(DecryptFlag, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
                     i++;
+
+                    //--- 復号の確認 ---
+                    //Debug.Log("復号化：" + DecryptFlag);
                 }
             }
         }
@@ -78,20 +89,38 @@ public class SaveManager : MonoBehaviour
     }
 
     /// <summary>
+    /// セーブデータの有無を返却する
+    /// </summary>
+    /// <returns> セーブデータの有無フラグ </returns>
+    public bool CheckSaveData()
+    {
+        FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
+        //- パスの位置にファイルが存在するか
+        if (File.Exists(FILE_PATH))
+        {   return true;    }
+
+        return false;
+    }
+
+    /// <summary>
     /// データのセーブを行う
     /// </summary>
     private void DataSave(int Stage)
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ数分更新する
             for(int i = 0; i < STAGE_NUM; i++)
             {
                 //Debug.Log(stageflag[i]);
-                //- ステージフラグを文字列にして書き込む
-                sw.WriteLine(stageflag[i].ToString());
+                //- ステージフラグを文字列に変更して、暗号化したものを書き込む
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
+
+                //--- 暗号化の確認 ---
+                //Debug.Log("暗号化：" + EncryptFlag);
             }
         }
     }
@@ -111,13 +140,14 @@ public class SaveManager : MonoBehaviour
             Directory.CreateDirectory(directoryPath);
         }
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ分初期化する
             for(int i = 0; i < STAGE_NUM; i++)
             {
-                sw.WriteLine(false);
                 stageflag[i] = false;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
             }
         }
     }
@@ -129,13 +159,30 @@ public class SaveManager : MonoBehaviour
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
         //- テキストを書き込む
-        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.UTF8))
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
         {
             //- ステージ分初期化する
             for (int i = 0; i < STAGE_NUM; i++)
             {
-                sw.WriteLine(false);
                 stageflag[i] = false;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
+            }
+        }
+    }
+
+    public void AllClearSaveData()
+    {
+        FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
+        //- テキストを書き込む
+        using (StreamWriter sw = new StreamWriter(FILE_PATH, false, Encoding.ASCII))
+        {
+            //- ステージ分初期化する
+            for (int i = 0; i < STAGE_NUM; i++)
+            {
+                stageflag[i] = true;
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                sw.WriteLine(EncryptFlag);
             }
         }
     }
@@ -158,6 +205,12 @@ public class SaveManager : MonoBehaviour
                 save.ResetSaveData();
                 Debug.Log("[UI]DataReset");
                 
+            }
+            if(GUILayout.Button("全クリア"))
+            {
+                save = new SaveManager();
+                save.AllClearSaveData();
+                Debug.Log("[UI]AllClear");
             }
         }
     }

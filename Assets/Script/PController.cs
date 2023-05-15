@@ -30,6 +30,7 @@ public class PController : MonoBehaviour
     private Transform _transform;
     private CharacterController characterController;
     private bool bIsPlaySound;
+    private bool bIsWait = false; //- 待機状態かどうか　
 
     private Vector2 inputMove;
     private float verticalVelocity;
@@ -59,6 +60,8 @@ public class PController : MonoBehaviour
     
     public void OnMove(InputAction.CallbackContext context)
     {
+        if(bIsWait) return;//- 待機状態ならリターン
+
         // 入力値を保持しておく
         inputMove = context.ReadValue<Vector2>();
         //- 音の再生
@@ -76,11 +79,13 @@ public class PController : MonoBehaviour
 
     public void OnDestruct(InputAction.CallbackContext context)
     {
+        if (bIsWait) return;//- 待機状態ならリターン
+
         //自爆
         if (!isOnce)
         {
             //- 爆発処理
-            fireworks.Ignition();
+            fireworks.Ignition(transform.position);
 
             //- SceneChangeスクリプトのプレイヤー生存フラグをfalseにする
             sceneChange.bIsLife = false;
@@ -126,7 +131,7 @@ public class PController : MonoBehaviour
         isGroundedPrev = isGrounded;
 
 
-        if(isOnce)
+        if(isOnce || fireworks.IsExploded)
         { inputMove = Vector2.zero; }
 
         // 操作入力と鉛直方向速度から、現在速度を計算
@@ -184,6 +189,13 @@ public class PController : MonoBehaviour
             var HitMove = new Vector3(HitBlockMoveX * 0.001f, HitBlockMoveY * 0.001f);
             characterController.Move(HitMove);
         }
+    }
+
+    //- プレイヤーが待機状態かどうかのフラグを切り替える関数
+    public void SetWaitFlag(bool Flag)
+    {
+        //- 待機フラグ切り替え
+        bIsWait = Flag;
     }
 }
 
