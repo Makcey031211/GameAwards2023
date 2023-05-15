@@ -27,8 +27,10 @@ public class AnimeManager : MonoBehaviour
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
     private bool Load = false;
-    private bool TipsLoad = false;
+    private bool TipsInLoad = false;
+    private bool TipsOutLoad = false;
     private InputAction tipsAction;
+    private PController player;
     private void Awake()
     {
         //- アニメ管理するオブジェクトフラグ初期化
@@ -46,6 +48,8 @@ public class AnimeManager : MonoBehaviour
         if (DrawOpening) { ControlFlag["通常開幕"] = true; }
         if (DrawGimmickBoard) { ControlFlag["ギミック看板"] = true; }
         if (DrawBossCutIn) { ControlFlag["ボス演出"] = true; }
+
+        player = GameObject.Find("Player").GetComponent<PController>();
     }
 
     private void Start()
@@ -60,6 +64,9 @@ public class AnimeManager : MonoBehaviour
 
     void Update()
     {
+        //- 自爆フラグを取得する
+        bool PlayerBoom = player.GetIsOnce();
+
         /*　　開始演出の判定　　*/
         //- ボス演出が終わっている、ボタンアシストを表示していない
         if (CutIn.MoveCompleat && !InMoveCompleat)
@@ -104,12 +111,42 @@ public class AnimeManager : MonoBehaviour
         }
 
         /*　　Tips途中描画の判定　　*/
-        //Debug.Log(TipsLoad);
-        //- ボタン入力でギミックの登場処理をする
-        //if()
-        //{ DrawGimmickBoard.StartMove(); }
-        //※現在は自動で撤退処理を行っている
-        //撤退関数は　DrawGimmickBoard.OutMove();
+        //- 再登場
+        //Tipsがある、開幕演出が終わっている、自爆していない、再登場フラグが立っている 最初のTips描画が終わっている
+        if (ControlFlag["ギミック看板"] && OpeningAnime.MoveCompleat && !PlayerBoom && DrawGimmickBoard.GetInMove())
+        {
+            if (!TipsInLoad && DrawGimmickBoard.GetOutMoveComplet())
+            {
+                TipsInLoad = true;
+                DrawGimmickBoard.StartMove();
+                TipsOutLoad = false;
+            }
+        }
+        else if(ControlFlag["ギミック看板"] && CutIn.MoveCompleat && !PlayerBoom && DrawGimmickBoard.GetInMove())
+        {
+            if (!TipsInLoad && DrawGimmickBoard.GetOutMoveComplet())
+            {
+                TipsInLoad = true;
+                DrawGimmickBoard.StartMove();
+                TipsOutLoad = false;
+            }
+        }
+        //- 再撤退
+        //Tipsがある、自爆していない、通常開幕かボス演出を行っている
+        if(ControlFlag["ギミック看板"] && !PlayerBoom && DrawGimmickBoard.GetOutMove() && !TipsOutLoad)
+        {
+
+            if(DrawGimmickBoard.GetInMoveComplet())
+            {
+                TipsOutLoad = true;
+                DrawGimmickBoard.OutMove();
+                TipsInLoad = false;
+            }
+        }
+        //- プレイヤーが自爆したら強制的に撤退させる
+        if(ControlFlag["ギミック看板"] && PlayerBoom && DrawGimmickBoard.GetInMove())
+        { DrawGimmickBoard.OutMove(); }
+
 
         /*　　撤退挙動の判定　　*/
         //- クリアした、撤退挙動をしていない
@@ -132,12 +169,5 @@ public class AnimeManager : MonoBehaviour
         GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
         InMoveCompleat = true;
     }
-
-    //public void OnTips(InputAction.CallbackContext context)
-    //{
-    //    //- ？
-    //    if (context.started) { TipsLoad = true; }
-    //    if (context.canceled) { TipsLoad = false; }
-    //}
 }
 
