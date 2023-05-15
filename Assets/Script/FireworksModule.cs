@@ -932,8 +932,6 @@ public class FireworksModule : MonoBehaviour
         Vector3 rot = transform.localEulerAngles;
         rot.z -= movespeed.magnitude * 40;
         transform.localEulerAngles = rot;
-
-        Debug.DrawRay(transform.position, movespeed * 100, Color.red);
     }
 
     //- 遅れて起爆するクラッカーの関数
