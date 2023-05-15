@@ -14,18 +14,20 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
     public void OnSelect(BaseEventData eventData)
     {
         Vector3 pos = eventData.selectedObject.transform.position;
-        player.transform.DOMove(pos, MoveTIme);
-        anime = DOTween.Sequence();
-        anime.Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative().SetEase(Ease.OutSine))
-             .Append(player.transform.DOMoveY(0.5f, 1.0f).SetRelative().SetEase(Ease.InOutSine))
-             .Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative().SetEase(Ease.InSine));
-        anime.SetLoops(-1);
+        player.transform.DOMove(pos, MoveTIme).OnComplete(()=> {
+            //anime = DOTween.Sequence();
+            //anime.Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative(true).SetEase(Ease.OutSine))
+            //     .Append(player.transform.DOMoveY(0.5f, 1.0f).SetRelative(true).SetEase(Ease.InOutSine))
+            //     .Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative(true).SetEase(Ease.InSine));
+            //anime.SetLoops(-1);
+        });
+
 
     }
 
     public void InStageMove()
     {
-        anime.Kill();
+       // anime.Kill();
         DOTween.Sequence()
             .Append(player.transform.DOMoveY(-2.0f, 0.5f).SetRelative(true))
             .AppendInterval(0.25f)
