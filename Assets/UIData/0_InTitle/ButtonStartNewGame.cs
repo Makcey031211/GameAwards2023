@@ -41,7 +41,7 @@ public class ButtonStartNewGame : MonoBehaviour
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
         isSound = false;
 
-        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
+        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- ƒV[ƒ“‚ð•Ï‚¦‚é‘O‚ÉBGM‚ðÁ‚·
         DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager()).SetDelay(DelayTime);

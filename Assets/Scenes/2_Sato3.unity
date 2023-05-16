@@ -157,6 +157,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: Stage_01
       objectReference: {fileID: 0}
@@ -420,6 +425,11 @@ PrefabInstance:
       propertyPath: MoveTIme
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -1041,6 +1051,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 1797396042}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: 1_Village
       objectReference: {fileID: 0}
@@ -1489,6 +1504,87 @@ MonoBehaviour:
   disBGMTime: 0.4
   backScene:
     m_SceneName: 1_Village
+--- !u!1001 &311039351
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1101156375}
+    m_Modifications:
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -984.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -540.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562207, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_Name
+      value: GradFadeImage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0bc0640042cb3a5498b9aef5ace90027, type: 3}
+--- !u!4 &311039352 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+    type: 3}
+  m_PrefabInstance: {fileID: 311039351}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &311039353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2593651730500562207, guid: 0bc0640042cb3a5498b9aef5ace90027,
+    type: 3}
+  m_PrefabInstance: {fileID: 311039351}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &367293616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3024,6 +3120,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1797396041}
+  - {fileID: 311039352}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3341,6 +3438,11 @@ PrefabInstance:
       propertyPath: MoveTIme
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -4041,6 +4143,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: Stage_01
       objectReference: {fileID: 0}
@@ -4351,13 +4458,19 @@ PrefabInstance:
     - target: {fileID: 5879245498811921893, guid: d3c163152bc7f234b8ffd218b9461c8e,
         type: 3}
       propertyPath: m_Name
-      value: FadeImage
+      value: ColorFadeImage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3c163152bc7f234b8ffd218b9461c8e, type: 3}
 --- !u!224 &1797396041 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5879245498811921892, guid: d3c163152bc7f234b8ffd218b9461c8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1797396040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1797396042 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5879245498811921893, guid: d3c163152bc7f234b8ffd218b9461c8e,
     type: 3}
   m_PrefabInstance: {fileID: 1797396040}
   m_PrefabAsset: {fileID: 0}
@@ -4393,6 +4506,11 @@ PrefabInstance:
       propertyPath: MoveTIme
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -4582,6 +4700,11 @@ PrefabInstance:
       propertyPath: MoveTIme
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -5099,6 +5222,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: Stage_21
       objectReference: {fileID: 0}
@@ -5312,6 +5440,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: Stage_23
       objectReference: {fileID: 0}
@@ -5499,6 +5632,11 @@ PrefabInstance:
       propertyPath: MoveTIme
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -5698,6 +5836,11 @@ PrefabInstance:
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnSelect
       objectReference: {fileID: 0}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 311039353}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
