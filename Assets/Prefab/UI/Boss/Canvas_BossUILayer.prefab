@@ -467,9 +467,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52ea9db557bd3ad4b99ada771c6b05e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Boss: 0
   BossImg: {fileID: 4227237552009537618}
   SmallCrystal: {fileID: 8100716202687142294}
-  BiglCrystal: {fileID: 8100716203945852106}
+  BigCrystal: {fileID: 0}
   TextBack: {fileID: 8100716203038864338}
   tmp: {fileID: 8100716204378224642}
 --- !u!1 &5170996373492992952
@@ -922,7 +923,7 @@ MonoBehaviour:
   img: {fileID: 6822757460197957960}
   movie: {fileID: 3001633140000105809}
   tmp: {fileID: 9034184426710817985}
-  DeleyTime: 8.5
+  IntervalTime: 0
 --- !u!1 &6502072782804805129
 GameObject:
   m_ObjectHideFlags: 0
@@ -1018,7 +1019,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &6502072782804805128
 MonoBehaviour:
   m_ObjectHideFlags: 0

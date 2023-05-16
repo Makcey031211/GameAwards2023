@@ -2203,6 +2203,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1277284444}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1487815413 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6452294073379132741, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4100931504084794293}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e68889e8d3759449d4f90c8a0f1e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1553342224 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -4063,11 +4075,22 @@ PrefabInstance:
       propertyPath: m_enableAutoSizing
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6470677711125593187, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 3e9d6e73f8e0574439b834eec9067c0e,
+        type: 3}
     - target: {fileID: 7063148566109148289, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DrawTips
+      value: 
+      objectReference: {fileID: 1487815413}
     - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: DrawGimmickBoard
@@ -4092,6 +4115,66 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -82.53651
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionId
+      value: 5554dc30-278f-48a1-9761-4d5536f99dfb
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_ActionName
+      value: Player/OutGameTips[/Keyboard/backspace]
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[17].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInTips
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786307044167318915, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BoardMove, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 9042830203311809674, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DeleyTime
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6038710722002512370, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
