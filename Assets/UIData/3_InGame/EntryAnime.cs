@@ -32,7 +32,8 @@ public class EntryAnime : MonoBehaviour
     private float EndMoveTime;
 
     private Vector3 pos;
-    private bool Compleate = false;
+    private bool OutMoveLoad = false;
+    private bool InGame = false;
     
     private void Awake()
     {
@@ -71,24 +72,27 @@ public class EntryAnime : MonoBehaviour
                 DOTween.Sequence()
                      .AppendInterval(DelayTime)
                      .Append(transform.DOMoveX(pos.x, MoveTime));
+                InGame = true;
                 break;
             case E_OUTDIRECTION.RIGHT:
                 DOTween.Sequence()
                      .AppendInterval(DelayTime)
                      .Append(transform.DOMoveX(pos.x, MoveTime));
+                InGame = true;
                 break;
             case E_OUTDIRECTION.UP:
                 DOTween.Sequence()
                      .AppendInterval(DelayTime)
                      .Append(transform.DOMoveY(pos.y, MoveTime));
+                InGame = true;
                 break;
             case E_OUTDIRECTION.DOWN:
                 DOTween.Sequence()
                      .AppendInterval(DelayTime)
                      .Append(transform.DOMoveY(pos.y, MoveTime));
+                InGame = true;
                 break;
         }
-        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
     }
 
     /// <summary>
@@ -96,7 +100,7 @@ public class EntryAnime : MonoBehaviour
     /// </summary>
     public void OutMove()
     {
-        if(!Compleate)
+        if(!OutMoveLoad)
         {
             //- éwíËï˚å¸Ç…ìPëﬁ
             switch (direction)
@@ -108,7 +112,14 @@ public class EntryAnime : MonoBehaviour
                     transform.DOMoveX(RIGHT, EndMoveTime);
                 break;
             }
-            Compleate = true;
+            OutMoveLoad = true;
         }
     }
+
+    /// <summary>
+    /// ìoèÍèàóùÇçsÇ¡ÇΩÇ©ï‘ãpÇ∑ÇÈ
+    /// </summary>
+    /// <returns>bool:ìoèÍÉtÉâÉO</returns>
+    public bool GetEntryFlag()
+    { return InGame; }
 }
