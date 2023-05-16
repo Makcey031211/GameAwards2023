@@ -130,6 +130,7 @@ public class AnimeManager : MonoBehaviour
         //Tipsがある、開幕演出が終わっている、自爆していない、再登場フラグが立っている 最初のTips描画が終わっている
         if (ControlFlag["ギミック看板"] && OpeningAnime.MoveCompleat && !PlayerBoom && DrawGimmickBoard.GetInMove())
         {
+            Debug.Log(DrawGimmickBoard.GetOutMoveComplet());
             if (!TipsInLoad && DrawGimmickBoard.GetOutMoveComplet())
             {
                 TipsInLoad = true;
