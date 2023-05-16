@@ -88,6 +88,7 @@ public class EntryAnime : MonoBehaviour
                      .Append(transform.DOMoveY(pos.y, MoveTime));
                 break;
         }
+        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
     }
 
     /// <summary>

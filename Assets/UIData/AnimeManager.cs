@@ -72,11 +72,6 @@ public class AnimeManager : MonoBehaviour
         //- 通常開幕がある、初めて描画するか
         else if (ControlFlag["通常開幕"] && !OpeningAnime.MoveCompleat)
         { DrawOpening.StartMove(); }
-        if(CutIn.MoveCompleat || OpeningAnime.MoveCompleat)
-        {
-            //- プレイヤーを動作可能にする
-            GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
-        }
     }
 
     void Update()
@@ -87,7 +82,10 @@ public class AnimeManager : MonoBehaviour
         /*　　開始演出の判定　　*/
         //- ボス演出が終わっている、ボタンアシストを表示していない
         if (CutIn.MoveCompleat && !InMoveCompleat)
-        { InGameDrawObjs(); InMoveCompleat = true; }
+        {
+            InGameDrawObjs();
+            InMoveCompleat = true;
+        }
 
         //- ボス演出が存在する
         if (ControlFlag["ボス演出"] && !InMoveCompleat)
