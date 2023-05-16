@@ -34,7 +34,7 @@ public class IgnitionCollision : MonoBehaviour
         if (other.gameObject.tag == "ExplodeCollision") HitExplodeCollision(other);
 
         //- ƒtƒ‰ƒO‚ª‚½‚Á‚Ä‚¢‚ê‚Î”j‰ó
-        if (IsDestroy) Destroy(gameObject);
+        if (IsDestroy) Destroy(transform.parent.gameObject);
     }
     void HitFireworks(Collider other)
     {
