@@ -209,6 +209,8 @@ public class FireworksModule : MonoBehaviour
     public Easing.EaseType _accelerationEase;
     [SerializeField, HideInInspector] //- 加速時の補完タイプ
     public Easing.EaseType _decelerationEase;
+    [SerializeField, HideInInspector]
+    public GameObject _effectTonbo; // 柳花火用のオブジェクト
     //-- インスペクターに非表示
     private bool bIsInit = false; //- 最初だけ処理を実行するための判定フラグ
     [SerializeField, HideInInspector] //- 減速時間
@@ -221,6 +223,7 @@ public class FireworksModule : MonoBehaviour
     public float DecelerationTime => _decelerationTime;
     public Easing.EaseType AccelerationEase => _accelerationEase;
     public Easing.EaseType DecelerationEase => _decelerationEase;
+    public GameObject EffectTonbo => _effectTonbo;
 
     //- 柳花火の項目
     //- インスペクターに表示
@@ -910,6 +913,9 @@ public class FireworksModule : MonoBehaviour
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
+
+            //- エフェクト可視化
+            _effectTonbo.SetActive(true);
         }
 
         //- 変数用意
@@ -928,7 +934,7 @@ public class FireworksModule : MonoBehaviour
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.RequestStopMiss(false); //- 失敗判定を再開
             //- 自身を破壊
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
 
         //- トンボ花火の座標を取得
