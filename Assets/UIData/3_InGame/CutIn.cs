@@ -142,10 +142,8 @@ public class CutIn : MonoBehaviour
                     .Join(tmp.DOFade(0.0f, 0.2f))
                     .Join(TextBack.DOFade(0.0f, 0.2f))
                     .OnComplete(() => {
-                        MoveCompleat = true;
-
-                        //- プレイヤーを動作可能にする
-                        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+                        MoveCompleat = true;//初回挙動完了処理
+                        DoOut.Kill();
                     });
 
             });
@@ -191,9 +189,7 @@ public class CutIn : MonoBehaviour
                     .Join(TextBack.DOFade(0.0f, 0.2f))
                     .OnComplete(() => {
                         MoveCompleat = true;
-
-                        //- プレイヤーを動作可能にする
-                        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+                        DoOut.Kill();
                     });
 
             });
