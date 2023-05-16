@@ -67,6 +67,9 @@ public class BoardMove : MonoBehaviour
         tmp.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, tmp.transform.localPosition.y);
         //- ìÆâÊí‚é~
         movie.Pause();
+
+        if(MoveComplete)
+        { OutComplete = true; }
     }
     
     /// <summary>
@@ -123,12 +126,12 @@ public class BoardMove : MonoBehaviour
                 .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
                 .OnComplete(() =>
                 {
+                    OutComplete = true;
                     //- èâä˙à íuçXêV
                     img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
                     movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
                     tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
                     MoveComplete = true;
-                    OutComplete = true;
                     OutAnime.Kill();
                 });
             First = false;
