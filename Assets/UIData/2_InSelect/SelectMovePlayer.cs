@@ -13,21 +13,26 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
     private Sequence anime;
     public void OnSelect(BaseEventData eventData)
     {
+        Debug.Log(eventData.selectedObject.transform.position);
         Vector3 pos = eventData.selectedObject.transform.position;
-        player.transform.DOMove(pos, MoveTIme).OnComplete(()=> {
-            //anime = DOTween.Sequence();
-            //anime.Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative(true).SetEase(Ease.OutSine))
-            //     .Append(player.transform.DOMoveY(0.5f, 1.0f).SetRelative(true).SetEase(Ease.InOutSine))
-            //     .Append(player.transform.DOMoveY(-0.25f, 0.5f).SetRelative(true).SetEase(Ease.InSine));
-            //anime.SetLoops(-1);
-        });
+        var Move = DOTween.Sequence();
+        Move.Append(player.transform.DOMove(pos,MoveTIme))
+            .OnComplete(() =>
+            {   Move.Kill();});
 
-
+        anime = DOTween.Sequence();
+        anime.AppendInterval(0.5f)
+            .Append(player.transform.DOMoveY(pos.y + -0.25f, 0.5f).SetEase(Ease.OutSine))
+            .Append(player.transform.DOMoveY(pos.y + 0.5f, 1.0f).SetEase(Ease.InOutSine))
+            .Append(player.transform.DOMoveY(pos.y + -0.25f, 0.5f).SetEase(Ease.InSine));
+        anime.SetLoops(-1);
     }
+
+    
 
     public void InStageMove()
     {
-       // anime.Kill();
+        anime.Kill();
         DOTween.Sequence()
             .Append(player.transform.DOMoveY(-2.0f, 0.5f).SetRelative(true))
             .AppendInterval(0.25f)
