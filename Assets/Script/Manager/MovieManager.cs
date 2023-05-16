@@ -116,8 +116,8 @@ public class MovieManager : MonoBehaviour
         yield return new WaitForSeconds(FadeTime);
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-        scenechange.SetStopClearFlag(false);
-        scenechange.SetStopMissFlag(false);
+        scenechange.RequestStopClear(false);
+        scenechange.RequestStopMiss(false);
         bPlayMovie = false; //- 演出フラグ変更
     }
 

@@ -30,7 +30,9 @@ public class SceneChange : MonoBehaviour
     private ObjectFade fade;              // フェード用のスプライト
     private ClearManager clear;
     private bool bIsStopClear = false; //- 成功処理を一時停止するかどうか
-    private bool bIsStopMiss =  false; //- 失敗処理を一時停止するかどうか
+    private bool bIsStopMiss =  false; //- 失敗処理を一時停止するかどうか    
+    private int RequestCountClear = 0; //- 成功判定依頼が呼ばれている数
+    private int RequestCountMiss  = 0; //- 失敗判定依頼が呼ばれている数
 
     public static bool bIsChange;   // 次のシーンに移動するかのフラグ
     public static bool bIsRetry;    // リトライするかのフラグ
@@ -125,13 +127,35 @@ public class SceneChange : MonoBehaviour
         CurrentTime = 0;
     }
 
-    public void SetStopClearFlag(bool flag)
+    //public void SetStopClearFlag(bool flag)
+    //{
+    //    bIsStopClear = flag;
+    //}
+
+    //public void SetStopMissFlag(bool flag)
+    //{
+    //    bIsStopMiss = flag;
+    //}
+
+    public void RequestStopClear(bool flag)
     {
-        bIsStopClear = flag;
+        //- リクエスト数の操作
+        if (flag) RequestCountClear++;
+        else      RequestCountClear--;
+
+        //- リクエスト数に基づいてフラグの操作
+        if (RequestCountClear > 0) bIsStopClear = true;
+        else bIsStopClear = false;
     }
 
-    public void SetStopMissFlag(bool flag)
+    public void RequestStopMiss(bool flag)
     {
-        bIsStopMiss = flag;
+        //- リクエスト数の操作
+        if (flag) RequestCountMiss++;
+        else 　　 RequestCountMiss--;
+
+        //- リクエスト数に基づいてフラグの操作
+        if (RequestCountMiss > 0) bIsStopMiss = true;
+        else bIsStopMiss = false;
     }
 }

@@ -37,6 +37,8 @@ public class OptionGage : MonoBehaviour
     // CountEnemyスクリプトを入れる変数
     CountEnemy countEnemy;
 
+    //- プレイヤーの情報を取得する変数
+    PController player;
     void Start()
     {
         //- コンポーネントの取得
@@ -44,6 +46,9 @@ public class OptionGage : MonoBehaviour
         imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
         //- 敵カウントUIの取得
         countEnemy = GameObject.Find("Main Camera").GetComponent<CountEnemy>();
+
+        //- プレイヤーの情報を
+        player = GameObject.Find("Player").GetComponent<PController>();
     }
     
     void FixedUpdate()
@@ -111,15 +116,15 @@ public class OptionGage : MonoBehaviour
 
     public void OnReset(InputAction.CallbackContext context)
     {
-        //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushRetry = true; }
-        if (context.canceled) { bIsPushRetry = false; }
+        //- ボタンが押されている間、プレイヤーが動作可能時に変数を設定
+        if (context.started && !player.GetWaitFlag()) { bIsPushRetry = true; }
+        if (context.canceled && !player.GetWaitFlag()) { bIsPushRetry = false; }
     }
 
     public void OnInGame(InputAction.CallbackContext context)
     {
-        //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushInGame = true; }
-        if (context.canceled) { bIsPushInGame = false; }
+        //- ボタンが押されている間、、プレイヤーが動作可能時に変数を設定
+        if (context.started && !player.GetWaitFlag()) { bIsPushInGame = true; }
+        if (context.canceled && !player.GetWaitFlag()) { bIsPushInGame = false; }
     }
 }

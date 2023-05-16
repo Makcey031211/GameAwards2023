@@ -431,13 +431,17 @@ public class FireworksModule : MonoBehaviour
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
 
-        InGS.OutMove();
-        InGR.OutMove();
-        Tips.OutMove();
+
+        GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+        GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+        GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+        //InGS.OutMove();
+        //InGR.OutMove();
+        //Tips.OutMove();
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-        scenechange.SetStopClearFlag(true);
-        scenechange.SetStopMissFlag(true);
+        scenechange.RequestStopClear(true);
+        scenechange.RequestStopMiss(true);
         //- アニメーション処理
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
@@ -578,8 +582,8 @@ public class FireworksModule : MonoBehaviour
 
             //- 失敗判定にならないように設定、花火が消えきったら失敗判定を復活
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopMissFlag(true);
-            DOVirtual.DelayedCall(15.0f, () => scenechange.SetStopMissFlag(false));
+            scenechange.RequestStopMiss(true);
+            DOVirtual.DelayedCall(15.0f, () => scenechange.RequestStopMiss(false));
             //- 爆発後に削除
             DOVirtual.DelayedCall(_modelResidueTime, () => transform.GetChild(0).gameObject.SetActive(false));
         }
@@ -903,6 +907,9 @@ public class FireworksModule : MonoBehaviour
             movedir.Normalize();
             //- フラグの変更
             bIsInit = true;
+            //- 失敗判定フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
         }
 
         //- 変数用意
@@ -917,7 +924,11 @@ public class FireworksModule : MonoBehaviour
         }
         else
         {
-            //Destroy(gameObject);
+            //- 失敗判定フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopMiss(false); //- 失敗判定を再開
+            //- 自身を破壊
+            Destroy(gameObject);
         }
 
         //- トンボ花火の座標を取得
@@ -932,8 +943,6 @@ public class FireworksModule : MonoBehaviour
         Vector3 rot = transform.localEulerAngles;
         rot.z -= movespeed.magnitude * 40;
         transform.localEulerAngles = rot;
-
-        Debug.DrawRay(transform.position, movespeed * 100, Color.red);
     }
 
     //- 遅れて起爆するクラッカーの関数
@@ -1036,10 +1045,13 @@ public class FireworksModule : MonoBehaviour
         //- 猶予時間内に引火したら実行する処理
         if (HitInfo.hitcount >= 2)
         {
+            GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+
             //- フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.SetStopClearFlag(true);
-            //scenechange.SetStopMissFlag(true);
+            scenechange.RequestStopClear(true);
             //- アニメーション処理
             transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
             transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);

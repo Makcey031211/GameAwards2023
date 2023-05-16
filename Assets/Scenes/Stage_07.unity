@@ -1492,7 +1492,7 @@ PrefabInstance:
     - target: {fileID: 5706990070701393346, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_text
-      value: "<size=70%>\u58F1\u306E\u91CC\u3000\u7B2C\u6F06\u5E55\n<size=120%>\u958B\u5E55"
+      value: "<size=70%>\u58F1\u30CE\u91CC\u3000\u7B2C\u6F06\u5E55\n<size=120%>\u958B\u5E55"
       objectReference: {fileID: 0}
     - target: {fileID: 6470677711125593187, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -1500,6 +1500,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 32900000, guid: 71a29520f0612064992032313d899bdf,
         type: 3}
+    - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
+        type: 3}
+      propertyPath: DrawTips
+      value: 
+      objectReference: {fileID: 695851194}
     - target: {fileID: 7063148566109148295, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: DrawGimmickBoard
@@ -1519,6 +1524,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 695851191}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &695851194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6452294073379132741, guid: c9308a3c00b89dd489af48490e5303f1,
+    type: 3}
+  m_PrefabInstance: {fileID: 695851191}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64e68889e8d3759449d4f90c8a0f1e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &700010472
 PrefabInstance:
   m_ObjectHideFlags: 0
