@@ -366,6 +366,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 705061600}
+  - {fileID: 825266835}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -441,13 +442,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -634,13 +635,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -849,13 +850,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -1000,6 +1001,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2101162086763605342, guid: 78470affd80988347bf7519973c58b82,
     type: 3}
   m_PrefabInstance: {fileID: 867503803}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &250398386 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5879245498811921893, guid: d3c163152bc7f234b8ffd218b9461c8e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1182266826}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &256248412
 PrefabInstance:
@@ -1454,13 +1461,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -2362,6 +2369,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4395630256680240193, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4395630256680240193, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1829305429}
@@ -2373,13 +2385,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -2772,13 +2784,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -3044,6 +3056,18 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2101162086763605342, guid: 78470affd80988347bf7519973c58b82,
     type: 3}
   m_PrefabInstance: {fileID: 1880830784}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &825266831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2593651730500562207, guid: 0bc0640042cb3a5498b9aef5ace90027,
+    type: 3}
+  m_PrefabInstance: {fileID: 2593651730753306512}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &825266835 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+    type: 3}
+  m_PrefabInstance: {fileID: 2593651730753306512}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &858311154
 PrefabInstance:
@@ -3652,13 +3676,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -3845,6 +3869,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 101020347}
     m_Modifications:
+    - target: {fileID: 5879245498811921435, guid: d3c163152bc7f234b8ffd218b9461c8e,
+        type: 3}
+      propertyPath: fadeType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5879245498811921892, guid: d3c163152bc7f234b8ffd218b9461c8e,
         type: 3}
       propertyPath: m_Pivot.x
@@ -3953,7 +3982,7 @@ PrefabInstance:
     - target: {fileID: 5879245498811921893, guid: d3c163152bc7f234b8ffd218b9461c8e,
         type: 3}
       propertyPath: m_Name
-      value: FadeImage
+      value: ColorFadeImage
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3c163152bc7f234b8ffd218b9461c8e, type: 3}
@@ -4636,13 +4665,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -4840,13 +4869,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -5407,6 +5436,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 250398386}
+    - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
+        type: 3}
       propertyPath: NextScene.m_SceneName
       value: 1_Village
       objectReference: {fileID: 0}
@@ -5605,13 +5639,13 @@ PrefabInstance:
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: FadeTime
-      value: 0.3
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
-      propertyPath: DelayTime
-      value: 0.82
-      objectReference: {fileID: 0}
+      propertyPath: fadeObject
+      value: 
+      objectReference: {fileID: 825266831}
     - target: {fileID: 6103788666660798552, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
         type: 3}
       propertyPath: NextScene.m_SceneName
@@ -6002,6 +6036,75 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &2593651730753306512
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 101020347}
+    m_Modifications:
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -984.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -540.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562179, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2593651730500562207, guid: 0bc0640042cb3a5498b9aef5ace90027,
+        type: 3}
+      propertyPath: m_Name
+      value: GradFadeImage
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0bc0640042cb3a5498b9aef5ace90027, type: 3}
 --- !u!1001 &5243661291412154364
 PrefabInstance:
   m_ObjectHideFlags: 0

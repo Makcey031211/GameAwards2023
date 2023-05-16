@@ -64,7 +64,7 @@ public class BackScene : MonoBehaviour
             if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
             bIsStartInGame = true; // シーン開始フラグをたてる
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
-            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
+            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
         }
