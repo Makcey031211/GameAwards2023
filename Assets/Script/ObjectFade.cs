@@ -3,22 +3,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
-public class ObjectFade : MonoBehaviour
-{
+public class ObjectFade : MonoBehaviour {
+    public enum FadeState {
+        None,
+        Out,
+        In
+    }
+
     enum FadeType
     {
-        Color
+        Color,
+        Grad
     }
 
     [SerializeField, Header("フェードの種類")]
     private FadeType fadeType;
 
     // フェードの状態
-    TweenColorFade.FadeState fadeState;
+    FadeState fadeState;
 
     // アルファ値の変更用
-    CanvasGroup canvasGroup;
+    Image image;
+
+    Material material;
+
+    int progress = Shader.PropertyToID("_Progress");
 
     // フェードにかかる時間
     float duration;
@@ -33,13 +44,14 @@ public class ObjectFade : MonoBehaviour
     void Start()
     {
         // フェード状態の初期化
-        fadeState = TweenColorFade.FadeState.None;
+        fadeState = FadeState.None;
 
         //----- コンポーネントの取得
-        canvasGroup = GetComponent<CanvasGroup>();
-        if (canvasGroup == null) {
-            canvasGroup = gameObject.AddComponent<CanvasGroup>();
+        image = GetComponent<Image>();
+        if (fadeType == FadeType.Grad) {
+            material = GetComponent<Renderer>().material;
         }
+
 
         duration = 0;
 
@@ -47,15 +59,18 @@ public class ObjectFade : MonoBehaviour
 
         isFade = false;
 
-        SetFade(TweenColorFade.FadeState.Out, 1.0f);
+        SetFade(FadeState.Out, 1.0f);
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         switch (fadeType) {
         case FadeType.Color:
             ColorFade();
+            break;
+        case FadeType.Grad:
+            GradFade();
             break;
         }
 
@@ -65,7 +80,7 @@ public class ObjectFade : MonoBehaviour
         });
     }
 
-    public void SetFade(TweenColorFade.FadeState fadeState ,float duration)
+    public void SetFade(FadeState fadeState ,float duration)
     {
         this.fadeState = fadeState;
         this.duration = duration;
@@ -75,21 +90,48 @@ public class ObjectFade : MonoBehaviour
     private void ColorFade()
     {
         switch (fadeState) {
-        case TweenColorFade.FadeState.None:
+        case FadeState.None:
             break;
 
-        case TweenColorFade.FadeState.Out:
-            tweener = TweenColorFade.FadeOut(canvasGroup, duration);
-            fadeState = TweenColorFade.FadeState.None;
+        case FadeState.Out:
+            tweener = TweenColorFade.FadeOut(image, duration);
+            fadeState = FadeState.None;
             break;
 
-        case TweenColorFade.FadeState.In:
-            tweener = TweenColorFade.FadeIn(canvasGroup, duration);
-            fadeState = TweenColorFade.FadeState.None;
+        case FadeState.In:
+            tweener = TweenColorFade.FadeIn(image, duration);
+            fadeState = FadeState.None;
             break;
 
         default:
             break;
         }
+    }
+
+    private void GradFade()
+    {
+        switch (fadeState) {
+        case FadeState.None:
+            break;
+
+        case FadeState.Out:
+            Debug.Log(TweenGradFade.currentTime.ToString());
+
+            tweener = TweenGradFade.FadeOut(material, duration);
+            fadeState = FadeState.None;
+            break;
+
+        case FadeState.In:
+            Debug.Log(TweenGradFade.currentTime.ToString());
+
+            tweener = TweenGradFade.FadeIn(material, duration);
+            fadeState = FadeState.None;
+            break;
+
+        default:
+            break;
+        }
+
+        material.SetFloat(progress, TweenGradFade.currentTime);
     }
 }

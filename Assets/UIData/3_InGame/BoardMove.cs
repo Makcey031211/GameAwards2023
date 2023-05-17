@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
@@ -39,10 +40,15 @@ public class BoardMove : MonoBehaviour
     [SerializeField] private Image img;
     [SerializeField] private VideoPlayer movie;
     [SerializeField] private TextMeshProUGUI tmp;
-    [SerializeField] private float DeleyTime = 0.0f;
+    [SerializeField] private float IntervalTime = 0.0f;
     private Dictionary<string, Dictionary<string, Vector3>> InitValues;
     public static bool MoveComplete = false;
-    //private PController pCnt;
+
+    private bool LoadStart = false;
+    private bool LoadOut = false;
+    private bool ReInMove;     //登場ボタン入力フラグ
+    private bool ReOutMove;    //撤退ボタン入力フラグ
+
     private void Awake()
     {
         //- 初期値登録
@@ -51,27 +57,41 @@ public class BoardMove : MonoBehaviour
         InitValues.Add("文字", new Dictionary<string, Vector3> { { "位置", tmp.transform.position } });
         InitValues.Add("背景", new Dictionary<string, Vector3> { { "位置", img.transform.position } });
         //- 初期位置更新
-        img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
-        movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
-        tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
-        //- 動画停止
+        img.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, img.transform.localPosition.y);
+        movie.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, movie.transform.localPosition.y);
+        tmp.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, tmp.transform.localPosition.y);
+        //- 待機時は動画停止
         movie.Pause();
     }
-
+    
     /// <summary>
     /// 登場挙動を行う
     /// </summary>
     public void StartMove()
     {
-        //- 左から真ん中
-        DOTween.Sequence()
-            .AppendInterval(1.0f)
+        //- 初回読み込み
+        if(!LoadStart)
+        {
+            //- 読み込み済にする
+            LoadStart = true;
+            //- 登場処理に入ったらボタン入力を非入力状態に
+            ReInMove = false;
+            //- 登場する際に動画再生
+            movie.Play();
+            //- シーケンス作成
+            var InAnime = DOTween.Sequence();
+            //- 登場挙動
+            InAnime.AppendInterval(IntervalTime)
             .Append(img.transform.DOMove(InitValues["背景"]["位置"], 0.5f))
-            .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.5f))
+            .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.525f))
             .Join(tmp.transform.DOMove(InitValues["文字"]["位置"], 0.5f))
-            .OnPlay(() => { movie.Play(); })
-            .AppendInterval(DeleyTime)
-            .OnComplete(() => { OutMove(); });
+            .OnComplete(() => {
+                //- 登場挙動完了したら撤退可能にする
+                LoadOut = false;
+                //- 挙動が完成したらアニメーション削除
+                InAnime.Kill();
+            });
+        }
     }
 
     /// <summary>
@@ -79,25 +99,94 @@ public class BoardMove : MonoBehaviour
     /// </summary>
     public void OutMove()
     {
-        DOTween.Sequence()
-            .Append(movie.transform.DOMoveX(RIGHT, 0.3f))
-            .Join(img.transform.DOMoveX(RIGHT, 0.3f))
-            .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
-            .OnComplete(() =>
-            {
-                movie.Stop();
-                MoveComplete = true;
-                //- 初期位置更新
-                img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
-                movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
-                tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
-            });
+        //- 初回読み込み
+        if(!LoadOut)
+        {
+            //- 読み込み済にする
+            LoadOut = true;
+            //- 撤退する前に動画の再生を止める
+            movie.Stop();
+            //- シーケンス作成
+            var OutAnime = DOTween.Sequence();
+
+            //- 撤退処理動作
+                OutAnime.Append(movie.transform.DOMoveX(RIGHT, 0.3f))
+                .Join(img.transform.DOMoveX(RIGHT, 0.3f))
+                .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
+                .OnComplete(() =>
+                {
+                    //- 初期位置更新
+                    img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
+                    movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
+                    tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
+                    //- 撤退挙動完了したらTips再表示可能にする
+                    LoadStart = false;
+                    //- 一連の挙動が終了
+                    MoveComplete = true;
+                    //- アニメーション削除
+                    OutAnime.Kill();
+                });
+        }
     }
 
     /// <summary>
-    ///  描画フラグをリセットする
+    ///  初回動作完了フラグをリセット
     /// </summary>
     public static void ResetMoveComplete()
     {   MoveComplete = false;    }
+    
+    /// <summary>
+    /// 再登場フラグ返却
+    /// </summary>
+    public bool GetInDrawButtonPush()
+    {   return ReInMove;     }
+
+    /// <summary>
+    /// 再撤退フラグ返却
+    /// </summary>
+    public bool GetOutDrawButtonPush()
+    { return ReOutMove;      }  
+
+    /// <summary>
+    /// 登場フラグ返却
+    /// </summary>
+    public bool GetLoadStart()
+    { return LoadStart; }
+    
+    /// <summary>
+    /// 退場フラグ返却
+    /// </summary>
+    public bool GetLoadOut()
+    { return LoadOut; }
+
+    /// <summary>
+    /// 再登場入力
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnInTips(InputAction.CallbackContext context)
+    {
+        //- Tips再描画フラグをオンにする
+        if (context.started && !SceneChange.bIsChange)
+        {
+            //- 再登場時は待機時間を無くす
+            IntervalTime = 0.0f;
+            ReInMove = true;
+        }
+    }
+
+    /// <summary>
+    /// 再撤退入力
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnOutTips(InputAction.CallbackContext context)
+    {
+        //- クリアしていない際にボタン入力を受け付ける
+        if (context.started && !SceneChange.bIsChange)
+        {   ReOutMove = true;  }//入力中
+        if(context.canceled && !SceneChange.bIsChange)
+        {   ReOutMove = false; }//入力中止
+    }
+
+    
 }
 

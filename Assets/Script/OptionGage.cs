@@ -37,6 +37,8 @@ public class OptionGage : MonoBehaviour
     // CountEnemyスクリプトを入れる変数
     CountEnemy countEnemy;
 
+    //- プレイヤーの情報を取得する変数
+    PController player;
     void Start()
     {
         //- コンポーネントの取得
@@ -44,6 +46,9 @@ public class OptionGage : MonoBehaviour
         imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
         //- 敵カウントUIの取得
         countEnemy = GameObject.Find("Main Camera").GetComponent<CountEnemy>();
+
+        //- プレイヤーの情報を
+        player = GameObject.Find("Player").GetComponent<PController>();
     }
     
     void FixedUpdate()
@@ -76,7 +81,7 @@ public class OptionGage : MonoBehaviour
             if (bIsStartRetry == true) return; //- リセット開始フラグがたっていればリターン
             imageInGame.fillAmount = 0; //- 反対のゲージのリセット
             bIsStartRetry = true; //シーン開始フラグをたてる
-            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
+            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(SceneManager.GetActiveScene().name)); // シーンのロード(遅延あり)
         }
 
@@ -102,7 +107,7 @@ public class OptionGage : MonoBehaviour
             if (bIsStartInGame == true) return; //- リセット開始フラグがたっていればリターン
             imageRetry.fillAmount = 0; //- 反対のゲージのリセット
             bIsStartInGame = true; //シーン開始フラグをたてる
-            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
+            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             BGMManager bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
             DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(SelectScene)); // シーンのロード(遅延あり)
@@ -111,15 +116,15 @@ public class OptionGage : MonoBehaviour
 
     public void OnReset(InputAction.CallbackContext context)
     {
-        //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushRetry = true; }
-        if (context.canceled) { bIsPushRetry = false; }
+        //- ボタンが押されている間、プレイヤーが動作可能時に変数を設定
+        if (context.started && !player.GetWaitFlag()) { bIsPushRetry = true; }
+        if (context.canceled && !player.GetWaitFlag()) { bIsPushRetry = false; }
     }
 
     public void OnInGame(InputAction.CallbackContext context)
     {
-        //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushInGame = true; }
-        if (context.canceled) { bIsPushInGame = false; }
+        //- ボタンが押されている間、、プレイヤーが動作可能時に変数を設定
+        if (context.started && !player.GetWaitFlag()) { bIsPushInGame = true; }
+        if (context.canceled && !player.GetWaitFlag()) { bIsPushInGame = false; }
     }
 }

@@ -71,7 +71,8 @@ public class FireworksModuleEditor : Editor {
             _target._highestSpeed = EditorGUILayout.FloatField("最高速度", _target.HighestSpeed);
             _target._decelerationTime = EditorGUILayout.FloatField("減速時間", _target.DecelerationTime);
             _target._decelerationEase = (Easing.EaseType)EditorGUILayout.EnumPopup("減速時の補完タイプ", _target.DecelerationEase);
-            break;
+            _target._effectTonbo = (GameObject)EditorGUILayout.ObjectField("トンボ花火のエフェクト", _target.EffectTonbo, typeof(GameObject), true);
+                break;
         case FireworksModule.FireworksType.Yanagi:
             _target._modelResidueTime = EditorGUILayout.FloatField("モデル残留時間", _target.ModelResidueTime);
             EditorGUILayout.LabelField("--- 色関連 ---");

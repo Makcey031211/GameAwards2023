@@ -141,7 +141,10 @@ public class CutIn : MonoBehaviour
                     .Join(BigCrystal.DOFade(0.0f, 0.2f))
                     .Join(tmp.DOFade(0.0f, 0.2f))
                     .Join(TextBack.DOFade(0.0f, 0.2f))
-                    .OnComplete(() => { MoveCompleat = true; });
+                    .OnComplete(() => {
+                        MoveCompleat = true;//初回挙動完了処理
+                        DoOut.Kill();
+                    });
 
             });
     }
@@ -184,7 +187,10 @@ public class CutIn : MonoBehaviour
                     .Join(BigCrystal.DOFade(0.0f, 0.2f))
                     .Join(tmp.DOFade(0.0f, 0.2f))
                     .Join(TextBack.DOFade(0.0f, 0.2f))
-                    .OnComplete(() => { MoveCompleat = true; });
+                    .OnComplete(() => {
+                        MoveCompleat = true;
+                        DoOut.Kill();
+                    });
 
             });
     }

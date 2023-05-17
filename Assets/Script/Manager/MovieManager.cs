@@ -83,12 +83,12 @@ public class MovieManager : MonoBehaviour
         bPlayMovie = true; //- 演出フラグ変更
 
         //- フェードを登場させる
-        fade.SetFade(TweenColorFade.FadeState.In, FadeTime);
+        fade.SetFade(ObjectFade.FadeState.In, FadeTime);
         yield return new WaitForSeconds(FadeTime);
 
         //- 演出シーンを追加ロード,フェードを退場させる
         LoadMovieScene();
-        fade.SetFade(TweenColorFade.FadeState.Out, FadeTime);
+        fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
         yield return new WaitForSeconds(FadeTime);
 
         //- 演出シーン内オブジェクトを検索
@@ -107,17 +107,17 @@ public class MovieManager : MonoBehaviour
 
         //- 一定時間後、フェードを登場させる
         yield return new WaitForSeconds(DelayFadeTime);
-        fade.SetFade(TweenColorFade.FadeState.In, FadeTime);
+        fade.SetFade(ObjectFade.FadeState.In, FadeTime);
         yield return new WaitForSeconds(FadeTime);
 
         //- 演出シーンをアンロード
         UnloadMovieScene();
-        fade.SetFade(TweenColorFade.FadeState.Out, FadeTime);
+        fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
         yield return new WaitForSeconds(FadeTime);
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-        scenechange.SetStopClearFlag(false);
-        scenechange.SetStopMissFlag(false);
+        scenechange.RequestStopClear(false);
+        scenechange.RequestStopMiss(false);
         bPlayMovie = false; //- 演出フラグ変更
     }
 

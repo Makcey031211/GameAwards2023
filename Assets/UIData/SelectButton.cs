@@ -13,6 +13,8 @@ public class SelectButton : MonoBehaviour
     private BoardMove board;
     [SerializeField, Header("遅延時間(秒)")]
     private float DelayTime;
+    [SerializeField, Header("フェード用オブジェクト")]
+    private GameObject fadeObject;
     [SerializeField, Header("フェード秒数")]
     private float FadeTime;
 
@@ -41,7 +43,7 @@ public class SelectButton : MonoBehaviour
         if (BoardMove.MoveComplete) { BoardMove.ResetMoveComplete(); }
         if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
 
-        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
+        DOVirtual.DelayedCall(DelayTime, () => fadeObject.GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
         button.PushButtonAnime();
         //- シーンを変える前にBGMを消す
         DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()).SetDelay(DelayTime); 
@@ -64,7 +66,7 @@ public class SelectButton : MonoBehaviour
         SelectPlayer = GetComponent<SelectMovePlayer>();
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
-        DOVirtual.DelayedCall(DelayTime, () => GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime));
+        DOVirtual.DelayedCall(DelayTime, () => fadeObject.GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
         SelectPlayer.InStageMove();
         //- シーンを変える前にBGMを消す
         DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager()).SetDelay(DelayTime);

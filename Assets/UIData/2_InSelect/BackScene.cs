@@ -34,7 +34,7 @@ public class BackScene : MonoBehaviour
     private void Start()
     {
         //- コンポーネントの取得
-        imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
+       // imageInGame = GameObject.Find("PadButton").GetComponent<Image>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
 
@@ -51,12 +51,12 @@ public class BackScene : MonoBehaviour
         if (bIsPushBack && !bIsMoveScene)
         {
             bPushTimeBack += Time.deltaTime;                     // プッシュ時間の更新
-            imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
+            //imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
         }
         else if (!bIsMoveScene)
         {
             bPushTimeBack = 0;          // プッシュ時間のリセット
-            imageInGame.fillAmount = 0; // ゲージのリセット
+            //imageInGame.fillAmount = 0; // ゲージのリセット
         }
         //- 一定時間長押しされたら処理する
         if (bPushTimeBack >= OptionTime)
@@ -64,7 +64,7 @@ public class BackScene : MonoBehaviour
             if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
             bIsStartInGame = true; // シーン開始フラグをたてる
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
-            GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(TweenColorFade.FadeState.In, FadeTime); // フェード開始
+            GameObject.Find("ColorFadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
         }

@@ -108,16 +108,16 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2257308572871070123}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0.07806644, y: 0.9656837, z: 0.1710685, w: -0.17915419}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_LocalScale: {x: 22.5, y: 22.5, z: 22.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4686368046505171543}
   - {fileID: 4311346763485908754}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: -21, y: 200, z: 5.5}
 --- !u!65 &192255757770048117
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -173,7 +173,6 @@ MonoBehaviour:
   _boxDisTime: 0.3
   _invTime: 0
   _ignitionMax: 3
-  _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrier: {fileID: 0}
@@ -184,13 +183,19 @@ MonoBehaviour:
   _decelerationTime: 0
   _accelerationEase: 0
   _decelerationEase: 0
+  _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
+  _modelResidueTime: 0
   _yanagiobj: {fileID: 0}
   _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
   _reafobj1: {fileID: 0}
   _reafColor1: {r: 0, g: 0, b: 0, a: 0}
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
+  _movieObject: {fileID: 0}
+  _synchroTime: 0
+  _boss2barrierObj: {fileID: 0}
+  _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
