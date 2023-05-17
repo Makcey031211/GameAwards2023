@@ -13,7 +13,6 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
     private Sequence anime;
     public void OnSelect(BaseEventData eventData)
     {
-        Debug.Log(eventData.selectedObject.transform.position);
         Vector3 pos = eventData.selectedObject.transform.position;
         var Move = DOTween.Sequence();
         Move.Append(player.transform.DOMove(pos,MoveTIme))

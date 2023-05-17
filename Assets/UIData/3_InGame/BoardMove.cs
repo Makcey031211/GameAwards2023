@@ -44,15 +44,10 @@ public class BoardMove : MonoBehaviour
     private Dictionary<string, Dictionary<string, Vector3>> InitValues;
     public static bool MoveComplete = false;
 
-    //- 絶対減らす
-    private bool First = true;
-    private bool fReInMove = false;     //再登場フラグ
-    private bool fReOutMove = false;    //再撤退フラグ
-    private bool Inloaded = false;      //読み込み済か
-    private bool Outloaded = false;
-    private bool InComplete = false;    //開始処理完了フラグ
-    private bool OutComplete = false;   //撤退処理完了フラグ
-
+    private bool LoadStart = false;
+    private bool LoadOut = false;
+    private bool ReInMove;     //登場ボタン入力フラグ
+    private bool ReOutMove;    //撤退ボタン入力フラグ
 
     private void Awake()
     {
@@ -65,7 +60,7 @@ public class BoardMove : MonoBehaviour
         img.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, img.transform.localPosition.y);
         movie.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, movie.transform.localPosition.y);
         tmp.transform.localPosition = new Vector3(LEFT + img.transform.localPosition.x, tmp.transform.localPosition.y);
-        //- 動画停止
+        //- 待機時は動画停止
         movie.Pause();
     }
     
@@ -74,26 +69,26 @@ public class BoardMove : MonoBehaviour
     /// </summary>
     public void StartMove()
     {
-        // 無限呼び出し　修正
-        if(!Inloaded)
+        //- 初回読み込み
+        if(!LoadStart)
         {
-            GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(true);
-            //- 後で減らす
-            Inloaded = true;
-            Outloaded = false;
-            fReInMove = true;
-            fReOutMove = false;
-            OutComplete = false;
-
+            //- 読み込み済にする
+            LoadStart = true;
+            //- 登場処理に入ったらボタン入力を非入力状態に
+            ReInMove = false;
+            //- 登場する際に動画再生
             movie.Play();
-            //- 左から真ん中
+            //- シーケンス作成
             var InAnime = DOTween.Sequence();
+            //- 登場挙動
             InAnime.AppendInterval(IntervalTime)
             .Append(img.transform.DOMove(InitValues["背景"]["位置"], 0.5f))
             .Join(movie.transform.DOMove(InitValues["動画"]["位置"], 0.525f))
             .Join(tmp.transform.DOMove(InitValues["文字"]["位置"], 0.5f))
             .OnComplete(() => {
-                InComplete = true;
+                //- 登場挙動完了したら撤退可能にする
+                LoadOut = false;
+                //- 挙動が完成したらアニメーション削除
                 InAnime.Kill();
             });
         }
@@ -104,20 +99,17 @@ public class BoardMove : MonoBehaviour
     /// </summary>
     public void OutMove()
     {
-        if (!Outloaded)
+        //- 初回読み込み
+        if(!LoadOut)
         {
-            if(!First)
-            {   GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);   }
-            
-            //- 絶対こんな必要ない
-            fReInMove = false;
-            Outloaded = true;
-            Inloaded = false;
-            fReOutMove = true;
-            InComplete = false;
+            //- 読み込み済にする
+            LoadOut = true;
+            //- 撤退する前に動画の再生を止める
             movie.Stop();
-
+            //- シーケンス作成
             var OutAnime = DOTween.Sequence();
+
+            //- 撤退処理動作
                 OutAnime.Append(movie.transform.DOMoveX(RIGHT, 0.3f))
                 .Join(img.transform.DOMoveX(RIGHT, 0.3f))
                 .Join(tmp.transform.DOMoveX(RIGHT, 0.3f))
@@ -127,38 +119,45 @@ public class BoardMove : MonoBehaviour
                     img.transform.localPosition = new Vector3(LEFT, img.transform.localPosition.y);
                     movie.transform.localPosition = new Vector3(LEFT, movie.transform.localPosition.y);
                     tmp.transform.localPosition = new Vector3(LEFT, tmp.transform.localPosition.y);
+                    //- 撤退挙動完了したらTips再表示可能にする
+                    LoadStart = false;
+                    //- 一連の挙動が終了
                     MoveComplete = true;
-                    OutComplete = true;
+                    //- アニメーション削除
                     OutAnime.Kill();
                 });
-            First = false;
         }
     }
 
     /// <summary>
-    ///  描画フラグをリセットする
+    ///  初回動作完了フラグをリセット
     /// </summary>
     public static void ResetMoveComplete()
     {   MoveComplete = false;    }
-
-
+    
     /// <summary>
     /// 再登場フラグ返却
     /// </summary>
-    public bool GetInMove()
-    {   return fReInMove;     }
+    public bool GetInDrawButtonPush()
+    {   return ReInMove;     }
 
     /// <summary>
     /// 再撤退フラグ返却
     /// </summary>
-    public bool GetOutMove()
-    { return fReOutMove;      }  
+    public bool GetOutDrawButtonPush()
+    { return ReOutMove;      }  
 
-    public bool GetInMoveComplet()
-    { return InComplete; }
-
-    public bool GetOutMoveComplet()
-    { return OutComplete; }
+    /// <summary>
+    /// 登場フラグ返却
+    /// </summary>
+    public bool GetLoadStart()
+    { return LoadStart; }
+    
+    /// <summary>
+    /// 退場フラグ返却
+    /// </summary>
+    public bool GetLoadOut()
+    { return LoadOut; }
 
     /// <summary>
     /// 再登場入力
@@ -169,8 +168,9 @@ public class BoardMove : MonoBehaviour
         //- Tips再描画フラグをオンにする
         if (context.started && !SceneChange.bIsChange)
         {
+            //- 再登場時は待機時間を無くす
             IntervalTime = 0.0f;
-            fReInMove = true;
+            ReInMove = true;
         }
     }
 
@@ -180,12 +180,11 @@ public class BoardMove : MonoBehaviour
     /// <param name="context"></param>
     public void OnOutTips(InputAction.CallbackContext context)
     {
-        //- Tips再撤退フラグをオンにする
+        //- クリアしていない際にボタン入力を受け付ける
         if (context.started && !SceneChange.bIsChange)
-        {   fReOutMove = true;  }
+        {   ReOutMove = true;  }//入力中
         if(context.canceled && !SceneChange.bIsChange)
-        {   fReOutMove = false; }
-        
+        {   ReOutMove = false; }//入力中止
     }
 
     

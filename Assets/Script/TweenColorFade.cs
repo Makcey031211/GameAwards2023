@@ -2,23 +2,17 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class TweenColorFade{
 
-    public enum FadeState
+    public static Tweener FadeOut(this Image image, float duration)
     {
-        None,
-        Out,
-        In
+        return image.DOFade(0.0F, duration);
     }
 
-    public static Tweener FadeOut(this CanvasGroup canvasGroup, float duration)
+    public static Tweener FadeIn(this Image image, float duration)
     {
-        return canvasGroup.DOFade(0.0F, duration);
-    }
-
-    public static Tweener FadeIn(this CanvasGroup canvasGroup, float duration)
-    {
-        return canvasGroup.DOFade(1.0F, duration);
+        return image.DOFade(1.0F, duration);
     }
 }

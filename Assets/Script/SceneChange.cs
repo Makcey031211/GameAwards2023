@@ -106,7 +106,7 @@ public class SceneChange : MonoBehaviour
                 //- 失敗音の再生
                 SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Failure);
                 // フェードの設定
-                fade.SetFade(TweenColorFade.FadeState.In, 1.0f);
+                fade.SetFade(ObjectFade.FadeState.In, 1.0f);
             }
             if (!fade.isFade) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
