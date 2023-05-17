@@ -34,7 +34,7 @@ public class BackScene : MonoBehaviour
     private void Start()
     {
         //- コンポーネントの取得
-        //imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
+       // imageInGame = GameObject.Find("PadButton").GetComponent<Image>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
 
