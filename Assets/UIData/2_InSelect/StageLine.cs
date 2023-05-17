@@ -8,16 +8,18 @@ public class StageLine : MonoBehaviour
     private List<GameObject> StageList;
     [SerializeField, Header("ステージ間ライン")]
     private LineRenderer line;
+    [SerializeField, Header("線の色")]
+    private Color lineColor;
     [SerializeField, Header("線の太さ")]
     private float width = 0.2f;
 
     private void LineRender()
     {
         line.startWidth = width;
-        line.endWidth = width;
+        line.endWidth   = width;
 
-        line.startColor = Color.yellow;
-        line.endColor = Color.yellow;
+        line.startColor = lineColor;
+        line.endColor   = lineColor;
 
         line.positionCount = StageList.Count;
         int LineCount = 0;
