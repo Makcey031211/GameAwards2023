@@ -34,7 +34,7 @@ public class BackScene : MonoBehaviour
     private void Start()
     {
         //- コンポーネントの取得
-        imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
+        //imageInGame = GameObject.Find("InGameGage").GetComponent<Image>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
 
@@ -51,12 +51,12 @@ public class BackScene : MonoBehaviour
         if (bIsPushBack && !bIsMoveScene)
         {
             bPushTimeBack += Time.deltaTime;                     // プッシュ時間の更新
-            imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
+            //imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
         }
         else if (!bIsMoveScene)
         {
             bPushTimeBack = 0;          // プッシュ時間のリセット
-            imageInGame.fillAmount = 0; // ゲージのリセット
+            //imageInGame.fillAmount = 0; // ゲージのリセット
         }
         //- 一定時間長押しされたら処理する
         if (bPushTimeBack >= OptionTime)

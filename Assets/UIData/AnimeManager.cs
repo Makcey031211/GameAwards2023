@@ -31,7 +31,6 @@ public class AnimeManager : MonoBehaviour
     private bool InMoveCompleat = false;
     private bool OutMoveCompleat = false;
     private bool FirstLoad = false;
-    private bool Load = false;
     private bool TipsInLoad = false;
     private bool TipsOutLoad = false;
     private InputAction tipsAction;
