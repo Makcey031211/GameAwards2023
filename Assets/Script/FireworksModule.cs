@@ -888,8 +888,6 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce)
         { //- 爆発直後
             _isOnce = true;
-            //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
-            //sceneChange.bIsLife = true;
             //- SpawnPlayerメソッドをdelayTime秒後に呼び出す
             StartCoroutine(SpawnPlayer(_delayTime));
         }
@@ -999,7 +997,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- プレイヤーを生成する
             Vector3 spawnPosition = new Vector3(
-                transform.position.x, transform.position.y, transform.position.z);
+                transform.position.x, transform.position.y + 1.0f, transform.position.z);
             GameObject player = Instantiate(
                 _playerPrefab, spawnPosition, Quaternion.identity);
 
