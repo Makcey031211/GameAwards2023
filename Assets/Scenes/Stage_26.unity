@@ -273,12 +273,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 66655081}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &66655083 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3051055468540406191, guid: c9308a3c00b89dd489af48490e5303f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 66655081}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &66655084 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5290776292445447595, guid: c9308a3c00b89dd489af48490e5303f1,
@@ -579,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606e37672c877cc429e0d10c6fad9807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarpHole: {fileID: 652913831}
   warpPoint: {fileID: 1269636870}
   radius: 8
   suctionSpeed: 1
@@ -1261,6 +1256,11 @@ PrefabInstance:
       propertyPath: speed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 986685969940880964, guid: 3f94529a276a67e43a40bb7347da7325,
+        type: 3}
+      propertyPath: SelectScene.m_SceneName
+      value: 2_Sato3
+      objectReference: {fileID: 0}
     - target: {fileID: 986685969940880965, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.size
@@ -1295,10 +1295,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
-    - target: {fileID: 986685969940880964, guid: 3f94529a276a67e43a40bb7347da7325,
-        type: 3}
-      propertyPath: SelectScene.m_SceneName
-      value: 2_Sato3
       objectReference: {fileID: 0}
     - target: {fileID: 986685969940880967, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
@@ -1389,7 +1385,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Reset
       value: 
-      objectReference: {fileID: 66655083}
+      objectReference: {fileID: 0}
     - target: {fileID: 6026420782162905145, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1539,6 +1535,7 @@ GameObject:
   - component: {fileID: 1269636869}
   - component: {fileID: 1269636868}
   - component: {fileID: 1269636867}
+  - component: {fileID: 1269636871}
   m_Layer: 0
   m_Name: WarpholeB
   m_TagString: Untagged
@@ -1554,7 +1551,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1269636865}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
@@ -1624,6 +1621,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1269636871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1269636865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 606e37672c877cc429e0d10c6fad9807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WarpHole: {fileID: 1269636865}
+  warpPoint: {fileID: 652913836}
+  radius: 8
+  suctionSpeed: 1
+  spittingSpeed: 1
 --- !u!1 &1309539771
 GameObject:
   m_ObjectHideFlags: 0

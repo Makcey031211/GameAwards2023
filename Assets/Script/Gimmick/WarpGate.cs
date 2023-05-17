@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WarpGate : MonoBehaviour
 {
+    [SerializeField, Header("ワープゲート")]
+    private GameObject WarpHole;
     [SerializeField, Header("ワープする位置")]
     private Transform warpPoint;
     [SerializeField, Header("ワープゲートの範囲")]
@@ -22,12 +24,13 @@ public class WarpGate : MonoBehaviour
             Vector3 playerPos = other.transform.position;
             Vector3 gatePos   = transform.position;
             float distance = Vector3.Distance(playerPos, gatePos);
+            Vector3 warpdistance = WarpHole.transform.position - other.transform.position;
 
             //- プレイヤーをワープする処理
             if (distance < radius)
             {
                 //- プレイヤーを指定した位置にワープさせる
-                other.transform.position = warpPoint.position;
+                other.transform.position = warpPoint.position + warpdistance;
 
                 //- ワープ後に少し時間をおいてから、吐き出させる演出をする
                 Invoke("Untagged", spittingSpeed);
