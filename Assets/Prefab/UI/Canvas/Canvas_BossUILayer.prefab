@@ -1687,6 +1687,7 @@ GameObject:
   - component: {fileID: 1474556164919251646}
   - component: {fileID: 8322746180134775382}
   - component: {fileID: 3968721351268386164}
+  - component: {fileID: 1744735309474312774}
   m_Layer: 0
   m_Name: boss
   m_TagString: Untagged
@@ -1752,6 +1753,30 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1744735309474312774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5993006410735925392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseFade: 1
+  StartAlpha: 0
+  EndAlpha: 0.35
+  FadeTime: 1
+  FadeDelay: 2.5
+  UseMove: 0
+  StartPos: 1
+  MoveTime: 0.3
+  Delay: 0
+  UsePop: 0
+  PopSize: {x: 0, y: 0}
+  PopMaxSizeTime: 1
 --- !u!1001 &1274405221414322182
 PrefabInstance:
   m_ObjectHideFlags: 0
