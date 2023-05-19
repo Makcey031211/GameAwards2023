@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1941224226708309749}
   - component: {fileID: 1941224226708309751}
   - component: {fileID: 1941224226708309753}
+  - component: {fileID: 8046935284988249596}
   m_Layer: 6
   m_Name: GamePlayer
   m_TagString: Untagged
@@ -156,6 +157,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1adec4b5-e426-4ff1-bf01-5139fb7d6869
     m_ActionName: Player/Reset[/XInputControllerWindows/start,/Keyboard/f1]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c7cbd3b-e997-4ff8-b554-1491c181a45f
+    m_ActionName: Player/InGame[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f55e78f7-46f1-49d5-b617-559df50bbfa7
+    m_ActionName: Player/InGameTips[/Keyboard/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5554dc30-278f-48a1-9761-4d5536f99dfb
+    m_ActionName: Player/OutGameTips[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -175,6 +188,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveTIme: 1
   player: {fileID: 0}
+--- !u!114 &8046935284988249596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941224226708309752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79338b30e0429b14e86f6ba0a576755a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateAngle: 3
+  radius: 0.5
 --- !u!1 &1941224227549802361
 GameObject:
   m_ObjectHideFlags: 0
