@@ -197,18 +197,8 @@ public class FireworksModule : MonoBehaviour
 
     //- トンボ花火用の項目
     //-- インスペクターに表示
-    [SerializeField, HideInInspector] //- 最低速度
-    public float _lowestSpeed;
-    [SerializeField, HideInInspector] //- 最高速度
-    public float _highestSpeed;
-    [SerializeField, HideInInspector] //- 加速時間
-    public float _accelerationTime;
-    [SerializeField, HideInInspector] //- 減速時間
-    public float _decelerationTime;
-    [SerializeField, HideInInspector] //- 加速時の補完タイプ
-    public Easing.EaseType _accelerationEase;
-    [SerializeField, HideInInspector] //- 加速時の補完タイプ
-    public Easing.EaseType _decelerationEase;
+    [SerializeField, HideInInspector] //- 速度
+    public float _tonboSpeed;
     [SerializeField, HideInInspector]
     public GameObject _effectTonbo; // 柳花火用のオブジェクト
     //-- インスペクターに非表示
@@ -217,12 +207,7 @@ public class FireworksModule : MonoBehaviour
     public Vector2 movedir;              //- トンボ花火が移動する方向
     float CountTime = 0; //- 時間のカウンタ
     //-- 外部からの値取得用
-    public float LowestSpeed => _lowestSpeed;
-    public float HighestSpeed => _highestSpeed;
-    public float AccelerationTime => _accelerationTime;
-    public float DecelerationTime => _decelerationTime;
-    public Easing.EaseType AccelerationEase => _accelerationEase;
-    public Easing.EaseType DecelerationEase => _decelerationEase;
+    public float TonboSpeed => _tonboSpeed;
     public GameObject EffectTonbo => _effectTonbo;
 
     //- 柳花火の項目
@@ -888,8 +873,6 @@ public class FireworksModule : MonoBehaviour
         if (!_isOnce)
         { //- 爆発直後
             _isOnce = true;
-            //- SceneChangeスクリプトのプレイヤー生存フラグをtrueにする
-            //sceneChange.bIsLife = true;
             //- SpawnPlayerメソッドをdelayTime秒後に呼び出す
             StartCoroutine(SpawnPlayer(_delayTime));
         }
@@ -900,14 +883,42 @@ public class FireworksModule : MonoBehaviour
         //- 最初に一度だけ行う処理
         if (!bIsInit)
         {
+            //- タグの変更(残り花火数のタグ検索を回避するため)
+            this.tag = "Untagged";
+
+            int DirNum = 16;
+            float DirAngle = 360 / (float)DirNum;
+
             //- 引火したオブジェクトの座標
             Vector2 IgnPoint = HitInfo.objpoint;
             //- トンボ花火の座標
             Vector2 myPoint = transform.position;
             //- 移動方向ベクトルを生成
-            movedir = myPoint - IgnPoint;
-            //- 移動方向ベクトルの正規化
-            movedir.Normalize();
+            Vector2 dis = myPoint - IgnPoint;
+            float angle = Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg;
+            angle += DirAngle / 2 ;
+            //- 範囲外に出た角度を戻す
+            if (angle < 0) angle += 360;
+            //- 最終的な方向
+            float moveAngle = 0;
+
+            for (int i = 0; i < DirNum; i++)
+            {
+                float AngleMin = DirAngle * i;
+                float AngleMax = DirAngle * (i + 1);
+                if (AngleMin <= angle && angle < AngleMax)
+                {
+                    moveAngle = DirAngle * i + DirAngle / 2;
+                    moveAngle -= DirAngle / 2;
+                    moveAngle *= Mathf.Deg2Rad;
+                    break;
+                }
+            }
+
+            movedir.x = 1 * Mathf.Cos(moveAngle);
+            movedir.y = 1 * Mathf.Sin(moveAngle);
+
+
             //- フラグの変更
             bIsInit = true;
             //- 失敗判定フラグ変更
@@ -918,36 +929,17 @@ public class FireworksModule : MonoBehaviour
             _effectTonbo.SetActive(true);
         }
 
-        //- 変数用意
-        Vector2 movespeed = new Vector2(0, 0);
-        //- 時間経過
-        CountTime += Time.deltaTime;
-        if (CountTime < _decelerationTime)
-        {
-            //- 移動量の変更
-            movespeed.x = movedir.x * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime);
-            movespeed.y = movedir.y * Easing.EasingFunc(_decelerationEase, _highestSpeed, _lowestSpeed, _decelerationTime, CountTime);
-        }
-        else
-        {
-            //- 失敗判定フラグ変更
-            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.RequestStopMiss(false); //- 失敗判定を再開
-            //- 自身を破壊
-            Destroy(transform.parent.gameObject);
-        }
-
         //- トンボ花火の座標を取得
         Vector3 pos = transform.position;
         //- トンボ花火を移動させる
-        pos.x += movespeed.x;
-        pos.y += movespeed.y;
+        pos.x += movedir.x * _tonboSpeed;
+        pos.y += movedir.y * _tonboSpeed;
         //- トンボ花火の座標を適用
         transform.position = pos;
 
         //- トンボ花火の回転を取得
         Vector3 rot = transform.localEulerAngles;
-        rot.z -= movespeed.magnitude * 40;
+        rot.z -= 10;
         transform.localEulerAngles = rot;
     }
 
@@ -999,7 +991,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- プレイヤーを生成する
             Vector3 spawnPosition = new Vector3(
-                transform.position.x, transform.position.y, transform.position.z);
+                transform.position.x, transform.position.y + 1.0f, transform.position.z);
             GameObject player = Instantiate(
                 _playerPrefab, spawnPosition, Quaternion.identity);
 
