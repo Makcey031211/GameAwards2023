@@ -9,8 +9,7 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
     [SerializeField, Header("ƒvƒŒƒCƒ„[")]
     private GameObject player;
     private Vector3 StagePos;
-    private bool AnimeKill = false;
-    private Sequence anime;
+
     public void OnSelect(BaseEventData eventData)
     {
         Vector3 pos = eventData.selectedObject.transform.position;
@@ -18,20 +17,11 @@ public class SelectMovePlayer : MonoBehaviour,ISelectHandler
         Move.Append(player.transform.DOMove(pos,MoveTIme))
             .OnComplete(() =>
             {   Move.Kill();});
-
-        anime = DOTween.Sequence();
-        anime.AppendInterval(0.5f)
-            .Append(player.transform.DOMoveY(pos.y + -0.25f, 0.5f).SetEase(Ease.OutSine))
-            .Append(player.transform.DOMoveY(pos.y + 0.5f, 1.0f).SetEase(Ease.InOutSine))
-            .Append(player.transform.DOMoveY(pos.y + -0.25f, 0.5f).SetEase(Ease.InSine));
-        anime.SetLoops(-1);
     }
-
-    
 
     public void InStageMove()
     {
-        anime.Kill();
+        player.GetComponent<PlayerFloatingMove>().StopMove();
         DOTween.Sequence()
             .Append(player.transform.DOMoveY(-2.0f, 0.5f).SetRelative(true))
             .AppendInterval(0.25f)
