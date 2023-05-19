@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using DG.Tweening;
 
 public class SelectButton : MonoBehaviour
@@ -21,20 +19,31 @@ public class SelectButton : MonoBehaviour
 
     //- スクリプト用の変数
     BGMManager bgmManager;
-    private ButtonAnime button;
+    private Button button;
+    private ButtonAnime buttonAnime;
     private SelectMovePlayer SelectPlayer;
     private bool Load = false;
+    private
     void Start()
     {
-        button = GetComponent<ButtonAnime>();
+        buttonAnime = GetComponent<ButtonAnime>();
+        button = GetComponent<Button>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
     
     public void MoveScene()
     {
-        if(Load)
+        //- 呼び出されたら上下左右選択を無効化
+        Navigation NoneNavigation = button.navigation;
+        NoneNavigation.selectOnUp = null;
+        NoneNavigation.selectOnDown = null;
+        NoneNavigation.selectOnLeft = null;
+        NoneNavigation.selectOnRight = null;
+        button.navigation = NoneNavigation;
+        //- 多重ロード防止
+        if (Load)
         { return; }
-
+        
         Load = true;
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
@@ -44,7 +53,7 @@ public class SelectButton : MonoBehaviour
         if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
 
         DOVirtual.DelayedCall(DelayTime, () => fadeObject.GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
-        button.PushButtonAnime();
+        buttonAnime.PushButtonAnime();
         //- シーンを変える前にBGMを消す
         DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()).SetDelay(DelayTime); 
         DOVirtual.DelayedCall (FadeTime, ()=> SceneManager.LoadScene(NextScene)).SetDelay(DelayTime);
@@ -52,7 +61,14 @@ public class SelectButton : MonoBehaviour
 
     public void MoveSelectScene()
     {
-
+        //- 呼び出されたら上下左右選択を無効化
+        Navigation NoneNavigation = button.navigation;
+        NoneNavigation.selectOnUp = null;
+        NoneNavigation.selectOnDown = null;
+        NoneNavigation.selectOnLeft = null;
+        NoneNavigation.selectOnRight = null;
+        button.navigation = NoneNavigation;
+        //- 多重ロード防止
         if (Load)
         { return; }
 
