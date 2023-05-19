@@ -406,7 +406,7 @@ PrefabInstance:
     - target: {fileID: 951482905520260595, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_text
-      value: "\u4FB5\u5165\u4E0D\u53EF\u30C6\u30FC\u30D7\n<size=50%>\u7269\u4F53\u306F\u901A\u3055\u305A\u706B\u82B1\u306E\u307F\u901A\u3059\u30AE\u30DF\u30C3\u30AF"
+      value: "\u4FB5\u5165\u4E0D\u53EF\u30C6\u30FC\u30D7\r\n<size=50%>\u7269\u4F53\u306F\u901A\u3055\u305A<color=\"red\"><size=60%>\u706B\u82B1\u306E\u307F\u901A\u3057\u307E\u3059\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 951482905520260595, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
@@ -576,12 +576,6 @@ PrefabInstance:
       objectReference: {fileID: 719669078}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
---- !u!1 &692751080 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3051055468540406191, guid: c9308a3c00b89dd489af48490e5303f1,
-    type: 3}
-  m_PrefabInstance: {fileID: 692751079}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &692751081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1918003654724591138, guid: c9308a3c00b89dd489af48490e5303f1,
@@ -761,7 +755,7 @@ PrefabInstance:
         type: 3}
       propertyPath: Reset
       value: 
-      objectReference: {fileID: 692751080}
+      objectReference: {fileID: 0}
     - target: {fileID: 6026420782162905145, guid: 3f94529a276a67e43a40bb7347da7325,
         type: 3}
       propertyPath: m_AnchoredPosition.x
