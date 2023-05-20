@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 1616201736195198265}
   - component: {fileID: 1616201736195198264}
   - component: {fileID: 1616201736195198267}
+  - component: {fileID: 6021704638331270306}
   m_Layer: 15
   m_Name: StagingYanagi
   m_TagString: Fireworks
@@ -134,6 +135,31 @@ MonoBehaviour:
     type: 3}
   startDelayTime: 1
   effectTime: 1
+--- !u!114 &6021704638331270306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616201736195198266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d84fc49b539a149b133a9da1ef1d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PosState: 1
+  UseFade: 0
+  StartAlpha: 1
+  EndAlpha: 0
+  FadeTime: 0
+  FadeDelay: 0
+  UseMove: 1
+  StartPos: 1
+  MoveTime: 0.5
+  Delay: 0
+  UsePop: 0
+  PopSize: {x: 0, y: 0}
+  PopMaxSizeTime: 1
 --- !u!1001 &1616201737230409370
 PrefabInstance:
   m_ObjectHideFlags: 0

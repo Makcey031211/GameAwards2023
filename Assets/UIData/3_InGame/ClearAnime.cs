@@ -14,6 +14,16 @@ public class ClearAnime : MonoBehaviour
         LEFT,
     }
 
+    private enum E_POSSTATE
+    {
+        Rect,
+        local,
+    }
+
+
+    [HeaderAttribute("---座標設定---")]
+    [SerializeField]
+    private E_POSSTATE PosState = E_POSSTATE.Rect;
     [HeaderAttribute("---フェード設定---")]
     [SerializeField, Header("移動処理を実行する:チェックで実行")]
     private bool UseFade = false;
@@ -36,7 +46,7 @@ public class ClearAnime : MonoBehaviour
     private float MoveTime = 0.0f;
     [SerializeField, Header("ディレイ:float")]
     private float Delay = 0.0f;
-    private Vector2 InitPos;
+    private Vector3 InitPos;
 
     [HeaderAttribute("---ポップ設定---")]
     [SerializeField, Header("ポップ処理を実行する：チェックで実行")]
@@ -86,42 +96,83 @@ public class ClearAnime : MonoBehaviour
     private void PosMove()
     {
         animeObjNum++;
-
-        RectTransform trans = GetComponent<RectTransform>();
-        //- 初期位置を保存
-        InitPos = trans.anchoredPosition;
-        //- 状態に合わせてスタート位置を変更
-        switch (StartPos)
+        switch (PosState)
         {
-            case E_Directions.CENTER:
-                trans.anchoredPosition = new Vector2(0.0f, 0.0f);
+            case E_POSSTATE.Rect:
+                RectTransform trans = GetComponent<RectTransform>();
+                //- 初期位置を保存
+                InitPos = trans.anchoredPosition;
+                //- 状態に合わせてスタート位置を変更
+                switch (StartPos)
+                {
+                    case E_Directions.CENTER:
+                        trans.anchoredPosition = new Vector2(0.0f, 0.0f);
+                        break;
+                    case E_Directions.TOP:
+                        trans.anchoredPosition = new Vector2(InitPos.x, Screen.height);
+                        break;
+                    case E_Directions.LOWER:
+                        trans.anchoredPosition = new Vector2(InitPos.x, -Screen.height);
+                        break;
+                    case E_Directions.RIGHT:
+                        trans.anchoredPosition = new Vector2(Screen.width, InitPos.y);
+                        break;
+                    case E_Directions.LEFT:
+                        trans.anchoredPosition = new Vector2(-Screen.width, InitPos.y);
+                        break;
+                }
+                
+                //- 初期位置にむかって移動
+                transform.DOLocalMove(InitPos, MoveTime)
+                    .SetEase(Ease.OutSine)
+                    .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
+                    .SetDelay(Delay)
+                    .OnComplete(() => { animeObjNum--; });
                 break;
-            case E_Directions.TOP:
-                trans.anchoredPosition = new Vector2(InitPos.x, Screen.height);
-                break;
-            case E_Directions.LOWER:
-                trans.anchoredPosition = new Vector2(InitPos.x, -Screen.height);
-                break;
-            case E_Directions.RIGHT:
-                trans.anchoredPosition = new Vector2(Screen.width, InitPos.y);
-                break;
-            case E_Directions.LEFT:
-                trans.anchoredPosition = new Vector2(-Screen.width, InitPos.y);
+
+            case E_POSSTATE.local:
+                Transform localTrans = GetComponent<Transform>();
+                //- 初期位置を保存
+                InitPos = localTrans.position;
+                //- 状態に合わせてスタート位置を変更
+                switch (StartPos)
+                {
+                    case E_Directions.CENTER:
+                        localTrans.position = new Vector3(0.0f, 0.0f);
+                        break;
+                    case E_Directions.TOP:
+                        localTrans.position = new Vector3(InitPos.x, 30.0f,-5.0f);
+                        break;
+                    case E_Directions.LOWER:
+                        localTrans.position = new Vector3(InitPos.x, -30.0f, -5.0f);
+                        break;
+                    case E_Directions.RIGHT:
+                        localTrans.position = new Vector3(Screen.width, InitPos.y);
+                        break;
+                    case E_Directions.LEFT:
+                         localTrans.position = new Vector3(-Screen.width, InitPos.y);
+                         localTrans.position = new Vector3(-Screen.width, InitPos.y);
+                        break;
+                }
+
+
+
+                //- 初期位置にむかって移動
+                transform.DOMove(InitPos, MoveTime)
+                    .SetEase(Ease.OutSine)
+                    .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
+                    .SetDelay(Delay)
+                    .OnComplete(() => { animeObjNum--; });
                 break;
         }
-        //- 初期位置にむかって移動
-        transform.DOLocalMove(InitPos, MoveTime)
-            .SetEase(Ease.OutSine)
-            .SetLink(this.gameObject, LinkBehaviour.PauseOnDisablePlayOnEnable)
-            .SetDelay(Delay)
-            .OnComplete(() => { animeObjNum--;} );
-
     }
 
-    /// <summary>
-    /// フェード処理
-    /// </summary>
-    private void DoFade()
+
+
+/// <summary>
+/// フェード処理
+/// </summary>
+private void DoFade()
     {
         animeObjNum++;
 
