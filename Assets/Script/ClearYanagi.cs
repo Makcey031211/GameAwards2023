@@ -17,6 +17,9 @@ public class ClearYanagi : MonoBehaviour
     //- アクティブ時に実行
     void OnEnable()
     {
+        if(!SceneChange.bIsChange)
+        { return; }
+
         //- エフェクトの生成数を計算
         float maxEffect = effectTime / 0.1f;
 
@@ -38,8 +41,9 @@ public class ClearYanagi : MonoBehaviour
             yield return new WaitForSeconds(delayTime);
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
+            pos.x = transform.position.x + 0.5f;
             //- 生成位置をずらす
-            pos.y += 1.6f;
+            pos.y += 1.0f;//1.6f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(particle, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
