@@ -30,6 +30,7 @@ public class ButtonAnime : MonoBehaviour,
     private Button button;
     private Vector2 BaseSize;
     private Tween currentTween;
+    private bool bSelect = false;
 
     void Awake()
     {
@@ -62,8 +63,14 @@ public class ButtonAnime : MonoBehaviour,
     {
         if (image == null)
         { return; }
-        image.DOFillAmount(0.0f, 0.25f).SetEase(Ease.OutCubic).Play();
-        tmp.DOColor(BaseTextColor, 0.25f).Play();
+
+        //- 連打対策フラグが立っていなければ処理
+        if (!bSelect)
+        {
+            Debug.Log("a");
+            image.DOFillAmount(0.0f, 0.25f).SetEase(Ease.OutCubic).Play();
+            tmp.DOColor(BaseTextColor, 0.25f).Play();
+        }
     }
 
     /// <summary>
@@ -74,13 +81,17 @@ public class ButtonAnime : MonoBehaviour,
     {
         //- 選択音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
+        image.fillAmount = 1.0f;
     }
 
     public void PushButtonAnime()
     {
         image.DOColor(new Color(1.0f,0.5f,0.5f), 0.25f);
-        image.fillAmount = 1.0f;
+        image.DOFillAmount(1.0f, 0.0f);
     }
+
+    public void SetbSelect(bool flag)
+    {   bSelect = flag; }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR
