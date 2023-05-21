@@ -54,6 +54,7 @@ public class TMPAnime : MonoBehaviour
 
     private void OnEnable()
     {
+        TMP.DOFade(0f, 0f);
         SceneManager.sceneUnloaded += OnSceneUnloaded;
         StartCoroutine(AnimationCoroutine());
     }

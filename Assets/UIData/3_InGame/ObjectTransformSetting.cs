@@ -35,13 +35,11 @@ public class ObjectTransformSetting : MonoBehaviour
         //- 開始地点オブジェクトを参考に、等間隔にずらす
         for (int i = 0; i < objs.Count - 1; i++)
         {
-            //- ランダムにずらす
-            Vector3 randomOffset = new Vector3(0, Random.Range(Lower,Upper), 0f);
             //- 次のオブジェクトを今のオブジェクトから設定数値分ずらす
             objs[i + 1].transform.position =
                 new Vector3(
                     objs[i].transform.position.x + shift.x,
-                    objs[i + 1].transform.position.y + shift.y + randomOffset.y,
+                    objs[i + 1].transform.position.y + shift.y,
                     objs[0].transform.position.z + shift.z);
         }
     }
