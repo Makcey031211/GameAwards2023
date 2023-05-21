@@ -11,7 +11,6 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 #if UNITY_EDITOR
-//- デプロイ時にEditorスクリプトが入るとエラー。UNITY_EDITORで括る
 using UnityEditor;      
 #endif
 
@@ -80,6 +79,7 @@ public class ButtonAnime : MonoBehaviour,
     public void PushButtonAnime()
     {
         image.DOColor(new Color(1.0f,0.5f,0.5f), 0.25f);
+        image.fillAmount = 1.0f;
     }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/

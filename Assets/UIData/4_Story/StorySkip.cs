@@ -15,6 +15,7 @@ public class StorySkip : MonoBehaviour
     private BGMManager bgmManager;  // BGM用     
     private float PushButtonTime = 0.0f;
     private bool PushFlag = false;
+    private bool FirstLoad = false;
 
     private void Awake()
     {
@@ -40,8 +41,13 @@ public class StorySkip : MonoBehaviour
         //- 指定時間以上入力されていたら強制的にシーン遷移を行う
         if(PushButtonTime > SetPushTime)
         {
-            DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
-            fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("1_Village"); });
+            //- 一回読み込んだら以降処理しない
+            if(!FirstLoad)
+            {
+                FirstLoad = true;
+                DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
+                fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("1_Village"); });
+            }
         }
     }
 
