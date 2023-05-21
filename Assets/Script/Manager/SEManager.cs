@@ -28,12 +28,15 @@ public class SEManager : MonoBehaviour
         Clear,      // クリア
         Failure,    // 失敗
         Slide,      // スライド
+        //* 開幕演出関連 */
+        Opening,      // 開始
         //* カットイン関連 */
         Nushiapp,   // ヌシ出現
         Letterapp,  // 文字出現
     }
 
     //---------------------------------------
+    //- インスペクターに表示
     [SerializeField, HideInInspector]
     public AudioClip explosion;
     [SerializeField, HideInInspector]
@@ -62,6 +65,8 @@ public class SEManager : MonoBehaviour
     public AudioClip failure;
     [SerializeField, HideInInspector]
     public AudioClip slide;
+    [SerializeField, HideInInspector]
+    public AudioClip opening;
     [SerializeField, HideInInspector]
     public AudioClip nushiapp;
     [SerializeField, HideInInspector]
@@ -119,6 +124,8 @@ public class SEManager : MonoBehaviour
         ResurrectionBoxSE();
         // シーン関連
         SceneSE();
+        // 開幕演出関連
+        OpeningSE();
         // カットイン関連
         CutInSE();
     }
@@ -151,6 +158,11 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.Clear, clear);
         audioClips.Add(E_SoundEffect.Failure, failure);
         audioClips.Add(E_SoundEffect.Slide, slide);
+    }
+
+    private void OpeningSE()
+    {
+        audioClips.Add(E_SoundEffect.Opening, opening);
     }
 
     private void CutInSE()
