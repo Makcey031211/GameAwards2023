@@ -44,7 +44,14 @@ public class SelectButton : MonoBehaviour
 
         //- 呼び出し済にする
         Load = true;
-
+        
+        //- ボタンアニメが存在したら処理
+        if(buttonAnime)
+        {
+            //- フラグ変更をボタンアニメに送信する
+            buttonAnime.SetbSelect(true);
+        }
+        
         //- 呼び出されたら上下左右選択を無効化
         Navigation NoneNavigation = button.navigation;
         NoneNavigation.selectOnUp = null;
@@ -52,9 +59,16 @@ public class SelectButton : MonoBehaviour
         NoneNavigation.selectOnLeft = null;
         NoneNavigation.selectOnRight = null;
         button.navigation = NoneNavigation;
-        
-        //- インスタンスを変更
+
+        //- ボタンの入力を受け付けない
         button.interactable = false;
+
+        //- ボタンアニメが存在していたら処理
+        if(buttonAnime)
+        { 
+            //- ボタン入力アニメーション
+            buttonAnime.PushButtonAnime();
+        }
 
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
@@ -63,10 +77,7 @@ public class SelectButton : MonoBehaviour
         if (CutIn.MoveCompleat) { CutIn.ResetMoveComplete(); }
         if (BoardMove.MoveComplete) { BoardMove.ResetMoveComplete(); }
         if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
-
-        //- ボタンアニメが設定されていたら行う
-        buttonAnime.PushButtonAnime();
-
+        
         //- 遅延後の処理
         DOVirtual.DelayedCall(DelayTime, ()=> fadeObject.GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
         DOVirtual.DelayedCall (FadeTime, ()=> bgmManager.DestroyBGMManager()).SetDelay(DelayTime); 
@@ -94,7 +105,7 @@ public class SelectButton : MonoBehaviour
         NoneNavigation.selectOnRight = null;
         button.navigation = NoneNavigation;
 
-        //- インスタンスを変更
+        //- ボタンの入力を受け付けない
         button.interactable = false;
 
         //- 演出の描画フラグをリセット
