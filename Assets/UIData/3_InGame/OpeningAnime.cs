@@ -62,6 +62,7 @@ public class OpeningAnime: MonoBehaviour
               .OnComplete(() => 
               {
                 //- テキスト表示
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音再生
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; i++)
                 {DOTween.Sequence().Append(tmpAnimator.DORotateChar(i, Vector3.zero, 0.55f));}
                 DOTween.To(() => tmp.characterSpacing, value => tmp.characterSpacing = value, 2.0f, 3.0f).SetEase(Ease.OutQuart);//拡大
@@ -77,7 +78,7 @@ public class OpeningAnime: MonoBehaviour
                         GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
                     });
               });
-       }
+        }
     }
    
     /// <summary>
