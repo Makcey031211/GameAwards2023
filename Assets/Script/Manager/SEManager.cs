@@ -1,9 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-// 制作：髙橋
 /*
- * SEを管理するクラス
+ * 制作：髙橋
+ * 概要：SEを管理するスクリプト
  */ 
 public class SEManager : MonoBehaviour
 {
