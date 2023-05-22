@@ -561,6 +561,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606e37672c877cc429e0d10c6fad9807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarpHole: {fileID: 0}
+  warpPoint: {fileID: 0}
+  radius: 1
+  suctionSpeed: 1
+  spittingSpeed: 1
 --- !u!135 &304476315
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -906,6 +911,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 606e37672c877cc429e0d10c6fad9807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarpHole: {fileID: 0}
+  warpPoint: {fileID: 0}
+  radius: 1
+  suctionSpeed: 1
+  spittingSpeed: 1
 --- !u!135 &431483020
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1850,7 +1860,7 @@ PrefabInstance:
     - target: {fileID: 5706990070701393346, guid: c9308a3c00b89dd489af48490e5303f1,
         type: 3}
       propertyPath: m_text
-      value: "<size=70%>\u53C2\u30CE\u91CC\u3000\u7B2C\u634C\u5E55\n<size=120%>\u958B\u5E55"
+      value: "<size=70%>\u4E09\u30CE\u91CC\u3000\u7B2C\u516B\u5E55\n<size=120%>\u958B\u5E55"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9308a3c00b89dd489af48490e5303f1, type: 3}
