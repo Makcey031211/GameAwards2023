@@ -43,7 +43,7 @@ public class SaveManager : MonoBehaviour
     /// ステージがクリアされているかを返す
     /// </summary>
     /// <param name="stageNum"></param>
-    /// <returns></returns>
+    /// <returns name="stageflag"></returns>
     public bool GetStageClear(int Stage)
     {
         //- ステージ数が範囲内か
@@ -91,7 +91,7 @@ public class SaveManager : MonoBehaviour
     /// <summary>
     /// セーブデータの有無を返却する
     /// </summary>
-    /// <returns> セーブデータの有無フラグ </returns>
+    /// <returns bool></returns>
     public bool CheckSaveData()
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
@@ -171,6 +171,9 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// セーブデータをすべてクリアにする
+    /// </summary>
     public void AllClearSaveData()
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
