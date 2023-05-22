@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
+/*
+ * ボタンクリック時、シーンを戻す
+ */
 public class BackScene : MonoBehaviour
 {
     [SerializeField, Header("オプション操作にかかる時間(秒)")]
@@ -34,7 +37,7 @@ public class BackScene : MonoBehaviour
     private void Start()
     {
         //- コンポーネントの取得
-       // imageInGame = GameObject.Find("PadButton").GetComponent<Image>();
+        //imageInGame = GameObject.Find("PadButton").GetComponent<Image>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
     }
 
