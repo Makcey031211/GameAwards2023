@@ -262,7 +262,6 @@ public class FireworksModule : MonoBehaviour
     public GameObject Boss2BarrierObj => _boss2barrierObj;
     public Color Boss2BarrierColor => _boss2barrierColor;
 
-
     //- 3面ぬし花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
@@ -278,10 +277,12 @@ public class FireworksModule : MonoBehaviour
     public GameObject Boss3Obj => _boss3obj;
     public Color Boss3IgniteColor => _boss3igniteColor;
     public float FadeTime => _fadeTime;
-
+    
     public EntryAnime InGR;
     public EntryAnime InGS;
     public EntryAnime Tips;
+
+    private DragonflyRayCheck dragonflyRayCheck;
     // Start is called before the first frame update
     void Start()
     {
@@ -957,7 +958,10 @@ public class FireworksModule : MonoBehaviour
             bIsInit = true;
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
+            if(dragonflyRayCheck.GetIsDestroy() == true)                
+                scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
+            else
+                scenechange.RequestStopMiss(false);
 
             //- エフェクト可視化
             _effectTonbo.SetActive(true);
@@ -1120,7 +1124,7 @@ public class FireworksModule : MonoBehaviour
         //- バリア可視化
         transform.GetChild(1).gameObject.SetActive(true);
     }
-
+    
     private void Boss3Fire()
     {
         if (!_isOnce)
