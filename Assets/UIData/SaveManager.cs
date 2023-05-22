@@ -43,7 +43,7 @@ public class SaveManager : MonoBehaviour
     /// ステージがクリアされているかを返す
     /// </summary>
     /// <param name="stageNum"></param>
-    /// <returns></returns>
+    /// <returns name="stageflag"></returns>
     public bool GetStageClear(int Stage)
     {
         //- ステージ数が範囲内か
@@ -72,7 +72,7 @@ public class SaveManager : MonoBehaviour
                 //- 読み込んでいる行がnullじゃないかつ行数分ループする
                 while((line = sr.ReadLine()) != null && i < STAGE_NUM)
                 {
-                    string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line);   // 暗号化されたフラグの復号
+                    string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line, i);   // 暗号化されたフラグの復号
                     bool.TryParse(DecryptFlag, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
                     i++;
 
@@ -91,7 +91,7 @@ public class SaveManager : MonoBehaviour
     /// <summary>
     /// セーブデータの有無を返却する
     /// </summary>
-    /// <returns> セーブデータの有無フラグ </returns>
+    /// <returns bool></returns>
     public bool CheckSaveData()
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
@@ -116,7 +116,7 @@ public class SaveManager : MonoBehaviour
             {
                 //Debug.Log(stageflag[i]);
                 //- ステージフラグを文字列に変更して、暗号化したものを書き込む
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
                 sw.WriteLine(EncryptFlag);
 
                 //--- 暗号化の確認 ---
@@ -146,7 +146,7 @@ public class SaveManager : MonoBehaviour
             for(int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = false;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
                 sw.WriteLine(EncryptFlag);
             }
         }
@@ -165,12 +165,15 @@ public class SaveManager : MonoBehaviour
             for (int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = false;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
                 sw.WriteLine(EncryptFlag);
             }
         }
     }
 
+    /// <summary>
+    /// セーブデータをすべてクリアにする
+    /// </summary>
     public void AllClearSaveData()
     {
         FILE_PATH = Path.Combine(Application.dataPath, "Save", "Save.csv");    //UnityEditor上でのセーブファイルパス
@@ -181,7 +184,7 @@ public class SaveManager : MonoBehaviour
             for (int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = true;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString());
+                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
                 sw.WriteLine(EncryptFlag);
             }
         }

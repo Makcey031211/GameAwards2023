@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class ButtonStartNewGame : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class ButtonStartNewGame : MonoBehaviour
     private float DelayTime;
     [SerializeField, Header("フェード秒数")]
     private float FadeTime;
+    [SerializeField, Header("ポップアップ")]
+    NewGamePopUp popUp;
 
     //- スクリプト用の変数
     BGMManager bgmManager;
@@ -31,6 +34,19 @@ public class ButtonStartNewGame : MonoBehaviour
     {
         if (!isClick && !isSound) return; // falseの時はリターンする
 
+
+        if (saveManager.GetStageClear(1)) { // ステージ1がクリアされていたら
+            // ポップアップ表示
+            popUp.PopUpOpen();
+        }
+        else {
+            // ニューゲーム処理
+            NewGameSetup();
+        }
+    }
+
+    public void NewGameSetup()
+    {
         //- クリック無効化フラグを設定
         isClick = false;
 

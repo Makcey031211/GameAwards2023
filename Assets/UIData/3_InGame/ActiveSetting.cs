@@ -31,8 +31,6 @@ public class ActiveSetting : MonoBehaviour
         AllAtOnce,
         [InspectorName("リストの上から")]
         FromTop,
-        [InspectorName("リストの下から")]
-        FromBottom,
     }
     
 
@@ -42,8 +40,8 @@ public class ActiveSetting : MonoBehaviour
     [HideInInspector, SerializeField] private float FirstDirayTime = 0.0f;   //リストの初めのオブジェクトがアクティブになるまでの時間
     [HideInInspector, SerializeField] private float NextDirayTime = 0.0f;    //次のリストのオブジェクトがアクティブになるまでの時間
     [HideInInspector, SerializeField] private E_STARTUP_SETTING ActiveState = E_STARTUP_SETTING.AllAtOnce;   //アクティブになる順番
-    [HideInInspector, SerializeField] private E_ACTIVE_OPTION Option = E_ACTIVE_OPTION.NoActiveToActive;
-    [HideInInspector, SerializeField] private bool AutoClear = false;
+    [HideInInspector, SerializeField] private E_ACTIVE_OPTION Option = E_ACTIVE_OPTION.NoActiveToActive;     //アクティブ状態の設定
+    [HideInInspector, SerializeField] private bool AutoClear = false;   //クリア時に自動で処理するかのフラグ
 
     private bool Active = false;        
     private bool ListFirstActive = false;
@@ -51,7 +49,7 @@ public class ActiveSetting : MonoBehaviour
     private float CurrentTime = 0.0f;
     private int cnt = 0;
 
-    private void Start()
+    private void Awake()
     {
         //- 開始時のアクティブ状態を設定する
         switch (Option)
@@ -62,7 +60,9 @@ public class ActiveSetting : MonoBehaviour
                 { obj.SetActive(false); }
                 SetFlag = true;
                 break;
+
             case E_ACTIVE_OPTION.ActiveToNoActive:
+                //- 開始時にはアクティブのまま
                 SetFlag = false;
                 break;
         }
@@ -70,8 +70,10 @@ public class ActiveSetting : MonoBehaviour
 
     private void Update()
     {
+        //- 自動クリアフラグが立っていなければ処理しない
         if(!AutoClear)
         {   return; }
+
         //- クリア時に自動で行う
         if (SceneChange.bIsChange && !Active)
         {
@@ -84,9 +86,6 @@ public class ActiveSetting : MonoBehaviour
             //- リストの上から
             case E_STARTUP_SETTING.FromTop:
                 FromTop();
-                break;
-            //- リストの下から
-            case E_STARTUP_SETTING.FromBottom:
                 break;
             }
         }
@@ -140,42 +139,7 @@ public class ActiveSetting : MonoBehaviour
             }
         }
     }
-
-    /// <summary>
-    /// リストの降順にアクティブ管理を行う
-    /// </summary>
-    private void FromBottom()
-    {
-        CurrentTime += Time.deltaTime;
-        //- 初めの読み込み時間を経過したか、リストの最後を読み込んだか
-        if (CurrentTime >= FirstDirayTime && !ListFirstActive)
-        {
-            //- 要素数を入れ込む
-            cnt = ActiveObjs.Count;
-            //- リストの末尾から設定する
-            ActiveObjs[cnt].SetActive(SetFlag);
-            //- カウント減少
-            cnt--;
-            //- 現在の時間をreset
-            CurrentTime = 0.0f;
-            //- 初回読み込み終了
-            ListFirstActive = true;
-        }
-        else if (CurrentTime >= NextDirayTime &&  //遅延時間経過
-                 cnt < 0 &&                       //0以下ではないか
-                 ListFirstActive)                 //読み込み済ではないか
-        {
-            ActiveObjs[cnt].SetActive(SetFlag);
-            cnt--;
-            CurrentTime = 0.0f;
-            //- 全てのオブジェクトを完了したら終了する
-            if(cnt == 0)
-            {
-                Active = true;
-                cnt = 0;
-            }
-        }
-    }
+    
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR

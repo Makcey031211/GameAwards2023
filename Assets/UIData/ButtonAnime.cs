@@ -1,9 +1,11 @@
 /*
  ===================
- 制作：大川
- ボタンアニメーションを管理するスクリプト
+ 基盤制作：大川
+ 追記：髙橋・牧野
+ ボタン選択・非選択・押下時にアニメーションするスクリプト
  ===================
  */
+
 
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,76 +13,108 @@ using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
 #if UNITY_EDITOR
-//- デプロイ時にEditorスクリプトが入るとエラー。UNITY_EDITORで括る
-using UnityEditor;      
+using UnityEditor;
 #endif
+
 
 //- ボタンアニメーションクラス
 public class ButtonAnime : MonoBehaviour,
-    ISelectHandler,
-    IDeselectHandler,
-    ISubmitHandler
+    ISelectHandler,     //選択時
+    IDeselectHandler,   //非選択時
+    ISubmitHandler      //押下時
 {
-    [SerializeField] private Image image;
-    [SerializeField] private TextMeshProUGUI tmp;
-    [SerializeField] private Color OverTextColor;
-    private Color BaseTextColor;
 
-    public bool bPermissionSelectSE = true; // 選択SEの再生が許可されているか
+    [SerializeField] private Image image;            //ボタン押下時に動作する画像
+    [SerializeField] private TextMeshProUGUI tmp;    //ボタン押下時に動作するテキスト
+    [SerializeField] private Color OverTextColor;    //ボタン押下時にテキストを変色させる用
+    private Color BaseTextColor;                     //元色
 
-    private Button button;
-    private Vector2 BaseSize;
-    private Tween currentTween;
+    public bool bPermissionSelectSE = true;          // 選択SEの再生が許可されているか
+    private Button button;                           
+    private Vector2 BaseSize;                        //配置サイズ取得変数
+    private bool bPush = false;                      //入力判定
+
 
     void Awake()
     {
+        //- 動作画像があるか
         if (image == null)
         { return; }
+
+        //- 動作用変数初期化
         button = GetComponent<Button>();
         image.fillAmount = 0;
         BaseTextColor = tmp.color;
     }
 
-    //- 選択した際の処理
+
+    /// <summary>
+    /// ボタン選択時の処理
+    /// </summary>
+    /// <param name="eventData"></param>
+
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
-        if (image == null)
-        { return; }
-        image.DOFillAmount(1.0f, 0.25f).SetEase(Ease.OutCubic).Play();
-        tmp.DOColor(OverTextColor, 0.25f).Play();
+
         //- 選択音再生
         if (bPermissionSelectSE)
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Select);
         else
             bPermissionSelectSE = true;
+
+        if (image == null)
+        { return; }
+
+        image.DOFillAmount(1.0f, 0.25f).SetEase(Ease.OutCubic).Play();  
+        tmp.DOColor(OverTextColor, 0.25f).Play();
     }
 
+
     /// <summary>
-    /// 選択が外れた際の処理
+    /// ボタン非選択時の処理
     /// </summary>
     /// <param name="eventData"></param>
+
     void IDeselectHandler.OnDeselect(BaseEventData eventData)
     {
         if (image == null)
         { return; }
-        image.DOFillAmount(0.0f, 0.25f).SetEase(Ease.OutCubic).Play();
-        tmp.DOColor(BaseTextColor, 0.25f).Play();
+
+        //- 連打対策フラグが立っていなければ処理
+        if (!bPush)
+        {
+            image.DOFillAmount(0.0f, 0.25f).SetEase(Ease.OutCubic).Play();
+            tmp.DOColor(BaseTextColor, 0.25f).Play();
+        }
     }
 
+
     /// <summary>
-    /// ボタンが押された際に行う処理
+    /// ボタン押下時の処理 
     /// </summary>
     /// <param name="eventData"></param>
+
     void ISubmitHandler.OnSubmit(BaseEventData eventData)
     {
         //- 選択音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
     }
 
+    /// <summary>
+    /// ボタンが押下時にアニメーション処理を行う
+    /// </summary>
+
     public void PushButtonAnime()
-    {
-        image.DOColor(new Color(1.0f,0.5f,0.5f), 0.25f);
-    }
+    {   image.DOColor(new Color(1.0f,0.5f,0.5f), 0.25f);    }
+
+
+    /// <summary>
+    /// 押下時の意図しない挙動を防ぐフラグ関数
+    /// </summary>
+    /// <param name="flag"></param>
+
+    public void SetbSelect(bool flag)
+    { bPush = flag; }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
 #if UNITY_EDITOR

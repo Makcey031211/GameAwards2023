@@ -67,10 +67,7 @@ public class FireworksModuleEditor : Editor {
             _target._insideBarrierColor = EditorGUILayout.ColorField("内側のバリアの色", _target.InsideBarrierColor);
             break;
         case FireworksModule.FireworksType.Dragonfly:
-            _target._lowestSpeed =  EditorGUILayout.FloatField("最低速度", _target.LowestSpeed);
-            _target._highestSpeed = EditorGUILayout.FloatField("最高速度", _target.HighestSpeed);
-            _target._decelerationTime = EditorGUILayout.FloatField("減速時間", _target.DecelerationTime);
-            _target._decelerationEase = (Easing.EaseType)EditorGUILayout.EnumPopup("減速時の補完タイプ", _target.DecelerationEase);
+            _target._tonboSpeed =  EditorGUILayout.FloatField("スピード", _target.TonboSpeed);
             _target._effectTonbo = (GameObject)EditorGUILayout.ObjectField("トンボ花火のエフェクト", _target.EffectTonbo, typeof(GameObject), true);
                 break;
         case FireworksModule.FireworksType.Yanagi:

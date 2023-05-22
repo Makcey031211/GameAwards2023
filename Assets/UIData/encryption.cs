@@ -8,13 +8,14 @@ using System.Text;
 public static class AesExample
 {
     // 初期化ベクトル"<半角16文字[1byte=8bit, 8bit*16=128bit]>"
-    private const string AES_IV_256 = @"mER5Ve6jZ/F8CY%~";
+    //private static string[] AES_IV_256 = new string[50];  // 毎回ランダムにする場合
+    private static Dictionary<int, string> AES_IV_256 = new Dictionary<int, string>();
     // 暗号化鍵<半角32文字[8bit*32文字=256bit]>
     private const string AES_KEY_256 = @"kxvuA&k|WDRkzgG47yAsuhwFzkQZMNf3";
 
     // 暗号化のための関数
-    // 引数は暗号化したいデータ(string)
-    public static string EncryptStringToBytes_Aes(string plainText)
+    // 引数は暗号化したいデータ(string), ステージ番号(int)
+    public static string EncryptStringToBytes_Aes(string plainText, int stageNum)
     {
         byte[] encrypted;
 
@@ -26,8 +27,16 @@ public static class AesExample
             aesAlg.Mode = CipherMode.CBC;
             aesAlg.Padding = PaddingMode.PKCS7;
             
-            aesAlg.IV = Encoding.UTF8.GetBytes(AES_IV_256);
-            aesAlg.Key = Encoding.UTF8.GetBytes(AES_KEY_256);
+            // ステージ番号が設定されていなかったら処理
+            if(!AES_IV_256.ContainsKey(stageNum))
+            {
+                // ステージ番号と16桁のランダムな英数字をセットで設定
+                AES_IV_256.Add(stageNum, System.Guid.NewGuid().ToString("N").Substring(0, 16));
+            }
+            //AES_IV_256[stageNum] = System.Guid.NewGuid().ToString("N").Substring(0, 16);  // 毎回ランダムにする場合
+            //Debug.Log("暗号番号：" + stageNum + "　IV：" + AES_IV_256[stageNum]);
+            aesAlg.IV = Encoding.ASCII.GetBytes(AES_IV_256[stageNum]);
+            aesAlg.Key = Encoding.ASCII.GetBytes(AES_KEY_256);
 
             // ストリーム変換を実行するための暗号化機能を作成
             ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
@@ -53,8 +62,8 @@ public static class AesExample
 
 
     // 復号のための関数
-    // 引数は暗号化されたデータ(string)
-    public static string DecryptStringFromBytes_Aes(string cipherText)
+    // 引数は暗号化されたデータ(string), ステージ番号(int)
+    public static string DecryptStringFromBytes_Aes(string cipherText, int stageNum)
     {
         string plaintext = null;
 
@@ -65,22 +74,27 @@ public static class AesExample
             aesAlg.KeySize = 256;
             aesAlg.Mode = CipherMode.CBC;
             aesAlg.Padding = PaddingMode.PKCS7;
-
-            aesAlg.IV = Encoding.UTF8.GetBytes(AES_IV_256);
-            aesAlg.Key = Encoding.UTF8.GetBytes(AES_KEY_256);
-
-            // ストリーム変換を実行するデクリプターを作成
-            ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-            // 復号化に使用するストリームを作成
-            using(MemoryStream msDecrypt = new MemoryStream(System.Convert.FromBase64String(cipherText)))
+            
+            // ステージ番号が設定されていたら処理
+            if (AES_IV_256.ContainsKey(stageNum))
             {
-                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                //Debug.Log("復号番号：" + stageNum + "　IV：" + AES_IV_256[stageNum]);
+                aesAlg.IV = Encoding.ASCII.GetBytes(AES_IV_256[stageNum]);
+                aesAlg.Key = Encoding.ASCII.GetBytes(AES_KEY_256);
+
+                // ストリーム変換を実行するデクリプターを作成
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                // 復号化に使用するストリームを作成
+                using (MemoryStream msDecrypt = new MemoryStream(System.Convert.FromBase64String(cipherText)))
                 {
-                    using(StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                     {
-                        // 復号化ストリームから復号化されたバイトの読み取り、文字列に配置
-                        plaintext = srDecrypt.ReadToEnd();
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            // 復号化ストリームから復号化されたバイトの読み取り、文字列に配置
+                            plaintext = srDecrypt.ReadToEnd();
+                        }
                     }
                 }
             }
