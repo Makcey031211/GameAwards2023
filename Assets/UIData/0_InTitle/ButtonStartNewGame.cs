@@ -35,8 +35,7 @@ public class ButtonStartNewGame : MonoBehaviour
         if (!isClick && !isSound) return; // falseの時はリターンする
 
 
-        //if (saveManager.GetStageClear(1)) { // ステージ1がクリアされていたら
-        if (true) {
+        if (saveManager.GetStageClear(1)) { // ステージ1がクリアされていたら
             // ポップアップ表示
             popUp.PopUpOpen();
         }
