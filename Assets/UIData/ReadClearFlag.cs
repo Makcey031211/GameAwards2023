@@ -1,27 +1,29 @@
+/*
+ ===================
+ 制作：大川
+ UIアニメーションの作動タイミングを管理するスクリプト
+ ===================
+ */
 
-using UnityEngine.UI;
 using UnityEngine;
 
+//- クリア状態を読み
 public class ReadClearFlag : MonoBehaviour
 {
     private enum E_ACITEVESETTING
     {
-        [InspectorName("クリアでアクティブ")]
-        ToActive,
-        [InspectorName("クリアで非アクティブ")]
-        ToNoActive,
+        [InspectorName("クリアでアクティブ")]    ToActive,
+        [InspectorName("クリアで非アクティブ")]  ToNoActive,
     }
 
-    [SerializeField, Header("ステージ数")]
-    private int stagenum = -1;
-    [SerializeField, Header("自分を入れる")]
-    private GameObject obj;
-    [SerializeField, Header("アクティブ設定")]
-    private E_ACITEVESETTING Active = E_ACITEVESETTING.ToActive;
+    [SerializeField, Header("ステージ数")]  　    private int stagenum = -1;
+    [SerializeField, Header("自分を入れる")]      private GameObject obj;
+    [SerializeField, Header("アクティブ設定")]    private E_ACITEVESETTING Active = E_ACITEVESETTING.ToActive;
 
-    private SaveManager save;
-    private bool read = false;
-    private bool first = false;
+    private SaveManager save;  
+    private bool read = false;  //読み込みフラグ
+    private bool first = false; //初回処理フラグ
+
     void Update()
     {
         //- アクティブ設定ごとに処理を変更する
