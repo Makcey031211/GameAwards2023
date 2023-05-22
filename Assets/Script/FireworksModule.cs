@@ -20,6 +20,7 @@ public class FireworksModule : MonoBehaviour
         Yanagi,
         Boss2,
         Boss3,
+        Boss4,
     }
 
     //- 引火したもとのオブジェクトの情報
@@ -278,7 +279,6 @@ public class FireworksModule : MonoBehaviour
     public Color Boss3IgniteColor => _boss3igniteColor;
     public float FadeTime => _fadeTime;
 
-
     public EntryAnime InGR;
     public EntryAnime InGS;
     public EntryAnime Tips;
@@ -346,6 +346,12 @@ public class FireworksModule : MonoBehaviour
 
         //- 3面ぬし花火の項目
         igniteCount = 0;
+
+        //- 4面ぬし花火の項目
+        if (_type == FireworksType.Boss4)
+        {
+            DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
+        }
     }
 
     // Update is called once per frame
@@ -391,6 +397,9 @@ public class FireworksModule : MonoBehaviour
                     break;
                 case FireworksType.Boss3:
                     Boss3Fire();
+                    break;
+                case FireworksType.Boss4:
+                    Boss4Fire();
                     break;
                 default:
                     break;
@@ -459,7 +468,7 @@ public class FireworksModule : MonoBehaviour
         transform.DOMoveY(-15, 1.5f).SetEase(Ease.OutSine).SetLink(gameObject);
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
         DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
-        { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
+        { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); }); // クリア演出画面でのボス打ち上げ音
         //- 演出用スクリプトの取得
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
         //- 演出フラグ変更
@@ -1150,6 +1159,42 @@ public class FireworksModule : MonoBehaviour
             DOVirtual.DelayedCall(3.1f, () => movie.StartVillageMovie(), false);
             //- 破壊処理
             Destroy(gameObject, 3.2f);
+        }
+    }
+
+    private void Boss4Fire()
+    {
+        if (!_isOnce)
+        { // 爆発直後一回のみ
+            _isOnce = true;
+            //- 指定した位置に生成
+            GameObject fire = Instantiate(
+                ParticleObject,                     // 生成(コピー)する対象
+                transform.position,                 // 生成される位置
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                );
+
+            //- コントローラーの振動の設定
+            vibration.SetVibration(30, 1.0f);
+
+            //- 当たり判定を有効化する
+            // 当たったオブジェクトのColliderを有効にする
+            CollisionObject.gameObject.GetComponent<Collider>().enabled = true;
+            // 当たり判定の拡大用コンポーネントを有効にする
+            DetonationCol.enabled = true;
+
+            //- 爆発時に描画をやめる
+            StopRenderer(gameObject);
+
+            //- 爆発音の再生
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+        }
+
+        _afterTimeCount += Time.deltaTime;
+        //- 当たり判定を消す処理
+        if (_afterTimeCount >= _blastAfterTime)
+        {
+            DetonationCol.EndDetonation(); //- 当たり判定の消滅
         }
     }
 }
