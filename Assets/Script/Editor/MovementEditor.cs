@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-// 制作：髙橋
 /*
- * オブジェクトの挙動編集クラス
+ * 制作：髙橋
+ * 概要：オブジェクトの挙動編集クラス
  */
 [CustomEditor(typeof(MovementManager))]
 public class MovementEditor : Editor
