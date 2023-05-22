@@ -24,6 +24,7 @@ public class WarpGate : MonoBehaviour
             Vector3 playerPos = other.transform.position;
             Vector3 gatePos   = transform.position;
             float distance = Vector3.Distance(playerPos, gatePos);
+            //ワープから出てくる方向と位置調整のために入射角を取得
             Vector3 warpdistance = WarpHole.transform.position - other.transform.position;
 
             //- プレイヤーをワープする処理
