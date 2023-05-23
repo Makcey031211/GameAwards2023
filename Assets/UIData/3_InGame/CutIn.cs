@@ -8,22 +8,20 @@ public class CutIn : MonoBehaviour
 {
     private enum E_BOSS_CUTIN
     {
-        [Header("第一ヌシ")]
         StageNo10_Boss,
-        [Header("第二ヌシ")]
         StageNo20_Boss,
-        [Header("第三ヌシ")]
         StageNo30_Boss,
-        [Header("第四ヌシ")]
         StageNo40_Boss,
     }
 
     [SerializeField] private E_BOSS_CUTIN Boss = E_BOSS_CUTIN.StageNo10_Boss;
-    [SerializeField] private Image BossImg;
-    [SerializeField] private Image SmallCrystal;
-    [SerializeField] private Image BigCrystal;
-    [SerializeField] private Image TextBack;
-    [SerializeField] private TextMeshProUGUI tmp;
+    [SerializeField] private Image BossImg;         //ボス画像
+    [SerializeField] private Image TutuB;           //30ボス用
+    [SerializeField] private Image TutuC;           //30ボス用
+    [SerializeField] private Image SmallCrystal;    //10ボス用
+    [SerializeField] private Image BigCrystal;      //10・20ボス用
+    [SerializeField] private Image TextBack;        //カットイン背景
+    [SerializeField] private TextMeshProUGUI tmp;   //カットインメッセージ
 
     public static bool MoveCompleat = false;
 
