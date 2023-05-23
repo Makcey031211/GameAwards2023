@@ -24,8 +24,8 @@ public class ReadClearFlag : MonoBehaviour
     private bool read = false;  //読み込みフラグ
     private bool first = false; //初回処理フラグ
 
-    void Update()
-    {
+    void Awake()
+    {   
         //- アクティブ設定ごとに処理を変更する
         switch (Active)
         {
