@@ -3419,6 +3419,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1560909363}
+  - component: {fileID: 1560909364}
   m_Layer: 0
   m_Name: SatoGrope
   m_TagString: Untagged
@@ -3445,6 +3446,24 @@ Transform:
   m_Father: {fileID: 1014540072}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1560909364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1560909362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03577f38463115468efdf44e108ee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageButton:
+  - {fileID: 1975210186}
+  - {fileID: 911669754}
+  - {fileID: 1761022487}
+  - {fileID: 1566814125}
+  saveManager: {fileID: 1662746356}
 --- !u!1 &1566814124
 GameObject:
   m_ObjectHideFlags: 0
@@ -3617,7 +3636,7 @@ RectTransform:
   m_GameObject: {fileID: 1566814124}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 4.5153365}
-  m_LocalScale: {x: 0.029, y: 0.17, z: 0.035}
+  m_LocalScale: {x: 0.029, y: 0.16999999, z: 0.035}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2128011571}
@@ -3626,7 +3645,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.0025635, y: 0.76}
+  m_AnchoredPosition: {x: 4.002548, y: 0.7600136}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1566814132
@@ -4250,7 +4269,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1975210181}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
   m_Name: 
