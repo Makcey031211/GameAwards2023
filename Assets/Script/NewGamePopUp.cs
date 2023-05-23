@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class NewGamePopUp : MonoBehaviour
 {
+    [SerializeField]
     private Button StartButton;
+    [SerializeField]
     private Button NextButton;
+    [SerializeField]
     private Button EndButton;
 
     private Button EnterButton;
@@ -16,10 +19,6 @@ public class NewGamePopUp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartButton = GameObject.Find("ButtonStartGame").GetComponent<Button>();
-        NextButton = GameObject.Find("ButtonNextGame").GetComponent<Button>();
-        EndButton = GameObject.Find("ButtonEndGame").GetComponent<Button>();
-
         EnterButton = GameObject.Find("ButtonEnter").GetComponent<Button>();
         BackButton = GameObject.Find("ButtonBack").GetComponent<Button>();
 
