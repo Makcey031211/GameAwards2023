@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 /*
- * ボタンクリック時、シーンを戻す
+ * ボタンクリック時、シーンを戻すスクリプト
  */
 public class BackScene : MonoBehaviour
 {
