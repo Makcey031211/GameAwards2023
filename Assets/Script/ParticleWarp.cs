@@ -13,10 +13,12 @@ public class ParticleWarp : MonoBehaviour
 
     void Start()
     {
+        // ===== オブジェクト、コンポーネント取得 =====
         m_particleSystem = this.GetComponent<ParticleSystem>();
         WarpA = GameObject.Find("WarpholeA");
         WarpB = GameObject.Find("WarpholeB");
 
+        // ===== トリガーモジュールの設定 =====
         var trigger = m_particleSystem.trigger;
         if (WarpA)
         {
@@ -33,6 +35,10 @@ public class ParticleWarp : MonoBehaviour
 
     void OnParticleTrigger()
     {
+        // ===== クリア後にワープ処理を行わない =====
+        if (SceneChange.bIsChange == true) return;
+
+        // ===== パーティクルを状態で検索 =====
         // 条件に一致するパーティクルを ParticleSystem から取得する.
         int numEnter = m_particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Enter, m_enterList);
         int numExit = m_particleSystem.GetTriggerParticles(ParticleSystemTriggerEventType.Exit, m_exitList);
@@ -81,9 +87,9 @@ public class ParticleWarp : MonoBehaviour
                 //- 回転量を求めて打ち消し、出現面を反転させる
                 float rad = Mathf.Atan(effectDis.y / effectDis.x);
                 HitdisA = Quaternion.Euler(0, 0, -rad * Mathf.Rad2Deg + 180) * HitdisA;
-                ////- 出現面を反転
+                //- 出現面を反転
                 HitdisA.y *= -1;
-                //////- 回転量を復活させる
+                //- 回転量を復活させる
                 HitdisA = Quaternion.Euler(0, 0, rad * Mathf.Rad2Deg) * HitdisA;
 
                 // ===== ワープBの移動先へ =====
@@ -111,14 +117,14 @@ public class ParticleWarp : MonoBehaviour
                 // ===== 出現位置を反対側の面にする =====
                 //- 全体的な距離を求める
                 Vector2 effectDis = posB - transform.position;
+                if (gameObject.name == "Yanagi") effectDis = posB - pos;
                 //- 回転量を求めて打ち消し、出現面を反転させる
                 float rad = Mathf.Atan(effectDis.y / effectDis.x);
                 HitdisB = Quaternion.Euler(0, 0, -rad * Mathf.Rad2Deg + 180) * HitdisB;
-                ////- 出現面を反転
+                //- 出現面を反転
                 HitdisB.y *= -1;
-                //////- 回転量を復活させる
+                //- 回転量を復活させる
                 HitdisB = Quaternion.Euler(0, 0, rad * Mathf.Rad2Deg) * HitdisB;
-
 
                 // ===== ワープBの移動先へ =====
                 //- ワープAの回転取得、回転を与える
@@ -156,19 +162,6 @@ public class ParticleWarp : MonoBehaviour
             p.position = pos;         //- 座標適用
             m_enterList[idx] = p; //- パーティクル適用
         }
-        
-
-        // ===== パーティクルがコライダーから出た際の処理 ======
-        //for (int idx = 0; idx < numExit; idx++)
-        //{
-        //    Debug.Log("Exit");
-        //    //- パーティクル情報を取得
-        //    ParticleSystem.Particle p = m_exitList[idx];
-        //    Vector3 pos = p.position; //- 座標取得
-        //    pos.z += 99 / scale.z; //- 座標移動
-        //    p.position = pos;         //- 座標適用
-        //    m_exitList[idx] = p; //- パーティクル適用
-        //}
 
         // ===== 設定変更後のパーティクルを適用 ======
         m_particleSystem.SetTriggerParticles(ParticleSystemTriggerEventType.Enter, m_enterList);
