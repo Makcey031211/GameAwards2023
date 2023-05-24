@@ -990,15 +990,8 @@ public class FireworksModule : MonoBehaviour
             bIsInit = true;
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            if (dragonflyRayCheck)
-            {
-                if (dragonflyRayCheck.GetIsDestroy() == true)
-                    scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
-                else
-                    scenechange.RequestStopMiss(false);
-            }
-            else
-                scenechange.RequestStopMiss(false);
+            scenechange.RequestStopMiss(true);
+
             //- エフェクト可視化
             _effectTonbo.SetActive(true);
         }
