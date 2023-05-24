@@ -2,6 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ ===================
+ 基盤制作：大川
+ 追記者：髙橋
+ 里のアイコンを線で繋ぐスクリプト
+ ===================
+ */
+
 public class StageLine : MonoBehaviour
 {
     [SerializeField, Header("ステージ遷移用ボタンリスト")]
@@ -11,13 +19,15 @@ public class StageLine : MonoBehaviour
     [SerializeField, Header("線の色")]
     private Color lineColor;
     [SerializeField, Header("線の太さ")]
-    private float width = 0.2f;
+    private float lineWidth = 0.2f;
 
     private void LineRender()
     {
-        line.startWidth = width;
-        line.endWidth   = width;
+        //- 端から端までの線の太さ
+        line.startWidth = lineWidth;
+        line.endWidth   = lineWidth;
 
+        //- 端から端までの線の色
         line.startColor = lineColor;
         line.endColor   = lineColor;
 

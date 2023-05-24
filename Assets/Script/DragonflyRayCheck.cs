@@ -25,6 +25,7 @@ public class DragonflyRayCheck : MonoBehaviour
     private int HitDirPlayerBlock = -1; 　    //- 侵入不可テープが当たった方向
     private bool IsHitPlayerBlock = false;    //- 侵入不可テープの接触判定フラグ
     private bool CheckHitPlayerBlock = false; //- 侵入不可テープから離れた瞬間を調べるためのフラグ
+    private bool isDestroy = false;
 
     void Start()
     {
@@ -118,6 +119,7 @@ public class DragonflyRayCheck : MonoBehaviour
             collider.gameObject.tag = "Untagged";
             //- 時間経過で消滅
             Destroy(DestroyObject, 0.5f);
+            isDestroy = true;
         }
     }
     void HitCheckStage(RaycastHit hit, int dirnum)
@@ -202,6 +204,11 @@ public class DragonflyRayCheck : MonoBehaviour
             //- 接触方向の保存
             HitDirPlayerBlock = 3;
         }
+    }
+
+    public bool GetIsDestroy()
+    {
+        return isDestroy;
     }
 }
 

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7019660527925595792}
   - component: {fileID: 3975357636143386865}
   - component: {fileID: 1939811161692944570}
+  - component: {fileID: 8807240058105563495}
   m_Layer: 14
   m_Name: Small Fire (2)
   m_TagString: Untagged
@@ -4987,6 +4988,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8807240058105563495
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20457624633765694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c91e4a306862f4891c17445afa2e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5243600716334721628
 GameObject:
   m_ObjectHideFlags: 0
@@ -4998,6 +5011,7 @@ GameObject:
   - component: {fileID: 8522262730487497928}
   - component: {fileID: 972583980752866179}
   - component: {fileID: 6944207473050381152}
+  - component: {fileID: 1137738660867842755}
   m_Layer: 14
   m_Name: Small Fire (1)
   m_TagString: Untagged
@@ -9974,6 +9988,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &1137738660867842755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5243600716334721628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c91e4a306862f4891c17445afa2e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8890074931926174080
 GameObject:
   m_ObjectHideFlags: 0
@@ -10001,7 +10027,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8890074931926174080}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.626826, y: 2.1369429, z: 20.112446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -10009,7 +10035,7 @@ Transform:
   - {fileID: 8890074932314801889}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &8890074931926174086
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -14826,6 +14852,7 @@ GameObject:
   - component: {fileID: 8890074932256170968}
   - component: {fileID: 8890074932256170974}
   - component: {fileID: 8890074932256170975}
+  - component: {fileID: 174260844474323456}
   m_Layer: 14
   m_Name: smallTrail002
   m_TagString: Untagged
@@ -19803,6 +19830,18 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &174260844474323456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890074932256170969}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c91e4a306862f4891c17445afa2e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8890074932314801890
 GameObject:
   m_ObjectHideFlags: 0
@@ -19815,6 +19854,7 @@ GameObject:
   - component: {fileID: 8890074932314801895}
   - component: {fileID: 8890074932314801888}
   - component: {fileID: 8191513758248666302}
+  - component: {fileID: 5489005787507954616}
   m_Layer: 14
   m_Name: Small Fire
   m_TagString: Untagged
@@ -24820,6 +24860,18 @@ MonoBehaviour:
   trails:
   - {fileID: 8890074933232328814}
   - {fileID: 8890074932256170974}
+--- !u!114 &5489005787507954616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890074932314801890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c91e4a306862f4891c17445afa2e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8890074933232328809
 GameObject:
   m_ObjectHideFlags: 0
@@ -24831,6 +24883,7 @@ GameObject:
   - component: {fileID: 8890074933232328808}
   - component: {fileID: 8890074933232328814}
   - component: {fileID: 8890074933232328815}
+  - component: {fileID: 7120581581468914768}
   m_Layer: 14
   m_Name: smallTrail
   m_TagString: Untagged
@@ -29808,3 +29861,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7120581581468914768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8890074933232328809}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2c91e4a306862f4891c17445afa2e5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
