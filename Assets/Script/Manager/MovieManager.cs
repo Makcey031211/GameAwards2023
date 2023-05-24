@@ -117,6 +117,8 @@ public class MovieManager : MonoBehaviour
 
         SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
         scenechange.RequestStopClear(false);
+        scenechange.RequestStopClear(false);
+        scenechange.RequestStopClear(false);
         scenechange.RequestStopMiss(false);
         bPlayMovie = false; //- 演出フラグ変更
     }
