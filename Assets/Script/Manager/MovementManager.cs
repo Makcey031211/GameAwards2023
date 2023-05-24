@@ -124,21 +124,23 @@ public class MovementManager : MonoBehaviour
     {
         //* 共通項目 *//
         fireworks = this.gameObject.GetComponent<FireworksModule>();
-        currentTime += StartTime; // 開始時に時間をずらす
 
         //* 三方向挙動項目 *//
         startPosition = transform.position;
         endPosition   = startPosition + Vector3.right * MoveDistance;
 
         //* 三点間挙動項目 *//
-        points[0] = StartPoint;
-        points[1] = HalfwayPoint;
-        points[2] = EndPoint;
+        points[0] = StartPoint;    // 配列の0番目に始点を代入
+        points[1] = HalfwayPoint;  // 配列の1番目に中間点を代入
+        points[2] = EndPoint;      // 配列の2番目に終点を代入
+
+        //* 円挙動項目 *//
+        currentTime += StartTime; // 開始時に時間をずらす
     }
 
     void Update()
     {
-        //- 選択するタイプに応じて処理を分岐
+        //- 選択する挙動のタイプに応じて処理を分岐
         switch (Type)
         {
             case E_MovementType.ThreewayBehaviour:
