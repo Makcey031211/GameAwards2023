@@ -110,18 +110,6 @@ public class DragonflyRayCheck : MonoBehaviour
             HitDirPlayerBlock = -1;
         }
     }
-    void OnTriggerEnter(Collider collider)
-    {
-        //- 外側の壁に当たったら処理
-        if (collider.gameObject.tag == "OutsideWall")
-        {
-            //- 検索回避のためにタグの変更
-            collider.gameObject.tag = "Untagged";
-            //- 時間経過で消滅
-            Destroy(DestroyObject, 0.5f);
-            isDestroy = true;
-        }
-    }
     void HitCheckStage(RaycastHit hit, int dirnum)
     {
         // === レイの方向を調べて、移動を反転させる ===
@@ -204,11 +192,6 @@ public class DragonflyRayCheck : MonoBehaviour
             //- 接触方向の保存
             HitDirPlayerBlock = 3;
         }
-    }
-
-    public bool GetIsDestroy()
-    {
-        return isDestroy;
     }
 }
 
