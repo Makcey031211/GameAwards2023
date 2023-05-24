@@ -228,5 +228,28 @@ public class AnimeManager : MonoBehaviour
         GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
         InMoveCompleat = true;
     }
+
+    public void SkipAnime(InputAction.CallbackContext context)
+    {
+#if UNITY_EDITOR
+        if(context.started)
+        { 
+            Debug.Log("Skip");
+            //-　プレイヤーを動作可能にする
+            GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+            if (DrawSelect)       { DrawSelect.OutMove();     }
+            if (DrawReset)        { DrawReset.OutMove();    }
+            if (DrawTips)         { DrawTips.OutMove(); }
+            if (DrawGimmickBoard) { DrawGimmickBoard.OutMove(); }
+
+            if (DrawSelect) { ControlFlag["セレクト"] = false; }
+            if (DrawReset) { ControlFlag["リセット"] = false; }
+            if (DrawTips) { ControlFlag["Tips再表示"] = false; }
+            if (DrawOpening) { ControlFlag["開幕"] = false; }
+            if (DrawGimmickBoard) { ControlFlag["Tips"] = false; }
+            if (DrawBossCutIn) { ControlFlag["ボス"] = false; }
+        }
+#endif
+    }
 }
 
