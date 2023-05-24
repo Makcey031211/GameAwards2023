@@ -91,6 +91,8 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public Color _barrierColor;    // バリアの色
     [SerializeField, HideInInspector]
+    public GameObject _barrierParticleObj;  // バリア破壊エフェクト
+    [SerializeField, HideInInspector]
     public GameObject _parentFireObj;  // 親花火玉用のオブジェクト
     [SerializeField, HideInInspector]
     public Color _parentFireColor;     // 親花火玉の色
@@ -107,6 +109,7 @@ public class FireworksModule : MonoBehaviour
     //- 色関連 - 
     public GameObject BarrierObj => _barrierObj;
     public Color BarrierColor => _barrierColor;
+    public GameObject BarrierParticleObj => _barrierParticleObj;
     public GameObject ParentFireObj => _parentFireObj;
     public Color ParentFireColor => _parentFireColor;
     public GameObject ChildFireObj => _childFireObj;
@@ -184,9 +187,13 @@ public class FireworksModule : MonoBehaviour
     [SerializeField, HideInInspector]
     public Color _outsideBarrierColor; // 外側のバリアの色
     [SerializeField, HideInInspector]
+    public GameObject _outsideBarrierParticleObj;  // 外側のバリア破壊エフェクト
+    [SerializeField, HideInInspector]
     public GameObject _insideBarrier;  // 内側のバリア
     [SerializeField, HideInInspector]
     public Color _insideBarrierColor;  // 内側のバリアの色
+    [SerializeField, HideInInspector]
+    public GameObject _insideBarrierParticleObj;  // 内側のバリア破壊エフェクト
     //-- インスペクターから非表示
     private int ignitionCount = 0; // 何回引火したか
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
@@ -194,8 +201,10 @@ public class FireworksModule : MonoBehaviour
     public int IgnitionMax => _ignitionMax;
     public GameObject OutsideBarrier => _outsideBarrier;
     public Color OutsideBarrierColor => _outsideBarrierColor;
+    public GameObject OutsideBarrierParticleObj => _outsideBarrierParticleObj;
     public GameObject InsideBarrier => _insideBarrier;
     public Color InsideBarrierColor => _insideBarrierColor;
+    public GameObject InsideBarrierParticleObj => _insideBarrierParticleObj;
 
     //- トンボ花火用の項目
     //-- インスペクターに表示
@@ -254,6 +263,8 @@ public class FireworksModule : MonoBehaviour
     public GameObject _boss2barrierObj; // バリアオブジェクト
     [SerializeField, HideInInspector]
     public Color _boss2barrierColor; // バリアカラー
+    [SerializeField, HideInInspector]
+    public GameObject _boss2barrierParticleObj;  // 外側のバリア破壊エフェクト
     //-- インスペクターに非表示
     private float TimeCount; //- タイムカウンタ
     private bool bStartMovie; //- 演出が始まったかどうか
@@ -261,6 +272,7 @@ public class FireworksModule : MonoBehaviour
     public float SynchroTime => _synchroTime;
     public GameObject Boss2BarrierObj => _boss2barrierObj;
     public Color Boss2BarrierColor => _boss2barrierColor;
+    public GameObject Boss2BarrierParticleObj => _boss2barrierParticleObj;
 
     //- 3面ぬし花火の項目
     //- インスペクターに表示
@@ -277,7 +289,9 @@ public class FireworksModule : MonoBehaviour
     public GameObject Boss3Obj => _boss3obj;
     public Color Boss3IgniteColor => _boss3igniteColor;
     public float FadeTime => _fadeTime;
-    
+
+    // バリアを持つオブジェクト
+
     public EntryAnime InGR;
     public EntryAnime InGS;
     public EntryAnime Tips;
@@ -443,12 +457,24 @@ public class FireworksModule : MonoBehaviour
         {
             //- バリアオブジェクト破壊
             Destroy(_outsideBarrier);
+            //- バリア破壊エフェクト生成
+            GameObject barrier = Instantiate(
+                _outsideBarrierParticleObj,
+                new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)
+                );
         }
         //- 2回目の引火時、内側のバリア破壊      
         if (ignitionCount == 2)
         {
             //- バリアオブジェクト破壊
             Destroy(_insideBarrier);
+            //- バリア破壊エフェクト生成
+            GameObject barrier = Instantiate(
+                _insideBarrierParticleObj,
+                new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)
+                );
         }
 
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
@@ -847,6 +873,12 @@ public class FireworksModule : MonoBehaviour
                     _particleObject,
                     transform.position,
                     Quaternion.Euler(0.0f, 0.0f, 0.0f));
+                //- バリア破壊エフェクト生成
+                GameObject barrier = Instantiate(
+                _barrierParticleObj,
+                new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z),
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  
+                );
                 //- 不要になったオブジェクトを消去
                 this.transform.GetChild(1).gameObject.SetActive(false);
                 this.transform.GetChild(2).gameObject.SetActive(false);
@@ -1080,6 +1112,16 @@ public class FireworksModule : MonoBehaviour
         {
             //- バリアを非可視化
             transform.GetChild(1).gameObject.SetActive(false);
+            //- バリア破壊エフェクト生成
+            if (!_isOnce)
+            {
+                _isOnce = true;
+                GameObject barrier = Instantiate(
+                    _boss2barrierParticleObj,
+                    new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
+                    Quaternion.Euler(0.0f, 0.0f, 0.0f)
+                    );
+            }
         }
 
         //- 猶予時間内に引火したら実行する処理
@@ -1122,6 +1164,7 @@ public class FireworksModule : MonoBehaviour
         //- 情報をリセットする
         _isExploded = false;
         bIsInit = false;
+        _isOnce = false;
         TimeCount = 0;
         HitInfo.hitcount = 0;
 

@@ -209,6 +209,8 @@ MonoBehaviour:
   _secondAfterTime: 1.8
   _barrierObj: {fileID: 8425377651184187025}
   _barrierColor: {r: 1, g: 1, b: 0, a: 0.11372549}
+  _barrierParticleObj: {fileID: 6390332538076136193, guid: 4ef622ae1ea113242908dae429d83d39,
+    type: 3}
   _parentFireObj: {fileID: 8933075665103184807}
   _parentFireColor: {r: 0, g: 1, b: 1, a: 0}
   _childFireObj: {fileID: 2154364120160640712}
@@ -224,24 +226,30 @@ MonoBehaviour:
   _boxDisTime: 0.1
   _invTime: 0
   _ignitionMax: 3
-  _movieObject: {fileID: 0}
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _outsideBarrierParticleObj: {fileID: 0}
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
-  _lowestSpeed: 0
-  _highestSpeed: 0
-  _accelerationTime: 0
-  _decelerationTime: 0
-  _accelerationEase: 0
-  _decelerationEase: 0
+  _insideBarrierParticleObj: {fileID: 0}
+  _tonboSpeed: 0
+  _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
+  _modelResidueTime: 0
   _yanagiobj: {fileID: 0}
   _yanagiColor: {r: 0, g: 0, b: 0, a: 0}
   _reafobj1: {fileID: 0}
   _reafColor1: {r: 0, g: 0, b: 0, a: 0}
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
+  _movieObject: {fileID: 0}
+  _synchroTime: 0
+  _boss2barrierObj: {fileID: 0}
+  _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _boss2barrierParticleObj: {fileID: 0}
+  _boss3obj: {fileID: 0}
+  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
+  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
