@@ -8833,6 +8833,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Boss: 0
   BossImg: {fileID: 5386776157459733056}
+  TutuB: {fileID: 0}
+  TutuC: {fileID: 0}
   SmallCrystal: {fileID: 1849502596}
   BigCrystal: {fileID: 992431832}
   TextBack: {fileID: 1966588352}
@@ -9779,6 +9781,7 @@ MonoBehaviour:
   _secondAfterTime: 0
   _barrierObj: {fileID: 0}
   _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _barrierParticleObj: {fileID: 0}
   _parentFireObj: {fileID: 0}
   _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
   _childFireObj: {fileID: 0}
@@ -9796,8 +9799,12 @@ MonoBehaviour:
   _ignitionMax: 3
   _outsideBarrier: {fileID: 1312956779}
   _outsideBarrierColor: {r: 1, g: 1, b: 0, a: 0.11372549}
+  _outsideBarrierParticleObj: {fileID: 6390332538076136193, guid: 4ef622ae1ea113242908dae429d83d39,
+    type: 3}
   _insideBarrier: {fileID: 168252797}
   _insideBarrierColor: {r: 1, g: 0, b: 0, a: 0.27058825}
+  _insideBarrierParticleObj: {fileID: 6372781163403469091, guid: 56df06080f1e94e4785bde5c77169d0d,
+    type: 3}
   _tonboSpeed: 0
   _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
@@ -9812,6 +9819,7 @@ MonoBehaviour:
   _synchroTime: 0
   _boss2barrierObj: {fileID: 0}
   _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _boss2barrierParticleObj: {fileID: 0}
   _boss3obj: {fileID: 0}
   _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
   _fadeTime: 0.5
