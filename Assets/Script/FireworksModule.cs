@@ -648,6 +648,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
