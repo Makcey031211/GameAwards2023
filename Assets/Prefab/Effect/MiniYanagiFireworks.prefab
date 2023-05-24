@@ -671,7 +671,7 @@ ParticleSystem:
     donutRadius: 0.2
     m_Position: {x: 0, y: 0, z: 0}
     m_Rotation: {x: 296.89673, y: 90.00001, z: -0.000015098226}
-    m_Scale: {x: 0.99999994, y: 1, z: 0.99999994}
+    m_Scale: {x: 0, y: 1, z: 1}
     placementMode: 0
     m_MeshMaterialIndex: 0
     m_MeshNormalOffset: 0
@@ -4877,6 +4877,7 @@ GameObject:
   - component: {fileID: 7211876233960080990}
   - component: {fileID: 7114136690256506437}
   - component: {fileID: 289192510046953295}
+  - component: {fileID: 8476560400216485575}
   m_Layer: 14
   m_Name: MiniYanagiFireworks
   m_TagString: Untagged
@@ -9679,3 +9680,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8476560400216485575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8098613664130317388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b3ab46f807e7343ac6b3699a05be80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles:
+  - {fileID: 210525040952398246}
+  trails:
+  - {fileID: 210525040952398246}
