@@ -17,8 +17,17 @@ using UnityEngine.UI;
 
 public class StoryFlip : MonoBehaviour
 {
+    //- シーン遷移先を設定する
+    enum E_SceneTransDes
+    {
+        Village,
+        GameEnd
+    }
+
     [SerializeField]
     private GameObject[] flips;     // ストーリーのイラスト
+    [SerializeField, Header("シーン遷移先")]
+    private E_SceneTransDes scene = E_SceneTransDes.Village;
     [SerializeField, Header("フェード秒数")]
     private float FadeTime;
 
@@ -82,7 +91,16 @@ public class StoryFlip : MonoBehaviour
         { // 最後のイラストに移り変わった時
             //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
             DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
-            fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("1_Village"); });
+            //- 紙芝居が終わった後のシーン遷移先の分岐
+            switch (scene)
+            {
+                case E_SceneTransDes.Village:
+                    fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("1_Village"); });
+                    break;
+                case E_SceneTransDes.GameEnd:
+                    fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("3_GameEnd"); });
+                    break;
+            }
         }
     }
 
