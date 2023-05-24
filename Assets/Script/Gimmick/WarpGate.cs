@@ -18,7 +18,7 @@ public class WarpGate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //- ワープホールに接触したら指定した位置にワープする
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.name == "Player")
         {
             //- プレイヤーとワープゲートの距離を計算
             Vector3 playerPos = other.transform.position;
@@ -30,9 +30,14 @@ public class WarpGate : MonoBehaviour
             //- プレイヤーをワープする処理
             if (distance < radius)
             {
+                var cc = other.gameObject.GetComponent<CharacterController>();
+                cc.enabled = false;
                 //- プレイヤーを指定した位置にワープさせる
-                other.transform.position = warpPoint.position + warpdistance;
-
+                other.transform.position = warpPoint.position + warpdistance * 1.2f;
+                Vector3 pos = other.transform.position;
+                pos.z = 0.0f;
+                other.transform.position = pos;
+                cc.enabled = true;
             }
         }
     }
