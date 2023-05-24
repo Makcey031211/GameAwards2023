@@ -48,6 +48,7 @@ public class BoardMove : MonoBehaviour
     private bool LoadOut = false;
     private bool ReInMove;     //登場ボタン入力フラグ
     private bool ReOutMove;    //撤退ボタン入力フラグ
+    private bool NowMove = false;
 
     private void Awake()
     {
@@ -104,6 +105,8 @@ public class BoardMove : MonoBehaviour
         {
             //- 読み込み済にする
             LoadOut = true;
+            //- 連打防止フラグ
+            NowMove = false;
             //- 撤退する前に動画の再生を止める
             movie.Stop();
             //- シーケンス作成
@@ -165,6 +168,11 @@ public class BoardMove : MonoBehaviour
     /// <param name="context"></param>
     public void OnInTips(InputAction.CallbackContext context)
     {
+        if(NowMove)
+        {  return; }
+
+        NowMove = true;
+
         //- Tips再描画フラグをオンにする
         if (context.started && !SceneChange.bIsChange)
         {
