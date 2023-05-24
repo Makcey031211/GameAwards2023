@@ -18,7 +18,7 @@ public class WarpGate : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //- ワープホールに接触したら指定した位置にワープする
-        if (other.gameObject.tag == "Untagged")
+        if (other.gameObject.tag == "Player")
         {
             //- プレイヤーとワープゲートの距離を計算
             Vector3 playerPos = other.transform.position;
@@ -33,45 +33,43 @@ public class WarpGate : MonoBehaviour
                 //- プレイヤーを指定した位置にワープさせる
                 other.transform.position = warpPoint.position + warpdistance;
 
-                //- ワープ後に少し時間をおいてから、吐き出させる演出をする
-                Invoke("Untagged", spittingSpeed);
             }
         }
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //- ワープホールに触れたら指定した位置にワープする
-        if (other.gameObject.tag == "Untagged")
-        {
-            //- プレイヤーとワープゲートの距離を計算
-            Vector3 playerPos = other.transform.position;
-            Vector3 gatePos   = transform.position;
-            float distance    = Vector3.Distance(playerPos, gatePos);
+    //private void OnTriggerStay(Collider other)
+    //{
+    //    //- ワープホールに触れたら指定した位置にワープする
+    //    if (other.gameObject.tag == "Player")
+    //    {
+    //        //- プレイヤーとワープゲートの距離を計算
+    //        Vector3 playerPos = other.transform.position;
+    //        Vector3 gatePos   = transform.position;
+    //        float distance    = Vector3.Distance(playerPos, gatePos);
 
-            //- プレイヤーをワープする処理
-            if (distance < radius)
-            {
-                //- プレイヤーをワープゲートに向かって吸い寄せる
-                Vector3 surtionDir = (gatePos - playerPos).normalized;
-                other.transform.position += surtionDir * suctionSpeed * Time.deltaTime;
-            }
-        }
-    }
+    //        //- プレイヤーをワープする処理
+    //        if (distance < radius)
+    //        {
+    //            //- プレイヤーをワープゲートに向かって吸い寄せる
+    //            Vector3 surtionDir = (gatePos - playerPos).normalized;
+    //            other.transform.position += surtionDir * suctionSpeed * Time.deltaTime;
+    //        }
+    //    }
+    //}
+    ///// <summary>
+    ///// ワープ先の吐き出される場所を求める関数
+    ///// </summary>
+    //private void SpitOutPlayer()
+    //{
+    //    //- 吐き出される方向を決定
+    //    Vector3 spitDir = (warpPoint.position - transform.position).normalized;
 
-    /// <summary>
-    /// ワープ先の吐き出される場所を求める関数
-    /// </summary>
-    private void SpitOutPlayer()
-    {
-        //- 吐き出される方向を決定
-        Vector3 spitDir = (warpPoint.position - transform.position).normalized;
+    //    //- プレイヤーに速度を加えて演出する
+    //    Rigidbody playerRb = GetComponent<Rigidbody>();
+    //    if (playerRb != null)
+    //    {
+    //        playerRb.velocity = spitDir * spittingSpeed;
+    //    }
+    //}
 
-        //- プレイヤーに速度を加えて演出する
-        Rigidbody playerRb = GetComponent<Rigidbody>();
-        if (playerRb != null)
-        {
-            playerRb.velocity = spitDir * spittingSpeed;
-        }
-    }
 }
