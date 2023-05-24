@@ -115,14 +115,12 @@ public class ObjectFade : MonoBehaviour {
             break;
 
         case FadeState.Out:
-            Debug.Log(TweenGradFade.currentTime.ToString());
 
             tweener = TweenGradFade.FadeOut(material, duration);
             fadeState = FadeState.None;
             break;
 
         case FadeState.In:
-            Debug.Log(TweenGradFade.currentTime.ToString());
 
             tweener = TweenGradFade.FadeIn(material, duration);
             fadeState = FadeState.None;

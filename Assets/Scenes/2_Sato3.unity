@@ -3469,6 +3469,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 882428652}
+  - component: {fileID: 882428653}
   m_Layer: 5
   m_Name: StageButtons
   m_TagString: Untagged
@@ -3502,6 +3503,33 @@ Transform:
   m_Father: {fileID: 1558197929}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882428653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882428651}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03577f38463115468efdf44e108ee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  stageButton:
+  - {fileID: 1117572479}
+  - {fileID: 60952294}
+  - {fileID: 180051811}
+  - {fileID: 118341246}
+  - {fileID: 593388768}
+  - {fileID: 806916984}
+  - {fileID: 1619561050}
+  - {fileID: 178007652}
+  - {fileID: 1513413492}
+  - {fileID: 784562283}
+  saveManager: {fileID: 1558197925}
+  stageNum: 3
+  player: {fileID: 925320085}
 --- !u!1 &894315554
 GameObject:
   m_ObjectHideFlags: 0
@@ -4296,18 +4324,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1117572478}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1117572483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1117572480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1162616085 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1782150024539913716, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
