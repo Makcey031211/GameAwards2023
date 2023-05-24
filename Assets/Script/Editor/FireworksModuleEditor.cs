@@ -42,6 +42,7 @@ public class FireworksModuleEditor : Editor {
             EditorGUILayout.LabelField("--- 色関連 ---");
             _target._barrierObj      = (GameObject)EditorGUILayout.ObjectField("二重花火用のバリア", _target.BarrierObj, typeof(GameObject),true);
             _target._barrierColor    = EditorGUILayout.ColorField("二重花火のバリアの色", _target.BarrierColor);
+            _target._barrierParticleObj = (GameObject)EditorGUILayout.ObjectField("バリア破壊のエフェクト", _target.BarrierParticleObj, typeof(GameObject), true);
             _target._parentFireObj   = (GameObject)EditorGUILayout.ObjectField("親花火玉用のオブジェクト", _target.ParentFireObj, typeof(GameObject), true);
             _target._parentFireColor = EditorGUILayout.ColorField("親花火玉の色", _target.ParentFireColor);
             _target._childFireObj    = (GameObject)EditorGUILayout.ObjectField("子花火玉用のオブジェクト", _target.ChildFireObj, typeof(GameObject), true);
@@ -63,8 +64,10 @@ public class FireworksModuleEditor : Editor {
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
             _target._outsideBarrier = (GameObject)EditorGUILayout.ObjectField("外側のバリア", _target.OutsideBarrier, typeof(GameObject), true);
             _target._outsideBarrierColor = EditorGUILayout.ColorField("外側のバリアの色", _target.OutsideBarrierColor);
+            _target._outsideBarrierParticleObj = (GameObject)EditorGUILayout.ObjectField("外側のバリア破壊のエフェクト", _target.OutsideBarrierParticleObj, typeof(GameObject), true);
             _target._insideBarrier =  (GameObject)EditorGUILayout.ObjectField("内側のバリア", _target.InsideBarrier,  typeof(GameObject), true);
             _target._insideBarrierColor = EditorGUILayout.ColorField("内側のバリアの色", _target.InsideBarrierColor);
+            _target._insideBarrierParticleObj = (GameObject)EditorGUILayout.ObjectField("内側のバリア破壊のエフェクト", _target.InsideBarrierParticleObj, typeof(GameObject), true);
             break;
         case FireworksModule.FireworksType.Dragonfly:
             _target._tonboSpeed =  EditorGUILayout.FloatField("スピード", _target.TonboSpeed);
@@ -85,6 +88,7 @@ public class FireworksModuleEditor : Editor {
             _target._synchroTime = EditorGUILayout.FloatField("同時被弾の猶予時間(秒)", _target.SynchroTime);
             _target._boss2barrierObj = (GameObject)EditorGUILayout.ObjectField("バリアオブジェクト", _target.Boss2BarrierObj, typeof(GameObject), true);
             _target._boss2barrierColor = EditorGUILayout.ColorField("バリアの色", _target.Boss2BarrierColor);
+            _target._boss2barrierParticleObj = (GameObject)EditorGUILayout.ObjectField("バリア破壊のエフェクト", _target.Boss2BarrierParticleObj, typeof(GameObject), true);
             break;
         case FireworksModule.FireworksType.Boss3:
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
