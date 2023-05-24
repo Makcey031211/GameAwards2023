@@ -3197,18 +3197,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1244402978}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1244402983
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1244402980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1254270967
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6299,6 +6287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2115391018}
+  - component: {fileID: 2115391019}
   m_Layer: 5
   m_Name: StageButtons
   m_TagString: Untagged
@@ -6332,3 +6321,30 @@ Transform:
   m_Father: {fileID: 1893366300}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2115391019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2115391017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03577f38463115468efdf44e108ee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  stageButton:
+  - {fileID: 1244402979}
+  - {fileID: 1963387917}
+  - {fileID: 1335529989}
+  - {fileID: 280525088}
+  - {fileID: 974646064}
+  - {fileID: 2025002734}
+  - {fileID: 1663213902}
+  - {fileID: 805391544}
+  - {fileID: 894076684}
+  - {fileID: 1437526836}
+  saveManager: {fileID: 1893366296}
+  stageNum: 4
+  player: {fileID: 1254270969}
