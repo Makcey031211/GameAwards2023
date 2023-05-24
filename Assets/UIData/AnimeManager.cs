@@ -36,6 +36,7 @@ public class AnimeManager : MonoBehaviour
     private PController player;                             //プレイヤー操作用変数
     private Image TipsButtonGage;                           //Tips表示ボタンの長押しゲージ
     private float CurrentPushTime = 0.0f;                   //最大入力時間
+    private float StartTime = 0.0f;                         //開始からの時間
     
     private void Awake()
     {
@@ -80,7 +81,7 @@ public class AnimeManager : MonoBehaviour
     {
         //- プレイヤーの自爆フラグを取得する
         bool PlayerBoom = player.GetIsOnce();
-
+        StartTime += Time.deltaTime;
 
         /*　
          *　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
@@ -150,6 +151,7 @@ public class AnimeManager : MonoBehaviour
             //-　プレイヤーを動作不可能にする
             GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(true);
             DrawGimmickBoard.StartMove();
+         
         }
         //- Tipsがある・開幕が終わっている・自爆していない・再登場ボタン入力がされている
         else if (ControlFlag["Tips"] && OpeningAnime.MoveCompleat && !PlayerBoom && DrawGimmickBoard.GetInDrawButtonPush())
@@ -165,10 +167,14 @@ public class AnimeManager : MonoBehaviour
         //- Tipsがある・現在Tipsが表示されている・自爆していない・再登場ボタン入力がされている
         if (ControlFlag["Tips"] && DrawGimmickBoard.GetLoadStart() && !PlayerBoom && DrawGimmickBoard.GetOutDrawButtonPush())
         {
-            //- 入力継続時間を代入
-            CurrentPushTime += Time.deltaTime;
-            //- 時間分画像値を変動
-            TipsButtonGage.fillAmount = CurrentPushTime / MaxPushTime;
+            //- 開始2秒は撤退処理を受け付けない
+            if(StartTime > 2.0f)
+            { 
+                //- 入力継続時間を代入
+                CurrentPushTime += Time.deltaTime;
+                //- 時間分画像値を変動
+                TipsButtonGage.fillAmount = CurrentPushTime / MaxPushTime;
+            }
         }
         //- ボタン入力がされていない
         else if(ControlFlag["Tips"] && !DrawGimmickBoard.GetOutDrawButtonPush())
