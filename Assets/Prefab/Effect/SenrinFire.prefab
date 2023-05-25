@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 569984139381678439}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 569984140779755939}
@@ -108,7 +108,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -4927,7 +4927,7 @@ GameObject:
   - component: {fileID: 569984140779755939}
   - component: {fileID: 569984140779755941}
   - component: {fileID: 569984140779755938}
-  - component: {fileID: 4572826154807452880}
+  - component: {fileID: 7622522589146699980}
   m_Layer: 14
   m_Name: SenrinFire
   m_TagString: Untagged
@@ -4944,7 +4944,7 @@ Transform:
   m_GameObject: {fileID: 569984140779755936}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 569984139381678438}
@@ -5026,7 +5026,7 @@ ParticleSystem:
       m_RotationOrder: 4
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
-  scalingMode: 1
+  scalingMode: 0
   randomSeed: 0
   InitialModule:
     serializedVersion: 3
@@ -9834,7 +9834,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &4572826154807452880
+--- !u!114 &7622522589146699980
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9850,13 +9850,17 @@ MonoBehaviour:
   - {r: 7.3772106, g: 0, b: 0, a: 0}
   - {r: 9.849155, g: 9.849155, b: 0, a: 0}
   - {r: 0, g: 9.849155, b: 0, a: 0}
+  - {r: 0, g: 0.4016315, b: 8.311409, a: 0}
+  - {r: 6.5292897, g: 10.409193, b: 10.916478, a: 0}
   trailColor:
-  - {r: 7.3772106, g: 0, b: 0, a: 0}
-  - {r: 9.849155, g: 9.849155, b: 0, a: 0}
-  - {r: 0, g: 9.849155, b: 0, a: 0}
-  particles:
-  - {fileID: 569984140779755941}
-  - {fileID: 569984139381678440}
+  - {r: 6.8831816, g: 0.4324512, b: 0.4324512, a: 1}
+  - {r: 2.79544, g: 2.79544, b: 0.30735207, a: 1}
+  - {r: 0.38667905, g: 3.2111173, b: 0.38667905, a: 1}
+  - {r: 0.72156864, g: 1.3176471, b: 5.992157, a: 1}
+  - {r: 2.387323, g: 3.07662, b: 3.2111173, a: 1}
+  particles: []
   trails:
   - {fileID: 569984140779755941}
   - {fileID: 569984139381678440}
+  particleShaderProperty: 
+  trailShaderProperty: _Color_Fire07
