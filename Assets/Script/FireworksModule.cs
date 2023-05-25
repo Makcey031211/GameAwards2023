@@ -253,6 +253,9 @@ public class FireworksModule : MonoBehaviour
     public GameObject _movieObject; // 演出を管理しているオブジェクト
     //- 外部からの値取得用
     public GameObject MovieObject => _movieObject;
+    //- インスペクターに非表示
+    private int enemyNum;   // 花火玉の残存数
+    CountEnemy countEnemy;  // 花火玉の残存取得用スクリプト
 
 
     //- 2面ぬし花火の項目
@@ -345,6 +348,7 @@ public class FireworksModule : MonoBehaviour
 
         //- 復活箱の項目
         sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+        countEnemy = GameObject.Find("Main Camera").GetComponent<CountEnemy>();
 
         //- バリアの項目
         if (_type == FireworksType.Boss)
@@ -370,7 +374,7 @@ public class FireworksModule : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (_isInv && _type == FireworksType.ResurrectionPlayer)
         {
@@ -480,7 +484,6 @@ public class FireworksModule : MonoBehaviour
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
 
-
         GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
         GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
         GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
@@ -496,7 +499,7 @@ public class FireworksModule : MonoBehaviour
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
         DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
         { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); }); // クリア演出画面でのボス打ち上げ音
-        //- 演出用スクリプトの取得
+                                                                              //- 演出用スクリプトの取得
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
         //- 演出フラグ変更
         movie.SetMovieFlag(true);
@@ -645,6 +648,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
@@ -990,15 +994,8 @@ public class FireworksModule : MonoBehaviour
             bIsInit = true;
             //- 失敗判定フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            if (dragonflyRayCheck)
-            {
-                if (dragonflyRayCheck.GetIsDestroy() == true)
-                    scenechange.RequestStopMiss(true); //- 失敗判定を一時停止
-                else
-                    scenechange.RequestStopMiss(false);
-            }
-            else
-                scenechange.RequestStopMiss(false);
+            scenechange.RequestStopMiss(true);
+
             //- エフェクト可視化
             _effectTonbo.SetActive(true);
         }
@@ -1125,7 +1122,8 @@ public class FireworksModule : MonoBehaviour
         }
 
         //- 猶予時間内に引火したら実行する処理
-        if (HitInfo.hitcount >= 2)
+        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
+        if (HitInfo.hitcount >= 2 && enemyNum <= 1)
         {
             GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
             GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
@@ -1187,7 +1185,8 @@ public class FireworksModule : MonoBehaviour
             material.DOColor(Boss3IgniteColor, FadeTime);
         }
 
-        if(!bAnime && igniteCount >= 3)
+        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
+        if (!bAnime && igniteCount >= 3 && enemyNum <= 0)
         {
             bAnime = true;
             GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();

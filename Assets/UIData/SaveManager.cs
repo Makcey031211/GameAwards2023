@@ -14,7 +14,7 @@ using UnityEditor;
 public class SaveManager : MonoBehaviour
 {
 
-    private const int STAGE_NUM = 50;    //総ステージ数
+    private const int STAGE_NUM = 40;    //総ステージ数
     private string FILE_PATH;            //セーブデータパス
     private static bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
 

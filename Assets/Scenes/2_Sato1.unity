@@ -1498,6 +1498,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 336684614}
+  - component: {fileID: 336684615}
   m_Layer: 5
   m_Name: StageButtons
   m_TagString: Untagged
@@ -1531,6 +1532,33 @@ Transform:
   m_Father: {fileID: 765840147}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &336684615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336684613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03577f38463115468efdf44e108ee23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  stageButton:
+  - {fileID: 1829305417}
+  - {fileID: 1738801985}
+  - {fileID: 1365049474}
+  - {fileID: 1632998695}
+  - {fileID: 1903595784}
+  - {fileID: 2101532843}
+  - {fileID: 548536650}
+  - {fileID: 1805785616}
+  - {fileID: 1886545757}
+  - {fileID: 401164427}
+  saveManager: {fileID: 765840148}
+  stageNum: 1
+  player: {fileID: 1254011828}
 --- !u!1 &365272537
 GameObject:
   m_ObjectHideFlags: 0
@@ -4020,6 +4048,7 @@ GameObject:
   - component: {fileID: 1322600412}
   - component: {fileID: 1322600411}
   - component: {fileID: 1322600410}
+  - component: {fileID: 1322600414}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -4126,6 +4155,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322600414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322600409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0c07dfdde537046bb476163791edae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1365049470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1782150024539913716, guid: 9b2af57b6e7bbc04198ed957f4c927b8,
@@ -4912,7 +4953,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829305413}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
   m_Name: 

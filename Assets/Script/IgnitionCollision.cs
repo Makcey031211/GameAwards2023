@@ -32,10 +32,20 @@ public class IgnitionCollision : MonoBehaviour
         //- 当たったオブジェクトのタグによって処理を変える
         if (other.gameObject.tag == "Fireworks") HitFireworks(other);
         if (other.gameObject.tag == "ExplodeCollision") HitExplodeCollision(other);
-        if (other.gameObject.tag == "OutsideWall") Destroy(transform.parent.gameObject, 0.0f);
+        if (other.gameObject.tag == "OutsideWall")
+        {
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopMiss(false);
+            Destroy(transform.parent.gameObject);
+        }
 
         //- フラグがたっていれば破壊
-        if (IsDestroy) Destroy(transform.parent.gameObject);
+        if (IsDestroy)
+        {
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopMiss(false);
+            Destroy(transform.parent.gameObject);
+        }
     }
     void HitFireworks(Collider other)
     {

@@ -56,7 +56,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.95
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -617,7 +617,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.06
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4927,6 +4927,7 @@ GameObject:
   - component: {fileID: 569984140779755939}
   - component: {fileID: 569984140779755941}
   - component: {fileID: 569984140779755938}
+  - component: {fileID: 4572826154807452880}
   m_Layer: 14
   m_Name: SenrinFire
   m_TagString: Untagged
@@ -4973,7 +4974,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.95
+    scalar: 0
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -5534,7 +5535,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.06
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -9833,3 +9834,29 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &4572826154807452880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569984140779755936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 042c70674330d264db553233cf222c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleColor:
+  - {r: 7.3772106, g: 0, b: 0, a: 0}
+  - {r: 9.849155, g: 9.849155, b: 0, a: 0}
+  - {r: 0, g: 9.849155, b: 0, a: 0}
+  trailColor:
+  - {r: 7.3772106, g: 0, b: 0, a: 0}
+  - {r: 9.849155, g: 9.849155, b: 0, a: 0}
+  - {r: 0, g: 9.849155, b: 0, a: 0}
+  particles:
+  - {fileID: 569984140779755941}
+  - {fileID: 569984139381678440}
+  trails:
+  - {fileID: 569984140779755941}
+  - {fileID: 569984139381678440}
