@@ -62,6 +62,8 @@ MonoBehaviour:
   MaxFirColSize: 7.5
   MaxSecColSize: 7.5
   ColSize: {x: 1, y: 1, z: 1}
+  DetonationWarpObj: {fileID: 3878867933472351062, guid: ed1bb71caed9b6046aacbb5728b2eeee,
+    type: 3}
 --- !u!1 &7171924692625481344
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,6 +208,7 @@ MonoBehaviour:
   _secondAfterTime: 0
   _barrierObj: {fileID: 0}
   _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _barrierParticleObj: {fileID: 0}
   _parentFireObj: {fileID: 0}
   _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
   _childFireObj: {fileID: 0}
@@ -223,14 +226,12 @@ MonoBehaviour:
   _ignitionMax: 3
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _outsideBarrierParticleObj: {fileID: 0}
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
-  _lowestSpeed: 0
-  _highestSpeed: 0
-  _accelerationTime: 0
-  _decelerationTime: 0
-  _accelerationEase: 0
-  _decelerationEase: 0
+  _insideBarrierParticleObj: {fileID: 0}
+  _tonboSpeed: 0
+  _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
   _modelResidueTime: 0
   _yanagiobj: {fileID: 0}
@@ -243,6 +244,10 @@ MonoBehaviour:
   _synchroTime: 0
   _boss2barrierObj: {fileID: 0}
   _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _boss2barrierParticleObj: {fileID: 0}
+  _boss3obj: {fileID: 0}
+  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
+  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
