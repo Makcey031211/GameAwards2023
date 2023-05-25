@@ -67,6 +67,7 @@ public class IgnitionCollision : MonoBehaviour
     }
     void HitExplodeCollision(Collider other)
     {
+        if (other.gameObject.name == "TonboCollision") return;
         //- 無敵時間中ならリターン
         if (TimeCount <= InvisibleTime) return;
         //- 自身の破壊フラグを変更
