@@ -242,6 +242,7 @@ MonoBehaviour:
   _secondAfterTime: 0
   _barrierObj: {fileID: 0}
   _barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _barrierParticleObj: {fileID: 0}
   _parentFireObj: {fileID: 0}
   _parentFireColor: {r: 0, g: 0, b: 0, a: 0}
   _childFireObj: {fileID: 0}
@@ -255,18 +256,16 @@ MonoBehaviour:
   _animationTime: 0.1
   _animationDelayTime: 0.1
   _boxDisTime: 0.1
-  _invTime: 1.7
+  _invTime: 1.1
   _ignitionMax: 3
   _outsideBarrier: {fileID: 0}
   _outsideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _outsideBarrierParticleObj: {fileID: 0}
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
-  _lowestSpeed: 0
-  _highestSpeed: 0
-  _accelerationTime: 0
-  _decelerationTime: 0
-  _accelerationEase: 0
-  _decelerationEase: 0
+  _insideBarrierParticleObj: {fileID: 0}
+  _tonboSpeed: 0
+  _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
   _modelResidueTime: 0
   _yanagiobj: {fileID: 0}
@@ -279,6 +278,10 @@ MonoBehaviour:
   _synchroTime: 0
   _boss2barrierObj: {fileID: 0}
   _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
+  _boss2barrierParticleObj: {fileID: 0}
+  _boss3obj: {fileID: 0}
+  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
+  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
@@ -402,6 +405,18 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0c7cbd3b-e997-4ff8-b554-1491c181a45f
     m_ActionName: Player/InGame[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f55e78f7-46f1-49d5-b617-559df50bbfa7
+    m_ActionName: Player/InGameTips[/Keyboard/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5554dc30-278f-48a1-9761-4d5536f99dfb
+    m_ActionName: Player/OutGameTips[/Keyboard/backspace]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e35e10e8-afc0-404b-b208-8f66a3bfef6f
+    m_ActionName: Player/SkipAnime[/Keyboard/rightShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
