@@ -25,6 +25,7 @@ public class CutIn : MonoBehaviour
 
     [SerializeField] private E_BOSS_CUTIN Boss = E_BOSS_CUTIN.StageNo10_Boss;
     [SerializeField] private Image BossImg;         //ボス画像
+    [SerializeField] private Image BossBack;        //ボス画像の縁用
     [SerializeField] private Image TutuB;           //30ボス用
     [SerializeField] private Image TutuC;           //30ボス用
     [SerializeField] private Image SmallCrystal;    //10ボス用
@@ -53,11 +54,9 @@ public class CutIn : MonoBehaviour
                 InitSaveBoss30();
                 break;
             case E_BOSS_CUTIN.StageNo40_Boss:
+                InitSaveBoss40();
                 break;
         }
-
-
-
     }
 
     /// <summary>
@@ -106,6 +105,9 @@ public class CutIn : MonoBehaviour
         tmp.rectTransform.localPosition = InitPos;
     }
 
+    /// <summary>
+    /// 30ステージのボスの値を保存する関数
+    /// </summary>
     private void InitSaveBoss30()
     {     
         //- 初期値保存
@@ -136,6 +138,31 @@ public class CutIn : MonoBehaviour
     }
 
     /// <summary>
+    /// 40ステージのボスの値を保存する関数
+    /// </summary>
+    private void InitSaveBoss40()
+    {
+        //- 初期値保存
+        InitValues = new Dictionary<string, Dictionary<string, Vector3>>
+        {{ "ボス", new Dictionary<string, Vector3>
+             {{ "開始位置", Vector3.zero },
+             { "終点位置", BossImg.transform.localPosition },
+             { "大きさ", BossImg.transform.localScale },}
+        }};
+        InitValues.Add("ボス背景", new Dictionary<string, Vector3> {
+            { "開始位置", Vector3.zero },
+            { "終点位置", BossBack.transform.localPosition },
+            { "大きさ", BossBack.transform.localScale },});
+        //- サイズと位置をアニメーション開始時の値に設定
+        BossImg.rectTransform.localScale = Vector3.zero;
+        BossImg.rectTransform.localPosition = InitPos;
+        BossBack.rectTransform.localScale = Vector3.zero;
+        BossBack.rectTransform.localPosition = InitPos;
+        InitTextPos = tmp.rectTransform.localPosition;
+        tmp.rectTransform.localPosition = InitPos;
+    }
+
+    /// <summary>
     /// カットイン挙動を行う
     /// </summary>
     public void MoveCutIn()
@@ -152,6 +179,7 @@ public class CutIn : MonoBehaviour
                 MoveBoss30();
                 break;
             case E_BOSS_CUTIN.StageNo40_Boss:
+                MoveBoss40();
                 break;
         }
 
@@ -337,6 +365,57 @@ public class CutIn : MonoBehaviour
 
     }
 
+    private void MoveBoss40()
+    {
+        var DoCutIn = DOTween.Sequence();
+        //- 初めのテキストを90度回転させておく
+        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(tmp);
+        for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+        { tmpAnimator.DORotateChar(i, Vector3.up * 90, 0); }
+        //- ボス画像のサイズが0から元設置サイズに
+        DoCutIn
+            .OnPlay(() =>
+            {
+                BossImg.transform.localPosition = InitValues["ボス"]["開始位置"];
+                BossBack.transform.localPosition = InitValues["ボス背景"]["開始位置"];
+                BossImg.DOColor(Color.black,0.0f);
+            })
+            .AppendInterval(0.5f)
+            .Append(BossImg.transform.DOScale(InitValues["ボス"]["大きさ"], 0.1f))
+            .Join(BossBack.transform.DOScale(InitValues["ボス背景"]["大きさ"], 0.1f))
+            .AppendInterval(0.3f)
+            .Append(BossImg.DOColor(Color.white, 0.5f))
+            .AppendInterval(0.25f)
+            .Append(BossImg.transform.DOMove(InitValues["ボス"]["終点位置"], 0.5f).SetRelative(true))
+            .Join(BossBack.transform.DOMove(InitValues["ボス背景"]["終点位置"], 0.5f).SetRelative(true))
+            .OnComplete(() =>
+            {
+                DOTween.Sequence()
+                .Append(TextBack.DOFillAmount(1.0f, 0.25f))
+                .OnPlay(() => { tmp.transform.localPosition = InitTextPos; });
+
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
+                for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
+                {
+                    DOTween.Sequence()
+                        .Append(tmpAnimator.DORotateChar(i, Vector3.zero, 0.55f));
+                }
+                DoCutIn.Kill();
+
+                var DoOut = DOTween.Sequence();
+                DoOut
+                    .AppendInterval(1.5f)
+                    .Append(BossImg.DOFade(0.0f, 0.2f))
+                    .Join(BossBack.DOFade(0.0f,0.2f))
+                    .Join(tmp.DOFade(0.0f, 0.2f))
+                    .Join(TextBack.DOFade(0.0f, 0.2f))
+                    .OnComplete(() => {
+                        MoveCompleat = true;
+                        DoOut.Kill();
+                    });
+
+            });
+    }
 
     /// <summary>
     /// 動作が完了したかのフラグを返却
