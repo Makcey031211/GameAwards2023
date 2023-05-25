@@ -655,7 +655,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.YanagiFire); // 柳のエフェクト音再生
+            SEManager.Instance.YanagiSetPlaySE(SEManager.E_SoundEffect.YanagiFire, 0.05f);// 柳のエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
