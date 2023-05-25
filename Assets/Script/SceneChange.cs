@@ -158,4 +158,9 @@ public class SceneChange : MonoBehaviour
         if (RequestCountMiss > 0) bIsStopMiss = true;
         else bIsStopMiss = false;
     }
+
+    public void Change()
+    {
+        SceneManager.LoadScene(NextScene);
+    }
 }
