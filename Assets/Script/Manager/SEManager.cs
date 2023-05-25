@@ -201,4 +201,21 @@ public class SEManager : MonoBehaviour
         _audioSource.loop  = Loop;
         _audioSource.PlayOneShot(audioClips[E_SoundEffect], volume);
     }
+
+    /// <summary>
+    /// SE‚ğÄ¶‚³‚¹‚éŠÖ”(–öê—p)
+    /// </summary>
+    /// <param name="E_SoundEffect">‰¹</param>
+    public void YanagiSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
+    {
+        //- AudioClip‚ª‘¶İ‚µ‚Ä‚¢‚È‚¢ê‡
+        if (!audioClips.ContainsKey(E_SoundEffect))
+        {
+            Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
+            return;
+        }
+
+        //- ˆø”‚Å“n‚³‚ê‚½AudioClip‚ğÄ¶‚·‚é
+        _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
+    }
 }

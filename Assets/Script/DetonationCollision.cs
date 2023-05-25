@@ -17,6 +17,9 @@ public class DetonationCollision : MonoBehaviour
     [Header("当たり判定の初期サイズ"), SerializeField]
     private Vector3 ColSize = new Vector3(1.0f,1.0f,1.0f);
 
+    [Header("ワープした当たり判定オブジェクト"), SerializeField]
+    private GameObject DetonationWarpObj;
+
     //- 2回爆発するかどうか(DoubleBlastFireworks.csからアクセスされて変更される変数です)
     private bool _isDoubleBlast = false;
     public bool IsDoubleBlast { get { return _isDoubleBlast; } set { _isDoubleBlast = value; } }
@@ -24,10 +27,21 @@ public class DetonationCollision : MonoBehaviour
     //- 何回目の爆発か
     int nBlastCount = 1;
 
+    bool initHitWarp = true; //- ワープホールに初めて当たったかどうか
+    Vector3 WarpDis = new Vector3(0, 0, 0); //- ワープホールへの距離
+    GameObject WarpA;     //- ワープホールA
+    GameObject WarpB;     //- ワープホールB
+    GameObject EnterWarp; //- ワープホール入口
+    GameObject ExitWarp;  //- ワープホール出口
+    float CoolTimeCount = 0; 
+
     void Start()
     {
         //- 座標の取得
         Vector3 pos = transform.position;
+        //- ワープホールを探す
+        WarpA = GameObject.Find("WarpholeA");
+        WarpB = GameObject.Find("WarpholeB");
     }
     
     public void EndDetonation()
@@ -71,6 +85,42 @@ public class DetonationCollision : MonoBehaviour
         if (other.gameObject.tag != "Fireworks") return;              // 当たったオブジェクトのタグが「花火] 以外ならリターン
 
         CheckHitRayStage(other.gameObject);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.tag != "Warphole") return;              // 当たったオブジェクトのタグが「花火] 以外ならリターン
+
+        if (initHitWarp)
+        {
+            //- 入口のワープホールを取得
+            EnterWarp = other.gameObject;
+            //- 出口のワープホールを取得
+            if (EnterWarp.gameObject.name == "WarpholeA") ExitWarp = WarpB;
+            if (EnterWarp.gameObject.name == "WarpholeB") ExitWarp = WarpA;
+            //- 花火と入口のワープホールの距離を取得
+            WarpDis = transform.position - EnterWarp.transform.position;
+            //- 出口先の花火の中心を計算
+            Vector3 Pos = ExitWarp.transform.position + WarpDis;
+
+            initHitWarp = true;
+        }
+        if (CoolTimeCount < 0.2f)
+        {
+            CoolTimeCount += Time.deltaTime;
+            return;
+        }
+        CoolTimeCount = 0.0f;
+        //- 指定した位置に生成
+        GameObject WarpCol = Instantiate(
+           DetonationWarpObj,                     // 生成(コピー)する対象
+           ExitWarp.transform.position + WarpDis, // 生成される位置
+           Quaternion.Euler(0.0f, 0.0f, 0.0f)     // 最初にどれだけ回転するか
+                );
+        //- ワープした当たり判定
+        Vector3 scale = this.transform.lossyScale;
+        float sizeRatio = 2.1f;
+        WarpCol.transform.localScale = new Vector3(scale.x * sizeRatio, scale.y * sizeRatio, scale.z * sizeRatio);
     }
 
     //- 花火玉に当たった時にステージオブジェクトに阻まれてないかどうか調べる関数

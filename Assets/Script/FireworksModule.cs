@@ -429,6 +429,33 @@ public class FireworksModule : MonoBehaviour
                     break;
             }
         }
+        
+        if (Type == FireworksType.Cracker)
+        {
+            if (!Input.GetKey(KeyCode.Alpha1)) return;
+            // ===== 当たり判定の表示 =====
+            Vector3 pos = this.transform.position;
+            Vector3 dir = Vector3.up * _blastDis;
+            dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+            dir = Quaternion.Euler(0, 0, _blastAngle / 2) * dir;
+            Debug.DrawRay(pos, dir, Color.red, 2.0f);
+            float num = 10;
+            Vector3 end = pos;
+            for (int i = 0; i < num; i++)
+            {
+                Vector3 start = pos + dir;
+                dir = Quaternion.Euler(0, 0, -_blastAngle / num) * dir;
+                end = pos + dir;
+                Debug.DrawRay(start, end - start, Color.red, 2.0f);
+            }
+            pos = this.transform.position;
+            dir = Vector3.up * _blastDis;
+            dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+            dir = Quaternion.Euler(0, 0, -_blastAngle / 2) * dir;
+            dir = Vector3.up * _blastDis;
+            Debug.DrawRay(end, pos - end, Color.red, 2.0f);
+            // ============================
+        }
     }
 
     // 爆発時に子オブジェクト含め描画をやめる処理
@@ -655,7 +682,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.YanagiFire); // 柳のエフェクト音再生
+            SEManager.Instance.YanagiSetPlaySE(SEManager.E_SoundEffect.YanagiFire, 0.05f);// 柳のエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
@@ -676,28 +703,7 @@ public class FireworksModule : MonoBehaviour
             Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
             );
 
-        // ===== 当たり判定の表示 =====
-        Vector3 pos = this.transform.position;
-        Vector3 dir = Vector3.up * _blastDis;
-        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
-        dir = Quaternion.Euler(0, 0, _blastAngle / 2) * dir;
-        Debug.DrawRay(pos, dir, Color.red, 2.0f);
-        float num = 10;
-        Vector3 end = pos;
-        for (int i = 0; i < num; i++)
-        {
-            Vector3 start = pos + dir;
-            dir = Quaternion.Euler(0, 0, -_blastAngle / num) * dir;
-            end = pos + dir;
-            Debug.DrawRay(start, end - start, Color.red, 2.0f);
-        }
-        pos = this.transform.position;
-        dir = Vector3.up * _blastDis;
-        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
-        dir = Quaternion.Euler(0, 0, -_blastAngle / 2) * dir;
-        dir = Vector3.up * _blastDis;
-        Debug.DrawRay(end, pos - end, Color.red, 2.0f);
-        // ============================
+
 
         //- 振動の設定
         vibration.SetVibration(30, 1.0f);
