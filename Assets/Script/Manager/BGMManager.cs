@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BGMManager : MonoBehaviour
 {
@@ -20,5 +21,11 @@ public class BGMManager : MonoBehaviour
     public void DestroyBGMManager()
     {
         Destroy(gameObject);
+    }
+
+    public void DestroyPossible()
+    {
+        // DontDestroyOnLoadに避難させたオブジェクトを削除可能にする
+        SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
 }

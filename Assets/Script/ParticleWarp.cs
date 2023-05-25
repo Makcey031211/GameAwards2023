@@ -11,6 +11,12 @@ public class ParticleWarp : MonoBehaviour
     GameObject WarpA;
     GameObject WarpB;
 
+    [SerializeField, Header("クリア時にワープ判定停止")]
+    private bool ClearStop = true;
+
+    [SerializeField, Header("柳花火")]
+    private bool IsYanagi = false;
+
     void Start()
     {
         // ===== オブジェクト、コンポーネント取得 =====
@@ -36,7 +42,7 @@ public class ParticleWarp : MonoBehaviour
     void OnParticleTrigger()
     {
         // ===== クリア後にワープ処理を行わない =====
-        if (SceneChange.bIsChange == true) return;
+        if (SceneChange.bIsChange == true && ClearStop) return;
 
         // ===== パーティクルを状態で検索 =====
         // 条件に一致するパーティクルを ParticleSystem から取得する.
@@ -138,6 +144,8 @@ public class ParticleWarp : MonoBehaviour
                 pos = posA + HitdisB;
             }
 
+            // ===== 柳花火専用 =====
+            if (IsYanagi == true) pos.z = 0;
             // ===== 計算後の適用処理 =====
             pos = m_particleSystem.transform.InverseTransformPoint(pos); //- ワールドからローカル
             p.position = pos;         //- 座標適用

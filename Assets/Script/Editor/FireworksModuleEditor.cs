@@ -96,6 +96,9 @@ public class FireworksModuleEditor : Editor {
             _target._boss3igniteColor = EditorGUILayout.ColorField("引火時の色", _target.Boss3IgniteColor);
             _target._fadeTime = EditorGUILayout.FloatField("色のフェード時間(秒)", _target.FadeTime);
             break;
+        case FireworksModule.FireworksType.Boss4:
+            _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
+            break;
         }
         //- インスペクターの更新
         if (GUI.changed)

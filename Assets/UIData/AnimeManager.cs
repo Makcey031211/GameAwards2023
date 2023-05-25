@@ -25,6 +25,7 @@ public class AnimeManager : MonoBehaviour
     [SerializeField] private CutIn DrawBossCutIn;           //ボスカットイン
     [SerializeField] private BoardMove DrawGimmickBoard;    //Tips表示
     [SerializeField] private float MaxPushTime = 1.0f;      //入力時間
+    [SerializeField] private bool Auto = false;             //自動クリア判定
 
     private Dictionary<string, bool> ControlFlag;           //アニメーションオブジェクトのフラグ管理
     private bool InMoveCompleat = false;                    //登場処理完了フラグ
@@ -231,7 +232,7 @@ public class AnimeManager : MonoBehaviour
 
     public void SkipAnime(InputAction.CallbackContext context)
     {
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
         if(context.started)
         { 
             Debug.Log("Skip");
@@ -248,8 +249,10 @@ public class AnimeManager : MonoBehaviour
             if (DrawOpening) { ControlFlag["開幕"] = false; }
             if (DrawGimmickBoard) { ControlFlag["Tips"] = false; }
             if (DrawBossCutIn) { ControlFlag["ボス"] = false; }
+
+            SceneChange.bIsChange = Auto;
         }
-#endif
+//#endif
     }
 }
 

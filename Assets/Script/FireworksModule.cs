@@ -383,6 +383,11 @@ public class FireworksModule : MonoBehaviour
             { _isInv = false; }
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _isExploded = true;
+        }
+
         if (IsExploded)
         { // 爆発した後
             switch (Type)
@@ -462,6 +467,7 @@ public class FireworksModule : MonoBehaviour
             //- バリアオブジェクト破壊
             Destroy(_outsideBarrier);
             //- バリア破壊エフェクト生成
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
             GameObject barrier = Instantiate(
                 _outsideBarrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -474,6 +480,7 @@ public class FireworksModule : MonoBehaviour
             //- バリアオブジェクト破壊
             Destroy(_insideBarrier);
             //- バリア破壊エフェクト生成
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
             GameObject barrier = Instantiate(
                 _insideBarrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -648,7 +655,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.YanagiFire); // 柳のエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
@@ -668,6 +675,29 @@ public class FireworksModule : MonoBehaviour
             transform.position,           // 生成される位置
             Quaternion.Euler(0.0f, 0.0f, transform.localEulerAngles.z)  // 最初にどれだけ回転するか
             );
+
+        // ===== 当たり判定の表示 =====
+        Vector3 pos = this.transform.position;
+        Vector3 dir = Vector3.up * _blastDis;
+        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+        dir = Quaternion.Euler(0, 0, _blastAngle / 2) * dir;
+        Debug.DrawRay(pos, dir, Color.red, 2.0f);
+        float num = 10;
+        Vector3 end = pos;
+        for (int i = 0; i < num; i++)
+        {
+            Vector3 start = pos + dir;
+            dir = Quaternion.Euler(0, 0, -_blastAngle / num) * dir;
+            end = pos + dir;
+            Debug.DrawRay(start, end - start, Color.red, 2.0f);
+        }
+        pos = this.transform.position;
+        dir = Vector3.up * _blastDis;
+        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+        dir = Quaternion.Euler(0, 0, -_blastAngle / 2) * dir;
+        dir = Vector3.up * _blastDis;
+        Debug.DrawRay(end, pos - end, Color.red, 2.0f);
+        // ============================
 
         //- 振動の設定
         vibration.SetVibration(30, 1.0f);
@@ -776,13 +806,264 @@ public class FireworksModule : MonoBehaviour
             }
 
             //- 遅延をかけて爆破
-            if (!bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime));
+            if (!bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime,transform.position));
         }
+
+        // ===== ワープホールチェック ======
+        //- タグがワープホールのオブジェクトを全て取得
+        GameObject[] Warpholes = GameObject.FindGameObjectsWithTag("Warphole");
+        //- レイの開始点のオブジェクト
+        originObj = this.transform.GetChild(3).gameObject;
+        //- 範囲検索用のベクトル開始地点
+        RangeStartPos = this.transform.position;
+        //- レイの開始点
+        RayStartPos = new Vector3(originObj.transform.position.x, originObj.transform.position.y, originObj.transform.position.z);
+        bool IsHitWarphole = false;
+        GameObject warpA = GameObject.Find("WarpholeA");
+        GameObject warpB = GameObject.Find("WarpholeB");
+        //- ワープホールオブジェクトを一つずつ実行
+        foreach (var obj in Warpholes)
+        {
+            //- レイの目標点
+            Vector3 targetPos = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+            //- クラッカーからワープホールへのベクトル(範囲用)
+            Vector3 RangeDir = targetPos - transform.position;
+            //- クラッカーから花火へのベクトル(レイ用)
+            Vector3 RayDir = targetPos - RayStartPos;
+            //- 花火との距離を取得
+            float dis = Vector3.Distance(RangeStartPos, targetPos);
+            //- 花火との距離が射程内じゃなかったら処理しない
+            if (dis > BlastDis) continue;
+
+            //- 変数の準備
+            float DisDelayRatio;
+            float DelayTime;
+            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
+            var angle = Vector3.Angle((transform.up).normalized, (RangeDir).normalized);
+            if (/*angle != 0 && */(angle <= BlastAngle / 2))
+            {
+                DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 2.8f;
+                DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
+            }
+            else
+            {
+                continue;
+            }
+
+            // 自身から花火に向かうレイを作成
+            Ray ray = new Ray(RayStartPos, RayDir);
+            // 当たったオブジェクトを格納するための変数
+            var HitList = new List<RaycastHit>();
+            // レイが当たったオブジェクトをすべて順番に確認していく
+            foreach (RaycastHit hit in Physics.RaycastAll(ray, dis))
+            {
+                //- 最初のオブジェクトなら無条件で格納
+                if (HitList.Count == 0)
+                {
+                    HitList.Add(hit);
+                    continue;
+                }
+
+                //- 格納フラグ
+                bool bAdd = false;
+                //- 格納変数と当たったオブジェクトの比較
+                for (int i = 0; i < HitList.Count; i++)
+                {
+                    //- 格納フラグチェック
+                    if (bAdd) break;
+                    //- 距離が格納箇所データの距離より長ければリターン
+                    if (HitList[i].distance < hit.distance) continue;
+                    //- 仮のデータを一番最後に格納
+                    HitList.Add(new RaycastHit());
+                    //- 最後から格納場所までデータをずらす
+                    for (int j = HitList.Count - 1; j > i; j--)
+                    {
+                        //- データを一つ移動
+                        HitList[j] = HitList[j - 1];
+                    }
+                    //- 格納場所に格納
+                    HitList[i] = hit;
+                    bAdd = true;
+                }
+
+                //- 格納フラグが立っていなければ、一番距離が長いオブジェクトなので
+                //- 配列の一番最後に格納する
+                if (!bAdd) HitList.Add(hit);
+            }
+
+            //- 爆発フラグ
+            bool bBlock = false;
+            //- 距離が短いものから調べる
+            for (int i = 0; i < HitList.Count; i++)
+            {
+                RaycastHit hit = HitList[i];
+
+                //- 当たり判定のデバッグ表示
+                if (Input.GetKey(KeyCode.Alpha1))
+                {
+                    float markdis = 0.1f;
+                    Debug.DrawRay(RayStartPos, RayDir, Color.red, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
+                }
+                if (hit.collider.gameObject.tag != "Stage") continue; //- ステージオブジェクト以外なら次へ
+                if (hit.distance > dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
+
+                //- 当たった花火玉より手前にステージオブジェクトが存在する
+                bBlock = true;
+            }
+
+            if (obj.name == "WarpholeA") WarpholeCracker(warpA, warpB);
+            if (obj.name == "WarpholeB") WarpholeCracker(warpB, warpA);
+        }
+
 
         //- レイヤーの変更
         gameObject.layer = 0;
         //- 自身を破壊する
         Destroy(this.gameObject, _destroyTime);
+    }
+
+    private void WarpholeCracker(GameObject Warp1, GameObject Warp2)
+    {
+        // ===== 当たり判定の表示 =====
+        Vector3 Dis = transform.position - Warp1.transform.position;
+        Vector3 pos = Warp2.transform.position + Dis;
+        Vector3 dir = Vector3.up * _blastDis;
+        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+        dir = Quaternion.Euler(0, 0, _blastAngle / 2) * dir;
+        Debug.DrawRay(pos, dir, Color.blue, 2.0f);
+        float num = 10;
+        Vector3 end = pos;
+        for (int i = 0; i < num; i++)
+        {
+            Vector3 start = pos + dir;
+            dir = Quaternion.Euler(0, 0, -_blastAngle / num) * dir;
+            end = pos + dir;
+            Debug.DrawRay(start, end - start, Color.blue, 2.0f);
+        }
+        Debug.Log(pos);
+        pos = Warp2.transform.position + Dis;
+        dir = Vector3.up * _blastDis;
+        dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
+        dir = Quaternion.Euler(0, 0, -_blastAngle / 2) * dir;
+        dir = Vector3.up * _blastDis;
+        Debug.DrawRay(end, pos - end, Color.blue, 2.0f);
+        // ============================ 
+        Vector3 WarpDis = Warp2.transform.position - Warp1.transform.position;
+        //- タグが花火のオブジェクトを全て取得
+        GameObject[] Fireworks = GameObject.FindGameObjectsWithTag("Fireworks");
+        //- レイの開始点のオブジェクト
+        GameObject originObj = this.transform.GetChild(3).gameObject;
+        //- 範囲検索用のベクトル開始地点
+        Vector3 RangeStartPos = this.transform.position;
+        RangeStartPos += WarpDis;
+        //- レイの開始点
+        Vector3 RayStartPos = new Vector3(originObj.transform.position.x, originObj.transform.position.y, originObj.transform.position.z);
+        RayStartPos += WarpDis;
+
+
+        //- 花火のオブジェクトを一つずつ実行
+        foreach (var obj in Fireworks)
+        {
+            //- レイの目標点
+            Vector3 targetPos = new Vector3(obj.transform.position.x, obj.transform.position.y, obj.transform.position.z);
+            //- クラッカーから花火へのベクトル(範囲用)
+            Vector3 RangeDir = targetPos - (transform.position + WarpDis);
+            //- クラッカーから花火へのベクトル(レイ用)
+            Vector3 RayDir = targetPos - RayStartPos;
+            //- 花火との距離を取得
+            float dis = Vector3.Distance(RangeStartPos, targetPos);
+            //- 花火との距離が射程内じゃなかったら処理しない
+            if (dis > BlastDis) continue;
+
+            //- 変数の準備
+            float DisDelayRatio;
+            float DelayTime;
+            //- 「花火へのベクトル」と「クラッカーの向きベクトル」の角度を求める
+            var angle = Vector3.Angle((transform.up).normalized, (RangeDir).normalized);
+            if (/*angle != 0 && */(angle <= BlastAngle / 2))
+            {
+                DisDelayRatio = (dis) / (BlastDis * _particleSystem.main.startSpeed.constantMin / 25) / 2.8f;
+                DelayTime = (10 / _particleSystem.main.startSpeed.constantMin / 25) + DisDelayRatio;
+            }
+            else
+            {
+                continue;
+            }
+
+            Debug.DrawRay(RayStartPos, RayDir, Color.green, 2.0f);
+
+            // 自身から花火に向かうレイを作成
+            Ray ray = new Ray(RayStartPos, RayDir);
+            // 当たったオブジェクトを格納するための変数
+            var HitList = new List<RaycastHit>();
+            // レイが当たったオブジェクトをすべて順番に確認していく
+            foreach (RaycastHit hit in Physics.RaycastAll(ray, BlastDis * 2))
+            {
+                //- 最初のオブジェクトなら無条件で格納
+                if (HitList.Count == 0)
+                {
+                    HitList.Add(hit);
+                    continue;
+                }
+
+                //- 格納フラグ
+                bool bAdd = false;
+                //- 格納変数と当たったオブジェクトの比較
+                for (int i = 0; i < HitList.Count; i++)
+                {
+                    //- 格納フラグチェック
+                    if (bAdd) break;
+                    //- 距離が格納箇所データの距離より長ければリターン
+                    if (HitList[i].distance < hit.distance) continue;
+                    //- 仮のデータを一番最後に格納
+                    HitList.Add(new RaycastHit());
+                    //- 最後から格納場所までデータをずらす
+                    for (int j = HitList.Count - 1; j > i; j--)
+                    {
+                        //- データを一つ移動
+                        HitList[j] = HitList[j - 1];
+                    }
+                    //- 格納場所に格納
+                    HitList[i] = hit;
+                    bAdd = true;
+                }
+
+                //- 格納フラグが立っていなければ、一番距離が長いオブジェクトなので
+                //- 配列の一番最後に格納する
+                if (!bAdd) HitList.Add(hit);
+            }
+
+            //- 爆発フラグ
+            bool bBlast = false;
+            //- 距離が短いものから調べる
+            for (int i = 0; i < HitList.Count; i++)
+            {
+                RaycastHit hit = HitList[i];
+
+                //- 当たり判定のデバッグ表示
+                if (Input.GetKey(KeyCode.Alpha1))
+                {
+                    float markdis = 0.1f;
+                    Debug.DrawRay(RayStartPos, RayDir, Color.red, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+                    Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
+                }
+                if (hit.collider.gameObject.tag != "Warphole") continue; //- ステージオブジェクト以外なら次へ
+                if (hit.distance < dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
+
+                //- 当たった花火玉より手前にステージオブジェクトが存在する
+                bBlast = true; //- フラグ変更
+            }
+
+            //- 遅延をかけて爆破
+            if (!bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime, RangeStartPos));
+        }
     }
 
     private void HardFire()
@@ -878,6 +1159,7 @@ public class FireworksModule : MonoBehaviour
                     transform.position,
                     Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 //- バリア破壊エフェクト生成
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
                 GameObject barrier = Instantiate(
                 _barrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z),
@@ -1015,7 +1297,7 @@ public class FireworksModule : MonoBehaviour
     }
 
     //- 遅れて起爆するクラッカーの関数
-    private IEnumerator DelayDestroyCracker(GameObject obj, float delayTime)
+    private IEnumerator DelayDestroyCracker(GameObject obj, float delayTime,Vector3 pos)
     {
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
@@ -1033,7 +1315,7 @@ public class FireworksModule : MonoBehaviour
         if (module.Type == FireworksModule.FireworksType.Boss)
             obj.GetComponent<FireworksModule>().IgnitionBoss(obj.gameObject);
         else
-            obj.GetComponent<FireworksModule>().Ignition(transform.position);
+            obj.GetComponent<FireworksModule>().Ignition(pos);
     }
 
     //- オブジェクトのアクティブ判定を変更する関数
@@ -1113,6 +1395,7 @@ public class FireworksModule : MonoBehaviour
             if (!_isOnce)
             {
                 _isOnce = true;
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
                 GameObject barrier = Instantiate(
                     _boss2barrierParticleObj,
                     new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -1199,7 +1482,7 @@ public class FireworksModule : MonoBehaviour
             transform.DOMoveY(transform.position.y - 2.0f, 1.0f).SetEase(Ease.OutSine).SetDelay(1.0f).SetLink(gameObject);
             transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(2.3f).SetLink(gameObject);
             DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
-            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt);});
+            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); }); // ヌシが打ち上がる時の音
             
             //- 演出用スクリプトの取得
             MovieManager movie = MovieObject.GetComponent<MovieManager>();
@@ -1221,7 +1504,7 @@ public class FireworksModule : MonoBehaviour
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
                 transform.position,                 // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                Quaternion.Euler(-90.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
             //- コントローラーの振動の設定
@@ -1240,11 +1523,37 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
         }
 
-        _afterTimeCount += Time.deltaTime;
-        //- 当たり判定を消す処理
-        if (_afterTimeCount >= _blastAfterTime)
+        //_afterTimeCount += Time.deltaTime;
+        ////- 当たり判定を消す処理
+        //if (_afterTimeCount >= _blastAfterTime)
+        //{
+        //    DetonationCol.EndDetonation(); //- 当たり判定の消滅
+        //}
+
+        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
+        if (!bAnime && enemyNum <= 1)
         {
-            DetonationCol.EndDetonation(); //- 当たり判定の消滅
+            bAnime = true;
+            GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+            //- フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopClear(true);
+            //- アニメーション処理
+            //transform.DOMoveY(transform.position.y - 2.0f, 1.0f).SetEase(Ease.OutSine).SetDelay(1.0f).SetLink(gameObject);
+            //transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(2.3f).SetLink(gameObject);
+            //DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
+            //{ SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
+
+            //- 演出用スクリプトの取得
+            MovieManager movie = MovieObject.GetComponent<MovieManager>();
+            //- 演出フラグ変更
+            movie.SetMovieFlag(true);
+            //- 演出開始
+            DOVirtual.DelayedCall(3.1f, () => movie.StartVillageMovie(), false);
+            //- 破壊処理
+            Destroy(gameObject, 3.2f);
         }
     }
 }
