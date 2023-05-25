@@ -79,7 +79,7 @@ public class WarpGate : MonoBehaviour
                 //var cc = other.gameObject.GetComponent<CharacterController>();
                 //cc.enabled = false;
                 //- プレイヤーを指定した位置にワープさせる
-                other.transform.position = warpPoint.position + warpdistance * 1.2f;
+                other.transform.position = warpPoint.position + warpdistance;
                 Vector3 pos = other.transform.position;
                 pos.z = 0.0f;
                 other.transform.position = pos;
