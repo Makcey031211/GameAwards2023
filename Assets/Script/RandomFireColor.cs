@@ -11,25 +11,33 @@ public class RandomFireColor : MonoBehaviour
     private ParticleSystem[] particles;
     [SerializeField]
     private ParticleSystem[] trails;
+    [SerializeField]
+    private string particleShaderProperty;
+    [SerializeField]
+    private string trailShaderProperty;
 
     private int colorNum;
+    MaterialPropertyBlock materialPropertyBlock;
 
     // Start is called before the first frame update
     void Start()
     {
+        materialPropertyBlock = new MaterialPropertyBlock();
+
         colorNum = UnityEngine.Random.Range(0, particleColor.Length);
 
         Debug.Log(colorNum);
 
-
         for (int i = 0; i < particles.Length; i++) {
-            int color = Shader.PropertyToID("Color_6e421ff9f89940d29c66c6f5baf1449f");
-            particles[i].GetComponent<ParticleSystemRenderer>().material.SetColor(color, particleColor[colorNum]);
+            int color = Shader.PropertyToID(particleShaderProperty);
+            materialPropertyBlock.SetColor(color, particleColor[colorNum]);
+            particles[i].GetComponent<ParticleSystemRenderer>().SetPropertyBlock(materialPropertyBlock);
         }
 
         for (int i = 0; i < trails.Length; i++) {
-            int color = Shader.PropertyToID("Color_27cb2d941779445c8e3e1604cb5274e6");
-            trails[i].GetComponent<ParticleSystemRenderer>().material.SetColor(color, particleColor[colorNum]);
+            int color = Shader.PropertyToID(trailShaderProperty);
+            materialPropertyBlock.SetColor(color, trailColor[colorNum]);
+            trails[i].GetComponent<ParticleSystemRenderer>().SetPropertyBlock(materialPropertyBlock);
         }
     }
 
