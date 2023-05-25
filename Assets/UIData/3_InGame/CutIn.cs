@@ -191,7 +191,7 @@ public class CutIn : MonoBehaviour
                 .Append(TextBack.DOFillAmount(1.0f, 0.25f))
                 .OnPlay(() => { tmp.transform.localPosition = InitTextPos; });
 
-                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp); // 文字出現音
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
                 {
                     DOTween.Sequence()
@@ -243,7 +243,7 @@ public class CutIn : MonoBehaviour
                 .Append(TextBack.DOFillAmount(1.0f, 0.25f))
                 .OnPlay(() => { tmp.transform.localPosition = InitTextPos; });
 
-                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp); // 文字出現音
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
                 {
                     DOTween.Sequence()
@@ -311,7 +311,7 @@ public class CutIn : MonoBehaviour
                 .Append(TextBack.DOFillAmount(1.0f, 0.25f))
                 .OnPlay(() => { tmp.transform.localPosition = InitTextPos; });
 
-                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Letterapp); // 文字出現音
                 for (int i = 0; i < tmpAnimator.textInfo.characterCount; ++i)
                 {
                     DOTween.Sequence()

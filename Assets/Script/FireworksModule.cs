@@ -462,6 +462,7 @@ public class FireworksModule : MonoBehaviour
             //- バリアオブジェクト破壊
             Destroy(_outsideBarrier);
             //- バリア破壊エフェクト生成
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
             GameObject barrier = Instantiate(
                 _outsideBarrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -474,6 +475,7 @@ public class FireworksModule : MonoBehaviour
             //- バリアオブジェクト破壊
             Destroy(_insideBarrier);
             //- バリア破壊エフェクト生成
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
             GameObject barrier = Instantiate(
                 _insideBarrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -648,7 +650,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Spark);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.YanagiFire); // 柳のエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
@@ -878,6 +880,7 @@ public class FireworksModule : MonoBehaviour
                     transform.position,
                     Quaternion.Euler(0.0f, 0.0f, 0.0f));
                 //- バリア破壊エフェクト生成
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
                 GameObject barrier = Instantiate(
                 _barrierParticleObj,
                 new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z),
@@ -1113,6 +1116,7 @@ public class FireworksModule : MonoBehaviour
             if (!_isOnce)
             {
                 _isOnce = true;
+                SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BarrierDes); // バリア破壊音
                 GameObject barrier = Instantiate(
                     _boss2barrierParticleObj,
                     new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z),
@@ -1199,7 +1203,7 @@ public class FireworksModule : MonoBehaviour
             transform.DOMoveY(transform.position.y - 2.0f, 1.0f).SetEase(Ease.OutSine).SetDelay(1.0f).SetLink(gameObject);
             transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(2.3f).SetLink(gameObject);
             DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
-            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt);});
+            { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); }); // ヌシが打ち上がる時の音
             
             //- 演出用スクリプトの取得
             MovieManager movie = MovieObject.GetComponent<MovieManager>();

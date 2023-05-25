@@ -26,10 +26,11 @@ public class SoundEditor : Editor
         if (seFoldOut)
         {
             EditorGUILayout.LabelField("--- 花火関連 ---");
-            _se.explosion = EditorGUILayout.ObjectField("爆発音", _se.explosion, typeof(AudioClip), false) as AudioClip;
-            _se.spark     = EditorGUILayout.ObjectField("火花音", _se.spark, typeof(AudioClip), false) as AudioClip;
-            _se.belt      = EditorGUILayout.ObjectField("打ち上げ音", _se.belt, typeof(AudioClip), false) as AudioClip;
-            _se.bossbelt  = EditorGUILayout.ObjectField("ボス打ち上げ音", _se.bossbelt, typeof(AudioClip), false) as AudioClip;
+            _se.explosion  = EditorGUILayout.ObjectField("爆発音", _se.explosion, typeof(AudioClip), false) as AudioClip;
+            _se.yanagifire = EditorGUILayout.ObjectField("柳音", _se.yanagifire, typeof(AudioClip), false) as AudioClip;
+            _se.barrierdes = EditorGUILayout.ObjectField("バリア破壊音", _se.barrierdes, typeof(AudioClip), false) as AudioClip;
+            _se.belt       = EditorGUILayout.ObjectField("打ち上げ音", _se.belt, typeof(AudioClip), false) as AudioClip;
+            _se.bossbelt   = EditorGUILayout.ObjectField("ボス打ち上げ音", _se.bossbelt, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- クラッカー関連 ---");
             _se.brust     = EditorGUILayout.ObjectField("破裂音", _se.brust, typeof(AudioClip), false) as AudioClip;
@@ -51,7 +52,6 @@ public class SoundEditor : Editor
             _se.opening = EditorGUILayout.ObjectField("開幕音", _se.opening, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- カットイン関連 ---");
-            _se.nushiapp  = EditorGUILayout.ObjectField("ヌシ出現音", _se.nushiapp, typeof(AudioClip), false) as AudioClip;
             _se.letterapp = EditorGUILayout.ObjectField("文字出現音", _se.letterapp, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- 設定項目 ---");
