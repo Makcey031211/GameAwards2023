@@ -9,6 +9,8 @@ public class IgnitionCollision : MonoBehaviour
     private FireworksModule module; //- 花火スクリプト
     [Header("被弾後の無敵時間(秒)"), SerializeField]
     private float InvisibleTime;
+    [Header("削除するオブジェクト"), SerializeField]
+    private GameObject destroyObj;
 
 
     //- インスペクター側から非表示にする
@@ -44,7 +46,7 @@ public class IgnitionCollision : MonoBehaviour
         {
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.RequestStopMiss(false);
-            Destroy(transform.parent.gameObject);
+            Destroy(destroyObj);
         }
     }
     void HitFireworks(Collider other)
