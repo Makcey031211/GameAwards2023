@@ -798,7 +798,8 @@ public class FireworksModule : MonoBehaviour
                     Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
                     Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
                 }
-                if (hit.collider.gameObject.tag != "Stage") continue; //- ステージオブジェクト以外なら次へ
+                if (hit.collider.gameObject.tag != "Stage" &&
+                    hit.collider.gameObject.tag != "Warphole") continue; //- ステージオブジェクト以外なら次へ
                 if (hit.distance > dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
 
                 //- 当たった花火玉より手前にステージオブジェクトが存在する
@@ -993,7 +994,6 @@ public class FireworksModule : MonoBehaviour
             {
                 continue;
             }
-
             Debug.DrawRay(RayStartPos, RayDir, Color.green, 2.0f);
 
             // 自身から花火に向かうレイを作成
