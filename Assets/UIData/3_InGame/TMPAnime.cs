@@ -20,37 +20,29 @@ public class TMPAnime : MonoBehaviour
         Yellow  //黄色
     }
 
-    [SerializeField, Header("アニメーションさせるテキスト")]
-    private TextMeshProUGUI TMP;
-    [SerializeField, Header("テキスト初期カラー")]
-    private E_TEXTCOLOR textcolor = E_TEXTCOLOR.Black;
-    [SerializeField, Header("テキストアニメカラー")]
-    private E_TEXTCOLOR textAnicolor = E_TEXTCOLOR.Black;
-    [SerializeField, Header("回転秒")]
-    private float RotateTime = 0.0f;
-    [SerializeField, Header("波の高さ")]
-    private float WaveTop = 0.0f;
-    [SerializeField, Header("波移動完了までの時間")]
-    private float WaveTime = 0.0f;
-//    [SerializeField, Header("イージング設定")]
+    [SerializeField, Header("アニメーションさせるテキスト")]       private TextMeshProUGUI TMP;
+    [SerializeField, Header("テキスト初期カラー")]                private E_TEXTCOLOR textcolor = E_TEXTCOLOR.Black;
+    [SerializeField, Header("テキストアニメカラー")]              private E_TEXTCOLOR textAnicolor = E_TEXTCOLOR.Black;
+    [SerializeField, Header("回転秒")]                           private float RotateTime = 0.0f;
+    [SerializeField, Header("波の高さ")]                         private float WaveTop = 0.0f;
+    [SerializeField, Header("波移動完了までの時間")]              private float WaveTime = 0.0f;
+    [SerializeField, Header("文字フェード完了までの時間")]         private float FadeTime = 0.0f;
+    [SerializeField, Header("カラー遅延時間")]                    private float DelayColor = 0.0f;
+    [SerializeField, Header("ループ遅延時間")]                    private float DelayLoop = 0.0f;
+
     private float EaseTime = 2.0f;
-    [SerializeField, Header("文字フェード完了までの時間")]
-    private float FadeTime = 0.0f;
-    [SerializeField, Header("カラー遅延時間")]
-    private float DelayColor = 0.0f;
-    [SerializeField, Header("ループ遅延時間")]
-    private float DelayLoop = 0.0f;
-
-    //- クリア音の再生が許可されているか
-    private bool bPermissionClearSE = false;
-
-    private Vector3 initialScale;
-    private void Awake()
-    {
-        TMP.DOFade(0f, 0f);
-        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
-    }
-   
+    private bool bPermissionClearSE = false;    //クリア音の再生が許可されているか
+    private bool first = false;
+    private Vector3 initialScale;               //初期サイズ
+    
+    //private void Update()
+    //{
+    //    if(SceneChange.bIsChange && !first)
+    //    {
+    //        first = true;
+    //        StartCoroutine(AnimationCoroutine());
+    //    }
+    //}
 
     private void OnEnable()
     {
@@ -60,19 +52,23 @@ public class TMPAnime : MonoBehaviour
     }
 
     private void OnDisable()
-    {     SceneManager.sceneUnloaded -= OnSceneUnloaded;    }
+    {
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
+        TMP.DOFade(0f, 0f);
+    }
 
     private void OnSceneUnloaded(Scene scene)
     {    DOTween.KillAll(); }
 
     IEnumerator AnimationCoroutine()
     {
+        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
         //- クリア音再生
         if (bPermissionClearSE)
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Clear);
         else
             bPermissionClearSE = true;
-        DOTweenTMPAnimator tmpAnimator = new DOTweenTMPAnimator(TMP);
+
         while (tmpAnimator.textInfo.characterCount == 0)
         {
             yield return null;

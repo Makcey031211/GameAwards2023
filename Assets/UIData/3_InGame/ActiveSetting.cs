@@ -49,7 +49,7 @@ public class ActiveSetting : MonoBehaviour
     private float CurrentTime = 0.0f;
     private int cnt = 0;
 
-    private void Awake()
+    private void Start()
     {
         //- 開始時のアクティブ状態を設定する
         switch (Option)
