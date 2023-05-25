@@ -15,7 +15,7 @@ public class WarpGate : MonoBehaviour
     [SerializeField, Header("吐き出される時の速度(秒)")]
     private float spittingSpeed = 1.0f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //- ワープホールに接触したら指定した位置にワープする
         if (other.gameObject.name == "Player")
