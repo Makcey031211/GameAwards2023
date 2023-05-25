@@ -248,6 +248,8 @@ public class AnimeManager : MonoBehaviour
             if (DrawOpening) { ControlFlag["ŠJ–‹"] = false; }
             if (DrawGimmickBoard) { ControlFlag["Tips"] = false; }
             if (DrawBossCutIn) { ControlFlag["ƒ{ƒX"] = false; }
+
+            SceneChange.bIsChange = true;
         }
 #endif
     }
