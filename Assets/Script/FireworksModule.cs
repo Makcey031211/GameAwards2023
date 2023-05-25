@@ -676,7 +676,7 @@ public class FireworksModule : MonoBehaviour
         Vector3 dir = Vector3.up * _blastDis;
         dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
         dir = Quaternion.Euler(0, 0, _blastAngle / 2) * dir;
-        //Debug.DrawRay(pos, dir, Color.red, 2.0f);
+        Debug.DrawRay(pos, dir, Color.red, 2.0f);
         float num = 10;
         Vector3 end = pos;
         for (int i = 0; i < num; i++)
@@ -684,14 +684,14 @@ public class FireworksModule : MonoBehaviour
             Vector3 start = pos + dir;
             dir = Quaternion.Euler(0, 0, -_blastAngle / num) * dir;
             end = pos + dir;
-            //Debug.DrawRay(start, end - start, Color.red, 2.0f);
+            Debug.DrawRay(start, end - start, Color.red, 2.0f);
         }
         pos = this.transform.position;
         dir = Vector3.up * _blastDis;
         dir = Quaternion.Euler(0, 0, transform.localEulerAngles.z) * dir;
         dir = Quaternion.Euler(0, 0, -_blastAngle / 2) * dir;
         dir = Vector3.up * _blastDis;
-        //Debug.DrawRay(end, pos - end, Color.red, 2.0f);
+        Debug.DrawRay(end, pos - end, Color.red, 2.0f);
         // ============================
 
         //- 振動の設定
