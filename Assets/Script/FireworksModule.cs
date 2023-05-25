@@ -383,6 +383,11 @@ public class FireworksModule : MonoBehaviour
             { _isInv = false; }
         }
 
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _isExploded = true;
+        }
+
         if (IsExploded)
         { // 爆発した後
             switch (Type)
@@ -1499,7 +1504,7 @@ public class FireworksModule : MonoBehaviour
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
                 transform.position,                 // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                Quaternion.Euler(-90.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
             //- コントローラーの振動の設定
@@ -1518,11 +1523,37 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
         }
 
-        _afterTimeCount += Time.deltaTime;
-        //- 当たり判定を消す処理
-        if (_afterTimeCount >= _blastAfterTime)
+        //_afterTimeCount += Time.deltaTime;
+        ////- 当たり判定を消す処理
+        //if (_afterTimeCount >= _blastAfterTime)
+        //{
+        //    DetonationCol.EndDetonation(); //- 当たり判定の消滅
+        //}
+
+        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
+        if (!bAnime && enemyNum <= 1)
         {
-            DetonationCol.EndDetonation(); //- 当たり判定の消滅
+            bAnime = true;
+            GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
+            GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
+            //- フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopClear(true);
+            //- アニメーション処理
+            //transform.DOMoveY(transform.position.y - 2.0f, 1.0f).SetEase(Ease.OutSine).SetDelay(1.0f).SetLink(gameObject);
+            //transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(2.3f).SetLink(gameObject);
+            //DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
+            //{ SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
+
+            //- 演出用スクリプトの取得
+            MovieManager movie = MovieObject.GetComponent<MovieManager>();
+            //- 演出フラグ変更
+            movie.SetMovieFlag(true);
+            //- 演出開始
+            DOVirtual.DelayedCall(3.1f, () => movie.StartVillageMovie(), false);
+            //- 破壊処理
+            Destroy(gameObject, 3.2f);
         }
     }
 }

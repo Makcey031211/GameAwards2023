@@ -132,4 +132,10 @@ public class ObjectFade : MonoBehaviour {
 
         material.SetFloat(progress, TweenGradFade.currentTime);
     }
+
+    public void SetColor(Color color, float alpha)
+    {
+        color.a = alpha;
+        image.color = color;
+    }
 }

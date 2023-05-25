@@ -1795,6 +1795,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 564008265277867530, guid: e24e579c56d6cdd49b6d6abdae073b04,
         type: 3}
+      propertyPath: _movieObject
+      value: 
+      objectReference: {fileID: 2089565792}
+    - target: {fileID: 564008265277867530, guid: e24e579c56d6cdd49b6d6abdae073b04,
+        type: 3}
       propertyPath: _particleObject
       value: 
       objectReference: {fileID: 821622053909763054, guid: 24de2f42812ef814692e5d1a70904b54,
@@ -4660,6 +4665,11 @@ PrefabInstance:
       propertyPath: m_Cameras.Array.data[1]
       value: 
       objectReference: {fileID: 1510697118}
+    - target: {fileID: 3161383378802035797, guid: 6bebec867d927014a8414a862ed22439,
+        type: 3}
+      propertyPath: NextScene.m_SceneName
+      value: StoryEnd
+      objectReference: {fileID: 0}
     - target: {fileID: 3161383378802035801, guid: 6bebec867d927014a8414a862ed22439,
         type: 3}
       propertyPath: m_RootOrder
@@ -5699,9 +5709,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80f2874f9a6de994f9ee6c7827314643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FadeTime: 0.5
-  DelayBeltTime: 2
-  DelayFireflowerTime: 1
+  FadeTime: 1
+  DelayBeltTime: 0
+  DelayFireflowerTime: 0
   DelayFadeTime: 7
   StageDrawObj: {fileID: 680584173}
   easy: 21

@@ -95,9 +95,12 @@ public class MovieManager : MonoBehaviour
         InitMovieObject();
 
         //- 一定時間後、ぬし花火を打ち上げる
-        yield return new WaitForSeconds(DelayBeltTime);
-        SetActiveMovieObject(0, true);
-        AnimeBossFireflower(0);
+        if (LoadStageNum != 4)
+        {
+            yield return new WaitForSeconds(DelayBeltTime);
+            SetActiveMovieObject(0, true);
+            AnimeBossFireflower(0);
+        }
 
         //- 一定時間後、花火を発生させる
         yield return new WaitForSeconds(DelayFireflowerTime);
@@ -105,22 +108,40 @@ public class MovieManager : MonoBehaviour
         SetActiveMovieObject(0, false); //- ぬし花火の退場
         SetActiveMovieObject(1, true);  //- エフェクト登場
 
-        //- 一定時間後、フェードを登場させる
-        yield return new WaitForSeconds(DelayFadeTime);
-        fade.SetFade(ObjectFade.FadeState.In, FadeTime);
-        yield return new WaitForSeconds(FadeTime);
+        if (LoadStageNum != 4)
+        {
+            //- 一定時間後、フェードを登場させる
+            yield return new WaitForSeconds(DelayFadeTime);
+            fade.SetFade(ObjectFade.FadeState.In, FadeTime);
+            yield return new WaitForSeconds(FadeTime);
 
-        //- 演出シーンをアンロード
-        UnloadMovieScene();
-        fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
-        yield return new WaitForSeconds(FadeTime);
+            //- 演出シーンをアンロード
+            UnloadMovieScene();
+            fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
+            yield return new WaitForSeconds(FadeTime);
 
-        SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-        scenechange.RequestStopClear(false);
-        scenechange.RequestStopClear(false);
-        scenechange.RequestStopClear(false);
-        scenechange.RequestStopMiss(false);
-        bPlayMovie = false; //- 演出フラグ変更
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopClear(false);
+            scenechange.RequestStopClear(false);
+            scenechange.RequestStopClear(false);
+            scenechange.RequestStopMiss(false);
+            bPlayMovie = false; //- 演出フラグ変更
+        }
+        else
+        {
+            //- 一定時間後、フェードを登場させる
+            yield return new WaitForSeconds(DelayFadeTime);
+            fade.SetColor(Color.white, 0.0f);
+            fade.SetFade(ObjectFade.FadeState.In, FadeTime);
+            yield return new WaitForSeconds(FadeTime);
+
+            //- 演出シーンをアンロード
+            UnloadMovieScene();
+            fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
+            GameObject.Find("BGMManager").GetComponent<BGMManager>().DestroyPossible(); // BGMManagerを削除可能にする
+            GameObject.Find("Main Camera").GetComponent<SceneChange>().Change(); // シーン切り替え
+            yield return new WaitForSeconds(FadeTime);
+        }
     }
 
     //- 演出用シーンのロードを行う関数
