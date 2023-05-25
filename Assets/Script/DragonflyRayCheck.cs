@@ -72,7 +72,7 @@ public class DragonflyRayCheck : MonoBehaviour
             Ray ray = new Ray(NowPos, NowDir);
 
             //- 当たり判定のデバッグ表示
-            if (Input.GetKey(KeyCode.Alpha1))
+            if (Input.GetKey(KeyCode.Alpha1) || true)
             {
                 Debug.DrawRay(NowPos, NowDir * 2, Color.red);     //赤色で５秒間可視化
                 Debug.DrawRay(NowPos, NowDir * HitRayDistance, Color.blue); //青色で５秒間可視化
@@ -131,14 +131,16 @@ public class DragonflyRayCheck : MonoBehaviour
         //- 侵入不可テープと接触しているときのみ実行
         if (IsHitPlayerBlock)
         {
-            //- 侵入不可テープがある方向、とレイが当たった方向が違うならリターン
-            if (HitDirPlayerBlock != dirnum) return;
+            //- 侵入不可テープがある方向、とレイが当たった方向が同じなら処理
             //- 侵入不可テープとの接触チェックフラグを変更
-            CheckHitPlayerBlock = true;
+            if (HitDirPlayerBlock == dirnum) CheckHitPlayerBlock = true;
         }
-
-        //- 侵入不可テープに接触していればリターン
-        if (HitDirPlayerBlock != -1) return;
+        //- 侵入不可テープに接触していれば別の関数を呼ぶ
+        if (IsHitPlayerBlock && HitDirPlayerBlock != -1)
+        {
+            CheckDobuleHit(dirnum);
+            return;
+        }
 
         // === レイの方向を調べて、移動方向を決定する ===
 
@@ -191,6 +193,30 @@ public class DragonflyRayCheck : MonoBehaviour
             if (module.movedir.y <= 0) module.movedir.y = -1;
             //- 接触方向の保存
             HitDirPlayerBlock = 3;
+        }
+    }
+
+    void CheckDobuleHit(int dirnum)
+    {
+        //- トンボ花火が上に移動中なら実行
+        if (dirnum == 0 && module.movedir.x == 0 && module.movedir.y == 1)
+        {
+            module.movedir = new Vector2(0, 0);
+        }
+        //- トンボ花火が右に移動中なら実行
+        if (dirnum == 1 && module.movedir.y == 0 && module.movedir.x == 1)
+        {
+            module.movedir = new Vector2(0, 0);
+        }
+        //- トンボ花火が下に移動中なら実行
+        if (dirnum == 2 && module.movedir.x == 0 && module.movedir.y == -1)
+        {
+            module.movedir = new Vector2(0, 0);
+        }
+        //- トンボ花火が左に移動中なら実行
+        if (dirnum == 3 && module.movedir.y == 0 && module.movedir.x == -1)
+        {
+            module.movedir = new Vector2(0, 0);
         }
     }
 }
