@@ -96,7 +96,7 @@ public class MovieManager : MonoBehaviour
 
         //- 一定時間後、ぬし花火を打ち上げる
         yield return new WaitForSeconds(DelayBeltTime);
-        SetActiveMovieObject(0,true);
+        SetActiveMovieObject(0, true);
         AnimeBossFireflower(0);
 
         //- 一定時間後、花火を発生させる
@@ -143,7 +143,7 @@ public class MovieManager : MonoBehaviour
         GameObject obj = movieObj.transform.GetChild(childNum).gameObject;
         //- ぬし花火のスケールフェード
         obj.transform.DOScale(new Vector3(1, 1, 1), DelayFireflowerTime).SetEase(easy);
-     }
+    }
 
     //- 特定のオブジェクトのフラグを変更する関数
     private void SetActiveMovieObject(int childNum, bool bFlag)

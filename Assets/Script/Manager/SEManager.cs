@@ -12,7 +12,8 @@ public class SEManager : MonoBehaviour
     {
         //* 花火関連 */
         Explosion,  // 爆発
-        Spark,      // 火花
+        YanagiFire, // 柳
+        BarrierDes, // バリア破壊
         Belt,       // 打ち上げ
         BossBelt,   // ボス打ち上げ
         //* クラッカー関連 */
@@ -31,7 +32,6 @@ public class SEManager : MonoBehaviour
         //* 開幕演出関連 */
         Opening,      // 開始
         //* カットイン関連 */
-        Nushiapp,   // ヌシ出現
         Letterapp,  // 文字出現
     }
 
@@ -40,7 +40,9 @@ public class SEManager : MonoBehaviour
     [SerializeField, HideInInspector]
     public AudioClip explosion;
     [SerializeField, HideInInspector]
-    public AudioClip spark;
+    public AudioClip yanagifire;
+    [SerializeField, HideInInspector]
+    public AudioClip barrierdes;
     [SerializeField, HideInInspector]
     public AudioClip belt;
     [SerializeField, HideInInspector]
@@ -67,8 +69,6 @@ public class SEManager : MonoBehaviour
     public AudioClip slide;
     [SerializeField, HideInInspector]
     public AudioClip opening;
-    [SerializeField, HideInInspector]
-    public AudioClip nushiapp;
     [SerializeField, HideInInspector]
     public AudioClip letterapp;
     [SerializeField, HideInInspector]
@@ -133,7 +133,8 @@ public class SEManager : MonoBehaviour
     private void FireWorksSE()
     {
         audioClips.Add(E_SoundEffect.Explosion, explosion);
-        audioClips.Add(E_SoundEffect.Spark, spark);
+        audioClips.Add(E_SoundEffect.YanagiFire, yanagifire);
+        audioClips.Add(E_SoundEffect.BarrierDes, barrierdes);
         audioClips.Add(E_SoundEffect.Belt, belt);
         audioClips.Add(E_SoundEffect.BossBelt, bossbelt);
     }
@@ -167,7 +168,6 @@ public class SEManager : MonoBehaviour
 
     private void CutInSE()
     {
-        audioClips.Add(E_SoundEffect.Nushiapp, nushiapp);
         audioClips.Add(E_SoundEffect.Letterapp, letterapp);
     }
 
