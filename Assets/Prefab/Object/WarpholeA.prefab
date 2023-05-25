@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 318924947682061298}
   - component: {fileID: 318924947682061302}
   - component: {fileID: 318924947682061303}
-  - component: {fileID: 318924947682061296}
+  - component: {fileID: 2393330200497565170}
   - component: {fileID: 318924947682061297}
+  - component: {fileID: 7284255629277899059}
   m_Layer: 0
   m_Name: WarpholeA
-  m_TagString: Untagged
+  m_TagString: Warphole
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 318924947682061299}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -16.25, y: -6.5, z: 0.9}
-  m_LocalScale: {x: 3.9999998, y: 3.9999998, z: -0.050009858}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 3.9999998, y: 3.9999998, z: 4}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,8 +86,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &318924947682061296
-SphereCollider:
+--- !u!136 &2393330200497565170
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -95,8 +96,9 @@ SphereCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 5
+  m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &318924947682061297
 MonoBehaviour:
@@ -116,3 +118,15 @@ MonoBehaviour:
   radius: 5
   suctionSpeed: 1
   spittingSpeed: 1
+--- !u!114 &7284255629277899059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 318924947682061299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e23deda4ce3d10418ee70fef96cd76a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
