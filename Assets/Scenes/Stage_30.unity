@@ -6193,7 +6193,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5C01\u5370\u3092\u706B\u82B1\u3067\u7834\u58CA\u3057\n\u3000\u30CC\u30B7\u306E\u3084\u308B\u6C17\u3092\u53D6\u308A\u623B\u305D\u3046\uFF01"
+  m_text: "\u706B\u82B1\u3092\u5F53\u3066\n\u3000\u30CC\u30B7\u306E\u3084\u308B\u6C17\u3092\u53D6\u308A\u623B\u305D\u3046\uFF01"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 24be5b6cd9bd1a54d9f1a2fa8b7565a2, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 0e49914edaf8cf942afaf3cc5aa3dcee, type: 2}
@@ -6797,6 +6797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Boss: 2
   BossImg: {fileID: 1308104608267505206}
+  BossBack: {fileID: 0}
   TutuB: {fileID: 852657490}
   TutuC: {fileID: 1886147745}
   SmallCrystal: {fileID: 0}
@@ -7931,6 +7932,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5151c4e6-45d1-4d62-bc51-2e1f16bd0ebb
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e35e10e8-afc0-404b-b208-8f66a3bfef6f
+    m_ActionName: Player/SkipAnime[/Keyboard/rightShift]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
