@@ -1298,7 +1298,7 @@ public class FireworksModule : MonoBehaviour
 
         //- トンボ花火の回転を取得
         Vector3 rot = transform.localEulerAngles;
-        rot.z -= 10;
+        rot.z -= 45;
         transform.localEulerAngles = rot;
     }
 

@@ -55,8 +55,7 @@ public class ButtonAnime : MonoBehaviour,
 
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
-
-        //- ‘I‘ğ‰¹Ä¶
+        //-‘I‘ğ‰¹Ä¶
         if (bPermissionSelectSE)
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Select);
         else

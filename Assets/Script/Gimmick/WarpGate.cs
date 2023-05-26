@@ -15,7 +15,7 @@ public class WarpGate : MonoBehaviour
     [SerializeField, Header("吐き出される時の速度(秒)")]
     private float spittingSpeed = 1.0f;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         //- ワープホールに接触したら指定した位置にワープする
         if (other.gameObject.name == "Player")
@@ -79,7 +79,7 @@ public class WarpGate : MonoBehaviour
                 //var cc = other.gameObject.GetComponent<CharacterController>();
                 //cc.enabled = false;
                 //- プレイヤーを指定した位置にワープさせる
-                other.transform.position = warpPoint.position + warpdistance * 1.2f;
+                other.transform.position = warpPoint.position + warpdistance;
                 Vector3 pos = other.transform.position;
                 pos.z = 0.0f;
                 other.transform.position = pos;
