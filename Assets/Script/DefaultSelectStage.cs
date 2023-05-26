@@ -27,7 +27,7 @@ public class DefaultSelectStage : MonoBehaviour
     int maxClearVillege = 0;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         int satoValue = 1;
         int stageValue = 0;
@@ -42,8 +42,6 @@ public class DefaultSelectStage : MonoBehaviour
             maxClearVillege = 0;
         }
 
-            stageButton[maxClearVillege].gameObject.SetActive(true);
-        stageButton[maxClearVillege].enabled = true;
         stageButton[maxClearVillege].Select();
 
         GameObject seManagerObj = GameObject.Find("SEManager");
