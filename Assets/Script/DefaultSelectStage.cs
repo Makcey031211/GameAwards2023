@@ -56,7 +56,7 @@ public class DefaultSelectStage : MonoBehaviour
             }
         }
 
-        if (type == SelectType.Stage) {
+        if (type == SelectType.Sato || type == SelectType.Stage) {
             player.transform.position = stageButton[maxClearVillege].transform.position;
         }
 
