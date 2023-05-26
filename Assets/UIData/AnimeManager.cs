@@ -36,9 +36,9 @@ public class AnimeManager : MonoBehaviour
     private InputAction tipsAction;                         //Tips登場の入力処理
     private PController player;                             //プレイヤー操作用変数
     private Image TipsButtonGage;                           //Tips表示ボタンの長押しゲージ
-    private float TipsPossibleTime = 1.0f;           //Tips表示から入力可能になるまでの時間
+    private float TipsPossibleTime = 1.0f;                  //Tips表示から入力可能になるまでの時間
     private float StartTime = 0.0f;                         //開始からの時間
-    
+
     private void Awake()
     {
         //- アニメ管理するオブジェクトフラグ初期化
@@ -83,7 +83,6 @@ public class AnimeManager : MonoBehaviour
         if (ControlFlag["Tips"] && DrawGimmickBoard.GetStartComplete())
         { StartTime += Time.deltaTime; }
         
-
         /*　
          *　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
          *　
@@ -128,21 +127,21 @@ public class AnimeManager : MonoBehaviour
         {
             //- アシスト表示後に使用しないためフラグ変更
             ControlFlag["ボス"] = false;
-            //- ボタンアシストを表示する
-            InGameDrawObjs();
             //- Tips操作を受け付ける
             if (ControlFlag["Tips"])    { DrawGimmickBoard.SetReceiptInput(false); }
+            //- ボタンアシストを表示する
+            InGameDrawObjs();
         }
         //- 通常ステージ・演出済である
         if(ControlFlag["開幕"] && OpeningAnime.MoveCompleat)
         {
             //- アシスト後に使用しないためフラグ変更
             ControlFlag["開幕"] = false;
-            //- ボタンアシストを表示
-            InGameDrawObjs();
             //- Tips操作を受け付ける
             if (ControlFlag["Tips"])    { DrawGimmickBoard.SetReceiptInput(false); }
-            
+            //- ボタンアシストを表示
+            InGameDrawObjs();
+
         }
 
 
