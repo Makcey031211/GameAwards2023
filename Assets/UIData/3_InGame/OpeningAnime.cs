@@ -69,13 +69,11 @@ public class OpeningAnime: MonoBehaviour
                 In.Kill();
 
                 var Out = DOTween.Sequence();
-                Out.AppendInterval(1.25f)    //撤収待機時間
+                Out.AppendInterval(1.25f)                //撤収待機時間
                     .Append(TextBack.DOFade(0.0f, 0.2f)) //フェード
                     .Join(tmp.DOFade(0.0f, 0.2f))        //〃
                     .OnComplete(()=> {
                         MoveCompleat = true;
-                        //- プレイヤーを動作可能にする
-                        GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
                     });
               });
         }
