@@ -27,6 +27,9 @@ public class DragonflyRayCheck : MonoBehaviour
     private bool CheckHitPlayerBlock = false; //- 侵入不可テープから離れた瞬間を調べるためのフラグ
     private bool isDestroy = false;
 
+    [SerializeField, HideInInspector] //- 失敗フラグ一時停止を元に戻したか
+    public bool isPlayback = false; 
+
     void Start()
     {
         //- 花火スクリプトの取得
@@ -60,13 +63,17 @@ public class DragonflyRayCheck : MonoBehaviour
         for (int i = 0; i < 8; i++)
         {
             // === レイ用変数用意部分 === 
-            //- レイの発生座標をレイBOXサイズ分だけずらす
-            Vector2 PosRadius = new Vector2(RayBoxRadius / 2 * RayStartPos[(i + 1) / 2].x, RayBoxRadius / 2 * RayStartPos[(i + 1) / 2].y);
-            //- レイの発生座標を求める
-            Vector3 NowPos = new Vector3(MyPos.x + PosRadius.x, MyPos.y + PosRadius.y, 0);
             //- レイの方向
             int DirNum = i / 2; //- レイ方向用の配列番号変数
             Vector3 NowDir = RayDirection[DirNum];
+            //- レイの発生座標をレイBOXサイズ分だけずらす
+            Vector2 PosRadius = new Vector2(RayBoxRadius / 2 * RayStartPos[(i + 1) / 2].x, RayBoxRadius / 2 * RayStartPos[(i + 1) / 2].y);
+            //- レイを根本から発生させる
+            if (DirNum == 0 || DirNum == 2) PosRadius.y = 0;
+            if (DirNum == 1 || DirNum == 3) PosRadius.x = 0;
+            //- レイの発生座標を求める
+            Vector3 NowPos = new Vector3(MyPos.x + PosRadius.x, MyPos.y + PosRadius.y, 0);
+
 
             //- レイを生成
             Ray ray = new Ray(NowPos, NowDir);
@@ -198,7 +205,6 @@ public class DragonflyRayCheck : MonoBehaviour
 
     void CheckDobuleHit(int dirnum)
     {
-        return;
         //- トンボ花火が上に移動中なら実行
         if (dirnum == 0 && module.movedir.x == 0 && module.movedir.y == 1)
         {
@@ -218,6 +224,15 @@ public class DragonflyRayCheck : MonoBehaviour
         if (dirnum == 3 && module.movedir.y == 0 && module.movedir.x == -1)
         {
             module.movedir = new Vector2(0, 0);
+        }
+
+        //- まだ失敗判定を元に戻していないなら処理
+        if (!isPlayback)
+        {
+            isPlayback = true;
+            //- 失敗判定を復活させる
+            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+            scenechange.RequestStopMiss(false);
         }
     }
 }

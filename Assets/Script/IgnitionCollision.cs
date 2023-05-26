@@ -7,6 +7,9 @@ public class IgnitionCollision : MonoBehaviour
     [Header("花火スクリプトオブジェクト"), SerializeField]
     private GameObject moduleObj;
     private FireworksModule module; //- 花火スクリプト
+    [Header("レイ当たり判定オブジェクト"), SerializeField]
+    private GameObject raycheckObj;
+    private DragonflyRayCheck raycheck; //- レイ当たり判定スクリプト
     [Header("被弾後の無敵時間(秒)"), SerializeField]
     private float InvisibleTime;
     [Header("削除するオブジェクト"), SerializeField]
@@ -23,6 +26,8 @@ public class IgnitionCollision : MonoBehaviour
     {
         //- 花火スクリプトの取得
         module = moduleObj.GetComponent<FireworksModule>();
+        //- レイ当たり判定スクリプトの取得
+        raycheck = raycheckObj.GetComponent<DragonflyRayCheck>();
     }
     void Update()
     {
@@ -36,16 +41,24 @@ public class IgnitionCollision : MonoBehaviour
         if (other.gameObject.tag == "ExplodeCollision") HitExplodeCollision(other);
         if (other.gameObject.tag == "OutsideWall")
         {
-            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.RequestStopMiss(false);
-            Destroy(transform.parent.gameObject);
+            //- レイスクリプト側で失敗判定を復活させていないなら、失敗判定を復活させる
+            if (!raycheck.isPlayback)
+            {
+                SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+                scenechange.RequestStopMiss(false);
+            }
+            Destroy(destroyObj);
         }
 
         //- フラグがたっていれば破壊
         if (IsDestroy)
         {
-            SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
-            scenechange.RequestStopMiss(false);
+            //- レイスクリプト側で失敗判定を復活させていないなら、失敗判定を復活させる
+            if (!raycheck.isPlayback)
+            {
+                SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+                scenechange.RequestStopMiss(false);
+            }
             Destroy(destroyObj);
         }
     }
