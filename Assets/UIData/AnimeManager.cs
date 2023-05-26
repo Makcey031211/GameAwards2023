@@ -232,7 +232,7 @@ public class AnimeManager : MonoBehaviour
 
     public void SkipAnime(InputAction.CallbackContext context)
     {
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
         if(context.started)
         { 
             Debug.Log("Skip");
@@ -252,7 +252,7 @@ public class AnimeManager : MonoBehaviour
 
             SceneChange.bIsChange = Auto;
         }
-//#endif
+#endif
     }
 }
 
