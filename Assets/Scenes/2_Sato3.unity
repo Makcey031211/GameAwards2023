@@ -1489,7 +1489,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 806916983}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &241578732
+--- !u!1 &186814145
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1497,9 +1497,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 241578733}
-  - component: {fileID: 241578735}
-  - component: {fileID: 241578734}
+  - component: {fileID: 186814146}
+  - component: {fileID: 186814148}
+  - component: {fileID: 186814147}
   m_Layer: 5
   m_Name: DrawSelection
   m_TagString: Untagged
@@ -1507,13 +1507,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &241578733
+--- !u!224 &186814146
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241578732}
+  m_GameObject: {fileID: 186814145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.12892, y: 0.0251, z: 0.0251}
@@ -1524,16 +1524,16 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -985, y: -527.6}
-  m_SizeDelta: {x: 200, y: 165}
+  m_AnchoredPosition: {x: -984.54065, y: -540.33167}
+  m_SizeDelta: {x: 413.4523, y: 1200.7352}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &241578734
+--- !u!114 &186814147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241578732}
+  m_GameObject: {fileID: 186814145}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -1557,13 +1557,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &241578735
+--- !u!222 &186814148
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 241578732}
+  m_GameObject: {fileID: 186814145}
   m_CullTransparentMesh: 1
 --- !u!1 &307011937
 GameObject:
@@ -3530,6 +3530,7 @@ MonoBehaviour:
   saveManager: {fileID: 1558197925}
   stageNum: 3
   player: {fileID: 925320085}
+  seManager: {fileID: 0}
 --- !u!1 &894315554
 GameObject:
   m_ObjectHideFlags: 0
@@ -5173,7 +5174,7 @@ RectTransform:
   - {fileID: 620687119}
   - {fileID: 882428652}
   - {fileID: 925320084}
-  - {fileID: 241578733}
+  - {fileID: 186814146}
   - {fileID: 1109017310}
   - {fileID: 307011938}
   m_Father: {fileID: 0}
