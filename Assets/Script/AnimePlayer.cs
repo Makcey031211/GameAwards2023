@@ -26,7 +26,7 @@ public class AnimePlayer : MonoBehaviour
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
 
-        float startTime = Time.time; // 開始時間の更新
+        float startTime      = Time.time; // 開始時間の更新
         Vector3 initialScale = transform.localScale; // 大きさの変数
 
         //- プレイヤーを徐々に縮めていくアニメーション処理
@@ -36,5 +36,8 @@ public class AnimePlayer : MonoBehaviour
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
             yield return null;
         }
+
+        //- 縮小アニメーションが終了したらオブジェクトを非表示にする
+        scaleObj.SetActive(false);
     }
 }
