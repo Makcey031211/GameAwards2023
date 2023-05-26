@@ -205,6 +205,7 @@ public class DragonflyRayCheck : MonoBehaviour
 
     void CheckDobuleHit(int dirnum)
     {
+        return;
         //- ƒgƒ“ƒ{‰Ô‰Î‚ªã‚ÉˆÚ“®’†‚È‚çÀs
         if (dirnum == 0 && module.movedir.x == 0 && module.movedir.y == 1)
         {
