@@ -1510,7 +1510,7 @@ public class FireworksModule : MonoBehaviour
             GameObject fire = Instantiate(
                 ParticleObject,                     // 生成(コピー)する対象
                 transform.position,                 // 生成される位置
-                Quaternion.Euler(-90.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
+                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
                 );
 
             //- コントローラーの振動の設定

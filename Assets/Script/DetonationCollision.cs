@@ -119,7 +119,7 @@ public class DetonationCollision : MonoBehaviour
                 );
         //- ÉèÅ[ÉvÇµÇΩìñÇΩÇËîªíË
         Vector3 scale = this.transform.lossyScale;
-        float sizeRatio = 2.1f;
+        float sizeRatio = 2.3f;
         WarpCol.transform.localScale = new Vector3(scale.x * sizeRatio, scale.y * sizeRatio, scale.z * sizeRatio);
     }
 
