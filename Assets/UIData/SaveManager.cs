@@ -18,7 +18,7 @@ public class SaveManager : MonoBehaviour
     private static bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
     private static bool encryptFlag;     // 暗号化フラグ
 
-    private void Start()
+    private void Awake()
     {
         //- データ読み込み
         DataLoad();
