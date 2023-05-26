@@ -13,10 +13,10 @@ using UnityEditor;
 //- ステージクリア状況の保存読み込みを行う
 public class SaveManager : MonoBehaviour
 {
-
     private const int STAGE_NUM = 40;    //総ステージ数
     private string FILE_PATH;            //セーブデータパス
     private static bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
+    private static bool encryptFlag;     // 暗号化フラグ
 
     private void Start()
     {
@@ -72,8 +72,17 @@ public class SaveManager : MonoBehaviour
                 //- 読み込んでいる行がnullじゃないかつ行数分ループする
                 while((line = sr.ReadLine()) != null && i < STAGE_NUM)
                 {
-                    string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line, i);   // 暗号化されたフラグの復号
-                    bool.TryParse(DecryptFlag, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
+                    if (encryptFlag)
+                    {
+                        //Debug.Log("暗号化");
+                        string DecryptFlag = AesExample.DecryptStringFromBytes_Aes(line, i);   // 暗号化されたフラグの復号
+                        bool.TryParse(DecryptFlag, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
+                    }
+                    else
+                    {
+                        //Debug.Log("not暗号");
+                        bool.TryParse(line, out stageflag[i]);  //Line文字列をbool型に変換し、フラグ配列に設定
+                    }
                     i++;
 
                     //--- 復号の確認 ---
@@ -115,9 +124,18 @@ public class SaveManager : MonoBehaviour
             for(int i = 0; i < STAGE_NUM; i++)
             {
                 //Debug.Log(stageflag[i]);
-                //- ステージフラグを文字列に変更して、暗号化したものを書き込む
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
-                sw.WriteLine(EncryptFlag);
+                if (encryptFlag)
+                {
+                    //Debug.Log("暗号化");
+                    //- ステージフラグを文字列に変更して、暗号化したものを書き込む
+                    string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
+                    sw.WriteLine(EncryptFlag);
+                }
+                else
+                {
+                    //Debug.Log("not暗号");
+                    sw.WriteLine(stageflag[i].ToString());
+                }
 
                 //--- 暗号化の確認 ---
                 //Debug.Log("暗号化：" + EncryptFlag);
@@ -146,8 +164,17 @@ public class SaveManager : MonoBehaviour
             for(int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = false;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
-                sw.WriteLine(EncryptFlag);
+                if (encryptFlag)
+                {
+                    //Debug.Log("暗号化");
+                    string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
+                    sw.WriteLine(EncryptFlag);
+                }
+                else
+                {
+                    //Debug.Log("not暗号");
+                    sw.WriteLine(stageflag[i].ToString());
+                }
             }
         }
     }
@@ -165,8 +192,17 @@ public class SaveManager : MonoBehaviour
             for (int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = false;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
-                sw.WriteLine(EncryptFlag);
+                if (encryptFlag)
+                {
+                    //Debug.Log("暗号化");
+                    string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
+                    sw.WriteLine(EncryptFlag);
+                }
+                else
+                {
+                    //Debug.Log("not暗号");
+                    sw.WriteLine(stageflag[i].ToString());
+                }
             }
         }
     }
@@ -184,10 +220,27 @@ public class SaveManager : MonoBehaviour
             for (int i = 0; i < STAGE_NUM; i++)
             {
                 stageflag[i] = true;
-                string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
-                sw.WriteLine(EncryptFlag);
+                if (encryptFlag)
+                {
+                    //Debug.Log("暗号化");
+                    string EncryptFlag = AesExample.EncryptStringToBytes_Aes(stageflag[i].ToString(), i);
+                    sw.WriteLine(EncryptFlag);
+                }
+                else
+                {
+                    //Debug.Log("not暗号");
+                    sw.WriteLine(stageflag[i].ToString());
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// 暗号化フラグをセット
+    /// </summary>
+    public void SetEncryptFlag(bool flag)
+    {
+        encryptFlag = flag;
     }
 
     /*　◇ーーーーーー拡張コードーーーーーー◇　*/
@@ -215,6 +268,10 @@ public class SaveManager : MonoBehaviour
                 save.AllClearSaveData();
                 Debug.Log("[UI]AllClear");
             }
+
+            //- インスペクターの更新
+            if (GUI.changed)
+            { EditorUtility.SetDirty(target); }
         }
     }
 #endif
