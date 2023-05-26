@@ -201,6 +201,10 @@ public class BoardMove : MonoBehaviour
 
     public void SetButtonColor(Color color)
     {
+        //- すでに同じ色なら処理しない
+        if(padbutton.color == color)
+        { return; }
+        //- 指定色に変更
         padbutton.color = color;
         padtmp.color = color;
     }
