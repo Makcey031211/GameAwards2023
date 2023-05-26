@@ -24,12 +24,13 @@ public class SelectButton : MonoBehaviour
     private ButtonAnime buttonAnime;
     private SelectMovePlayer SelectPlayer;
     private bool Load = false;                      //多重ロード抑止
-
+    public static bool Input = false;            //入力判定
     void Awake()
     {
         buttonAnime = GetComponent<ButtonAnime>();
         button = GetComponent<Button>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        Input = false;
     }
     
     /// <summary>
@@ -38,13 +39,20 @@ public class SelectButton : MonoBehaviour
     /// </summary>
     public void MoveScene()
     {
+        //- 他の入力が行われていたら処理しない
+        if(BackScene.Input)
+        { return; }
+
         //- 呼び出し済なら処理しない
         if (Load)
         { return; }
+        
 
         //- 呼び出し済にする
         Load = true;
-        
+        //- 入力があったらフラグ変更
+        Input = true;
+
         //- ボタンアニメが存在したら処理
         if(buttonAnime)
         {
@@ -90,12 +98,17 @@ public class SelectButton : MonoBehaviour
     /// </summary>
     public void MoveSelectScene()
     {
+        //- 他の入力が行われていたら処理しない
+        if (BackScene.Input)
+        { return; }
         //- 呼び出し済なら行わない
         if (Load)
         { return; }
 
         //- 呼び出し済にする
         Load = true;
+        //- 入力があったらフラグ変更
+        Input = true;
 
         //- 呼び出されたら上下左右選択を無効化
         Navigation NoneNavigation = button.navigation;
