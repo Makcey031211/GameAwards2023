@@ -31,6 +31,9 @@ public class SelectButton : MonoBehaviour
         button = GetComponent<Button>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         Input = false;
+        //- タイトルシーンでは戻るボタンがないので入力状態を初期化する
+        if(SceneManager.GetActiveScene().name == "0_TitleScene")
+        {   BackScene.Input = false;    }
     }
     
     /// <summary>
@@ -41,7 +44,10 @@ public class SelectButton : MonoBehaviour
     {
         //- 他の入力が行われていたら処理しない
         if(BackScene.Input)
-        { return; }
+        {
+            Debug.Log("BackScene.Input" + BackScene.Input);
+            return;
+        }
 
         //- 呼び出し済なら処理しない
         if (Load)
@@ -104,12 +110,11 @@ public class SelectButton : MonoBehaviour
         //- 呼び出し済なら行わない
         if (Load)
         { return; }
-
         //- 呼び出し済にする
         Load = true;
+
         //- 入力があったらフラグ変更
         Input = true;
-
         //- 呼び出されたら上下左右選択を無効化
         Navigation NoneNavigation = button.navigation;
         NoneNavigation.selectOnUp = null;
