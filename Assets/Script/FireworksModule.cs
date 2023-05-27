@@ -552,7 +552,7 @@ public class FireworksModule : MonoBehaviour
         transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(1.5f).SetLink(gameObject);
         DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
         { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); }); // クリア演出画面でのボス打ち上げ音
-                                                                              //- 演出用スクリプトの取得
+        //- 演出用スクリプトの取得
         MovieManager movie = MovieObject.GetComponent<MovieManager>();
         //- 演出フラグ変更
         movie.SetMovieFlag(true);
