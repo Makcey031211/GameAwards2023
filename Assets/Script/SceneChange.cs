@@ -161,6 +161,7 @@ public class SceneChange : MonoBehaviour
 
     public void Change()
     {
+        clear.WriteClear();
         SceneManager.LoadScene(NextScene);
     }
 }

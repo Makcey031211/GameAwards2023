@@ -140,6 +140,7 @@ public class MovieManager : MonoBehaviour
             UnloadMovieScene();
             fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
             GameObject.Find("BGMManager").GetComponent<BGMManager>().DestroyPossible(); // BGMManager‚ğíœ‰Â”\‚É‚·‚é
+            SceneChange.bIsChange = true;
             GameObject.Find("Main Camera").GetComponent<SceneChange>().Change(); // ƒV[ƒ“Ø‚è‘Ö‚¦
             yield return new WaitForSeconds(FadeTime);
         }
