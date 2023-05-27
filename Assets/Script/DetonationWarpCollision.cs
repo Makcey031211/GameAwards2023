@@ -74,15 +74,11 @@ public class DetonationWarpCollision : MonoBehaviour
                 Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.green, 3.0f);
             }
             if (hit.collider.gameObject.tag != "Warphole") continue; //- ステージオブジェクト以外なら次へ
-            Debug.Log("Warphole");
             if (hit.distance > DisLength) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
 
-            Debug.Log("TRUEWARP");
             WarpCheck = true;
         }
-        Debug.Log("ほわあああ");
         if (!WarpCheck) return;
-        Debug.Log("ワープホールが手間にある");
         //- 当たったオブジェクトのFireworksModuleの取得
         FireworksModule module = obj.GetComponent<FireworksModule>();
         //- 当たったオブジェクトの花火タイプによって処理を分岐
