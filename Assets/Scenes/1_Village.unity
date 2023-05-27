@@ -279,7 +279,7 @@ PrefabInstance:
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 19
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
@@ -303,6 +303,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionId
+      value: e1dbc3a9-b7bd-4725-9ec6-89e76bc5a3f3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_ActionName
       value: Player/InGame[/Keyboard/backspace]
       objectReference: {fileID: 0}
@@ -323,7 +328,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_ActionName
+      value: Player/OnAnime[/Keyboard/enter,/SwitchProControllerHID/buttonSouth]
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
@@ -338,9 +353,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1892684896}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -348,18 +363,33 @@ PrefabInstance:
       objectReference: {fileID: 1892684895}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1892684896}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SetAnime
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnInBack
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetAnime
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
@@ -373,7 +403,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: AnimePlayer, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
+        type: 3}
+      propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309752, guid: d74a1486e34d7ff4ba98a7b0486fae23,
@@ -3588,7 +3628,6 @@ MonoBehaviour:
   saveManager: {fileID: 1662746356}
   stageNum: 0
   player: {fileID: 1892684893}
-  seManager: {fileID: 0}
 --- !u!1 &1566814124
 GameObject:
   m_ObjectHideFlags: 0

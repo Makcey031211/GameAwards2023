@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /*
  *  制作：髙橋
@@ -14,6 +15,9 @@ public class AnimePlayer : MonoBehaviour
     private float delayTime;
     [SerializeField, Header("縮んでいく時間(秒)")]
     private float shrinkTime;
+
+    //- ボタンが押されているかどうか
+    bool bIsPushAnime = false;
 
     public void SetAnime()
     {
@@ -39,5 +43,16 @@ public class AnimePlayer : MonoBehaviour
 
         //- 縮小アニメーションが終了したらオブジェクトを非表示にする
         scaleObj.SetActive(false);
+    }
+
+    /// <summary>
+    /// コントローラー取得関数
+    /// </summary>
+    /// <param name="context"></param>
+    public void OnAnime(InputAction.CallbackContext context)
+    {
+        //- ボタンが押されている間、変数を設定
+        if (context.started)  { bIsPushAnime = true; }
+        if (context.canceled) { bIsPushAnime = false; }
     }
 }
