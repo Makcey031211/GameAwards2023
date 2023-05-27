@@ -1025,9 +1025,9 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817127698}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StoryFlip, Assembly-CSharp
-        m_MethodName: OnNext
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1041,9 +1041,9 @@ MonoBehaviour:
     m_ActionName: UI/Next[/XInputControllerWindows/dpad/right,/XInputControllerWindows/leftStick/right,/Keyboard/rightArrow,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817127698}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StoryFlip, Assembly-CSharp
-        m_MethodName: OnPrev
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1057,9 +1057,9 @@ MonoBehaviour:
     m_ActionName: UI/Prev[/XInputControllerWindows/dpad/left,/XInputControllerWindows/leftStick/left,/Keyboard/leftArrow,/Keyboard/a]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 817127698}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StoryFlip, Assembly-CSharp
-        m_MethodName: OnEnter
+        m_MethodName: 
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1087,6 +1087,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c2b7a506-ed82-4dcb-9993-aa6f5c6df2d4
     m_ActionName: UI/Skip[/Keyboard/y]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 817127698}
+        m_TargetAssemblyTypeName: StoryFlip, Assembly-CSharp
+        m_MethodName: OnClose
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 18530c2e-040a-422d-b0b5-efdcc437d7e2
+    m_ActionName: UI/Close[/Keyboard/backspace]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: UI
@@ -1106,7 +1122,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flips:
   - {fileID: 955915430}
-  scene: 1
   FadeTime: 1
 --- !u!114 &817127699
 MonoBehaviour:
