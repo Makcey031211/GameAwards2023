@@ -141,7 +141,6 @@ public class MovieManager : MonoBehaviour
             //- 演出シーンをアンロード
             UnloadMovieScene();
             fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
             GameObject.Find("BGMManager").GetComponent<BGMManager>().DestroyPossible(); // BGMManagerを削除可能にする
             SceneChange.bIsChange = true;
             GameObject.Find("Main Camera").GetComponent<SceneChange>().Change(); // シーン切り替え
