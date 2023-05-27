@@ -194,6 +194,10 @@ public class FireworksModule : MonoBehaviour
     public Color _insideBarrierColor;  // 内側のバリアの色
     [SerializeField, HideInInspector]
     public GameObject _insideBarrierParticleObj;  // 内側のバリア破壊エフェクト
+    [SerializeField, HideInInspector]
+    public GameObject _boss1Obj1; // 変化させるボスオブジェクト1
+    [SerializeField, HideInInspector]
+    public GameObject _boss1Obj2; // 変化させるボスオブジェクト2
     //-- インスペクターから非表示
     private int ignitionCount = 0; // 何回引火したか
     private float moveTimeCount = 0; // ぬし花火用の挙動用の変数
@@ -205,6 +209,8 @@ public class FireworksModule : MonoBehaviour
     public GameObject InsideBarrier => _insideBarrier;
     public Color InsideBarrierColor => _insideBarrierColor;
     public GameObject InsideBarrierParticleObj => _insideBarrierParticleObj;
+    public GameObject Boss1Obj1 => _boss1Obj1;
+    public GameObject Boss1Obj2 => _boss1Obj2;
 
     //- トンボ花火用の項目
     //-- インスペクターに表示
@@ -251,8 +257,14 @@ public class FireworksModule : MonoBehaviour
     //- ぬし花火用関連の共通項目
     [SerializeField, HideInInspector]
     public GameObject _movieObject; // 演出を管理しているオブジェクト
+    [SerializeField, HideInInspector]
+    public Color _bossIgniteColor; // 引火時のカラー
+    [SerializeField, HideInInspector]
+    public float _fadeTime = 0.5f; // 色のフェード時間(秒)
     //- 外部からの値取得用
     public GameObject MovieObject => _movieObject;
+    public Color BossIgniteColor => _bossIgniteColor;
+    public float FadeTime => _fadeTime;
     //- インスペクターに非表示
     private int enemyNum;   // 花火玉の残存数
     CountEnemy countEnemy;  // 花火玉の残存取得用スクリプト
@@ -268,6 +280,10 @@ public class FireworksModule : MonoBehaviour
     public Color _boss2barrierColor; // バリアカラー
     [SerializeField, HideInInspector]
     public GameObject _boss2barrierParticleObj;  // 外側のバリア破壊エフェクト
+    [SerializeField, HideInInspector]
+    public GameObject _boss2Obj1; // 変化させるボスオブジェクト1
+    [SerializeField, HideInInspector]
+    public GameObject _boss2Obj2; // 変化させるボスオブジェクト2
     //-- インスペクターに非表示
     private float TimeCount; //- タイムカウンタ
     private bool bStartMovie; //- 演出が始まったかどうか
@@ -276,22 +292,18 @@ public class FireworksModule : MonoBehaviour
     public GameObject Boss2BarrierObj => _boss2barrierObj;
     public Color Boss2BarrierColor => _boss2barrierColor;
     public GameObject Boss2BarrierParticleObj => _boss2barrierParticleObj;
+    public GameObject Boss2Obj1 => _boss2Obj1;
+    public GameObject Boss2Obj2 => _boss2Obj2;
 
     //- 3面ぬし花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
     public GameObject _boss3obj; // 変化させるゲームオブジェクト
-    [SerializeField, HideInInspector]
-    public Color _boss3igniteColor; // 引火時のカラー
-    [SerializeField, HideInInspector]
-    public float _fadeTime = 0.5f; // 色のフェード時間(秒)
     //-- インスペクターに非表示
     private static int igniteCount = 0;
     private bool bAnime;
     //- 外部からの値取得用
     public GameObject Boss3Obj => _boss3obj;
-    public Color Boss3IgniteColor => _boss3igniteColor;
-    public float FadeTime => _fadeTime;
 
     // バリアを持つオブジェクト
 
@@ -360,7 +372,7 @@ public class FireworksModule : MonoBehaviour
         //- 2面ぬし花火の項目
         if (_type == FireworksType.Boss2)
         {
-           _boss2barrierObj.GetComponent<Renderer>().material.color = _boss2barrierColor;
+            _boss2barrierObj.GetComponent<Renderer>().material.color = _boss2barrierColor;
         }
 
         //- 3面ぬし花火の項目
@@ -383,10 +395,10 @@ public class FireworksModule : MonoBehaviour
             { _isInv = false; }
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            _isExploded = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.C))
+        //{
+        //    _isExploded = true;
+        //}
 
         if (IsExploded)
         { // 爆発した後
@@ -517,6 +529,13 @@ public class FireworksModule : MonoBehaviour
 
         if (ignitionCount < _ignitionMax) return; // 引火回数が必要回数に満たなければリターン
         _isExploded = true; //- 爆発フラグ
+
+        //- マテリアルの取得
+        Material material = _boss1Obj1.GetComponent<Renderer>().material;
+        Material material2 = _boss1Obj2.GetComponent<Renderer>().material;
+        //- 引火時のフェード処理
+        material.DOColor(BossIgniteColor, FadeTime);
+        material2.DOColor(BossIgniteColor, FadeTime);
 
         GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
         GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
@@ -1426,6 +1445,13 @@ public class FireworksModule : MonoBehaviour
         enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
         if (HitInfo.hitcount >= 2 && enemyNum <= 1)
         {
+            //- マテリアルの取得
+            Material material = _boss2Obj1.GetComponent<Renderer>().material;
+            Material material2 = _boss2Obj2.GetComponent<Renderer>().material;
+            //- 引火時のフェード処理
+            material.DOColor(BossIgniteColor, FadeTime);
+            material2.DOColor(BossIgniteColor, FadeTime);
+
             GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
             GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
             GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
@@ -1483,7 +1509,7 @@ public class FireworksModule : MonoBehaviour
             //- マテリアルの取得
             Material material = _boss3obj.GetComponent<Renderer>().material;
             //- 引火時のフェード処理
-            material.DOColor(Boss3IgniteColor, FadeTime);
+            material.DOColor(BossIgniteColor, FadeTime);
         }
 
         enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新

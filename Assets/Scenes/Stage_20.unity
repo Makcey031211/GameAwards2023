@@ -4136,6 +4136,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 764388146}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &766280189 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5469229583613395191, guid: c783c3ce656a7a944a5ee16ab0a4a846,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720054894}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &776787514 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
@@ -4937,6 +4943,8 @@ MonoBehaviour:
   _insideBarrier: {fileID: 799276545}
   _insideBarrierColor: {r: 1, g: 0, b: 0, a: 0.27058825}
   _insideBarrierParticleObj: {fileID: 0}
+  _boss1Obj1: {fileID: 0}
+  _boss1Obj2: {fileID: 0}
   _tonboSpeed: 0
   _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
@@ -4948,14 +4956,16 @@ MonoBehaviour:
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
   _movieObject: {fileID: 912983140}
+  _bossIgniteColor: {r: 1, g: 0.3137255, b: 0.3137255, a: 0}
+  _fadeTime: 0.7
   _synchroTime: 1
   _boss2barrierObj: {fileID: 799276545}
   _boss2barrierColor: {r: 1, g: 1, b: 0, a: 0.11372549}
   _boss2barrierParticleObj: {fileID: 6390332538076136193, guid: 4ef622ae1ea113242908dae429d83d39,
     type: 3}
+  _boss2Obj1: {fileID: 1780027089}
+  _boss2Obj2: {fileID: 766280189}
   _boss3obj: {fileID: 0}
-  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
-  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
@@ -9067,6 +9077,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e24e579c56d6cdd49b6d6abdae073b04, type: 3}
+--- !u!1 &1780027089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4679500792055971750, guid: c783c3ce656a7a944a5ee16ab0a4a846,
+    type: 3}
+  m_PrefabInstance: {fileID: 1720054894}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1781746644 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7171924692625481346, guid: e24e579c56d6cdd49b6d6abdae073b04,
