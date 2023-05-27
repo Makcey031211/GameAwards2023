@@ -53,11 +53,10 @@ public class PController : MonoBehaviour
 
         isOnce = false;
     }
+    
     /// <summary>
     /// 移動Action(PlayerInput側から呼ばれる)
     /// </summary>
-    
-    
     public void OnMove(InputAction.CallbackContext context)
     {
         if(bIsWait) return;//- 待機状態ならリターン
@@ -194,6 +193,8 @@ public class PController : MonoBehaviour
     //- プレイヤーが待機状態かどうかのフラグを切り替える関数
     public void SetWaitFlag(bool Flag)
     {
+        //- 待機状態なら移動量を0に
+        if (Flag) inputMove = new Vector2(0, 0);
         //- 待機フラグ切り替え
         bIsWait = Flag;
     }
