@@ -365,7 +365,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[19].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1892684896}
+      objectReference: {fileID: 0}
     - target: {fileID: 1941224226708309751, guid: d74a1486e34d7ff4ba98a7b0486fae23,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[15].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -2579,12 +2579,13 @@ GameObject:
   - component: {fileID: 911669759}
   - component: {fileID: 911669756}
   - component: {fileID: 911669754}
-  - component: {fileID: 911669755}
   - component: {fileID: 911669757}
   - component: {fileID: 911669761}
   - component: {fileID: 911669762}
   - component: {fileID: 911669764}
   - component: {fileID: 911669763}
+  - component: {fileID: 911669765}
+  - component: {fileID: 911669766}
   m_Layer: 5
   m_Name: Sato_2
   m_TagString: Untagged
@@ -2637,9 +2638,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 911669755}
-        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
+      - m_Target: {fileID: 911669765}
+        m_TargetAssemblyTypeName: SatoButton, Assembly-CSharp
+        m_MethodName: MoveSatoScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2661,23 +2662,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &911669755
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911669753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3318c950e31ac824d923921b2e05b83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextScene:
-    m_SceneName: 2_Sato2
-  DelayTime: 1.5
-  fadeObject: {fileID: 387147574}
-  FadeTime: 1
 --- !u!114 &911669756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2824,6 +2808,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &911669765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911669753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce7206f0d0bd1248a89e2c5042788ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextScene:
+    m_SceneName: 2_Sato2
+  DelayTime: 1.5
+  fadeObject: {fileID: 387147574}
+  FadeTime: 1
+--- !u!114 &911669766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 911669753}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60c1a2f128912e4aba89f4bfb11cdc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleObj: {fileID: 1892684893}
+  delayTime: 0.5
+  shrinkTime: 0.5
 --- !u!1 &993410161
 GameObject:
   m_ObjectHideFlags: 0
@@ -3640,12 +3656,13 @@ GameObject:
   - component: {fileID: 1566814130}
   - component: {fileID: 1566814127}
   - component: {fileID: 1566814125}
-  - component: {fileID: 1566814126}
   - component: {fileID: 1566814128}
   - component: {fileID: 1566814132}
   - component: {fileID: 1566814133}
   - component: {fileID: 1566814135}
   - component: {fileID: 1566814134}
+  - component: {fileID: 1566814136}
+  - component: {fileID: 1566814137}
   m_Layer: 5
   m_Name: Sato_4
   m_TagString: Untagged
@@ -3698,9 +3715,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1566814126}
-        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
+      - m_Target: {fileID: 1566814137}
+        m_TargetAssemblyTypeName: SatoButton, Assembly-CSharp
+        m_MethodName: MoveSatoScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3722,23 +3739,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1566814126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1566814124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3318c950e31ac824d923921b2e05b83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextScene:
-    m_SceneName: 2_Sato4
-  DelayTime: 1.5
-  fadeObject: {fileID: 387147574}
-  FadeTime: 1
 --- !u!114 &1566814127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3885,6 +3885,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1566814136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566814124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60c1a2f128912e4aba89f4bfb11cdc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleObj: {fileID: 1892684893}
+  delayTime: 0.5
+  shrinkTime: 0.5
+--- !u!114 &1566814137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566814124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce7206f0d0bd1248a89e2c5042788ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextScene:
+    m_SceneName: 2_Sato4
+  DelayTime: 1.5
+  fadeObject: {fileID: 387147574}
+  FadeTime: 1
 --- !u!1 &1623027976
 GameObject:
   m_ObjectHideFlags: 0
@@ -4212,12 +4244,13 @@ GameObject:
   - component: {fileID: 1761022492}
   - component: {fileID: 1761022489}
   - component: {fileID: 1761022487}
-  - component: {fileID: 1761022488}
   - component: {fileID: 1761022490}
   - component: {fileID: 1761022494}
   - component: {fileID: 1761022495}
   - component: {fileID: 1761022497}
   - component: {fileID: 1761022496}
+  - component: {fileID: 1761022498}
+  - component: {fileID: 1761022499}
   m_Layer: 5
   m_Name: Sato_3
   m_TagString: Untagged
@@ -4270,9 +4303,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1761022488}
-        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
+      - m_Target: {fileID: 1761022499}
+        m_TargetAssemblyTypeName: SatoButton, Assembly-CSharp
+        m_MethodName: MoveSatoScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4294,23 +4327,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1761022488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1761022486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3318c950e31ac824d923921b2e05b83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextScene:
-    m_SceneName: 2_Sato3
-  DelayTime: 1.5
-  fadeObject: {fileID: 387147574}
-  FadeTime: 1
 --- !u!114 &1761022489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4457,6 +4473,38 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &1761022498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761022486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60c1a2f128912e4aba89f4bfb11cdc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleObj: {fileID: 1892684893}
+  delayTime: 0.5
+  shrinkTime: 0.5
+--- !u!114 &1761022499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1761022486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce7206f0d0bd1248a89e2c5042788ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextScene:
+    m_SceneName: 2_Sato3
+  DelayTime: 1.5
+  fadeObject: {fileID: 387147574}
+  FadeTime: 1
 --- !u!1 &1805325167
 GameObject:
   m_ObjectHideFlags: 0
@@ -4789,21 +4837,6 @@ MonoBehaviour:
   disBGMTime: 0.4
   backScene:
     m_SceneName: 0_TitleScene
---- !u!114 &1892684896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892684893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a60c1a2f128912e4aba89f4bfb11cdc8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scaleObj: {fileID: 1892684893}
-  delayTime: 0.5
-  shrinkTime: 0.5
 --- !u!1 &1975210181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4816,12 +4849,13 @@ GameObject:
   - component: {fileID: 1975210188}
   - component: {fileID: 1975210187}
   - component: {fileID: 1975210186}
-  - component: {fileID: 1975210185}
   - component: {fileID: 1975210184}
   - component: {fileID: 1975210183}
   - component: {fileID: 1975210189}
   - component: {fileID: 1975210190}
   - component: {fileID: 1975210191}
+  - component: {fileID: 1975210192}
+  - component: {fileID: 1975210193}
   m_Layer: 5
   m_Name: Sato_1
   m_TagString: Untagged
@@ -4877,23 +4911,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a93016139468a04a8bb9aa314ce3d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1975210185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1975210181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3318c950e31ac824d923921b2e05b83a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NextScene:
-    m_SceneName: 2_Sato1
-  DelayTime: 1.5
-  fadeObject: {fileID: 387147574}
-  FadeTime: 1
 --- !u!114 &1975210186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4939,9 +4956,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1975210185}
-        m_TargetAssemblyTypeName: SelectButton, Assembly-CSharp
-        m_MethodName: MoveScene
+      - m_Target: {fileID: 1975210192}
+        m_TargetAssemblyTypeName: SatoButton, Assembly-CSharp
+        m_MethodName: MoveSatoScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5057,6 +5074,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveTIme: 0.5
   player: {fileID: 1892684893}
+--- !u!114 &1975210192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975210181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ce7206f0d0bd1248a89e2c5042788ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NextScene:
+    m_SceneName: 2_Sato1
+  DelayTime: 1.5
+  fadeObject: {fileID: 387147574}
+  FadeTime: 1
+--- !u!114 &1975210193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975210181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60c1a2f128912e4aba89f4bfb11cdc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleObj: {fileID: 1892684893}
+  delayTime: 0.5
+  shrinkTime: 0.5
 --- !u!1001 &2008211934
 PrefabInstance:
   m_ObjectHideFlags: 0
