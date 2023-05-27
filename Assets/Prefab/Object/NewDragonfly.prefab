@@ -409,9 +409,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleObj: {fileID: 1282081165703502451}
-  RayBoxRadius: 1
+  RayBoxRadius: 1.5
   HitRayDistance: 1.5
   DestroyObject: {fileID: 1282081165717895371}
+  isPlayback: 0
 --- !u!114 &1282081166383338251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -798,6 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleObj: {fileID: 1282081165703502451}
+  raycheckObj: {fileID: 1282081166383338262}
   InvisibleTime: 0.3
   destroyObj: {fileID: 1282081165717895371}
   IsDestroy: 0

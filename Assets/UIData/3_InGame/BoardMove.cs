@@ -41,6 +41,8 @@ public class BoardMove : MonoBehaviour
     [SerializeField] private VideoPlayer movie;
     [SerializeField] private TextMeshProUGUI tmp;
     [SerializeField] private float IntervalTime = 0.0f;
+    [SerializeField] private Image padbutton;
+    [SerializeField] private TextMeshProUGUI padtmp;
     private Dictionary<string, Dictionary<string, Vector3>> InitValues;
     public static bool MoveComplete = false;
 
@@ -48,7 +50,9 @@ public class BoardMove : MonoBehaviour
     private bool LoadOut = false;
     private bool ReInMove;     //登場ボタン入力フラグ
     private bool ReOutMove;    //撤退ボタン入力フラグ
-    private bool NowMove = false;
+    private bool NowMove = false; //動作中フラグ
+    private bool NotInput = false;//入力受付フラグ
+    private bool StartComplete = false;//登場処理が完了したか
 
     private void Awake()
     {
@@ -89,6 +93,8 @@ public class BoardMove : MonoBehaviour
             .OnComplete(() => {
                 //- 登場挙動完了したら撤退可能にする
                 LoadOut = false;
+                //-　表示処理が完了
+                StartComplete = true;
                 //- 挙動が完成したらアニメーション削除
                 InAnime.Kill();
             });
@@ -162,15 +168,19 @@ public class BoardMove : MonoBehaviour
     public bool GetLoadOut()
     { return LoadOut; }
 
+    public bool GetStartComplete()
+    { return StartComplete; }
+
     /// <summary>
     /// 再登場入力
     /// </summary>
     /// <param name="context"></param>
     public void OnInTips(InputAction.CallbackContext context)
     {
-        if(NowMove)
-        {  return; }
-
+        //- 入力受付フラグが立っていたら処理しない
+        if (NotInput) { return; }
+        //- 動作中であれば実行しない
+        if (NowMove)  { return; }
         NowMove = true;
 
         //- Tips再描画フラグをオンにする
@@ -180,6 +190,23 @@ public class BoardMove : MonoBehaviour
             IntervalTime = 0.0f;
             ReInMove = true;
         }
+    }
+
+    /// <summary>
+    /// Tips表示を受け付けるか
+    /// </summary>
+    /// <param name="flag"></param>
+    public void SetReceiptInput(bool flag)
+    {   NotInput = flag;    }
+
+    public void SetButtonColor(Color color)
+    {
+        //- すでに同じ色なら処理しない
+        if(padbutton.color == color)
+        { return; }
+        //- 指定色に変更
+        padbutton.color = color;
+        padtmp.color = color;
     }
 
     /// <summary>

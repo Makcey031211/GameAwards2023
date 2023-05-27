@@ -178,16 +178,17 @@ public class MovementManager : MonoBehaviour
         //- 移動方向に合わせて位置を変更する
         if (!reverse)
         {
+            //- 移動方向に応じて位置を補間する
             switch (MoveDirection)
             {
-                case E_MoveDirection.Horizontal:
+                case E_MoveDirection.Horizontal: // 水平
                     transform.position = Vector3.Lerp(startPosition, endPosition, t);
                     break;
-                case E_MoveDirection.Vertical:
+                case E_MoveDirection.Vertical:   // 垂直
                     transform.position = Vector3.Lerp(
                         startPosition, startPosition + Vector3.up * MoveDistance, t);
                     break;
-                case E_MoveDirection.Diagonal:
+                case E_MoveDirection.Diagonal:   // 対角線
                     transform.position = Vector3.Lerp(
                         startPosition, startPosition + new Vector3(MoveDistance, MoveDistance, 0), t);
                     break;
@@ -195,16 +196,17 @@ public class MovementManager : MonoBehaviour
         }
         else
         {
+            //- 逆方向に移動する場合
             switch (MoveDirection)
             {
-                case E_MoveDirection.Horizontal:
+                case E_MoveDirection.Horizontal:  // 水平
                     transform.position = Vector3.Lerp(endPosition, startPosition, t);
                     break;
-                case E_MoveDirection.Vertical:
+                case E_MoveDirection.Vertical:    // 垂直
                     transform.position = Vector3.Lerp(
                         startPosition + Vector3.up * MoveDistance, startPosition, t);
                     break;
-                case E_MoveDirection.Diagonal:
+                case E_MoveDirection.Diagonal:    // 対角線
                     transform.position = Vector3.Lerp(
                         startPosition + new Vector3(MoveDistance, MoveDistance, 0), startPosition, t);
                     break;
@@ -214,7 +216,7 @@ public class MovementManager : MonoBehaviour
         //- 移動が完了したら経過時間をリセットする
         if (t == 1.0f)
         {
-            timeElapsed = 0.0f;
+            timeElapsed = 0.0f; // 経過時間のリセット
             reverse = !reverse; // 移動方向を反転
         }
     }
@@ -227,16 +229,25 @@ public class MovementManager : MonoBehaviour
         //- nullチェック
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
+        //- オブジェクトが待機中かどうか
         if (isWaiting)
         {
+            //- 経過時間に基づいて待機時間を減少させる
             waitingTimer -= Time.deltaTime;
+
+            //- 待機時間が0以下になった場合
             if (waitingTimer <= 0.0f)
             {
+                //- 待機状態を終了する
                 isWaiting = false;
+                //- 現在の方向に基づいて次のポイントに移動する
                 currentPoint += currentDirection;
+                //- 現在のポイントがポイントの範囲外である時
                 if (currentPoint >= points.Length || currentPoint < 0)
                 {
+                    //- 移動方向を反転させる
                     currentDirection *= -1;
+                    //- 反転した方向の次のポイントに移動する
                     currentPoint += currentDirection;
                 }
             }
@@ -252,21 +263,27 @@ public class MovementManager : MonoBehaviour
             //- 次の位置に移動する
             transform.position += directionVector * distanceToMove;
 
-            //- 次のポイントに到達したら方向を逆にする
+            //- もし現在位置と次のポイントとの距離が一定値未満であれば、次のポイントに到達したと判断する
             if (Vector3.Distance(transform.position, points[currentPoint]) < 0.01f)
             {
-                //- 最後のポイントに到達したら
+                //- もし現在のポイントが終点であれば
                 if (currentPoint == points.Length - 1)
                 {
+                    //- 待機状態を有効にする
                     isWaiting    = true;
+                    //- 指定した待機時間分、待機する
                     waitingTimer = EndWaitTime;
                 }
                 else
                 {
+                    //- 現在の方向に基づいて次のポイントに移動する
                     currentPoint += currentDirection;
+                    //- もし現在のポイントがポイントの範囲外である時
                     if (currentPoint >= points.Length || currentPoint < 0)
                     {
+                        //- 移動方向を反転させる
                         currentDirection *= -1;
+                        //- 反転した方向の次のポイントに移動する
                         currentPoint += currentDirection;
                     }
                 }
@@ -282,16 +299,25 @@ public class MovementManager : MonoBehaviour
         //- nullチェック
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
+        //- オブジェクトが待機中かどうか
         if (isWaiting)
         {
+            //- 経過時間に基づいて待機時間を減少させる
             waitingTimer -= Time.deltaTime;
+
+            //- 待機時間が0以下になった場合
             if (waitingTimer <= 0.0f)
             {
+                //- 待機状態を終了する
                 isWaiting = false;
+                //- 現在の方向に基づいて次のポイントに移動する
                 currentPoint += currentDirection;
+                //- 現在のポイントがポイントの範囲外である時
                 if (currentPoint >= points.Length || currentPoint < 0)
                 {
+                    //- 現在の方向を反転させる
                     currentDirection *= -1;
+                    //- 反転した方向の次のポイントに移動する
                     currentPoint += currentDirection;
                 }
             }
@@ -307,22 +333,28 @@ public class MovementManager : MonoBehaviour
             //- 次の位置に移動する
             transform.position += directionVector * distanceToMove;
 
-            //- 次のポイントに到達したら方向を逆にする
+            //- もし現在位置と次のポイントとの距離が一定値未満であれば、次のポイントに到達したと判断する
             if (Vector3.Distance(transform.position, points[currentPoint]) < 0.01f)
             {
-                //- 始点または中間点または終点に到達したら
+                //- もし現在のポイントが始点または中間点または終点であれば
                 if (currentPoint == points.Length - 3 || currentPoint == points.Length - 2 
                     || currentPoint == points.Length - 1)
                 {
+                    //- 待機状態を有効にする
                     isWaiting    = true;
+                    //- 指定した待機時間分、待機する
                     waitingTimer = WaitTime;
                 }
                 else
                 {
+                    //- 現在の方向に基づいて次のポイントに移動する
                     currentPoint += currentDirection;
+                    //- もし現在のポイントがポイントの範囲外である時
                     if (currentPoint >= points.Length || currentPoint < 0)
                     {
+                        //- 移動方向を反転させる
                         currentDirection *= -1;
+                        //- 反転した方向の次のポイントに移動する
                         currentPoint += currentDirection;
                     }
                 }
@@ -338,6 +370,7 @@ public class MovementManager : MonoBehaviour
         //- nullチェック
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
+        //- transformを、変数transに格納する
         var trans = transform;
 
         //- 回転のクォータニオン作成
@@ -389,6 +422,7 @@ public class MovementManager : MonoBehaviour
                 break;
         }
 
+        //- transformを、変数transに格納する
         var trans = transform;
 
         //- 回転のクォータニオン作成
@@ -413,6 +447,10 @@ public class MovementManager : MonoBehaviour
         currentTime += Time.deltaTime;
     }
 
+    /// <summary>
+    /// 挙動が停止しているか判定を取る関数
+    /// </summary>
+    /// <param name="moveFlag"></param>
     public void SetStopFrag(bool moveFlag)
     {
         StopMove = moveFlag;

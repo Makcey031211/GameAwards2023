@@ -36,9 +36,9 @@ public class AnimeManager : MonoBehaviour
     private InputAction tipsAction;                         //Tips登場の入力処理
     private PController player;                             //プレイヤー操作用変数
     private Image TipsButtonGage;                           //Tips表示ボタンの長押しゲージ
-    private float CurrentPushTime = 0.0f;                   //最大入力時間
+    private float TipsPossibleTime = 1.0f;                  //Tips表示から入力可能になるまでの時間
     private float StartTime = 0.0f;                         //開始からの時間
-    
+
     private void Awake()
     {
         //- アニメ管理するオブジェクトフラグ初期化
@@ -62,9 +62,6 @@ public class AnimeManager : MonoBehaviour
 
         //- プレイヤー情報取得
         player = GameObject.Find("Player").GetComponent<PController>();
-
-        //- Tipsが存在しているなら、Tips再表示ボタン情報を取得
-        if (ControlFlag["Tips再表示"]){ TipsButtonGage = GameObject.Find("DrawTipsGage").GetComponent<Image>();  }
     }
 
     private void Start()
@@ -82,8 +79,10 @@ public class AnimeManager : MonoBehaviour
     {
         //- プレイヤーの自爆フラグを取得する
         bool PlayerBoom = player.GetIsOnce();
-        StartTime += Time.deltaTime;
-
+        //- Tipsがある際には表示動作が終わってから待機カウントを開始
+        if (ControlFlag["Tips"] && DrawGimmickBoard.GetStartComplete())
+        { StartTime += Time.deltaTime; }
+        
         /*　
          *　＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
          *　
@@ -99,6 +98,8 @@ public class AnimeManager : MonoBehaviour
             FirstLoad = true;
             //- ボス演出を行う
             DrawBossCutIn.MoveCutIn();
+            //- 動作中はTips操作を受け付けない
+            DrawGimmickBoard.SetReceiptInput(true);
         }
         //- 通常ステージ・演出をしていない・初めて処理する・Tipsが撤退している
         else if(ControlFlag["開幕"] && !OpeningAnime.MoveCompleat && !FirstLoad && BoardMove.MoveComplete)
@@ -107,6 +108,8 @@ public class AnimeManager : MonoBehaviour
             FirstLoad = true;
             //- 開幕演出を行う
             DrawOpening.StartMove();
+            //- 動作中はTips操作を受け付けない
+            DrawGimmickBoard.SetReceiptInput(true);
         }
 
 
@@ -124,6 +127,8 @@ public class AnimeManager : MonoBehaviour
         {
             //- アシスト表示後に使用しないためフラグ変更
             ControlFlag["ボス"] = false;
+            //- Tips操作を受け付ける
+            if (ControlFlag["Tips"])    { DrawGimmickBoard.SetReceiptInput(false); }
             //- ボタンアシストを表示する
             InGameDrawObjs();
         }
@@ -132,8 +137,11 @@ public class AnimeManager : MonoBehaviour
         {
             //- アシスト後に使用しないためフラグ変更
             ControlFlag["開幕"] = false;
+            //- Tips操作を受け付ける
+            if (ControlFlag["Tips"])    { DrawGimmickBoard.SetReceiptInput(false); }
             //- ボタンアシストを表示
             InGameDrawObjs();
+
         }
 
 
@@ -152,7 +160,9 @@ public class AnimeManager : MonoBehaviour
             //-　プレイヤーを動作不可能にする
             GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(true);
             DrawGimmickBoard.StartMove();
-         
+            TipsOutLoad = false;
+            StartTime = 0.0f;
+
         }
         //- Tipsがある・開幕が終わっている・自爆していない・再登場ボタン入力がされている
         else if (ControlFlag["Tips"] && OpeningAnime.MoveCompleat && !PlayerBoom && DrawGimmickBoard.GetInDrawButtonPush())
@@ -160,40 +170,41 @@ public class AnimeManager : MonoBehaviour
             //-　プレイヤーを動作不可能にする
             GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(true);
             DrawGimmickBoard.StartMove();
+            TipsOutLoad = false;
+            StartTime = 0.0f;
         }
         //＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 
 
         //＝＝＝＝＝＝＝＝＝      撤退処理     ＝＝＝＝＝＝＝＝＝
+        if(ControlFlag["Tips"])
+        { 
+            //- 入力受付可能時間になったら白にする
+            if(StartTime > TipsPossibleTime)
+            { DrawGimmickBoard.SetButtonColor(Color.white);     }
+            //- 入力不可時間はグレーにする
+            else
+            {   DrawGimmickBoard.SetButtonColor(new Color(0.5f, 0.5f, 0.5f, 1.0f));   }
+        }
+
         //- Tipsがある・現在Tipsが表示されている・自爆していない・再登場ボタン入力がされている
         if (ControlFlag["Tips"] && DrawGimmickBoard.GetLoadStart() && !PlayerBoom && DrawGimmickBoard.GetOutDrawButtonPush())
         {
             //- 開始2秒は撤退処理を受け付けない
-            if(StartTime > 2.0f)
-            { 
-                //- 入力継続時間を代入
-                CurrentPushTime += Time.deltaTime;
-                //- 時間分画像値を変動
-                TipsButtonGage.fillAmount = CurrentPushTime / MaxPushTime;
-            }
-        }
-        //- ボタン入力がされていない
-        else if(ControlFlag["Tips"] && !DrawGimmickBoard.GetOutDrawButtonPush())
-        {
-            CurrentPushTime = 0.0f;
-            TipsButtonGage.fillAmount = 0.0f;
-        }
-        //- 入力時間が指定時間を越したら撤退処理を行う
-        if (CurrentPushTime >= MaxPushTime)
-        {
-            DrawGimmickBoard.OutMove();
-            //- 初回の撤退でなかったらプレイヤー操作管理を行う
-            if(CutIn.MoveCompleat || OpeningAnime.MoveCompleat )
+            if(StartTime > TipsPossibleTime && !TipsOutLoad)
             {
-                //-　プレイヤーを動作可能にする
-                GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+                TipsOutLoad = true;
+                DrawGimmickBoard.OutMove();
+                //- 初回の撤退でなかったらプレイヤー操作管理を行う
+                if (CutIn.MoveCompleat || OpeningAnime.MoveCompleat)
+                {
+                    //-　プレイヤーを動作可能にする
+                    GameObject.Find("Player").GetComponent<PController>().SetWaitFlag(false);
+                }
             }
+
         }
+
 
         //- プレイヤーが自爆した時、Tipsが描画されていたら強制的に撤退
         if(PlayerBoom && ControlFlag["Tips"] && DrawGimmickBoard.GetLoadStart())

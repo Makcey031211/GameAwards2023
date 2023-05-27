@@ -22,12 +22,10 @@ public class DefaultSelectStage : MonoBehaviour
     private int stageNum;
     [SerializeField]
     private GameObject player;
-    [SerializeField]
-    private SEManager seManager;
     int maxClearVillege = 0;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         int satoValue = 1;
         int stageValue = 0;
@@ -42,21 +40,9 @@ public class DefaultSelectStage : MonoBehaviour
             maxClearVillege = 0;
         }
 
-            stageButton[maxClearVillege].gameObject.SetActive(true);
-        stageButton[maxClearVillege].enabled = true;
         stageButton[maxClearVillege].Select();
 
-        GameObject seManagerObj = GameObject.Find("SEManager");
-        if (seManagerObj != null)
-        {
-            seManager = seManagerObj.GetComponent<SEManager>();
-            if (seManager != null)
-            {
-                seManager.SetPlaySE(SEManager.E_SoundEffect.Select);
-            }
-        }
-
-        if (type == SelectType.Stage) {
+        if (type == SelectType.Sato || type == SelectType.Stage) {
             player.transform.position = stageButton[maxClearVillege].transform.position;
         }
 

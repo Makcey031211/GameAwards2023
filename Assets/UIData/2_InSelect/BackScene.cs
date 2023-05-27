@@ -20,6 +20,8 @@ public class BackScene : MonoBehaviour
     [SerializeField, Header("戻る先のシーンを設定")]
     private SceneObject backScene;
 
+    public static bool Input = false;   //入力判定
+
     //- スクリプト用の変数
     BGMManager bgmManager;
     //- イメージのコンポーネント
@@ -37,11 +39,11 @@ public class BackScene : MonoBehaviour
     private void Start()
     {
         //- コンポーネントの取得
-        //imageInGame = GameObject.Find("PadButton").GetComponent<Image>();
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+        Input = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         //- シーン移動が始まったかどうかのフラグを取得
         bool bIsMoveScene = false;
@@ -53,23 +55,13 @@ public class BackScene : MonoBehaviour
         //- 「シーン移動ボタンが押されてる」かつ「シーン移動が始まっていない」時
         if (bIsPushBack && !bIsMoveScene)
         {
-            bPushTimeBack += Time.deltaTime;                     // プッシュ時間の更新
-            //imageInGame.fillAmount = bPushTimeBack / OptionTime; // ゲージの更新
-        }
-        else if (!bIsMoveScene)
-        {
-            bPushTimeBack = 0;          // プッシュ時間のリセット
-            //imageInGame.fillAmount = 0; // ゲージのリセット
-        }
-        //- 一定時間長押しされたら処理する
-        if (bPushTimeBack >= OptionTime)
-        {
             if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
             bIsStartInGame = true; // シーン開始フラグをたてる
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
             GameObject.Find("ColorFadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
+
         }
     }
 
@@ -79,8 +71,16 @@ public class BackScene : MonoBehaviour
     /// <param name="context"></param>
     public void OnInBack(InputAction.CallbackContext context)
     {
+        //- 選択ボタンの入力が行われたら処理を行わない
+        if (SelectButton.Input)
+        { return; }
+
         //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushBack = true; }
+        if (context.started)
+        {
+            bIsPushBack = true;
+            Input = true;       //入力フラグ変更
+        }
         if (context.canceled) { bIsPushBack = false; }
     }
 }
