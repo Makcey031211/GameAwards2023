@@ -55,7 +55,6 @@ public class BackScene : MonoBehaviour
         //- 「シーン移動ボタンが押されてる」かつ「シーン移動が始まっていない」時
         if (bIsPushBack && !bIsMoveScene)
         {
-            Input = true;                       //入力フラグ変更
             if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
             bIsStartInGame = true; // シーン開始フラグをたてる
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
@@ -77,7 +76,11 @@ public class BackScene : MonoBehaviour
         { return; }
 
         //- ボタンが押されている間、変数を設定
-        if (context.started) { bIsPushBack = true; }
+        if (context.started)
+        {
+            bIsPushBack = true;
+            Input = true;       //入力フラグ変更
+        }
         if (context.canceled) { bIsPushBack = false; }
     }
 }
