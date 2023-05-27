@@ -1341,29 +1341,36 @@ public class FireworksModule : MonoBehaviour
 
         //- アニメーション用の変数
         float elapsed = 0;
-
-        //- 徐々に生成するプレイヤーの数
+        //- 生成するプレイヤーの数
         int numPlayers = 1;
 
-        //- プレイヤーを徐々に生成する
+        //- プレイヤーの数分、生成する
         for (int i = 0; i < numPlayers; i++)
         {
-            //- プレイヤーを生成する
+            //- プレイヤーの生成位置
             Vector3 spawnPosition = new Vector3(
                 transform.position.x, transform.position.y + 1.0f, transform.position.z);
+            //- 生成時にY軸を150°回転させる
+            Quaternion Angle = Quaternion.Euler(0.0f, 150.0f, 0.0f);
+            //- プレイヤーを生成する
             GameObject player = Instantiate(
-                _playerPrefab, spawnPosition, Quaternion.identity);
+                _playerPrefab, spawnPosition, Angle);
 
             //- 生成音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
 
-            //- 徐々に生成するアニメーション
+            //=== プレイヤーを徐々に生成するアニメーション ===
+            //- 指定した秒数分、アニメーションさせる
             while (elapsed < _animationTime)
             {
+                //- アニメーションの進行度を計算
                 float t = elapsed / _animationTime;
+                //- スケールを徐々に変化させる
                 player.transform.localScale =
                     Vector3.Lerp(Vector3.zero, Vector3.one, t);
+                //- 経過時間を計算
                 elapsed += Time.deltaTime;
+                //- 次のフレームまで待機
                 yield return null;
             }
 
@@ -1371,21 +1378,26 @@ public class FireworksModule : MonoBehaviour
             yield return new WaitForSeconds(_animationDelayTime);
         }
 
-        //- プレイヤーを生成後、復活箱を徐々に消滅
-        float startTime = Time.time;
+        //- アニメーションの開始時刻を設定
+        float startTime      = Time.time;
+        //- 復活箱の初期スケールを設定
         Vector3 initialScale = transform.localScale;
 
         //- 消滅音の再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Extinction);
 
-        //- 復活箱を徐々に消滅させる
+        //=== 復活箱を徐々に消滅させるアニメーション ===
+        //- 指定した秒数分、アニメーションさせる
         while (Time.time < startTime + _boxDisTime)
         {
+            //- アニメーションの進行度を計算
             float t = (Time.time - startTime) / _boxDisTime;
+            //- スケールを徐々に変化させる
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
+            //- 次のフレームまで待機
             yield return null;
         }
-        Destroy(gameObject);
+        Destroy(gameObject); // オブジェクトを破棄
     }
 
     private void Boss2Fire()

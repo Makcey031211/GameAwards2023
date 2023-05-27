@@ -25,19 +25,25 @@ public class AnimePlayer : MonoBehaviour
         StartCoroutine(ScalePlayer(delayTime));
     }
 
-    private IEnumerator ScalePlayer(float deltaTime)
+    private IEnumerator ScalePlayer(float delayTime)
     {
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
 
-        float startTime      = Time.time; // 開始時間の更新
-        Vector3 initialScale = transform.localScale; // 大きさの変数
+        //- アニメーションの開始時刻を設定
+        float startTime      = Time.time;
+        //- 復活箱の初期スケールを設定
+        Vector3 initialScale = transform.localScale;
 
-        //- プレイヤーを徐々に縮めていくアニメーション処理
+        //=== プレイヤーを徐々に縮めていくアニメーション ===
+        //- 指定した秒数分、アニメーションさせる
         while (Time.time < startTime + shrinkTime)
         {
+            //- アニメーションの進行度を計算
             float t = (Time.time - startTime) / shrinkTime;
+            //- スケールを徐々に変化させる
             transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
+            //- 次のフレームまで待機
             yield return null;
         }
 
