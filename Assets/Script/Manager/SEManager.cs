@@ -12,7 +12,8 @@ public class SEManager : MonoBehaviour
     {
         //* 花火関連 */
         Explosion,  // 爆発
-        YanagiFire, // 柳
+        YanagiFire, // 柳花火
+        DragonFire, // ドラゴン花火
         BarrierDes, // バリア破壊
         Belt,       // 打ち上げ
         BossBelt,   // ボス打ち上げ
@@ -41,6 +42,8 @@ public class SEManager : MonoBehaviour
     public AudioClip explosion;
     [SerializeField, HideInInspector]
     public AudioClip yanagifire;
+    [SerializeField, HideInInspector]
+    public AudioClip dragonfire;
     [SerializeField, HideInInspector]
     public AudioClip barrierdes;
     [SerializeField, HideInInspector]
@@ -134,6 +137,7 @@ public class SEManager : MonoBehaviour
     {
         audioClips.Add(E_SoundEffect.Explosion, explosion);
         audioClips.Add(E_SoundEffect.YanagiFire, yanagifire);
+        audioClips.Add(E_SoundEffect.DragonFire, dragonfire);
         audioClips.Add(E_SoundEffect.BarrierDes, barrierdes);
         audioClips.Add(E_SoundEffect.Belt, belt);
         audioClips.Add(E_SoundEffect.BossBelt, bossbelt);
@@ -203,10 +207,12 @@ public class SEManager : MonoBehaviour
     }
 
     /// <summary>
-    /// SEを再生させる関数(柳専用)
+    /// SEを再生させる関数(エフェクト専用)
     /// </summary>
     /// <param name="E_SoundEffect">音</param>
-    public void YanagiSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
+    /// <param name="Volume">音量</param>
+    /// <param name="Loop">ループ</param>
+    public void EffectSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
     {
         //- AudioClipが存在していない場合
         if (!audioClips.ContainsKey(E_SoundEffect))
