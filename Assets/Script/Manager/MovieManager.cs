@@ -105,7 +105,9 @@ public class MovieManager : MonoBehaviour
 
         //- 一定時間後、花火を発生させる
         yield return new WaitForSeconds(DelayFireflowerTime);
-        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+        //- 里に応じて流す効果音を変える
+        if (LoadStageNum != 4) { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion); }
+        else { SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f); }
         SetActiveMovieObject(0, false); //- ぬし花火の退場
         SetActiveMovieObject(1, true);  //- エフェクト登場
 
@@ -139,6 +141,7 @@ public class MovieManager : MonoBehaviour
             //- 演出シーンをアンロード
             UnloadMovieScene();
             fade.SetFade(ObjectFade.FadeState.Out, FadeTime);
+            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Opening); // 開幕音流用
             GameObject.Find("BGMManager").GetComponent<BGMManager>().DestroyPossible(); // BGMManagerを削除可能にする
             SceneChange.bIsChange = true;
             GameObject.Find("Main Camera").GetComponent<SceneChange>().Change(); // シーン切り替え

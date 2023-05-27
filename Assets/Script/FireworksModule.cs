@@ -701,7 +701,7 @@ public class FireworksModule : MonoBehaviour
         {
             //- delayTime秒待機する
             yield return new WaitForSeconds(delayTime);
-            SEManager.Instance.YanagiSetPlaySE(SEManager.E_SoundEffect.YanagiFire, 0.05f);// 柳のエフェクト音再生
+            SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.YanagiFire, 0.05f);// 柳のエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
             //- 生成位置をずらす
@@ -1539,17 +1539,29 @@ public class FireworksModule : MonoBehaviour
         }
     }
 
+    private IEnumerator MakeDragonEffect(float delayTime, int maxEffect)
+    {
+        //- エフェクトを生成
+        for (int i = 0; i < maxEffect; i++)
+        {
+            //- delayTime秒待機する
+            yield return new WaitForSeconds(delayTime);
+            SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f);// ドラゴンのエフェクト音再生
+            //- エフェクト生成のために、座標を取得
+            Vector3 pos = transform.position;
+            //- 指定した位置に生成
+            GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        }
+    }
+
     private void Boss4Fire()
     {
         if (!_isOnce)
         { // 爆発直後一回のみ
             _isOnce = true;
-            //- 指定した位置に生成
-            GameObject fire = Instantiate(
-                ParticleObject,                     // 生成(コピー)する対象
-                transform.position,                 // 生成される位置
-                Quaternion.Euler(0.0f, 0.0f, 0.0f)  // 最初にどれだけ回転するか
-                );
+
+            //- MakeDragonEffectメソッドを呼び出す
+            StartCoroutine(MakeDragonEffect(0.01f, 1));
 
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
