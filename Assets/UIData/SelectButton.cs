@@ -14,7 +14,7 @@ using DG.Tweening;
 //- ボタン選択時に動作するクラス
 public class SelectButton : MonoBehaviour
 {
-    [SerializeField, Header("シーン遷移先")] private SceneObject NextScene;          //シーン遷移先
+    [SerializeField, Header("シーン遷移先")] private SceneObject NextScene;           //シーン遷移先
     [SerializeField, Header("フェード開始遅延時間")] private float DelayTime;         //フェードが呼び出されるまでの遅延時間
     [SerializeField, Header("フェードオブジェクト")] private GameObject fadeObject;   //フェード用オブジェクト
     [SerializeField, Header("フェード完了までの時間")] private float FadeTime;        //フェード完了時間
@@ -78,7 +78,7 @@ public class SelectButton : MonoBehaviour
         button.interactable = false;
 
         //- ボタンアニメが存在していたら処理
-        if(buttonAnime)
+        if (buttonAnime)
         { 
             //- ボタン入力アニメーション
             buttonAnime.PushButtonAnime();
@@ -130,7 +130,7 @@ public class SelectButton : MonoBehaviour
         if (CutIn.MoveCompleat) { CutIn.ResetMoveComplete(); }
         if (BoardMove.MoveComplete) { BoardMove.ResetMoveComplete(); }
         if (OpeningAnime.MoveCompleat) { OpeningAnime.ResetMoveComplete(); }
-        
+
         //- クリック音再生
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
         
