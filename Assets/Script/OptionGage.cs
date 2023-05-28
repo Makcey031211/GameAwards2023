@@ -39,6 +39,10 @@ public class OptionGage : MonoBehaviour
 
     //- プレイヤーの情報を取得する変数
     PController player;
+
+    //- ゲームパッド
+    Gamepad gamepad;
+
     void Start()
     {
         //- コンポーネントの取得
@@ -49,6 +53,8 @@ public class OptionGage : MonoBehaviour
 
         //- プレイヤーの情報を
         player = GameObject.Find("Player").GetComponent<PController>();
+        //- ゲームパッドの取得
+        gamepad = Gamepad.current;
     }
     
     void FixedUpdate()
@@ -81,7 +87,9 @@ public class OptionGage : MonoBehaviour
             if (bIsStartRetry == true) return; //- リセット開始フラグがたっていればリターン
             imageInGame.fillAmount = 0; //- 反対のゲージのリセット
             bIsStartRetry = true; //シーン開始フラグをたてる
+
             GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
+            if (gamepad != null) DOVirtual.DelayedCall(FadeTime, () => gamepad.SetMotorSpeeds(0.0f, 0.0f)); //- 振動を止める
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(SceneManager.GetActiveScene().name)); // シーンのロード(遅延あり)
         }
 
@@ -107,8 +115,10 @@ public class OptionGage : MonoBehaviour
             if (bIsStartInGame == true) return; //- リセット開始フラグがたっていればリターン
             imageRetry.fillAmount = 0; //- 反対のゲージのリセット
             bIsStartInGame = true; //シーン開始フラグをたてる
+
             GameObject.Find("FadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             BGMManager bgmManager = GameObject.Find("BGMManager").GetComponent<BGMManager>();
+            if (gamepad != null) DOVirtual.DelayedCall(FadeTime, () => gamepad.SetMotorSpeeds(0.0f, 0.0f)); //- 振動を止める
             DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager());
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(SelectScene)); // シーンのロード(遅延あり)
         }

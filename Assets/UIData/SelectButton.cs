@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 //- ボタン選択時に動作するクラス
 public class SelectButton : MonoBehaviour
@@ -137,11 +138,14 @@ public class SelectButton : MonoBehaviour
         //- シーン遷移用アニメーションを再生する
         SelectPlayer = GetComponent<SelectMovePlayer>();
         SelectPlayer.InStageMove();
-        
+
+        //- ゲームパッドの取得
+        Gamepad gamepad = Gamepad.current;
+
         //- 遅延後の処理
+        if (gamepad != null) DOVirtual.DelayedCall(FadeTime, () => gamepad.SetMotorSpeeds(0.0f, 0.0f)); //- 振動を止める
         DOVirtual.DelayedCall(DelayTime, () => fadeObject.GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime));
         DOVirtual.DelayedCall(FadeTime, () => bgmManager.DestroyBGMManager()).SetDelay(DelayTime);
         DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(NextScene)).SetDelay(DelayTime);
-
     }
 }
