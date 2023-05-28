@@ -27,7 +27,8 @@ public class SoundEditor : Editor
         {
             EditorGUILayout.LabelField("--- 花火関連 ---");
             _se.explosion  = EditorGUILayout.ObjectField("爆発音", _se.explosion, typeof(AudioClip), false) as AudioClip;
-            _se.yanagifire = EditorGUILayout.ObjectField("柳音", _se.yanagifire, typeof(AudioClip), false) as AudioClip;
+            _se.yanagifire = EditorGUILayout.ObjectField("柳花火音", _se.yanagifire, typeof(AudioClip), false) as AudioClip;
+            _se.dragonfire = EditorGUILayout.ObjectField("ドラゴン花火音", _se.dragonfire, typeof(AudioClip), false) as AudioClip;
             _se.barrierdes = EditorGUILayout.ObjectField("バリア破壊音", _se.barrierdes, typeof(AudioClip), false) as AudioClip;
             _se.belt       = EditorGUILayout.ObjectField("打ち上げ音", _se.belt, typeof(AudioClip), false) as AudioClip;
             _se.bossbelt   = EditorGUILayout.ObjectField("ボス打ち上げ音", _se.bossbelt, typeof(AudioClip), false) as AudioClip;

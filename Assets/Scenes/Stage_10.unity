@@ -4630,7 +4630,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: cfc65e0582f46a24ba281fa9830d6aac,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cfc65e0582f46a24ba281fa9830d6aac,
         type: 3}
@@ -4689,6 +4689,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfc65e0582f46a24ba281fa9830d6aac, type: 3}
+--- !u!1 &1224594190 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4062016860530450255, guid: cfc65e0582f46a24ba281fa9830d6aac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1224594189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1224594191 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3672548509089925874, guid: cfc65e0582f46a24ba281fa9830d6aac,
+    type: 3}
+  m_PrefabInstance: {fileID: 1224594189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1229211416 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3017214074442472811, guid: b0f10f8ade17453479566e4969347a6a,
@@ -9724,6 +9736,8 @@ MonoBehaviour:
   _insideBarrierColor: {r: 1, g: 0, b: 0, a: 0.27058825}
   _insideBarrierParticleObj: {fileID: 6372781163403469091, guid: 56df06080f1e94e4785bde5c77169d0d,
     type: 3}
+  _boss1Obj1: {fileID: 1224594191}
+  _boss1Obj2: {fileID: 1224594190}
   _tonboSpeed: 0
   _effectTonbo: {fileID: 0}
   movedir: {x: 0, y: 0}
@@ -9735,13 +9749,15 @@ MonoBehaviour:
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
   _movieObject: {fileID: 1399415027}
+  _bossIgniteColor: {r: 1, g: 0.3137255, b: 0.3137255, a: 0}
+  _fadeTime: 0.7
   _synchroTime: 0
   _boss2barrierObj: {fileID: 0}
   _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
   _boss2barrierParticleObj: {fileID: 0}
+  _boss2Obj1: {fileID: 0}
+  _boss2Obj2: {fileID: 0}
   _boss3obj: {fileID: 0}
-  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
-  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}

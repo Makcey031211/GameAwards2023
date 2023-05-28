@@ -68,11 +68,15 @@ public class FireworksModuleEditor : Editor {
             _target._insideBarrier =  (GameObject)EditorGUILayout.ObjectField("内側のバリア", _target.InsideBarrier,  typeof(GameObject), true);
             _target._insideBarrierColor = EditorGUILayout.ColorField("内側のバリアの色", _target.InsideBarrierColor);
             _target._insideBarrierParticleObj = (GameObject)EditorGUILayout.ObjectField("内側のバリア破壊のエフェクト", _target.InsideBarrierParticleObj, typeof(GameObject), true);
+            _target._boss1Obj1 = (GameObject)EditorGUILayout.ObjectField("変化させるボスオブジェクト1", _target.Boss1Obj1, typeof(GameObject), true);
+            _target._boss1Obj2 = (GameObject)EditorGUILayout.ObjectField("変化させるボスオブジェクト2", _target.Boss1Obj2, typeof(GameObject), true);
+            _target._bossIgniteColor = EditorGUILayout.ColorField("引火時の色", _target.BossIgniteColor);
+            _target._fadeTime = EditorGUILayout.FloatField("色のフェード時間(秒)", _target.FadeTime);
             break;
         case FireworksModule.FireworksType.Dragonfly:
             _target._tonboSpeed =  EditorGUILayout.FloatField("スピード", _target.TonboSpeed);
             _target._effectTonbo = (GameObject)EditorGUILayout.ObjectField("トンボ花火のエフェクト", _target.EffectTonbo, typeof(GameObject), true);
-                break;
+            break;
         case FireworksModule.FireworksType.Yanagi:
             _target._modelResidueTime = EditorGUILayout.FloatField("モデル残留時間", _target.ModelResidueTime);
             EditorGUILayout.LabelField("--- 色関連 ---");
@@ -89,11 +93,15 @@ public class FireworksModuleEditor : Editor {
             _target._boss2barrierObj = (GameObject)EditorGUILayout.ObjectField("バリアオブジェクト", _target.Boss2BarrierObj, typeof(GameObject), true);
             _target._boss2barrierColor = EditorGUILayout.ColorField("バリアの色", _target.Boss2BarrierColor);
             _target._boss2barrierParticleObj = (GameObject)EditorGUILayout.ObjectField("バリア破壊のエフェクト", _target.Boss2BarrierParticleObj, typeof(GameObject), true);
+            _target._boss2Obj1 = (GameObject)EditorGUILayout.ObjectField("変化させるボスオブジェクト1", _target.Boss2Obj1, typeof(GameObject), true);
+            _target._boss2Obj2 = (GameObject)EditorGUILayout.ObjectField("変化させるボスオブジェクト2", _target.Boss2Obj2, typeof(GameObject), true);
+            _target._bossIgniteColor = EditorGUILayout.ColorField("引火時の色", _target.BossIgniteColor);
+            _target._fadeTime = EditorGUILayout.FloatField("色のフェード時間(秒)", _target.FadeTime);
             break;
         case FireworksModule.FireworksType.Boss3:
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
-            _target._boss3obj = (GameObject)EditorGUILayout.ObjectField("ボス３オブジェクト", _target.Boss3Obj, typeof(GameObject), true);
-            _target._boss3igniteColor = EditorGUILayout.ColorField("引火時の色", _target.Boss3IgniteColor);
+            _target._boss3obj = (GameObject)EditorGUILayout.ObjectField("変化させるボスオブジェクト", _target.Boss3Obj, typeof(GameObject), true);
+            _target._bossIgniteColor = EditorGUILayout.ColorField("引火時の色", _target.BossIgniteColor);
             _target._fadeTime = EditorGUILayout.FloatField("色のフェード時間(秒)", _target.FadeTime);
             break;
         case FireworksModule.FireworksType.Boss4:

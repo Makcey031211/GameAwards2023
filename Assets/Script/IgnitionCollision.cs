@@ -7,14 +7,12 @@ public class IgnitionCollision : MonoBehaviour
     [Header("花火スクリプトオブジェクト"), SerializeField]
     private GameObject moduleObj;
     private FireworksModule module; //- 花火スクリプト
-    [Header("レイ当たり判定オブジェクト"), SerializeField]
-    private GameObject raycheckObj;
-    private DragonflyRayCheck raycheck; //- レイ当たり判定スクリプト
     [Header("被弾後の無敵時間(秒)"), SerializeField]
     private float InvisibleTime;
     [Header("削除するオブジェクト"), SerializeField]
     private GameObject destroyObj;
-
+    
+    private DragonflyRayCheck raycheck; //- レイ当たり判定スクリプト
 
     //- インスペクター側から非表示にする
     [SerializeField, HideInInspector]
@@ -27,9 +25,9 @@ public class IgnitionCollision : MonoBehaviour
         //- 花火スクリプトの取得
         module = moduleObj.GetComponent<FireworksModule>();
         //- レイ当たり判定スクリプトの取得
-        raycheck = raycheckObj.GetComponent<DragonflyRayCheck>();
+        raycheck = moduleObj.GetComponent<DragonflyRayCheck>();
     }
-    void Update()
+    void FixedUpdate()
     {
         //- 爆発してからの時間をカウント
         if (module.IsExploded) TimeCount += Time.deltaTime;
