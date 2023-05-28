@@ -75,6 +75,19 @@ public class IgnitionCollision : MonoBehaviour
         else if (module.Type == FireworksModule.FireworksType.ResurrectionPlayer)
             if (module.GetIsInv() == false)
             { module.Ignition(transform.position); }
+
+        //- 当たったオブジェクトの種類によって自身を消滅
+        if (module.Type == FireworksModule.FireworksType.Normal ||
+            module.Type == FireworksModule.FireworksType.Double)
+        {
+            //- レイスクリプト側で失敗判定を復活させていないなら、失敗判定を復活させる
+            if (!raycheck.isPlayback)
+            {
+                SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
+                scenechange.RequestStopMiss(false);
+            }
+            Destroy(destroyObj);
+        }
     }
     void HitExplodeCollision(Collider other)
     {
