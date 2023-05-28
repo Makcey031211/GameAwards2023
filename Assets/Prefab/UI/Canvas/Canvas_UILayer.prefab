@@ -568,6 +568,7 @@ GameObject:
   - component: {fileID: 3051055469318799164}
   - component: {fileID: 3051055469318799165}
   - component: {fileID: 3051055469318799162}
+  - component: {fileID: 5505197530510934572}
   m_Layer: 0
   m_Name: Canvas_UILayer
   m_TagString: Untagged
@@ -668,6 +669,20 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5505197530510934572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051055469318799163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e62a76692475db4d9f913249135c706, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  satoSelectResetFlag: 0
+  stageSelectResetFlag: 0
 --- !u!1 &3226660888892081525
 GameObject:
   m_ObjectHideFlags: 0
@@ -1343,6 +1358,41 @@ PrefabInstance:
       propertyPath: fadeObject
       value: 
       objectReference: {fileID: 3051055470339269543}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 5505197530510934572}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnNext
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DefaultSelectReset, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3017214074442472817, guid: b0f10f8ade17453479566e4969347a6a,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4793753524219336693, guid: b0f10f8ade17453479566e4969347a6a,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1818,6 +1868,11 @@ PrefabInstance:
       propertyPath: fadeObject
       value: 
       objectReference: {fileID: 3051055470339269543}
+    - target: {fileID: 5675849925784423993, guid: 97b0a932bcd9a204480c69cc2f84e01f,
+        type: 3}
+      propertyPath: stageSelectResetFlag
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5675849925784423996, guid: 97b0a932bcd9a204480c69cc2f84e01f,
         type: 3}
       propertyPath: m_Pivot.x
