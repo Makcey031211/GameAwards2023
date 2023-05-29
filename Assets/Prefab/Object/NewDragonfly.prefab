@@ -112,6 +112,8 @@ MonoBehaviour:
   _insideBarrier: {fileID: 0}
   _insideBarrierColor: {r: 0, g: 0, b: 0, a: 0}
   _insideBarrierParticleObj: {fileID: 0}
+  _boss1Obj1: {fileID: 0}
+  _boss1Obj2: {fileID: 0}
   _tonboSpeed: 0.8
   _effectTonbo: {fileID: 5410708917586471521}
   movedir: {x: 0, y: 0}
@@ -123,13 +125,15 @@ MonoBehaviour:
   _reafobj2: {fileID: 0}
   _reafColor2: {r: 0, g: 0, b: 0, a: 0}
   _movieObject: {fileID: 0}
+  _bossIgniteColor: {r: 0, g: 0, b: 0, a: 0}
+  _fadeTime: 0.5
   _synchroTime: 0
   _boss2barrierObj: {fileID: 0}
   _boss2barrierColor: {r: 0, g: 0, b: 0, a: 0}
   _boss2barrierParticleObj: {fileID: 0}
+  _boss2Obj1: {fileID: 0}
+  _boss2Obj2: {fileID: 0}
   _boss3obj: {fileID: 0}
-  _boss3igniteColor: {r: 0, g: 0, b: 0, a: 0}
-  _fadeTime: 0.5
   InGR: {fileID: 0}
   InGS: {fileID: 0}
   Tips: {fileID: 0}
@@ -721,7 +725,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moduleObj: {fileID: 1282081165703502451}
-  raycheckObj: {fileID: 1282081165703502451}
   InvisibleTime: 0.3
   destroyObj: {fileID: 1282081165717895371}
   IsDestroy: 0
@@ -796,6 +799,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298451386420724651, guid: fd249d0199d87e5469a1cfe23ea074e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298451386470191467, guid: fd249d0199d87e5469a1cfe23ea074e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298451386675380458, guid: fd249d0199d87e5469a1cfe23ea074e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 8298451387426253627, guid: fd249d0199d87e5469a1cfe23ea074e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd249d0199d87e5469a1cfe23ea074e7, type: 3}
