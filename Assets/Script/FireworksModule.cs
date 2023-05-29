@@ -114,6 +114,7 @@ public class FireworksModule : MonoBehaviour
     public Color ParentFireColor => _parentFireColor;
     public GameObject ChildFireObj => _childFireObj;
     public Color ChildFireColor => _childFireColor;
+    MeshRenderer mesh;
 
     //- ハード、通常花火の項目
     [SerializeField, HideInInspector]
@@ -357,6 +358,8 @@ public class FireworksModule : MonoBehaviour
             _reafobj1.GetComponent<Renderer>().material.color = _reafColor1;
             _reafobj2.GetComponent<Renderer>().material.color = _reafColor2;
         }
+        mesh = GetComponent<MeshRenderer>();
+        StartCoroutine("Transparent");
 
         //- 復活箱の項目
         sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
@@ -687,6 +690,8 @@ public class FireworksModule : MonoBehaviour
             DOVirtual.DelayedCall(15.0f, () => scenechange.RequestStopMiss(false));
             //- 爆発後に削除
             DOVirtual.DelayedCall(_modelResidueTime, () => transform.GetChild(0).gameObject.SetActive(false));
+
+            
         }
     }
 
@@ -1548,7 +1553,7 @@ public class FireworksModule : MonoBehaviour
             pos.x -= 1.6f;
             pos.y += 1.6f;
             //- 指定した位置に生成
-            GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+            GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(-90.0f, 0.0f, 0.0f));
         }
     }
 
