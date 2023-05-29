@@ -114,7 +114,6 @@ public class FireworksModule : MonoBehaviour
     public Color ParentFireColor => _parentFireColor;
     public GameObject ChildFireObj => _childFireObj;
     public Color ChildFireColor => _childFireColor;
-    MeshRenderer mesh;
 
     //- ハード、通常花火の項目
     [SerializeField, HideInInspector]
@@ -358,8 +357,6 @@ public class FireworksModule : MonoBehaviour
             _reafobj1.GetComponent<Renderer>().material.color = _reafColor1;
             _reafobj2.GetComponent<Renderer>().material.color = _reafColor2;
         }
-        mesh = GetComponent<MeshRenderer>();
-        StartCoroutine("Transparent");
 
         //- 復活箱の項目
         sceneChange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
