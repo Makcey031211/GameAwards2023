@@ -379,10 +379,6 @@ public class FireworksModule : MonoBehaviour
         igniteCount = 0;
 
         //- 4面ぬし花火の項目
-        if (_type == FireworksType.Boss4)
-        {
-            DetonationCol = _collisionObject.GetComponent<DetonationCollision>();
-        }
     }
 
     // Update is called once per frame
@@ -1549,6 +1545,8 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f);// ドラゴンのエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
+            pos.x -= 1.6f;
+            pos.y += 1.6f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(0.0f, 0.0f, 0.0f));
         }
@@ -1566,25 +1564,12 @@ public class FireworksModule : MonoBehaviour
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
-            //- 当たり判定を有効化する
-            // 当たったオブジェクトのColliderを有効にする
-            CollisionObject.gameObject.GetComponent<Collider>().enabled = true;
-            // 当たり判定の拡大用コンポーネントを有効にする
-            DetonationCol.enabled = true;
-
             //- 爆発時に描画をやめる
             StopRenderer(gameObject);
 
             //- 爆発音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
         }
-
-        //_afterTimeCount += Time.deltaTime;
-        ////- 当たり判定を消す処理
-        //if (_afterTimeCount >= _blastAfterTime)
-        //{
-        //    DetonationCol.EndDetonation(); //- 当たり判定の消滅
-        //}
 
         enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
         if (!bAnime && enemyNum <= 1)
@@ -1596,12 +1581,6 @@ public class FireworksModule : MonoBehaviour
             //- フラグ変更
             SceneChange scenechange = GameObject.Find("Main Camera").GetComponent<SceneChange>();
             scenechange.RequestStopClear(true);
-            //- アニメーション処理
-            //transform.DOMoveY(transform.position.y - 2.0f, 1.0f).SetEase(Ease.OutSine).SetDelay(1.0f).SetLink(gameObject);
-            //transform.DOMoveY(20, 0.7f).SetEase(Ease.OutSine).SetDelay(2.3f).SetLink(gameObject);
-            //DOTween.Sequence().SetDelay(1.5f).OnComplete(() =>
-            //{ SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.BossBelt); });
-
             //- 演出用スクリプトの取得
             MovieManager movie = MovieObject.GetComponent<MovieManager>();
             //- 演出フラグ変更

@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEditor;
 
 /*
-* 制作：髙橋
-* 概要：SEを編集するスクリプト
-*/
+ ===================
+ 制作：髙橋
+ 概要：SEを編集するスクリプト
+ ===================
+ */
 [CustomEditor(typeof(SEManager))]
 public class SoundEditor : Editor
 {
+    //- SEManagerを取得する変数
     private SEManager _se;
 
     //- 初期状態ではインスペクターで展開されている状態
