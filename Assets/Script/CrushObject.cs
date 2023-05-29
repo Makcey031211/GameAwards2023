@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// アタッチしたオブジェクトが判定をとるオブジェクトに指定したオブジェクト同士に挟まれたら
-// 爆発させるオブジェクトを爆発させる
+// アタッチしたオブジェクトが"判定をとるオブジェクト"に指定したオブジェクト同士に挟まれたら
+// "爆発させるオブジェクト"を爆発させる
 
 public class CrushObject : MonoBehaviour
 {
@@ -57,42 +57,14 @@ public class CrushObject : MonoBehaviour
         if (other.name == obj1.name && checkobj1 == false)
         {
             hitObjects.Add(other.gameObject);
-            Debug.Log(other.name);
             checkobj1 = true;
         }
 
         if (other.name == obj2.name && checkobj2 == false)
         {
             hitObjects.Add(other.gameObject);
-            Debug.Log(other.name);
             checkobj2 = true;
         }
 
     }
-    void OnCollisionStay(Collision other)
-    {
-        // 衝突しているオブジェクトをリストに登録する
-        if (other.gameObject.name == obj1.name && checkobj1 == false)
-        {
-            hitObjects.Add(other.gameObject);
-            Debug.Log(other.gameObject.name);
-            checkobj1 = true;
-        }
-
-        if (other.gameObject.name == obj2.name && checkobj2 == false)
-        {
-            hitObjects.Add(other.gameObject);
-            Debug.Log(other.gameObject.name);
-            checkobj2 = true;
-        }
-    }
-
-    //void OnTriggerStay(Collider other)
-    //{
-    //    if (other.tag == "Stage")
-    //    {
-    //        Debug.Log("Hit");
-    //        //OnTriggerEnter()
-    //    }
-    //}
 }
