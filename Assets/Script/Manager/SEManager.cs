@@ -2,9 +2,11 @@ using UnityEngine;
 using System.Collections.Generic;
 
 /*
- * 制作：髙橋
- * 概要：SEを管理するスクリプト
- */ 
+ ===================
+ 制作：髙橋
+ 概要：SEを管理するスクリプト
+ ===================
+ */
 public class SEManager : MonoBehaviour
 {
     //- 列挙型定義(SE)

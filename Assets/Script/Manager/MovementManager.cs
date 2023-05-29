@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 制作：髙橋
- * 概要：オブジェクトの挙動を管理するクラス
- */
+ ===================
+ 制作：髙橋
+ 概要：オブジェクトの挙動を管理するスクリプト
+ ===================
+*/
 public class MovementManager : MonoBehaviour
 {
     //--- 列挙体定義(タイプ)
@@ -406,6 +408,9 @@ public class MovementManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 滑らかな円運動
+    /// </summary>
     private void SmoothCircularMove()
     {
         //- nullチェック

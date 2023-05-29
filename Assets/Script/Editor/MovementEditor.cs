@@ -4,12 +4,15 @@ using UnityEngine;
 using UnityEditor;
 
 /*
- * 制作：髙橋
- * 概要：オブジェクトの挙動編集クラス
- */
+ ===================
+ 制作：髙橋
+ 概要：オブジェクトの挙動を編集するスクリプト
+ ===================
+*/
 [CustomEditor(typeof(MovementManager))]
 public class MovementEditor : Editor
 {
+    //- MovementManagerを取得する変数
     private MovementManager _move;
 
     public override void OnInspectorGUI()
