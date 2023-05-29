@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class DetonationWarpCollision : MonoBehaviour
 {
+    public Vector3 RayStartPos = new Vector3(0, 0, 0);
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag != "Fireworks") return;
+        float markdis = 2.0f;
+        Vector3 markpos = RayStartPos;
+        Debug.DrawRay(markpos, new Vector3(+markdis, +markdis, 0), Color.blue, 3.0f);
+        Debug.DrawRay(markpos, new Vector3(+markdis, -markdis, 0), Color.blue, 3.0f);
+        Debug.DrawRay(markpos, new Vector3(-markdis, +markdis, 0), Color.blue, 3.0f);
+        Debug.DrawRay(markpos, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
         CheckHitRayStage(other.gameObject);
     }
 
     private void CheckHitRayStage(GameObject obj)
     {
         // 自身から花火に向かう方向を計算
-        Vector3 direction = obj.transform.position - transform.position;
+        Vector3 direction = obj.transform.position - RayStartPos;
         // 自身と花火の長さを計算
         float DisLength = direction.magnitude;
         // 自身から花火に向かうレイを作成
-        Ray ray = new Ray(transform.position, direction);
+        Ray ray = new Ray(RayStartPos, direction);
         // 当たったオブジェクトを格納するための変数
         var HitList = new List<RaycastHit>();
 
@@ -64,15 +72,12 @@ public class DetonationWarpCollision : MonoBehaviour
             RaycastHit hit = HitList[i];
 
             //- 当たり判定のデバッグ表示
-            if (Input.GetKey(KeyCode.Alpha1))
-            {
-                float markdis = 0.1f;
-                Debug.DrawRay(transform.position, direction, Color.green, 3.0f);
-                Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.green, 3.0f);
-                Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.green, 3.0f);
-                Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.green, 3.0f);
-                Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.green, 3.0f);
-            }
+             float markdis = 0.1f;
+             Debug.DrawRay(transform.position, direction, Color.green, 3.0f);
+             Debug.DrawRay(hit.point, new Vector3(+markdis, +markdis, 0), Color.green, 3.0f);
+             Debug.DrawRay(hit.point, new Vector3(+markdis, -markdis, 0), Color.green, 3.0f);
+             Debug.DrawRay(hit.point, new Vector3(-markdis, +markdis, 0), Color.green, 3.0f);
+             Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.green, 3.0f);
             if (hit.collider.gameObject.tag != "Warphole") continue; //- ステージオブジェクト以外なら次へ
             if (hit.distance > DisLength) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
 
