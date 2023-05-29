@@ -5,10 +5,6 @@ using UnityEngine.InputSystem;
 
 public class DragonflyRayCheck : MonoBehaviour
 {
-    [Header("花火スクリプトオブジェクト"), SerializeField]
-    private GameObject moduleObj;
-    private FireworksModule module; //- 花火オブジェクトにアタッチされているスクリプト
-
     [Header("レイBOXの発生距離(レイBOXの一辺の長さ)"), SerializeField]
     private float RayBoxRadius;
 
@@ -17,6 +13,8 @@ public class DragonflyRayCheck : MonoBehaviour
 
     [Header("画面外離脱時、消去するオブジェクト"), SerializeField]
     private GameObject DestroyObject;
+
+    private FireworksModule module; //- 花火オブジェクトにアタッチされているスクリプト
 
     private Vector2[] RayStartPos;  //- レイの発生座標を格納する配列
     private Vector2[] RayDirection; //- レイの発生方向を格納する配列
@@ -33,7 +31,7 @@ public class DragonflyRayCheck : MonoBehaviour
     void Start()
     {
         //- 花火スクリプトの取得
-        module = moduleObj.GetComponent<FireworksModule>();
+        module = GetComponent<FireworksModule>();
 
         //- レイの発生座標配列を生成
         RayStartPos = new Vector2[5];
@@ -51,7 +49,7 @@ public class DragonflyRayCheck : MonoBehaviour
         RayDirection[3] = new Vector2(-1, 0);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         //- 侵入不可テープと離れるタイミングを調べるための変数
         CheckHitPlayerBlock = false;
@@ -205,7 +203,6 @@ public class DragonflyRayCheck : MonoBehaviour
 
     void CheckDobuleHit(int dirnum)
     {
-        return;
         //- トンボ花火が上に移動中なら実行
         if (dirnum == 0 && module.movedir.x == 0 && module.movedir.y == 1)
         {

@@ -105,7 +105,9 @@ public class MovieManager : MonoBehaviour
 
         //- 一定時間後、花火を発生させる
         yield return new WaitForSeconds(DelayFireflowerTime);
-        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+        //- 里に応じて流す効果音を変える
+        if (LoadStageNum != 4) { SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion); }
+        else { SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f); }
         SetActiveMovieObject(0, false); //- ぬし花火の退場
         SetActiveMovieObject(1, true);  //- エフェクト登場
 
