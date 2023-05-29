@@ -1271,6 +1271,7 @@ public class FireworksModule : MonoBehaviour
             Vector2 dis = myPoint - IgnPoint;
             float angle = Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg;
             angle += DirAngle / 2 ;
+            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.TonboFire); // トンボ花火の音
             //- 範囲外に出た角度を戻す
             if (angle < 0) angle += 360;
             //- 最終的な方向
