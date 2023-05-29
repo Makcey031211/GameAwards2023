@@ -54,9 +54,12 @@ public class StorySkip : MonoBehaviour
     public void OnSkip(InputAction.CallbackContext context)
     {
         //- クリアしていない際にボタン入力を受け付ける
-        if (context.started && !SceneChange.bIsChange)
-        { PushFlag = true; }//入力中
-        if (context.canceled && !SceneChange.bIsChange)
+        if (context.started)
+        {
+            Debug.Log("a");
+            PushFlag = true;
+        }//入力中
+        if (context.canceled)
         { PushFlag = false; }//入力中止
     }
 }
