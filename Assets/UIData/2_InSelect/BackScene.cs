@@ -83,4 +83,17 @@ public class BackScene : MonoBehaviour
         }
         if (context.canceled) { bIsPushBack = false; }
     }
+
+    /// <summary>
+    /// ポップ時にタイトルに戻る処理
+    /// </summary>
+    public void VillagePoPToTitle()
+    {
+        if (bIsStartInGame == true) return; // リセット開始フラグがたっていればリターン
+        bIsStartInGame = true; // シーン開始フラグをたてる
+        SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click); // クリック音再生
+        GameObject.Find("ColorFadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
+        DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
+        DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
+    }
 }
