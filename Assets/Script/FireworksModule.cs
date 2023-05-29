@@ -1080,14 +1080,14 @@ public class FireworksModule : MonoBehaviour
                     Debug.DrawRay(hit.point, new Vector3(-markdis, -markdis, 0), Color.blue, 3.0f);
                 }
                 if (hit.collider.gameObject.tag != "Warphole") continue; //- ステージオブジェクト以外なら次へ
-                if (hit.distance < dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
+                if (hit.distance > dis) continue;               //- 花火玉よりステージオブジェクトが奥にあれば次へ
 
                 //- 当たった花火玉より手前にステージオブジェクトが存在する
                 bBlast = true; //- フラグ変更
             }
 
             //- 遅延をかけて爆破
-            if (!bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime, RangeStartPos));
+            if (bBlast) StartCoroutine(DelayDestroyCracker(obj, DelayTime, RangeStartPos));
         }
     }
 
