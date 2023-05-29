@@ -29,6 +29,7 @@ public class DetonationCollision : MonoBehaviour
 
     bool initHitWarp = true; //- ワープホールに初めて当たったかどうか
     Vector3 WarpDis = new Vector3(0, 0, 0); //- ワープホールへの距離
+    Vector3 AddDis = new Vector3(0, 0, 0); //- 追加する距離
     GameObject WarpA;     //- ワープホールA
     GameObject WarpB;     //- ワープホールB
     GameObject EnterWarp; //- ワープホール入口
@@ -100,9 +101,9 @@ public class DetonationCollision : MonoBehaviour
             if (EnterWarp.gameObject.name == "WarpholeB") ExitWarp = WarpA;
             //- 花火と入口のワープホールの距離を取得
             WarpDis = transform.position - EnterWarp.transform.position;
-            //- 出口先の花火の中心を計算
-            Vector3 Pos = ExitWarp.transform.position + WarpDis;
-
+            //- 座標を調整
+            AddDis = WarpDis.normalized * -5.0f;
+            //- ワープ方向計算フラグを変更
             initHitWarp = true;
         }
         if (CoolTimeCount < 0.2f)
@@ -113,14 +114,17 @@ public class DetonationCollision : MonoBehaviour
         CoolTimeCount = 0.0f;
         //- 指定した位置に生成
         GameObject WarpCol = Instantiate(
-           DetonationWarpObj,                     // 生成(コピー)する対象
-           ExitWarp.transform.position + WarpDis, // 生成される位置
-           Quaternion.Euler(0.0f, 0.0f, 0.0f)     // 最初にどれだけ回転するか
+           DetonationWarpObj,                              // 生成(コピー)する対象
+           ExitWarp.transform.position + WarpDis + AddDis, // 生成される位置
+           Quaternion.Euler(0.0f, 0.0f, 0.0f)              // 最初にどれだけ回転するか
                 );
+
         //- ワープした当たり判定
         Vector3 scale = this.transform.lossyScale;
-        float sizeRatio = 2.3f;
-        WarpCol.transform.localScale = new Vector3(scale.x * sizeRatio, scale.y * sizeRatio, scale.z * sizeRatio);
+        WarpCol.transform.localScale = new Vector3(scale.x, scale.y, scale.z);
+
+        //- ワープした当たり判定のレイ開始点を設定
+        WarpCol.GetComponent<DetonationWarpCollision>().RayStartPos = ExitWarp.transform.position + WarpDis;
     }
 
     //- 花火玉に当たった時にステージオブジェクトに阻まれてないかどうか調べる関数
