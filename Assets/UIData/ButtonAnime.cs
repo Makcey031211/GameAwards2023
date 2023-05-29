@@ -27,6 +27,7 @@ public class ButtonAnime : MonoBehaviour,
     [SerializeField] private Image image;            //ボタン押下時に動作する画像
     [SerializeField] private TextMeshProUGUI tmp;    //ボタン押下時に動作するテキスト
     [SerializeField] private Color OverTextColor;    //ボタン押下時にテキストを変色させる用
+    [SerializeField] private float SelectTime = 0.25f;       //選択アニメが完了するまでの時間
     private Color BaseTextColor;                     //元色
 
     public bool bPermissionSelectSE = true;          // 選択SEの再生が許可されているか
@@ -64,7 +65,7 @@ public class ButtonAnime : MonoBehaviour,
         if (image == null)
         { return; }
 
-        image.DOFillAmount(1.0f, 0.25f).SetEase(Ease.OutCubic).Play();  
+        image.DOFillAmount(1.0f, SelectTime).SetEase(Ease.OutCubic).Play();  
         tmp.DOColor(OverTextColor, 0.25f).Play();
     }
 
@@ -82,7 +83,7 @@ public class ButtonAnime : MonoBehaviour,
         //- 連打対策フラグが立っていなければ処理
         if (!bPush)
         {
-            image.DOFillAmount(0.0f, 0.25f).SetEase(Ease.OutCubic).Play();
+            image.DOFillAmount(0.0f, SelectTime).SetEase(Ease.OutCubic).Play();
             tmp.DOColor(BaseTextColor, 0.25f).Play();
         }
     }
@@ -131,6 +132,8 @@ public class ButtonAnime : MonoBehaviour,
                 = (TextMeshProUGUI)EditorGUILayout.ObjectField("テキスト", btnAnm.tmp, typeof(TextMeshProUGUI), true);
             btnAnm.OverTextColor
                 = EditorGUILayout.ColorField("カラー", btnAnm.OverTextColor);
+            btnAnm.SelectTime
+                = EditorGUILayout.FloatField("アニメ完了までの時間", btnAnm.SelectTime);
             
             //- インスペクターの更新
             if(GUI.changed)
