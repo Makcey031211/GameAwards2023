@@ -21,6 +21,7 @@ public class SaveManager : MonoBehaviour
     private void Awake()
     {
         //- ƒf[ƒ^“Ç‚İ‚İ
+        AesExample.EncryptDataLoad();
         DataLoad();
     }
 
