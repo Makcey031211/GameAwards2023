@@ -68,8 +68,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u3059\u3066\u30FC\u3058\u9078\u629E"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: de7f5821d3be91242935c06002c50303, type: 2}
-  m_sharedMaterial: {fileID: -7512146191574563251, guid: de7f5821d3be91242935c06002c50303,
+  m_fontAsset: {fileID: 11400000, guid: 19f42246585550849b3577edd4af0a8e, type: 2}
+  m_sharedMaterial: {fileID: -8805414115295134844, guid: 19f42246585550849b3577edd4af0a8e,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -291,8 +291,6 @@ MonoBehaviour:
   DelayTime: 0
   fadeObject: {fileID: 0}
   FadeTime: 0.5
-  satoSelectResetFlag: 0
-  stageSelectResetFlag: 1
 --- !u!114 &5675849925784423994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +331,7 @@ MonoBehaviour:
   image: {fileID: 999530475496268782}
   tmp: {fileID: 1215594791905947094}
   OverTextColor: {r: 0.74509805, g: 0.22352941, b: 0, a: 1}
+  SelectTime: 0.25
   bPermissionSelectSE: 1
 --- !u!1 &6999221911182448917
 GameObject:
@@ -361,7 +360,7 @@ RectTransform:
   m_GameObject: {fileID: 6999221911182448917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.2, y: 0.28, z: 1}
+  m_LocalScale: {x: 2.255, y: 0.28350002, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5675849925784423996}
@@ -369,7 +368,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 1, y: 0.4}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2336900893769667154

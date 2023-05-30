@@ -104,4 +104,11 @@ public class DefaultSelectStage : MonoBehaviour
 
         Debug.Log(selectObj.name);
     }
+
+    /// <summary>
+    /// Œ»İ‚Ì‘I‘ğ‚µ‚Ä‚éƒ{ƒ^ƒ“”Ô†‚ğ•Ô‹p
+    /// </summary>
+    /// <returns selectNum></returns>
+    public int GetSelectNum()
+    {   return selectNum;   }
 }

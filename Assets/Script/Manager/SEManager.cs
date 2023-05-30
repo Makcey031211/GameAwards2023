@@ -15,6 +15,7 @@ public class SEManager : MonoBehaviour
         //* 花火関連 */
         Explosion,  // 爆発
         YanagiFire, // 柳花火
+        TonboFire,  // トンボ花火
         DragonFire, // ドラゴン花火
         BarrierDes, // バリア破壊
         Belt,       // 打ち上げ
@@ -44,6 +45,8 @@ public class SEManager : MonoBehaviour
     public AudioClip explosion;
     [SerializeField, HideInInspector]
     public AudioClip yanagifire;
+    [SerializeField, HideInInspector]
+    public AudioClip tonbofire;
     [SerializeField, HideInInspector]
     public AudioClip dragonfire;
     [SerializeField, HideInInspector]
@@ -139,6 +142,7 @@ public class SEManager : MonoBehaviour
     {
         audioClips.Add(E_SoundEffect.Explosion, explosion);
         audioClips.Add(E_SoundEffect.YanagiFire, yanagifire);
+        audioClips.Add(E_SoundEffect.TonboFire, tonbofire);
         audioClips.Add(E_SoundEffect.DragonFire, dragonfire);
         audioClips.Add(E_SoundEffect.BarrierDes, barrierdes);
         audioClips.Add(E_SoundEffect.Belt, belt);
@@ -222,6 +226,22 @@ public class SEManager : MonoBehaviour
             Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
             return;
         }
+
+        //- 引数で渡されたAudioClipを再生する
+        _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
+    }
+
+    public void TonboSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
+    {
+        //- AudioClipが存在していない場合
+        if (!audioClips.ContainsKey(E_SoundEffect))
+        {
+            Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
+            return;
+        }
+
+        //- ループプロパティを有効化する
+        _audioSource.loop = true;
 
         //- 引数で渡されたAudioClipを再生する
         _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
