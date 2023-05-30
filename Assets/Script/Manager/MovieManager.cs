@@ -98,7 +98,6 @@ public class MovieManager : MonoBehaviour
         if (LoadStageNum != 4)
         {
             yield return new WaitForSeconds(DelayBeltTime);
-            Debug.Log("a");
             SetActiveMovieObject(0, true);
             AnimeBossFireflower(0);
         }
