@@ -240,9 +240,6 @@ public class SEManager : MonoBehaviour
             return;
         }
 
-        //- ループプロパティを有効化する
-        _audioSource.loop = true;
-
         //- 引数で渡されたAudioClipを再生する
         _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
     }
