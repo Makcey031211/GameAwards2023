@@ -44,7 +44,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7051046112150316494}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.021
   m_Height: 0.09
@@ -257,6 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playChance: 5
+  simFrag: 0
 --- !u!1001 &8059602244972804833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -361,6 +362,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4878191787561613047, guid: f786eeb46dc310b4085cc159656c131b,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4878191787561613047, guid: f786eeb46dc310b4085cc159656c131b,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b57ba3b15d70d2b458b955e4c825ab83, type: 2}
@@ -369,6 +375,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d50580fdb36b11c4f9527633a3c08137, type: 2}
+    - target: {fileID: 6863340577967802692, guid: f786eeb46dc310b4085cc159656c131b,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6863340577967802692, guid: f786eeb46dc310b4085cc159656c131b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
