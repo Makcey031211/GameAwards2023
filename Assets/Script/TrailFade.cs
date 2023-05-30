@@ -38,7 +38,7 @@ public class TrailFade : MonoBehaviour
 
         if (time <= duration + delay) {
             value = (0 - 1) / duration * (time - delay) + 1;
-            Debug.Log((time - delay) + ":" + value);
+            //Debug.Log((time - delay) + ":" + value);
             materialPropertyBlock.SetFloat(fadeProperty, value);
             particle.SetPropertyBlock(materialPropertyBlock);
         }
