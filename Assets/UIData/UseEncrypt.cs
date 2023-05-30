@@ -5,7 +5,7 @@ using UnityEngine;
 public class UseEncrypt : MonoBehaviour
 {
     [SerializeField, Header("ˆÃ†‰»ƒtƒ‰ƒO")]
-    private bool isEncrypt;
+    private bool isEncrypt = true;
 
     private void OnValidate()
     {
