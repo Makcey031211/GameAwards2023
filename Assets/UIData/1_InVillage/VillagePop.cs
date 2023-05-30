@@ -1,9 +1,13 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class VillagePop : MonoBehaviour
 {
+    [SerializeField] private List<Button> sato;
+    [SerializeField] private DefaultSelectStage Dss;
     private Button EnterButton;
     private Button BackButton;
     private bool Open = false;
@@ -22,6 +26,7 @@ public class VillagePop : MonoBehaviour
         if (Open) { return; }
         Open = true;
 
+
         gameObject.SetActive(true); // ポップアップのオブジェクトを有効化
 
         EnterButton.interactable = true;
@@ -29,7 +34,12 @@ public class VillagePop : MonoBehaviour
 
         // イージング設定
         gameObject.transform.localScale = new Vector3(0.0f, 0.0f, 0.0f);
-        gameObject.transform.DOScale(1.0f, 0.35f).SetEase(Ease.OutBack).OnComplete(() => {Close = false;}); 
+        gameObject.transform.DOScale(1.0f, 0.35f).SetEase(Ease.OutBack).OnComplete(() => {Close = false;});
+
+
+        //- 里を選択できないようにする
+        for (int i = 0; i < sato.Count; i++)
+        { sato[i].interactable = false; }
 
         // ボタンの初期選択
         gameObject.transform.Find("ButtonEnter").GetComponent<Button>().Select();
@@ -50,6 +60,14 @@ public class VillagePop : MonoBehaviour
         gameObject.transform.DOScale(0.0f, 0.35f).SetEase(Ease.InCubic).OnComplete(() => {
             Open = false;
             gameObject.SetActive(false); }); // 終了時オブジェクト無効化
+
+
+        //- 里を選択できないようにする
+        for (int i = 0; i < sato.Count; i++)
+        { sato[i].interactable = true; }
+
+        //- ポップ前に選択中だったボタンを選択状態にする
+        sato[Dss.GetSelectNum()].Select();
 
         return;
     }

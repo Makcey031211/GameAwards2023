@@ -32,7 +32,7 @@ public class SatoButton : MonoBehaviour
         bgmManager  = GameObject.Find("BGMManager").GetComponent<BGMManager>();
         Input       = false;
     }
-
+    
     /// <summary>
     /// シーン遷移を行う処理
     /// 里選択
