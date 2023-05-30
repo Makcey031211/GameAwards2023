@@ -16,7 +16,7 @@ public class SaveManager : MonoBehaviour
     private const int STAGE_NUM = 40;    //総ステージ数
     private string FILE_PATH;            //セーブデータパス
     private static bool[] stageflag = new bool[STAGE_NUM];//ステージ数分フラグ配列を作成
-    private static bool encryptFlag;     // 暗号化フラグ
+    private static bool encryptFlag = true;     // 暗号化フラグ
 
     private void Awake()
     {
