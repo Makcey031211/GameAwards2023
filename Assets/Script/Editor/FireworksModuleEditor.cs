@@ -106,6 +106,7 @@ public class FireworksModuleEditor : Editor {
             break;
         case FireworksModule.FireworksType.Boss4:
             _target._movieObject = (GameObject)EditorGUILayout.ObjectField("演出を管理しているオブジェクト", _target.MovieObject, typeof(GameObject), true);
+            _target._playMotion  = EditorGUILayout.Toggle("モーション再生判定フラグ", _target._playMotion);
             break;
         }
         //- インスペクターの更新
