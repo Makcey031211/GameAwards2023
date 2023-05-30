@@ -308,7 +308,13 @@ public class FireworksModule : MonoBehaviour
     //- 4面ぬし花火の項目
     //- インスペクターに表示
     [SerializeField, HideInInspector]
-    public bool _playMotion = false; // モーション再生判定フラグ
+    public GameObject _motionObject; // モーション再生判定フラグ
+    [SerializeField, HideInInspector]
+    public GameObject _materialObject; // マテリアルがあるオブジェクト
+
+    //- 外部からの値取得用
+    public GameObject MotionObject => _motionObject;
+    public GameObject MaterialObject => _materialObject;
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -467,9 +473,6 @@ public class FireworksModule : MonoBehaviour
             Debug.DrawRay(end, pos - end, Color.red, 2.0f);
             // ============================
         }
-
-        //- モーション再生
-        if (_playMotion) { PlayDragonMotion(); }
     }
 
     // 爆発時に子オブジェクト含め描画をやめる処理
@@ -1206,6 +1209,8 @@ public class FireworksModule : MonoBehaviour
             }
             if (_blastCount == 2)
             {
+                //- 自身のタグを切り替える
+                gameObject.tag = "Untagged";
                 //- 無敵時間の設定
                 _MaxInvTime = _secondAfterTime;
                 //- 不要になったオブジェクトを消去
@@ -1554,47 +1559,47 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f);// ドラゴンのエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
-            pos.x -= 4.0f;
-            pos.y += 2.0f;
+            pos.x -= 3.4f;
+            pos.y += 3.5f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(-90.0f, 0.0f, 0.0f));
         }
     }
 
-    private void PlayDragonMotion()
+    private void PlayDragonMotion(GameObject gameObject)
     {
         //- Animationコンポーネントを取得してモーションを再生する
-        if (GetComponent<Animator>() != null)
+        if (gameObject.GetComponent<Animator>() != null)
         {
-            Debug.Log("a");
-            Animator animator = GetComponent<Animator>();
-            Debug.Log("b");
-            animator.Play("DragonAnime");
+            Animator animator = gameObject.GetComponent<Animator>();
+            animator.SetBool("Fire", true);
         }
     }
 
     private void Boss4Fire()
     {
-        if (!_isOnce)
-        { // 爆発直後一回のみ
-            _isOnce = true;
-            //- モーションを再生する
-            _playMotion = true;
+        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
+        Debug.Log(enemyNum);
+        if (!bAnime && enemyNum <= 1)
+        {
+            bAnime = true;
+
+            //- モーションを切り替える
+            _motionObject.GetComponent<DragonAnimation>().BreathAnime();
 
             //- MakeDragonEffectメソッドを呼び出す
-            StartCoroutine(MakeDragonEffect(1.0f, 1));
+            StartCoroutine(MakeDragonEffect(2.5f, 1));
 
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
-            //- 爆発音の再生
-            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
-        }
+            //- 自身のタグを切り替える
+            gameObject.tag = "Untagged";
 
-        enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
-        if (!_playMotion && !bAnime && enemyNum <= 1)
-        {
-            bAnime = true;
+            //- 色を変更
+            Material mat = _materialObject.GetComponent<Renderer>().material;
+            mat.DOColor(new Color(1.0f, 0.4f, 0.4f, 1.0f),1.0f);
+
             GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
             GameObject.Find("InGameReset").GetComponent<EntryAnime>().OutMove();
             GameObject.Find("InGameTips").GetComponent<EntryAnime>().OutMove();
@@ -1606,9 +1611,7 @@ public class FireworksModule : MonoBehaviour
             //- 演出フラグ変更
             movie.SetMovieFlag(true);
             //- 演出開始
-            DOVirtual.DelayedCall(3.1f, () => movie.StartVillageMovie(), false);
-            //- 破壊処理
-            Destroy(gameObject, 3.2f);
+            DOVirtual.DelayedCall(3.0f, () => movie.StartVillageMovie(), false);
         }
     }
 }
