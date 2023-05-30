@@ -305,7 +305,10 @@ public class FireworksModule : MonoBehaviour
     //- 外部からの値取得用
     public GameObject Boss3Obj => _boss3obj;
 
-    // バリアを持つオブジェクト
+    //- 4面ぬし花火の項目
+    //- インスペクターに表示
+    //[SerializeField, HideInInspector]
+    //public bool _playMotion = false; // モーション再生判定フラグ
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -464,6 +467,9 @@ public class FireworksModule : MonoBehaviour
             Debug.DrawRay(end, pos - end, Color.red, 2.0f);
             // ============================
         }
+
+        //- モーション再生
+        //if (_playMotion) { OnCollisionEnter(Boss4Fire); }
     }
 
     // 爆発時に子オブジェクト含め描画をやめる処理
@@ -1273,7 +1279,7 @@ public class FireworksModule : MonoBehaviour
             Vector2 dis = myPoint - IgnPoint;
             float angle = Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg;
             angle += DirAngle / 2 ;
-            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.TonboFire); // トンボ花火の音
+            SEManager.Instance.TonboSetPlaySE(SEManager.E_SoundEffect.TonboFire,0.3f); // トンボ花火の音
             //- 範囲外に出た角度を戻す
             if (angle < 0) angle += 360;
             //- 最終的な方向
@@ -1548,30 +1554,46 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f);// ドラゴンのエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
-            pos.x -= 1.6f;
-            pos.y += 1.6f;
+            pos.x += 2.6f;
+            pos.y += 2.0f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(-90.0f, 0.0f, 0.0f));
         }
     }
+
+    //private void OnCollisionEnter(Collision col)
+    //{
+    //    //- Animationコンポーネントを取得してモーションを再生する
+    //    if (GetComponent<Animator>() != null)
+    //    {
+    //        Debug.Log("a");
+    //        Animator animator = GetComponent<Animator>();
+    //        if (col.gameObject.name == "Dragon")
+    //        {
+    //            Debug.Log("c");
+    //            animator.SetTrigger("DragonAnime");
+    //        }
+    //        _playMotion = false;
+    //        Debug.Log("b");
+    //    }
+    //}
 
     private void Boss4Fire()
     {
         if (!_isOnce)
         { // 爆発直後一回のみ
             _isOnce = true;
+            //- モーションを再生する
+            //_playMotion = true;
 
             //- MakeDragonEffectメソッドを呼び出す
-            StartCoroutine(MakeDragonEffect(0.01f, 1));
+            StartCoroutine(MakeDragonEffect(1.0f, 1));
 
             //- コントローラーの振動の設定
             vibration.SetVibration(30, 1.0f);
 
-            //- 爆発時に描画をやめる
-            StopRenderer(gameObject);
-
             //- 爆発音の再生
-            SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
+            //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Explosion);
         }
 
         enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新

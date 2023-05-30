@@ -230,4 +230,20 @@ public class SEManager : MonoBehaviour
         //- 引数で渡されたAudioClipを再生する
         _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
     }
+
+    public void TonboSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
+    {
+        //- AudioClipが存在していない場合
+        if (!audioClips.ContainsKey(E_SoundEffect))
+        {
+            Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
+            return;
+        }
+
+        //- ループプロパティを有効化する
+        _audioSource.loop = true;
+
+        //- 引数で渡されたAudioClipを再生する
+        _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
+    }
 }
