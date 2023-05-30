@@ -22,6 +22,7 @@ public class StoryFlip : MonoBehaviour
     private GameObject[] flips;     // ストーリーのイラスト
     [SerializeField, Header("フェード秒数")]
     private float FadeTime;
+    [SerializeField] private float WaitTime = 0.0f;      //紙芝居を飛ばせるまで待機する時間
 
     private GameObject enterButton; // 里セレクト画面へ遷移するボタン表示のUI
     private Image fade;             // フェード用
@@ -30,7 +31,7 @@ public class StoryFlip : MonoBehaviour
     private int NowFlipNum = 0;     // 現在のイラストの番号
     private bool isFlip = false;    // イラストが動いてるかどうか
     private bool bPermissionClickSE = true; // クリックSEの再生が許可されているか
-
+    private float CurrentTime = 0.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +62,8 @@ public class StoryFlip : MonoBehaviour
 
     private void Update()
     {
+        CurrentTime += Time.deltaTime;
+
         // ----- シーン遷移ボタンイラストの有効・無効切り替え
         if (NowFlipNum >= flips.Length - 1 && !isFlip)
         { // 最後のイラストに移り変わった上で、イラストが有効になっていないとき
@@ -132,6 +135,10 @@ public class StoryFlip : MonoBehaviour
     // ===================================================
     public void OnClose(InputAction.CallbackContext context)
     {
+        //- 待機時間を超えていなければ飛ばさない
+        if(CurrentTime < WaitTime)
+        { return; }
+
         if (NowFlipNum >= flips.Length - 1 && !isFlip)
         { // 最後のイラストに移り変わった時
             //SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Click);
@@ -139,4 +146,7 @@ public class StoryFlip : MonoBehaviour
             fade.DOFade(1.0f, 1.5f).OnComplete(() => { SceneManager.LoadScene("3_GameEnd"); });
         }
     }
+
+    public float GetCurrentTime()
+    {   return CurrentTime; }
 }
