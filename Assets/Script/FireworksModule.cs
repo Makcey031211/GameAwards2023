@@ -307,8 +307,8 @@ public class FireworksModule : MonoBehaviour
 
     //- 4面ぬし花火の項目
     //- インスペクターに表示
-    //[SerializeField, HideInInspector]
-    //public bool _playMotion = false; // モーション再生判定フラグ
+    [SerializeField, HideInInspector]
+    public bool _playMotion = false; // モーション再生判定フラグ
 
     public EntryAnime InGR;
     public EntryAnime InGS;
@@ -469,7 +469,7 @@ public class FireworksModule : MonoBehaviour
         }
 
         //- モーション再生
-        //if (_playMotion) { OnCollisionEnter(Boss4Fire); }
+        if (_playMotion) { PlayDragonMotion(); }
     }
 
     // 爆発時に子オブジェクト含め描画をやめる処理
@@ -1554,29 +1554,24 @@ public class FireworksModule : MonoBehaviour
             SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.DragonFire, 0.1f);// ドラゴンのエフェクト音再生
             //- エフェクト生成のために、座標を取得
             Vector3 pos = transform.position;
-            pos.x += 2.6f;
+            pos.x -= 4.0f;
             pos.y += 2.0f;
             //- 指定した位置に生成
             GameObject fire = Instantiate(_particleObject, pos, Quaternion.Euler(-90.0f, 0.0f, 0.0f));
         }
     }
 
-    //private void OnCollisionEnter(Collision col)
-    //{
-    //    //- Animationコンポーネントを取得してモーションを再生する
-    //    if (GetComponent<Animator>() != null)
-    //    {
-    //        Debug.Log("a");
-    //        Animator animator = GetComponent<Animator>();
-    //        if (col.gameObject.name == "Dragon")
-    //        {
-    //            Debug.Log("c");
-    //            animator.SetTrigger("DragonAnime");
-    //        }
-    //        _playMotion = false;
-    //        Debug.Log("b");
-    //    }
-    //}
+    private void PlayDragonMotion()
+    {
+        //- Animationコンポーネントを取得してモーションを再生する
+        if (GetComponent<Animator>() != null)
+        {
+            Debug.Log("a");
+            Animator animator = GetComponent<Animator>();
+            Debug.Log("b");
+            animator.Play("DragonAnime");
+        }
+    }
 
     private void Boss4Fire()
     {
@@ -1584,7 +1579,7 @@ public class FireworksModule : MonoBehaviour
         { // 爆発直後一回のみ
             _isOnce = true;
             //- モーションを再生する
-            //_playMotion = true;
+            _playMotion = true;
 
             //- MakeDragonEffectメソッドを呼び出す
             StartCoroutine(MakeDragonEffect(1.0f, 1));
@@ -1597,7 +1592,7 @@ public class FireworksModule : MonoBehaviour
         }
 
         enemyNum = countEnemy.GetCurrentCountNum(); // 花火玉の残存数更新
-        if (!bAnime && enemyNum <= 1)
+        if (!_playMotion && !bAnime && enemyNum <= 1)
         {
             bAnime = true;
             GameObject.Find("InGameSelect").GetComponent<EntryAnime>().OutMove();
