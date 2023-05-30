@@ -1701,6 +1701,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c03c9a5c2bd42d49b14a4e5d46052a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sato:
+  - {fileID: 1975210186}
+  - {fileID: 911669754}
+  - {fileID: 1761022487}
+  - {fileID: 1566814125}
+  Dss: {fileID: 1560909364}
 --- !u!1 &529229414
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,7 +1976,7 @@ Transform:
   - {fileID: 1626046896}
   - {fileID: 140727285}
   m_Father: {fileID: 1014540072}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &555414274
 MonoBehaviour:
@@ -2103,6 +2109,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: e35e10e8-afc0-404b-b208-8f66a3bfef6f
     m_ActionName: Player/SkipAnime[/Keyboard/rightShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e1dbc3a9-b7bd-4725-9ec6-89e76bc5a3f3
+    m_ActionName: Player/OnAnime[/Keyboard/enter]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -3531,8 +3541,8 @@ RectTransform:
   - {fileID: 1560909363}
   - {fileID: 1737966300}
   - {fileID: 8954712}
-  - {fileID: 1892684894}
   - {fileID: 555414273}
+  - {fileID: 1892684894}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
