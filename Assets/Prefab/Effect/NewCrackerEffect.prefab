@@ -9690,6 +9690,7 @@ GameObject:
   - component: {fileID: 8761822506094533888}
   - component: {fileID: 8761822506094533891}
   - component: {fileID: 7831910072373123526}
+  - component: {fileID: 5191128306814577418}
   m_Layer: 14
   m_Name: NewCrackerEffect
   m_TagString: Untagged
@@ -14527,3 +14528,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearStop: 1
   IsYanagi: 0
+--- !u!114 &5191128306814577418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761822506094533890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b3ab46f807e7343ac6b3699a05be80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: []
+  trails:
+  - {fileID: 8761822506094533888}

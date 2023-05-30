@@ -20,7 +20,7 @@ public class TrailAlpha : MonoBehaviour
         }
 
         for (int i = 0; i < trails.Length; i++) {
-            particles[i].GetComponent<ParticleSystemRenderer>().material.SetVector(pos, transform.position);
+            trails[i].GetComponent<ParticleSystemRenderer>().material.SetVector(pos, transform.position);
         }
     }
 
