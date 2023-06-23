@@ -21,6 +21,7 @@ public class MovementEditor : Editor
 
         base.OnInspectorGUI();
 
+        //- àÍçsãÛÇØÇÈ 
         EditorGUILayout.Space(EditorGUIUtility.singleLineHeight);
 
         switch (_move.Type)

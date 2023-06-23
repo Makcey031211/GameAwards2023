@@ -20,7 +20,7 @@ public class SoundEditor : Editor
     {
         _se = target as SEManager;
 
-        serializedObject.Update();
+        base.OnInspectorGUI();
 
         //- フォールドアウト表示用のGUIコンポーネントを作成
         seFoldOut = EditorGUILayout.Foldout(seFoldOut, "===== SE関連 =====");
@@ -60,9 +60,8 @@ public class SoundEditor : Editor
             _se.letterapp = EditorGUILayout.ObjectField("文字出現音", _se.letterapp, typeof(AudioClip), false) as AudioClip;
 
             EditorGUILayout.LabelField("--- 設定項目 ---");
-            _se.volume  = EditorGUILayout.Slider("SE_Volume", _se.volume, 0f, 1f);
-            _se.pitch   = EditorGUILayout.Slider("SE_Pitch", _se.pitch, 0f, 1f);
-            _se.loop    = EditorGUILayout.Toggle("SE_Loop", _se.loop);
+            _se.volume  = EditorGUILayout.Slider("Volume", _se.volume, 0f, 1f);
+            _se.pitch   = EditorGUILayout.Slider("Pitch", _se.pitch, 0f, 1f);
         }
         //- インスペクターの更新
         if (GUI.changed)

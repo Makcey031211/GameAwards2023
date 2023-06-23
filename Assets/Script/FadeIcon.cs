@@ -7,7 +7,7 @@ using DG.Tweening;
 /*
  ===================
  制作：髙橋
- 概要：Movieシーンの里アイコンの挙動
+ 概要：Movieシーンの里アイコンの挙動スクリプト
  ===================
  */
 
@@ -40,7 +40,7 @@ public class FadeIcon : MonoBehaviour
             postFadeIcon.gameObject.SetActive(true);
             //- フェード後のアイコンのアルファ値を0に設定
             postFadeIcon.canvasRenderer.SetAlpha(0.0f);
-            // フェード後のアイコンを指定された時間でフェードインさせる
+            //- フェード後のアイコンを指定された時間でフェードインさせる
             postFadeIcon.CrossFadeAlpha(1.0f, FadeTime, false);
         });
     }
