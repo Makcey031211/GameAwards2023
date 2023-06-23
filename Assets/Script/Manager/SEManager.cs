@@ -34,7 +34,7 @@ public class SEManager : MonoBehaviour
         Failure,    // 失敗
         Slide,      // スライド
         //* 開幕演出関連 */
-        Opening,      // 開始
+        Opening,    // 開始
         //* カットイン関連 */
         Letterapp,  // 文字出現
     }
@@ -123,7 +123,7 @@ public class SEManager : MonoBehaviour
         //- Dictionaryの型を取得する
         audioClips = new Dictionary<E_SoundEffect, AudioClip>();
 
-        //- enumとAudioClipを関連付けさせる為の初期化
+        //--- enumとAudioClipを関連付けさせる為の初期化
         // 花火関連
         FireWorksSE();
         // クラッカー関連
@@ -187,12 +187,6 @@ public class SEManager : MonoBehaviour
         set { pitch = value; }
     }
 
-    public bool Loop
-    {
-        get { return loop; }
-        set { loop = value; }
-    }
-
     /// <summary>
     /// SEを再生させる関数
     /// </summary>
@@ -208,7 +202,6 @@ public class SEManager : MonoBehaviour
 
         //- 引数で渡されたAudioClipを再生する
         _audioSource.pitch = Pitch;
-        _audioSource.loop  = Loop;
         _audioSource.PlayOneShot(audioClips[E_SoundEffect], volume);
     }
 
@@ -219,19 +212,6 @@ public class SEManager : MonoBehaviour
     /// <param name="Volume">音量</param>
     /// <param name="Loop">ループ</param>
     public void EffectSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
-    {
-        //- AudioClipが存在していない場合
-        if (!audioClips.ContainsKey(E_SoundEffect))
-        {
-            Debug.LogError(E_SoundEffect.ToString() + "AudioCilp not Sound");
-            return;
-        }
-
-        //- 引数で渡されたAudioClipを再生する
-        _audioSource.PlayOneShot(audioClips[E_SoundEffect], Volume);
-    }
-
-    public void TonboSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
     {
         //- AudioClipが存在していない場合
         if (!audioClips.ContainsKey(E_SoundEffect))

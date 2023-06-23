@@ -9,19 +9,16 @@ public class BGMManager : MonoBehaviour
     {
         int numMusicPlayers = FindObjectsOfType<BGMManager>().Length;
         if (numMusicPlayers > 1)
-        {
-            Destroy(gameObject);
-        }
+        { Destroy(gameObject); }// オブジェクトを破棄する
         else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        { DontDestroyOnLoad(gameObject); }// シーン遷移しても、オブジェクトを破棄しない
     }
 
+    /// <summary>
+    /// BGMを削除する
+    /// </summary>
     public void DestroyBGMManager()
-    {
-        Destroy(gameObject);
-    }
+    { Destroy(gameObject); }
 
     public void DestroyPossible()
     {

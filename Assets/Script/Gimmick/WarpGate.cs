@@ -28,6 +28,7 @@ public class WarpGate : MonoBehaviour
             //- プレイヤーとワープゲートの距離が範囲内なら
             if (distance < radius)
             {
+                //- コントローラーのコンポーネントを取得
                 var cc = other.gameObject.GetComponent<CharacterController>();
                 cc.enabled = false; // コントローラーの判定を無効にする
                 //- プレイヤーを指定した位置にワープさせる

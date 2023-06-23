@@ -23,7 +23,7 @@ public class MovementManager : MonoBehaviour
     //--- 列挙体定義(回転)
     public enum E_RotaDirection
     {
-        Clockwise,        // 半時計周り
+        Clockwise,        // 反時計回り
         CounterClockwise, // 時計回り
     }
 
@@ -238,7 +238,7 @@ public class MovementManager : MonoBehaviour
             waitingTimer -= Time.deltaTime;
 
             //- 待機時間が0以下になった場合
-            if (waitingTimer <= 0.0f)
+            if (waitingTimer <= 0)
             {
                 //- 待機状態を終了する
                 isWaiting = false;
@@ -372,10 +372,10 @@ public class MovementManager : MonoBehaviour
         //- nullチェック
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
-        //- transformを、変数transに格納する
+        //- Transformオブジェクトの参照を取得
         var trans = transform;
 
-        //- 回転のクォータニオン作成
+        //- 現在の角度と軸に基づいてクオータニオンを生成
         var angleAxis = Quaternion.AngleAxis(currentAngle, Axis);
 
         //- 半径に対応するベクトルを作成し、回転軸に沿って回転させる
@@ -389,9 +389,7 @@ public class MovementManager : MonoBehaviour
 
         //- 向きを更新する
         if (UpdateRotation)
-        {
-            trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);
-        }
+        {  trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);  }
 
         //- 現在の回転角度を更新する
         currentTime += Time.deltaTime;
@@ -444,9 +442,7 @@ public class MovementManager : MonoBehaviour
 
         //- 向きを更新する
         if (UpdateRotation)
-        {
-            trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);
-        }
+        {  trans.rotation = Quaternion.LookRotation(Center - pos, Vector3.up);  }
 
         //- 現在の回転角度を更新する
         currentTime += Time.deltaTime;

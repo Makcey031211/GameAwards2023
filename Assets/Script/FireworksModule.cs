@@ -148,7 +148,7 @@ public class FireworksModule : MonoBehaviour
     //- 復活箱用の項目
     //-- インスペクターに表示
     [SerializeField, HideInInspector]
-    public GameObject _playerPrefab; // 生成するオブジェクト
+    public GameObject _playerPrefab; // 生成するオブジェクト(プレイヤー)
     [SerializeField, HideInInspector]
     public float _delayTime = 0.1f; // 生成までの待ち時間(秒)
     [SerializeField, HideInInspector]
@@ -1284,7 +1284,7 @@ public class FireworksModule : MonoBehaviour
             Vector2 dis = myPoint - IgnPoint;
             float angle = Mathf.Atan2(dis.y, dis.x) * Mathf.Rad2Deg;
             angle += DirAngle / 2 ;
-            SEManager.Instance.TonboSetPlaySE(SEManager.E_SoundEffect.TonboFire,0.3f); // トンボ花火の音
+            SEManager.Instance.EffectSetPlaySE(SEManager.E_SoundEffect.TonboFire,0.3f); // トンボ花火の音
             //- 範囲外に出た角度を戻す
             if (angle < 0) angle += 360;
             //- 最終的な方向
@@ -1368,40 +1368,27 @@ public class FireworksModule : MonoBehaviour
         //- delayTime秒待機する
         yield return new WaitForSeconds(delayTime);
 
-        //- アニメーション用の変数
-        float elapsed = 0;
         //- 生成するプレイヤーの数
         int numPlayers = 1;
 
-        //- プレイヤーの数分、生成する
+        //- 指定したプレイヤーの数分、生成する
         for (int i = 0; i < numPlayers; i++)
         {
             //- プレイヤーの生成位置
             Vector3 spawnPosition = new Vector3(
                 transform.position.x, transform.position.y + 1.0f, transform.position.z);
-            //- 生成時にY軸を150°回転させる
+            //- 生成時、顔の正面を向かせる為にY軸を150°回転させる
             Quaternion Angle = Quaternion.Euler(0.0f, 150.0f, 0.0f);
-            //- プレイヤーを生成する
-            GameObject player = Instantiate(
-                _playerPrefab, spawnPosition, Angle);
+            //- 指定した位置にプレイヤーを生成する
+            GameObject player = Instantiate(_playerPrefab, spawnPosition, Angle);
 
             //- 生成音の再生
             SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Generated);
 
-            //=== プレイヤーを徐々に生成するアニメーション ===
-            //- 指定した秒数分、アニメーションさせる
-            while (elapsed < _animationTime)
-            {
-                //- アニメーションの進行度を計算
-                float t = elapsed / _animationTime;
-                //- スケールを徐々に変化させる
-                player.transform.localScale =
-                    Vector3.Lerp(Vector3.zero, Vector3.one, t);
-                //- 経過時間を計算
-                elapsed += Time.deltaTime;
-                //- 次のフレームまで待機
-                yield return null;
-            }
+            //=== プレイヤーを徐々に拡大し出現させるアニメーション ===
+            player.transform.localScale = Vector3.zero; // スケールの初期状態
+            player.transform.DOScale(Vector3.one, _animationTime)
+                .SetEase(Ease.Linear);
 
             //- アニメーションの遅延
             yield return new WaitForSeconds(_animationDelayTime);
@@ -1416,16 +1403,12 @@ public class FireworksModule : MonoBehaviour
         SEManager.Instance.SetPlaySE(SEManager.E_SoundEffect.Extinction);
 
         //=== 復活箱を徐々に消滅させるアニメーション ===
-        //- 指定した秒数分、アニメーションさせる
-        while (Time.time < startTime + _boxDisTime)
-        {
-            //- アニメーションの進行度を計算
-            float t = (Time.time - startTime) / _boxDisTime;
-            //- スケールを徐々に変化させる
-            transform.localScale = Vector3.Lerp(initialScale, Vector3.zero, t);
-            //- 次のフレームまで待機
-            yield return null;
-        }
+        transform.DOScale(Vector3.zero, _boxDisTime)
+            .SetEase(Ease.Linear);
+
+        //- アニメーションの遅延
+        yield return new WaitForSeconds(_animationDelayTime);
+
         Destroy(gameObject); // オブジェクトを破棄
     }
 

@@ -7,7 +7,11 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 /*
- * ボタンクリック時、シーンを戻すスクリプト
+ ===================
+ 制作：髙橋
+ 追記：牧野、大川
+ 概要：クリック時シーン遷移するスクリプト
+ ===================
  */
 public class BackScene : MonoBehaviour
 {
@@ -61,7 +65,6 @@ public class BackScene : MonoBehaviour
             GameObject.Find("ColorFadeImage").GetComponent<ObjectFade>().SetFade(ObjectFade.FadeState.In, FadeTime); // フェード開始
             DOVirtual.DelayedCall(disBGMTime, () => bgmManager.DestroyBGMManager());  // シーンを変える前にBGMを消す
             DOVirtual.DelayedCall(FadeTime, () => SceneManager.LoadScene(backScene)); // シーンのロード(遅延あり)
-
         }
     }
 
@@ -79,7 +82,7 @@ public class BackScene : MonoBehaviour
         if (context.started)
         {
             bIsPushBack = true;
-            Input = true;       //入力フラグ変更
+            Input = true;       // 入力フラグ変更
         }
         if (context.canceled) { bIsPushBack = false; }
     }
