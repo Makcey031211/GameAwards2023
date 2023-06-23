@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ ゲームの進行度によって雲の描画を変更するスクリプト
+ ===================
+ */
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;

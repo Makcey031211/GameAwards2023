@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ クリア時のテキストアニメーションを行うスクリプト
+ ===================
+ */
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -34,15 +40,6 @@ public class TMPAnime : MonoBehaviour
     private bool bPermissionClearSE = false;    //クリア音の再生が許可されているか
     private bool first = false;
     private Vector3 initialScale;               //初期サイズ
-    
-    //private void Update()
-    //{
-    //    if(SceneChange.bIsChange && !first)
-    //    {
-    //        first = true;
-    //        StartCoroutine(AnimationCoroutine());
-    //    }
-    //}
 
     private void OnEnable()
     {

@@ -1,7 +1,12 @@
+/*
+ ===================
+ 基盤制作：大川
+ タイトルに戻るかを確認するポップアップを表示するスクリプト
+ ===================
+ */
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 using System.Collections.Generic;
 
 public class VillagePop : MonoBehaviour

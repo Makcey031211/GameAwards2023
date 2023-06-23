@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ クリア後紙芝居のボタン入力描画をするスクリプト
+ ===================
+ */
 using TMPro;
 using UnityEngine;
 using DG.Tweening;

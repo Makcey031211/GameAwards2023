@@ -1,4 +1,9 @@
-using UnityEngine.UI;
+/*
+ ===================
+ 基盤制作：大川
+ ゲーム終了スクリプト
+ ===================
+ */
 using UnityEngine;
 
 public class EndGame : MonoBehaviour

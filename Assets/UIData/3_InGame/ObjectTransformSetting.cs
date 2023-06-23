@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ オブジェクトを整列させるスクリプト
+ ===================
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
