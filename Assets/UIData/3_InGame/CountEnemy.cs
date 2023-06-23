@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ タグでオブジェクトの残存数をカウントするスクリプト
+ ===================
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ 配置位置から特定の位置まで移動するスクリプト
+ ===================
+ */
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;

@@ -1,3 +1,10 @@
+/*
+ ===================
+ 基盤制作：大川
+ 追記　　：牧野
+ ステージ選択中のプレイヤー挙動を行うスクリプト
+ ===================
+ */
 using UnityEngine.EventSystems;
 using UnityEngine;
 using DG.Tweening;

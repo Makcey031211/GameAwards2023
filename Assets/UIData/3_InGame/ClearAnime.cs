@@ -1,3 +1,9 @@
+/*
+ ===================
+ 基盤制作：大川
+ クリア演出を行うスクリプト
+ ===================
+ */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
