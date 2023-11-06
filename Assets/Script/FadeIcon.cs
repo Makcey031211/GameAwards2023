@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -10,7 +8,6 @@ using DG.Tweening;
  概要：Movieシーンの里アイコンの挙動スクリプト
  ===================
  */
-
 public class FadeIcon : MonoBehaviour
 {
     [SerializeField, Header("遅延時間(秒)")] private float DelayTime = 2.0f;

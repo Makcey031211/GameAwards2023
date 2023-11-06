@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using DG.Tweening;
 
 /*
@@ -16,9 +13,11 @@ public class AnimePlayer : MonoBehaviour
     [SerializeField, Header("遅延時間(秒)")] private float delayTime;
     [SerializeField, Header("縮んでいく時間(秒)")] private float shrinkTime;
 
+    /// <summary>
+    /// プレイヤーを徐々に縮めていく
+    /// </summary>
     public void SetAnime()
     {
-        //=== プレイヤーを徐々に縮めていくアニメーション ===
         scaleObj.transform.DOScale(Vector3.zero, shrinkTime) // スケールが0になるまでの縮小アニメーション時間
         .SetDelay(delayTime) // アニメーションが発生するまでの遅延時間
         .OnComplete(() =>

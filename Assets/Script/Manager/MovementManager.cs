@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /*
@@ -168,7 +166,7 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     private void ThreewayMove()
     {
-        //- nullチェック
+        //- 条件を全て満たしている時、以下を処理しない
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- 経過時間を計算する
@@ -228,7 +226,7 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     private void ThreePointMove()
     {
-        //- nullチェック
+        //- 条件を全て満たしている時、以下を処理しない
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- オブジェクトが待機中かどうか
@@ -298,7 +296,7 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     private void ThreePointWaitMove()
     {
-        //- nullチェック
+        //- 条件を全て満たしている時、以下を処理しない
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- オブジェクトが待機中かどうか
@@ -369,7 +367,7 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     private void CicrleMove()
     {
-        //- nullチェック
+        //- 条件を全て満たしている時、以下を処理しない
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- Transformオブジェクトの参照を取得
@@ -411,7 +409,7 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     private void SmoothCircularMove()
     {
-        //- nullチェック
+        //- 条件を全て満たしている時、以下を処理しない
         if (StopMove && fireworks && fireworks.IsExploded) return;
 
         //- 回転方向に応じて処理を分岐
@@ -453,7 +451,5 @@ public class MovementManager : MonoBehaviour
     /// </summary>
     /// <param name="moveFlag"></param>
     public void SetStopFrag(bool moveFlag)
-    {
-        StopMove = moveFlag;
-    }
+    { StopMove = moveFlag; }
 }

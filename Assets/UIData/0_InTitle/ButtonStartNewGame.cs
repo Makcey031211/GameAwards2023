@@ -1,24 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
-using UnityEngine.UI;
 
+/*
+ ===================
+ 制作：髙橋
+ 追記：井上
+ 概要：スタートボタン選択時の処理
+ ===================
+ */
 public class ButtonStartNewGame : MonoBehaviour
 {
-    [SerializeField, Header("シーン遷移先")]
-    private SceneObject NextScene;
-    [SerializeField, Header("遅延時間(秒)")]
-    private float DelayTime;
-    [SerializeField, Header("フェード秒数")]
-    private float FadeTime;
-    [SerializeField, Header("ポップアップ")]
-    NewGamePopUp popUp;
+    [SerializeField, Header("シーン遷移先")] private SceneObject NextScene;
+    [SerializeField, Header("遅延時間(秒)")] private float DelayTime;
+    [SerializeField, Header("フェード秒数")] private float FadeTime;
+    [SerializeField, Header("ポップアップ")] private NewGamePopUp popUp;
 
     //- スクリプト用の変数
-    BGMManager bgmManager;
-    SaveManager saveManager;
+    private BGMManager bgmManager;
+    private SaveManager saveManager;
     private ButtonAnime button;
     private bool isClick = true;
     private bool isSound = true;
@@ -33,7 +33,6 @@ public class ButtonStartNewGame : MonoBehaviour
     public void StartNewGame()
     {
         if (!isClick && !isSound) return; // falseの時はリターンする
-
 
         if (saveManager.GetStageClear(1)) { // ステージ1がクリアされていたら
             // ポップアップ表示
