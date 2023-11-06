@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 基盤制作 : 髙橋
- * 追記 : 牧野、中村
- * 概要 : オブジェクトをワープさせるスクリプト
- */
+===================
+基盤制作：髙橋
+追記：牧野、中村
+概要：オブジェクトをワープさせるスクリプト
+===================
+*/
 public class WarpGate : MonoBehaviour
 {
     [SerializeField, Header("ワープゲート")] private GameObject WarpHole;

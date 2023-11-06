@@ -1,8 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+ ===================
+ 制作：髙橋
+ 追記：寺前
+ 概要：BGMを管理するスクリプト
+ ===================
+ */
 public class BGMManager : MonoBehaviour
 {
     void Start()
@@ -20,9 +25,12 @@ public class BGMManager : MonoBehaviour
     public void DestroyBGMManager()
     { Destroy(gameObject); }
 
+    /// <summary>
+    /// BGMを削除可能状態にする
+    /// </summary>
     public void DestroyPossible()
     {
-        // DontDestroyOnLoadに避難させたオブジェクトを削除可能にする
+        //- DontDestroyOnLoadに避難させたオブジェクトを削除可能にする
         SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
     }
 }

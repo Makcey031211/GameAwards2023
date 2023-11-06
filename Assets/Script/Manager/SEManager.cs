@@ -39,8 +39,7 @@ public class SEManager : MonoBehaviour
         Letterapp,  // 文字出現
     }
 
-    //---------------------------------------
-    //- インスペクターに表示
+    //--- インスペクターに表示
     [SerializeField, HideInInspector]
     public AudioClip explosion;
     [SerializeField, HideInInspector]
@@ -79,12 +78,11 @@ public class SEManager : MonoBehaviour
     public AudioClip opening;
     [SerializeField, HideInInspector]
     public AudioClip letterapp;
+
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float volume;
     [SerializeField, HideInInspector]
     [Range(0f,1f)] public float pitch;
-    [SerializeField, HideInInspector]
-    public bool loop;
     //---------------------------------------
 
     //- SEManagerのインスタンスを保持する変数
@@ -96,7 +94,7 @@ public class SEManager : MonoBehaviour
     //- AudioSourceコンポーネントを保持する変数
     private AudioSource _audioSource;
 
-    //- enumの型と、AudioClipのマッピングを格納する
+    //- 音の種類とそれに対応するオーディオクリップを保持する辞書
     private Dictionary<E_SoundEffect, AudioClip> audioClips;
     
     private void Awake()
@@ -120,10 +118,8 @@ public class SEManager : MonoBehaviour
 
     private void Start()
     {
-        //- Dictionaryの型を取得する
         audioClips = new Dictionary<E_SoundEffect, AudioClip>();
 
-        //--- enumとAudioClipを関連付けさせる為の初期化
         // 花火関連
         FireWorksSE();
         // クラッカー関連
@@ -138,6 +134,9 @@ public class SEManager : MonoBehaviour
         CutInSE();
     }
 
+    /// <summary>
+    /// 花火の効果音を辞書に追加する
+    /// </summary>
     private void FireWorksSE()
     {
         audioClips.Add(E_SoundEffect.Explosion, explosion);
@@ -149,6 +148,9 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.BossBelt, bossbelt);
     }
 
+    /// <summary>
+    /// クラッカーの効果音を辞書に追加する
+    /// </summary>
     private void CrackerSE()
     {
         audioClips.Add(E_SoundEffect.Brust, brust);
@@ -156,12 +158,18 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.Ignition, ignition);
     }
 
+    /// <summary>
+    /// 復活箱の効果音を辞書に追加する
+    /// </summary>
     private void ResurrectionBoxSE()
     {
         audioClips.Add(E_SoundEffect.Generated, generated);
         audioClips.Add(E_SoundEffect.Extinction, extinction);
     }
 
+    /// <summary>
+    /// シーンの効果音を辞書に追加する
+    /// </summary>
     private void SceneSE()
     {
         audioClips.Add(E_SoundEffect.Click, click);
@@ -171,16 +179,25 @@ public class SEManager : MonoBehaviour
         audioClips.Add(E_SoundEffect.Slide, slide);
     }
 
+    /// <summary>
+    /// 開幕演出の効果音を辞書に追加する
+    /// </summary>
     private void OpeningSE()
     {
         audioClips.Add(E_SoundEffect.Opening, opening);
     }
 
+    /// <summary>
+    /// カットインの効果音を辞書に追加する
+    /// </summary>
     private void CutInSE()
     {
         audioClips.Add(E_SoundEffect.Letterapp, letterapp);
     }
 
+    /// <summary>
+    /// 音声のピッチを制御するプロパティ
+    /// </summary>
     public float Pitch
     {
         get { return pitch; }
@@ -190,7 +207,7 @@ public class SEManager : MonoBehaviour
     /// <summary>
     /// SEを再生させる関数
     /// </summary>
-    /// <param name="E_SoundEffect">音</param>
+    /// <param name="E_SoundEffect">再生するSEの列挙型</param>
     public void SetPlaySE(E_SoundEffect E_SoundEffect)
     {
         //- AudioClipが存在していない場合
@@ -208,9 +225,8 @@ public class SEManager : MonoBehaviour
     /// <summary>
     /// SEを再生させる関数(エフェクト専用)
     /// </summary>
-    /// <param name="E_SoundEffect">音</param>
-    /// <param name="Volume">音量</param>
-    /// <param name="Loop">ループ</param>
+    /// <param name="E_SoundEffect">再生するSEの列挙型</param>
+    /// <param name="Volume">設定音量</param>
     public void EffectSetPlaySE(E_SoundEffect E_SoundEffect, float Volume)
     {
         //- AudioClipが存在していない場合
